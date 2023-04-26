@@ -56,7 +56,13 @@ public class ProductDAOImpl implements ProductDAO{
 
 	@Override
 	public void regProduct(ProductVO vo) {
+		logger.info("DAO - 상품 등록 실행");
 		session.insert(NAMESPACE + ".regProd", vo);
+	}
+
+	@Override
+	public void incView(Integer product_num) {
+		session.update(NAMESPACE + ".viewInc", product_num);
 	}
 	
 	

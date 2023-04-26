@@ -9,6 +9,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="/resources/assets/css/main.css" />
+		<link rel="stylesheet" href="/resources/assets/css/product.css" />
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<style>
@@ -55,17 +56,17 @@
 								<section id="banner">
 									<div class="content">
 										<header>
-											<h1>있지마켓<br />
-											상품등록</h1>
-											</header>
-											</div>
+											<h1>있지마켓 상품등록</h1>
+										</header>
+									</div>
+			
+			
 			
 								</section>
 
 <section>
-							<form action="/product/regProduct" method="post" enctype="multipart/form-data">
-		<input type="text" name="product_num" value="${product_num}">
-		<input type="text" name="product_seller" value="${id }">
+	<form action="/product/regProduct" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="product_seller" value="${id }">
 		분류
 		<select name="product_cate">
 			<option value="의류">의류</option>
@@ -84,9 +85,12 @@
 		내용 <input type="text" name="product_content"><br>
 		가격 <input type="text" name="product_price"><br>
 		물품상태<br>
-		<input type="radio" name="product_grade" value="상">상
-		<input type="radio" name="product_grade" value="중">중
-		<input type="radio" name="product_grade" value="하">하<br>
+		<select name="product_grade">
+			<option value="상">상</option>
+			<option value="중">중</option>
+			<option value="하">하</option>
+		</select>
+		<br>
 		
 		<div id="file-inputs-container">
 			<div class="file-input-wrapper">

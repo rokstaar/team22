@@ -3,12 +3,11 @@ package com.market.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.market.domain.ProductVO;
 import com.market.service.ProductService;
@@ -64,12 +62,19 @@ public class ProductController {
 	
 	// 상품 정보 가져오기
 	@RequestMapping(value = "/prodInfo",method = {RequestMethod.GET, RequestMethod.POST})
-	public void getProdInfo(@ModelAttribute(value = "product_num") int pnum
+	public ModelAndView getProdInfo(@ModelAttribute(value = "product_num") int pnum
 							,@ModelAttribute(value = "seller") String name
-							, Model model) {
+							, Model model
+							, HttpServletRequest request
+							, HttpServletResponse response) {
 		logger.info("상품 정보 가져오기! {}", service.getProdInfo(pnum));
+		
+		service.incView(request, response, pnum);
+		
 		model.addAttribute("info", service.getProdInfo(pnum));
 		model.addAttribute("score", service.getScore(name));
+		
+		return new ModelAndView("product/prodInfo");
 	}
 	// 상품 정보 가져오기
 	
@@ -85,25 +90,20 @@ public class ProductController {
 	
 	// 상품 등록 페이지
 	@PostMapping(value = "/prodReg")
-	public void prodReg(@RequestParam(value = "id") String id,
-			@RequestParam(value = "product_num") int pnum, Model model) {
+	public void prodReg(@RequestParam(value = "id") String id, Model model) {
 		model.addAttribute("id",id);
-		model.addAttribute("product_num",pnum);
 	}
 	// 상품 등록 페이지
 	
 	// 상품 등록 후 해당 페이지
 	@PostMapping(value = "/regProduct")
-	public String regProduct(ProductVO productVO 
+	public String regProduct(@ModelAttribute ProductVO productVO 
 							,@RequestParam("product_pics") MultipartFile[] file
-							,HttpServletRequest request
-							,RedirectAttributes rttr) throws Exception {
+							,HttpServletRequest request) throws Exception {
 		logger.info("Controller - 상품 등록 실행!");
 		logger.info(productVO.toString());
 		service.regProduct(productVO, file, request);
 		
-		rttr.addFlashAttribute("product_num", productVO.getProduct_num());
-		rttr.addFlashAttribute("seller", productVO.getProduct_seller());
 		return "redirect:/product/prodInfo";
 	}
 	// 상품 등록 후 해당 페이지

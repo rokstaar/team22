@@ -40,12 +40,12 @@ section div img{
 }
 
 .div-search {
-  position: relative;
-  display: inline-block;
+	position: relative;
+	display: inline-block;
 }
 
 .search-input {
-  padding-right: 30px; 
+	padding-right: 30px; 
 }
 
 .inner #banner {
@@ -70,6 +70,16 @@ section div img{
   /* Add any other desired styles for the icon, such as color */
 }
 
+.member{
+	margin: 0 auto;
+}
+
+.space-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 div.smalldiv{
 	display:initial;
 }
@@ -86,4 +96,18 @@ div.smalldiv{
 
 #filter-form input[type="text"] {
 	width: 300px;
+}
+
+#prodInfo{
+	width: 1200px;
+    margin: 0 auto;
+}
+
+.div-img{
+	width: inherit;
+	margin: 0 auto;
+}
+
+#score{
+	max-width: 60px;
 }

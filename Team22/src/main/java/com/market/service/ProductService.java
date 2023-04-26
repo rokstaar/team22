@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,4 +32,7 @@ public interface ProductService {
 	
 	// 상품정보 등록하기
 	public void regProduct(ProductVO vo, MultipartFile[] files, HttpServletRequest request) throws Exception;
+	
+	// 조회했는지 확인하며 조회수 증가시키기
+	public void incView(HttpServletRequest request, HttpServletResponse response, Integer product_num);
 }

@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class ProductVO {
 
-	private int product_num;
+	private Integer product_num;
 	private String product_seller;
 	private String product_cate;
 	private String product_title;

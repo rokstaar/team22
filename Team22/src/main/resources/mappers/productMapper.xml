@@ -83,12 +83,15 @@
 		SELECT AVG(RV_SCORE)
 		FROM REVIEW
 		GROUP BY REVIEWEE
-		HAVING REVIEWEE = #{REVIEWEE}
+		HAVING REVIEWEE = #{reviewee}
 	</select>
 	<!-- 판매자 온도 -->
 	
-	
-	
+	<!-- 조회수 증가 -->
+	<update id="viewInc">
+		update product set product_readcount = product_readcount + 1
+		where product_num = #{product_num}
+	</update>
 	
 	<!-- 상품 등록 -->
 	<insert id="regProd">

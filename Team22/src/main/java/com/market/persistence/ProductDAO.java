@@ -30,4 +30,7 @@ public interface ProductDAO {
 	
 	// 상품 등록
 	public void regProduct(ProductVO vo);
+	
+	// 조회수 증가
+	public void incView(Integer product_num);
 }

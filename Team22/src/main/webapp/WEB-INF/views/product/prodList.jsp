@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -163,7 +164,9 @@
 			
 			
 			<div>${list.product_seller }</div>
-			<div style="float:left;">${list.product_price }</div>
+			<div style="float:left;">
+				<fmt:formatNumber value="${list.product_price }" pattern="#,###" />원
+			</div>
 			
 			</a>
 			
@@ -175,9 +178,8 @@
 	
 	
 		<form id="prodRegForm" action="/product/prodReg" method="POST">
-			<input type="hidden" name="product_num" value="1">
-			<input type="hidden" name="id" value="itwill">
-			<button type="button" class="custom-button" id="register">1번 유저로 상품 등록 페이지 가기</button>
+			<input type="hidden" name="id" value="${id }">
+			<button type="button" class="custom-button" id="register">상품 등록 페이지 가기</button>
 		</form>
 	
 
