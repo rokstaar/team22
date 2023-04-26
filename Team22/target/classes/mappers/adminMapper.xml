@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.itwillbs.mapper.adminMapper">
+	
+	<!-- 모든 회원 조회하기  -->
+	<select id="getMemberList" resultType="MemberVO">
+		select * from member
+	</select>
+	<!-- 모든 회원 조회하기  -->
+	
+	<!-- 모든 상품 조회하기  -->
+	<select id="getProductList" resultType="ProductVO">
+		select * from product
+	</select>
+	<!-- 모든 상품 조회하기  -->
+	
+	<!-- 공지사항 등록하기  -->
+	  <insert id="writeNotice">
+	    insert into notice (noti_title,noti_content,noti_image,noti_image1,noti_image2)
+	    values(#{noti_title},#{noti_content},#{noti_image},#{noti_image1},#{noti_image2})
+	  </insert>	
+	<!-- 공지사항 등록하기  -->
+	
+	<!-- 모든 공지사항 조회하기  -->
+	    <select id="getNoticeList" resultType="NoticeVO">
+	      select * from notice  
+	    </select>
+	<!-- 모든 공지사항 조회하기  -->
+	
+	<!-- 공지사항 조회수 1증가  -->
+	   <update id="addReadcnt">
+	     update notice set noti_readcount = noti_readcount + 1
+         where noti_num =#{noti_num};
+	   </update>
+	<!-- 공지사항 조회수 1증가  -->
+	
+	<!-- 글 번호에 해당하는 글정보 조회  -->
+	   <select id="getNotice" resultType="NoticeVO">
+	     select * from notice
+	     where noti_num=#{noti_num}
+	   </select>
+	<!-- 글 번호에 해당하는 글정보 조회  -->
+	
+	<!-- 공지사항 수정하기  -->
+	   <update id="updateNotice">
+	      update notice set noti_title=#{noti_title},noti_content=#{noti_content}
+          where noti_num=#{noti_num}
+	   </update>	
+	<!-- 공지사항 수정하기  -->
+	  
+	<!-- 공지사항 삭제하기  -->
+	   <delete id="deleteNotice">
+        delete from notice
+	   where noti_num=#{noti_num}	   
+	   </delete>
+	<!-- 공지사항 삭제하기  -->
+
+</mapper>  

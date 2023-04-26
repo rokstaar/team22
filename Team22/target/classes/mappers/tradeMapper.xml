@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.market.mapper.tradeMapper">
+
+	<insert id="createReview" >
+		insert into review 
+		values(#{rv_num},#{reviewee},#{reviewer},#{rv_score},#{rv_content});
+	
+	</insert>
+
+	<select id="getBuyReview" resultType="com.market.domain.TradeVO">
+		<![CDATA[
+		select * 
+		from trade
+		]]>
+	</select>
+	
+	<select id="tSellReview" resultType="com.market.domain.TradeVO">
+		<![CDATA[
+		select * 
+		from trade
+		]]>
+	</select>
+	
+	<select id="buyList" resultType="map">
+		select t.t_num, t.buy_mem_id,t.sell_mem_id,t.t_div,t.type_div,p.product_title,t.prod_num,
+		p.product_price, p.product_pic,p.product_cate,m.member_nickname
+		from trade t
+		 join product p on t.sell_mem_id = p.product_seller
+         and t.prod_num = p.product_num 
+		 join member m on t.buy_mem_id = m.member_id
+		where t.buy_mem_id = m.member_id and t.t_div = 1;
+	</select>
+	
+	<select id="prodList" resultType="map">
+		select t.t_num, t.buy_mem_id,t.sell_mem_id,t.t_div,t.type_div,p.product_title,t.prod_num,
+		p.product_price,p.product_pic,p.product_cate,m.member_nickname
+		from trade t
+		 join product p on t.sell_mem_id = p.product_seller
+         and t.prod_num = p.product_num
+		 join member m on t.buy_mem_id = m.member_id
+		where t.buy_mem_id = m.member_id and t.t_div = 2;
+	
+	</select>
+
+</mapper>

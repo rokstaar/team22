@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.market.mapper.auctionMapper">
+	<select id="getAList" resultType="com.market.domain.AuctionVO">
+		select au_num, au_endTime, max(au_bidPrice) as au_bidPrice, au_sellerId, au_pic, au_title
+		from auction
+		where au_status = 0
+		group by au_num;
+	</select>
+	
+	<select id="nowBest" resultType="com.market.domain.AuctionVO">
+		select *
+		from auction
+		where au_num = (select au_num
+						from auction
+						group by au_num
+						having au_status = 0
+						order by count(*) desc
+						limit 1)
+		order by au_bidPrice desc
+		limit 1;
+	</select>
+	
+	<insert id="registAuction">
+		insert into auction(au_startPrice, au_endTime, au_sellerId, au_endPrice, au_pic, au_title, au_content)
+		values(#{au_startPrice}, #{au_endTime}, #{au_sellerId}, #{au_endPrice}, #{au_pic}, #{au_title}, #{au_content})
+	</insert>
+	
+	<select id="getADetail" resultType="com.market.domain.AuctionVO">
+		select *
+		from auction
+		where au_num = #{au_num} and au_bidPrice = (select max(au_bidPrice)
+											from auction
+											where au_num=#{au_num})
+		group by au_num
+	</select>
+	
+	<select id="getMPay" resultType="int">
+		select member_pay from member where member_id = #{member_id}
+	</select>
+	
+	<update id="updateStatus">
+		update auction set au_status=1 where au_num = #{au_num}
+	</update>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

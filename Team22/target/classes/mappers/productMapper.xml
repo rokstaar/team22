@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.itwillbs.mapper.ProductMapper">
+
+	
+
+	<!-- 상품 리스트 -->
+	<select id="getProdList" parameterType="map" resultType="ProductVO">
+		SELECT * FROM PRODUCT
+		<where>
+			PRODUCT_STATUS = '판매 중'
+	        <if test="grade != null">
+	            AND PRODUCT_GRADE LIKE CONCAT('%', #{grade}, '%')
+	        </if>
+	        <if test="category != null">
+	            AND PRODUCT_CATE LIKE CONCAT('%', #{category}, '%')
+	        </if>
+	        <if test="title != null">
+	            AND PRODUCT_TITLE LIKE CONCAT('%', #{title}, '%')
+	        </if>
+	    </where>
+		<choose>
+	        <when test="sortBy == 'price_asc'">
+	            ORDER BY PRODUCT_PRICE ASC
+	        </when>
+	        <when test="sortBy == 'price_desc'">
+	            ORDER BY PRODUCT_PRICE DESC
+	        </when>
+	        <when test="sortBy == 'date_asc'">
+	            ORDER BY PRODUCT_DATE ASC
+	        </when>
+	        <when test="sortBy == 'date_desc'">
+	            ORDER BY PRODUCT_DATE DESC
+	        </when>
+	        <otherwise>
+	            ORDER BY PRODUCT_NUM ASC
+	        </otherwise>
+    	</choose>
+	</select>
+	<!-- 상품 리스트 -->
+	
+	<!-- 찜하기 -->
+	<update id="likeProd">
+		UPDATE PRODUCT SET PRODUCT_FAVORITE = PRODUCT_FAVORITE + 1
+		WHERE PRODUCT_NUM = #{PRODUCT_NUM}
+	</update>
+	<!-- 찜하기 -->
+	
+	<!-- 찜취소 -->
+	<update id="likeProdCancel">
+		UPDATE PRODUCT SET PRODUCT_FAVORITE = PRODUCT_FAVORITE - 1
+		WHERE PRODUCT_NUM = #{PRODUCT_NUM}
+	</update>
+	<!-- 찜취소 -->
+	
+	<!-- 상품 세부정보 -->
+	<select id="getProdInfo" resultType="hashMap">
+		select p.*, m.*
+		from product p join member m
+		on p.product_seller = m.member_id
+		where product_num = #{product_num};
+	</select>
+	<!-- 상품 세부정보 -->
+	
+	<!-- 같은 카테고리의 상품 추천 -->
+	<select id="recProd" resultType="ProductVO">
+		SELECT * FROM
+						(SELECT *
+						FROM PRODUCT
+						WHERE PRODUCT_CATE = #{PRODUCT_CATE}
+						ORDER BY PRODUCT_FAVORITE DESC, PRODUCT_READCOUNT DESC
+						LIMIT 30) AS TOP
+		ORDER BY RAND()
+		LIMIT 8
+	</select>
+	<!-- 같은 카테고리의 상품 추천 -->
+	
+	<!-- 판매자 온도 -->
+	<select id="getScore" resultType="double">
+		SELECT AVG(RV_SCORE)
+		FROM REVIEW
+		GROUP BY REVIEWEE
+		HAVING REVIEWEE = #{REVIEWEE}
+	</select>
+	<!-- 판매자 온도 -->
+	
+	
+	
+	
+	<!-- 상품 등록 -->
+	<insert id="regProd">
+		INSERT INTO PRODUCT 
+		VALUES(DEFAULT, #{product_seller}, #{product_cate}, #{product_title}, #{product_content}, #{product_price}
+		, #{product_grade}, #{product_pic}, DEFAULT, DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+	<!-- 상품 등록 -->
+</mapper>
+
+
