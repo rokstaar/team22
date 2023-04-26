@@ -16,5 +16,11 @@ public interface AuctionDAO {
 	public Integer getMPay(String id) throws Exception;
 	
 	public void updateStatus(Integer au_num) throws Exception;
+	
+	public void insertBid(AuctionVO vo) throws Exception;
+	
+	public void minusPay(String id, int mPay) throws Exception;
+	
+	public void plusPay(String lBuyer, int pPay) throws Exception;
 
 }

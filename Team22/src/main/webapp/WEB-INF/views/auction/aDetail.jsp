@@ -58,19 +58,78 @@
 			    }
 				timer = setInterval(setTimer, 1000);
 				
+				/* var sse = new EventSource("/auction/sse");
+				
+				sse.onmessage = function (evt) {
+				    console.log(evt.data);
+				}; */
+				
+				
 				$('#bid').click(function(){
-					$.ajax({
-						url:'/auction/bid',
-						data:{
-							au_num:'${vo.au_num}',
-							au_num:'${vo.au_num}',
-							au_num:'${vo.au_num}',
-							au_num:'${vo.au_num}',
-							au_num:'${vo.au_num}',
-							au_num:'${vo.au_num}',
+					
+					if(${id == null}){
+						if(confirm('로그인 필요. 로그인 페이지로 가시겠습니까?')){
+							location.href='/members/login';
+							return false;
+						}else{
+							return false;
 						}
-						
-					});
+					}
+					if($('#lastBuyer').val() == '${id}'){
+						alert('상회입찰중 입니다.');
+						return false;
+					}
+					
+					if(${vo.au_sellerId.equals(id)}){
+						alert('나의 경매에 참여할수 없습니다.');
+						return false;
+					}
+					if($("#au_bidPrice").val() == ""){
+						alert('입찰할 금액을 입력하세요');
+						return false;
+					}
+					if($("#au_bidPrice").val() < ${vo.au_bidPrice}){
+						alert('현재 입찰가보다 작은 금액을 입력했습니다.');
+						return false;
+					}
+					if($("#au_bidPrice").val() > ${pay}){
+						if(confirm('페이가 부족합니다. 충천하시겠습니까?')){
+							alert('페이충전페이지로');
+							return false;
+						}else{
+							return false;
+						}
+					}
+					
+					if(confirm($('#au_bidPrice').val() + '원 입찰하시겠습니까?')){
+						$.ajax({
+							url:'/auction/bid',
+							data:{
+								au_num:'${vo.au_num}',
+								au_startPrice:'${vo.au_startPrice}',
+								au_sellerId:'${vo.au_sellerId}',
+								bidPrice:$("#au_bidPrice").val(),
+								au_endPrice:'${vo.au_endPrice}',
+								au_endTime:'${vo.au_endTime}',
+								au_pic:'${vo.au_pic}',
+								au_title:'${vo.au_title}',
+								au_content:'${vo.au_content}',
+								au_category:'${vo.au_category}',
+								lastBuyer:$("#lastBuyer").val(),
+								lastBid:'${vo.au_bidPrice}'
+							},
+							success:function(data){
+								$('#nowBid').html('현재 입찰금 : ' + data[0].toLocaleString("ko-KR"));
+								$('#myPay').html('${id }' + '님의 보유금액 : '+data[1].toLocaleString("ko-KR"));
+							}
+							
+						});
+					}else{
+						alert('취소하셨습니다.');
+						return false;
+					}
+					
+					
 				});
 				
 				
@@ -109,13 +168,14 @@
 								<section id="banner">
 									<div class="content">
 										<header>
+										${vo.au_endTime }
 										<f:parseDate value="${vo.au_endTime}" var="format" pattern="yyyy-MM-dd HH:mm:ss"/>
 										<f:formatDate var="endTime" value="${format}" pattern="yyyy-MM-dd HH:mm:ss"/>
 										<input type="hidden" value="${endTime }" id="endDate">
-										<f:formatNumber value="${pay }" type="currency" var="pay"/>
-										<f:formatNumber value="${vo.au_startPrice }" type="currency" var="startPrice"/>
-										<f:formatNumber value="${vo.au_endPrice }" type="currency" var="endPrice"/>
-										<f:formatNumber value="${vo.au_bidPrice }" type="currency" var="bidPrice"/>
+										<f:formatNumber value="${pay }" pattern="#,###" var="pay"/>
+										<f:formatNumber value="${vo.au_startPrice }" pattern="#,###" var="startPrice"/>
+										<f:formatNumber value="${vo.au_endPrice }" pattern="#,###" var="endPrice"/>
+										<f:formatNumber value="${vo.au_bidPrice }" pattern="#,###" var="bidPrice"/>
 											<h1>${vo.au_title }<br/></h1>
 											<p>
 											판매자 : ${vo.au_sellerId }<br>
@@ -123,7 +183,8 @@
 											즉시 구매가 : ${endPrice }<br>
 											</p> 
 											<p class="button" id="time"></p>
-											<p class="button">현재 입찰금 : ${bidPrice }</p><br>
+											<p class="button" id="nowBid">현재 입찰금 : ${bidPrice }</p><br>
+											<input type="hidden" id="lastBuyer" value="${vo.au_buyerId }">
 											
 											
 											
@@ -131,10 +192,10 @@
 										<form action="">
 											<ul class="actions">
 											<c:if test="${id != null }">
-												<li><p class="button">${id }님의 보유금액 : ${pay }</p></li>
+												<li><p class="button" id="myPay">${id }님의 보유금액 : ${pay }</p></li>
 											</c:if>
 												<hr>
-												<li><input type="text" name="au_bidPrice" placeholder="입찰할 금액 입력"></li>
+												<li><input type="text" id="au_bidPrice" placeholder="입찰할 금액 입력"></li>
 												<li><a class="button" id="bid">입찰하기</a></li>
 												<!-- <li><a href="" class="button">최소입찰</a></li> -->
 												<li><a class="button">즉시구매하기</a></li>

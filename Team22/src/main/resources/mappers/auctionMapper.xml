@@ -8,7 +8,8 @@
 		select au_num, au_endTime, max(au_bidPrice) as au_bidPrice, au_sellerId, au_pic, au_title
 		from auction
 		where au_status = 0
-		group by au_num;
+		group by au_num
+		order by au_num desc
 	</select>
 	
 	<select id="nowBest" resultType="com.market.domain.AuctionVO">
@@ -25,8 +26,8 @@
 	</select>
 	
 	<insert id="registAuction">
-		insert into auction(au_startPrice, au_endTime, au_sellerId, au_endPrice, au_pic, au_title, au_content)
-		values(#{au_startPrice}, #{au_endTime}, #{au_sellerId}, #{au_endPrice}, #{au_pic}, #{au_title}, #{au_content})
+		insert into auction(au_startPrice, au_endTime, au_sellerId, au_endPrice, au_pic, au_title, au_content, au_category)
+		values(#{au_startPrice}, #{au_endTime}, #{au_sellerId}, #{au_endPrice}, #{au_pic}, #{au_title}, #{au_content}, #{au_category})
 	</insert>
 	
 	<select id="getADetail" resultType="com.market.domain.AuctionVO">
@@ -44,6 +45,19 @@
 	
 	<update id="updateStatus">
 		update auction set au_status=1 where au_num = #{au_num}
+	</update>
+	
+	<insert id="insertBid">
+		insert into auction(au_num, au_startPrice, au_endTime, au_sellerId, au_buyerId, au_bidPrice, au_endPrice, au_pic, au_title, au_content, au_category)
+		values(#{au_num}, #{au_startPrice}, #{au_endTime}, #{au_sellerId}, #{au_buyerId}, #{au_bidPrice}, #{au_endPrice}, #{au_pic}, #{au_title}, #{au_content}, #{au_category} )
+	</insert>
+	
+	<update id="minusPay">
+		update member set member_pay=#{mPay} where member_id=#{id}
+	</update>
+	
+	<update id="plusPay">
+		update member set member_pay=#{pPay} where member_id=#{lBuyer}
 	</update>
 
 </mapper>
