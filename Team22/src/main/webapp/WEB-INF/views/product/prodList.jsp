@@ -87,10 +87,9 @@
 								<section id="banner">
 									<div class="content">
 										<header>
-											<h1>잊지마켓<br />
-											상품목록</h1>
+											<h1>있지마켓 상품목록</h1>
 										</header>
-										
+									</div>
 			
 			
 			
