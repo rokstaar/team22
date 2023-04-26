@@ -7,7 +7,9 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,8 +26,6 @@ public class ProductServiceImpl implements ProductService{
 	private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 	@Autowired
 	private ProductDAO pdao;
-	@Autowired
-	private ServletContext context;
 	
 	@Override
 	public List<ProductVO> getProdList(String grade, String category, String title, String sort) {
@@ -69,9 +69,8 @@ public class ProductServiceImpl implements ProductService{
 						, MultipartFile[] files
 						, HttpServletRequest request) throws Exception {
 		logger.info("service - 상품 등록");
-		String path = "C:\\Users\\ITWILL\\git\\market\\src\\main\\webapp\\resources\\images";
+		String path = "C:\\Users\\ITWILL\\git\\team22\\Team22\\src\\main\\webapp\\resources\\images";
 		StringBuilder sb = new StringBuilder();
-		logger.info("경로 : " + path);
 		
 		for(MultipartFile file : files) {
 			if(!file.isEmpty()) {
@@ -91,5 +90,31 @@ public class ProductServiceImpl implements ProductService{
 	    logger.info("vo : " + vo.toString());
 		pdao.regProduct(vo);
 	}
+
+	@Override
+	public void incView(HttpServletRequest request, HttpServletResponse response, Integer product_num) {
+		String viewedCookieName = "vc" + product_num;
+		Cookie[] cookies = request.getCookies();
+		boolean viewCheck = true;
+		
+		if(cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (viewedCookieName.equals(cookie.getName())) {
+					viewCheck = false;
+					break;
+				}
+			}
+		}
+		
+		if(viewCheck) {
+			pdao.incView(product_num);
+			
+			Cookie viewedCookie = new Cookie(viewedCookieName, "true");
+			viewedCookie.setMaxAge(24*60*60);
+			viewedCookie.setPath("/");
+			response.addCookie(viewedCookie);
+		}
+	}
+
 
 }

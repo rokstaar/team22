@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +12,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="/resources/assets/css/main.css" />
+		<link rel="stylesheet" href="/resources/assets/css/product.css" />
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<style>
@@ -18,6 +20,13 @@
 				margin-left: -24em;
 			}
 		</style>
+		<script type="text/javascript">
+			function imgerr(img){
+				img.onerror = null;
+				img.src = '/resources/images/default_product.jpg';
+				img.alt = "사진이 없습니다";
+			}
+		</script>
 	</head>
 	<body>
 
@@ -54,7 +63,7 @@
 								</header>
 
 							<!-- Banner -->
-								<section id="banner">
+								<!-- <section id="banner">
 									<div class="content">
 										<header>
 											<h1>있지마켓<br />
@@ -62,48 +71,66 @@
 										</header>
 									</div>
 			
-								</section>
+								</section> -->
 								
-								
-								게시글 제목 : ${info.product_title }<br>
+	<section>
+		<div id="prodInfo">
+		<div class="div-img">
+			<img src="/resources/images/${info.product_pic.split(',')[0]}" onerror="imgerr(this)">
+		</div>
+		<section class="member">
+			<div class="space-between">
+				<div>
+					프로필 사진 : ${info.member_pic }
+						<div>
+							판매자 닉네임 : ${info.member_nickname }
+							<div>
+								${info.member_address }
+							</div>
+						</div>
+				</div>
+				<div>
+					<div class="div-img" id="score">
+						<c:choose>
+							<c:when test="${score > 3.75 }">
+								<img src="/resources/images/score_verygood.png">
+							</c:when>
+							<c:when test="${score > 2.5 }">
+								<img src="/resources/images/score_good.png">
+							</c:when>
+							<c:when test="${score > 1.25 }">
+								<img src="/resources/images/score_bad.png">
+							</c:when>
+							<c:otherwise>
+								<img src="/resources/images/score_verybad.png">
+							</c:otherwise>
+						</c:choose>
+						</div>
+					<fmt:formatNumber value="${score }" pattern="#.##" />
+				</div>
+			</div>
+		</section>						
+		<hr>
+	게시글 제목 : ${info.product_title }<br>
 	상품 이미지 : ${info.product_pic }<br>
-	프로필 사진 : ${info.member_pic }<br>
-	판매자 닉네임 : ${info.member_nickname }<br>
-	상품 가격 : ${info.product_price }<br>
-	판매자 지역 : ${info.member_address }<br>
-	상품 상태 : ${info.product_grade }<br>
-	작성 시간 : ${info.product_date }<br>
-	분류 : ${info.product_cate }<br>
+	상품 가격 : <fmt:formatNumber value="${info.product_price }" pattern="#,###"/>원<br>
+	작성 시간 : <fmt:formatDate value="${info.product_date }" pattern="yyyy-MM-dd" /><br>
 	판매글 : ${info.product_content }<br>
-	판매자 온도 : ${score }<br>
 	<br>
 	
-	<c:choose>
-		<c:when test="${score > 3.75 }">
-			<img src="/resources/images/score_verygood.png">
-		</c:when>
-		<c:when test="${score > 2.5 }">
-			<img src="/resources/images/score_good.png">
-		</c:when>
-		<c:when test="${score > 5 }">
-			<img src="/resources/images/score_bad.png">
-		</c:when>
-		<c:otherwise>
-			<img src="/resources/images/score_verybad.png">
-		</c:otherwise>
-	</c:choose>
+	
 	<br>
 	<br>
 	
-	<c:forEach var="pics" items="${productVO.product_pic.split(',')}">
+	<c:forEach var="pics" items="${info.product_pic.split(',')}">
 		<%-- <img src="/resources/images/${pics }" style="width:200px;"> --%>
 		<img src="/resources/images/default1.jpg" style="width:200px;">
 	</c:forEach>
-
 	<?xml version="1.0" ?><svg height="24" version="1.1" width="24" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><g transform="translate(0 -1028.4)"><path d="m7 1031.4c-1.5355 0-3.0784 0.5-4.25 1.7-2.3431 2.4-2.2788 6.1 0 8.5l9.25 9.8 9.25-9.8c2.279-2.4 2.343-6.1 0-8.5-2.343-2.3-6.157-2.3-8.5 0l-0.75 0.8-0.75-0.8c-1.172-1.2-2.7145-1.7-4.25-1.7z" fill="#c0392b"/></g></svg>
 	<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 48 48" height="22px" id="Layer_1" version="1.1" viewBox="0 0 48 48" width="22px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path clip-rule="evenodd" d="M24.804,43.648L24,44l-0.804-0.352C12.862,37.313,2,22.893,2,14.884  C2.035,8.326,7.404,3.002,14,3.002c4.169,0,7.849,2.128,10,5.349c2.151-3.221,5.831-5.349,10-5.349c6.596,0,11.965,5.324,12,11.882  C46,22.893,35.138,37.313,24.804,43.648z M34,4.993c-3.354,0-6.469,1.667-8.335,4.46L24,11.946l-1.665-2.494  C20.469,6.66,17.354,4.993,14,4.993c-5.484,0-9.971,4.442-10,9.891c0,7.064,10.234,20.808,20,26.917  c9.766-6.109,20-19.852,20-26.907C43.971,9.435,39.484,4.993,34,4.993z" fill-rule="evenodd"/></svg>
-		
+		</div>
 	<button>판매자와 채팅하기</button>
+	</section>
 	
 	
 	<hr>
@@ -243,6 +270,9 @@
             }
         });
     });
+	
+	
+	
 	</script>
 			<script src="/resources/assets/js/jquery.min.js"></script>
 			<script src="/resources/assets/js/skel.min.js"></script>
