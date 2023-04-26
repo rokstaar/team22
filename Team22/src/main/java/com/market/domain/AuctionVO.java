@@ -1,5 +1,6 @@
 package com.market.domain;
 
+import java.sql.Date;
 
 import lombok.Data;
 
