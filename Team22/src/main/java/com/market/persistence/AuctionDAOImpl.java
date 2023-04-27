@@ -19,8 +19,11 @@ public class AuctionDAOImpl implements AuctionDAO{
 	private static final String NAMESPACE = "com.market.mapper.auctionMapper";
 
 	@Override
-	public List<AuctionVO> getAList() throws Exception {
-		return sqlSession.selectList(NAMESPACE + ".getAList");
+	public List<AuctionVO> getAList(String order, String met) throws Exception {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("order", order);
+		map.put("met", met);
+		return sqlSession.selectList(NAMESPACE + ".getAList", map);
 	}
 
 	@Override
@@ -68,6 +71,16 @@ public class AuctionDAOImpl implements AuctionDAO{
 		map.put("lBuyer", lBuyer);
 		map.put("pPay", pPay);
 		sqlSession.update(NAMESPACE+".plusPay", map);
+	}
+
+	@Override
+	public List<AuctionVO> getSearchList(String search) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".getSearchAList", search);
+	}
+
+	@Override
+	public List<AuctionVO> bestAList() throws Exception {
+		return sqlSession.selectList(NAMESPACE+".bestAList");
 	}
 	
 	
