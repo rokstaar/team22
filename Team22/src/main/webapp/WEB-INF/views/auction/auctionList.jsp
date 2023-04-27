@@ -69,7 +69,7 @@
 										</ul>
 									</div>
 									<span class="image object">
-										<img src="/resources/images/air.jpg" style="width:644.7px; height:438.4px" />
+										<img src="/resources/images/${best.au_pic.split(',')[1] }" style="width:644.7px; height:438.4px" />
 									</span>
 								</section>
 
