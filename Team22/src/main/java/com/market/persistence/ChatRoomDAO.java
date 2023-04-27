@@ -6,8 +6,10 @@ public interface ChatRoomDAO {
 	
 	public int selectChatRoom(ChatRoomVO crvo);
 	
-	public int searchRoomId(ChatRoomVO crvo);
+	public int selectRoomId(ChatRoomVO crvo);
 	
 	public int insertChatRoom(ChatRoomVO crvo);
+	
+	public ChatRoomVO selectChatRoomInfo(int room_id);
 
 }

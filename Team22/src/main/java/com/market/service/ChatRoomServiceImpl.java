@@ -16,17 +16,21 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 	@Override
 	public int searchChatRoom(ChatRoomVO crvo) {
 		return crdao.selectChatRoom(crvo);
-
 	}
 
+	@Override
+	public int searchRoomId(ChatRoomVO crvo) {
+		return crdao.selectRoomId(crvo);
+	}
+	
 	@Override
 	public int registChatRoom(ChatRoomVO crvo) {
 		return crdao.insertChatRoom(crvo);
 	}
 
 	@Override
-	public int searchRoomId(ChatRoomVO crvo) {
-		return 0;
+	public ChatRoomVO searchChatRoomInfo(int room_id) {
+		return crdao.selectChatRoomInfo(room_id);
 	}
 
 }

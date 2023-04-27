@@ -5,6 +5,8 @@
   
 <mapper namespace="com.itwillbs.mapper.chatMapper">
 
+<!-- chat_room -->
+
   <!-- 채팅방 존재 여부 확인 -->  
   <select id="selectChatRoom" resultType="int">
   	select count(*) from chat_room
@@ -21,28 +23,56 @@
   <!-- 채팅방 생성 -->
   <insert id="insertChatRoom" parameterType="chatRoomVO">
   	insert into chat_room (room_id, product_num, buyer, seller)
-  	values ( #{room_id}, #{product_num}, #{buyer}, #{seller})
+  	values (#{room_id}, #{product_num}, #{buyer}, #{seller})
   </insert>
   
-  
-  
-  
-  
-  
-  
-  <!-- room_id로 채팅 내용 불러오기-->
-  <select id="selectChatDialog" resultType="chatMessageVo">
-  	select * from chat_message
-	where room_id = #{room_id}
-    order by message_date
+  <!-- 채팅방 정보 조회 -->
+  <select id="selectChatRoomInfo" resultType="chatRoomVO">
+  	select * from chat_room
+  	where room_id = #{room_id}  	
   </select>
   
+  <!-- 채팅방 번호로 상품 제목 조회 -->
+  <select id="selectTitle" resultType="String">
+  	select p.product_title
+	from chat_room cr join product p
+	on cr.product_num = p.product_num
+	where cr.product_num = p.product_num
+	and cr.room_id = #{room_id}
+  </select>
+  
+  
+  
+  
+
+<!-- chat_messsage -->
+
+  <!-- room_id로 채팅 내용 불러오기-->
+  <select id="selectChatDialog" resultType="chatMessageVO">
+  	select * from chat_message
+	where room_id = #{room_id}
+    order by chat_date
+  </select>
   
   <!-- 채팅 입력하기 -->
   <insert id="insertChatDialog" parameterType="chatMessageVO">
   	insert into chat_message (chat_id, room_id, seller_id, buyer_id, chat_content)
-  	values(chat_message_chat_id_seq.nextbal, #{room_id}, #{seller_id}, #{buyer_id}, #{chat_content})
+  	values(#{chat_id}, #{room_id}, #{seller_id}, #{buyer_id}, #{chat_content})
   </insert>
+  
+  <!-- 해당 아이디의 최근 채팅 -->
+  <select id="selectRecentChatDialog" resultType="chatMessageVO">
+  	select * from chat_message
+  	where chat_id in (select max(chat_id)
+  					from chat_room cr, chat_message cm
+  					where cr.room_id = cm.room_id
+  					and cm.room_id in (
+										select distinct room_id
+  										from chat_message
+  										where (seller_id = #{id} or buyer_id = #{id}))
+					group by cr.room_id)
+  	order by chat_date desc
+  </select>
 
 
 </mapper>
