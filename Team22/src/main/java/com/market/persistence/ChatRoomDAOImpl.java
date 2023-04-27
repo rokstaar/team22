@@ -20,14 +20,18 @@ public class ChatRoomDAOImpl implements ChatRoomDAO {
 	}
 	
 	@Override
-	public int searchRoomId(ChatRoomVO crvo) {
-		
-		return sqlSession.selectOne(NAMESPACE + "selectRoomId", crvo);
+	public int selectRoomId(ChatRoomVO crvo) {
+		return sqlSession.selectOne(NAMESPACE + ".selectRoomId", crvo);
 	}
 
 	@Override
 	public int insertChatRoom(ChatRoomVO crvo) {
 		return sqlSession.insert(NAMESPACE + ".insertChatRoom", crvo);
+	}
+
+	@Override
+	public ChatRoomVO selectChatRoomInfo(int room_id) {
+		return sqlSession.selectOne(NAMESPACE  + ".selectChatRoomInfo", room_id);
 	}
 
 }

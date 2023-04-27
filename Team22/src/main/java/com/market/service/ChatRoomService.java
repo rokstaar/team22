@@ -10,4 +10,6 @@ public interface ChatRoomService {
 	
 	public int registChatRoom(ChatRoomVO crvo);
 	
+	public ChatRoomVO searchChatRoomInfo(int room_id);
+	
 }
