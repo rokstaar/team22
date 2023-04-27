@@ -4,12 +4,29 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.market.mapper.auctionMapper">
+
 	<select id="getAList" resultType="com.market.domain.AuctionVO">
 		select au_num, au_endTime, max(au_bidPrice) as au_bidPrice, au_sellerId, au_pic, au_title
 		from auction
 		where au_status = 0
 		group by au_num
+		order by ${order} ${met}
+	</select>
+	
+	<select id="getSearchAList" resultType="com.market.domain.AuctionVO">
+		select au_num, au_endTime, max(au_bidPrice) as au_bidPrice, au_sellerId, au_pic, au_title
+		from auction
+		where au_status = 0 and au_title like CONCAT('%',#{search},'%')
+		group by au_num
 		order by au_num desc
+	</select>
+	
+	<select id="bestAList" resultType="com.market.domain.AuctionVO">
+		select au_num, au_endTime, max(au_bidPrice) as au_bidPrice, au_sellerId, au_pic, au_title, au_status
+		from auction
+		group by au_num
+		having au_status = 0
+		order by count(au_num) desc;
 	</select>
 	
 	<select id="nowBest" resultType="com.market.domain.AuctionVO">
@@ -26,8 +43,8 @@
 	</select>
 	
 	<insert id="registAuction">
-		insert into auction(au_startPrice, au_endTime, au_sellerId, au_endPrice, au_pic, au_title, au_content, au_category)
-		values(#{au_startPrice}, #{au_endTime}, #{au_sellerId}, #{au_endPrice}, #{au_pic}, #{au_title}, #{au_content}, #{au_category})
+		insert into auction(au_startPrice, au_endTime, au_sellerId, au_endPrice, au_pic, au_title, au_content, au_category, au_buyerId)
+		values(#{au_startPrice}, #{au_endTime}, #{au_sellerId}, #{au_endPrice}, #{au_pic}, #{au_title}, #{au_content}, #{au_category}, #{au_buyerId})
 	</insert>
 	
 	<select id="getADetail" resultType="com.market.domain.AuctionVO">

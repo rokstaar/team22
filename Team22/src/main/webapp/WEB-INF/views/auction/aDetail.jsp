@@ -40,7 +40,7 @@
 						}
 					});
 				}
-				//setInterval(ubid,1000);
+				setInterval(ubid,1000);
 				
 				var timer; 
 				
@@ -72,6 +72,7 @@
 							}
 						});
 						$("#time").html("경매 종료");
+						// 경매시간 만료시 최종 입찰자한테 알림 보내기
 						/* location.href='/auction/list'; */
 					}
 			    }
@@ -100,8 +101,8 @@
 						alert('입찰할 금액을 입력하세요');
 						return false;
 					}
-					if($("#au_bidPrice").val() < $("#uBid").val()){
-						alert('현재 입찰가보다 작은 금액을 입력했습니다.');
+					if(parseInt($("#au_bidPrice").val()) <= parseInt($("#uBid").val())){
+						alert('현재 입찰가보다 큰 금액을 입력하셔야 합니다.');
 						return false;
 					}
 					if(parseInt($("#au_bidPrice").val()) > parseInt($("#myPay").val())){
@@ -128,7 +129,7 @@
 								au_content:'${vo.au_content}',
 								au_category:'${vo.au_category}',
 								lastBuyer:$("#lastBuyer").val(),
-								lastBid:$("#ubid").val()
+								lastBid:$("#uBid").val()
 							},
 							success:function(data){
 								console.log(data);
@@ -155,22 +156,7 @@
 				<!-- Main -->
 					<div id="main">
 						<div class="inner">
-
-							<!-- Header -->
-								<header id="header">
-									<a href="index.html" class="logo"><strong>Editorial</strong> by HTML5 UP</a>
-									<ul class="icons">
-										<c:if test="${id == null }">
-											<li><a href="/members/login"><span class="label">로그인</span></a></li>
-										</c:if>
-										<c:if test="${id != null }">
-											<li><a href="/members/logout"><span class="label">로그아웃</span></a></li>
-										</c:if>
-										<li><a href="#" class="icon fa-snapchat-ghost"><span class="label">Snapchat</span></a></li>
-										<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-										<li><a href="#" class="icon fa-medium"><span class="label">Medium</span></a></li>
-									</ul>
-								</header>
+						<%@ include file="../include/header.jsp" %>
 
 							<!-- Banner -->
 								<section id="banner">
@@ -191,8 +177,8 @@
 											</p> 
 											<p class="button" id="time"></p>
 											<p class="button" id="nowBid">현재 입찰금 : ${bidPrice }</p><br>
-											<input type="hidden" id="uBid" value="${vo.au_bidPrice != null? vo.au_bidPrice : 0 }">
-											<input type="hidden" id="lastBuyer" value="${vo.au_buyerId != null? vo.au_buyerId : '' }">
+											<input type="hidden" id="uBid" value="${vo.au_bidPrice }">
+											<input type="hidden" id="lastBuyer" value="${vo.au_buyerId }">
 											<input type="hidden" id="myPay" value="${pay }">
 											
 											
@@ -282,106 +268,9 @@
 						</div>
 					</div>
 
-				<!-- Sidebar -->
-					<div id="sidebar">
-						<div class="inner">
-
-							<!-- Search -->
-								<section id="search" class="alt">
-									<form method="post" action="#">
-										<input type="text" name="query" id="query" placeholder="Search" />
-									</form>
-								</section>
-
-							<!-- Menu -->
-								<nav id="menu">
-									<header class="major">
-										<h2>Menu</h2>
-									</header>
-									<ul>
-										<li><a href="index.html">Homepage</a></li>
-										<li><a href="generic.html">Generic</a></li>
-										<li><a href="elements.html">Elements</a></li>
-										<li>
-											<span class="opener">Submenu</span>
-											<ul>
-												<li><a href="#">Lorem Dolor</a></li>
-												<li><a href="#">Ipsum Adipiscing</a></li>
-												<li><a href="#">Tempus Magna</a></li>
-												<li><a href="#">Feugiat Veroeros</a></li>
-											</ul>
-										</li>
-										<li><a href="#">Etiam Dolore</a></li>
-										<li><a href="#">Adipiscing</a></li>
-										<li>
-											<span class="opener">Another Submenu</span>
-											<ul>
-												<li><a href="#">Lorem Dolor</a></li>
-												<li><a href="#">Ipsum Adipiscing</a></li>
-												<li><a href="#">Tempus Magna</a></li>
-												<li><a href="#">Feugiat Veroeros</a></li>
-											</ul>
-										</li>
-										<li><a href="#">Maximus Erat</a></li>
-										<li><a href="#">Sapien Mauris</a></li>
-										<li><a href="#">Amet Lacinia</a></li>
-									</ul>
-								</nav>
-
-							<!-- Section -->
-								<section>
-									<header class="major">
-										<h2>Ante interdum</h2>
-									</header>
-									<div class="mini-posts">
-										<article>
-											<a href="#" class="image"><img src="resources/images/pic07.jpg" alt="" /></a>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="resources/images/pic08.jpg" alt="" /></a>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="resources/images/pic09.jpg" alt="" /></a>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
-										</article>
-									</div>
-									<ul class="actions">
-										<li><a href="#" class="button">More</a></li>
-									</ul>
-								</section>
-
-							<!-- Section -->
-								<section>
-									<header class="major">
-										<h2>Get in touch</h2>
-									</header>
-									<p>Sed varius enim lorem ullamcorper dolore aliquam aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin sed aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-									<ul class="contact">
-										<li class="fa-envelope-o"><a href="#">information@untitled.tld</a></li>
-										<li class="fa-phone">(000) 000-0000</li>
-										<li class="fa-home">1234 Somewhere Road #8254<br />
-										Nashville, TN 00000-0000</li>
-									</ul>
-								</section>
-
-							<!-- Footer -->
-								<footer id="footer">
-									<p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
-								</footer>
-
-						</div>
-					</div>
-
+			<%@ include file="../include/sidebar.jsp" %>
 			</div>
 
-		<!-- Scripts -->
-			<script src="/resources/assets/js/jquery.min.js"></script>
-			<script src="/resources/assets/js/skel.min.js"></script>
-			<script src="/resources/assets/js/util.js"></script>
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="/resources/assets/js/main.js"></script>
 
 	</body>
 </html>

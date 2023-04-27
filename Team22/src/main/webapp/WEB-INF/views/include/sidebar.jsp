@@ -247,8 +247,8 @@ div{
 
 							<!-- Search -->
 								<section id="search" class="alt">
-									<form method="post" action="#">
-										<input type="text" name="query" id="query" placeholder="Search" />
+									<form method="get" action="#">
+										<input type="text" name="search" placeholder="검색할 단어입력" />
 									</form>
 								</section>
 

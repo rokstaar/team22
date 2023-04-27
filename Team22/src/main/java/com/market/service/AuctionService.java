@@ -7,7 +7,7 @@ import com.market.domain.AuctionVO;
 
 public interface AuctionService {
 	
-	public List<AuctionVO> getAList() throws Exception;
+	public List<AuctionVO> getAList(String order, String met) throws Exception;
 	
 	public AuctionVO nowBest() throws Exception;
 	
@@ -24,4 +24,8 @@ public interface AuctionService {
 	public void minusPay(String id, int mPay) throws Exception;
 	
 	public void plusPay(String lBuyer, int pPay) throws Exception;
+	
+	public List<AuctionVO> getSearchList(String search) throws Exception;
+	
+	public List<AuctionVO> bestAList() throws Exception;
 }

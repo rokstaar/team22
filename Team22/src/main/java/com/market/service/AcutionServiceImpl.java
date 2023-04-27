@@ -18,9 +18,9 @@ public class AcutionServiceImpl implements AuctionService {
 	private AuctionDAO adao;
 
 	@Override
-	public List<AuctionVO> getAList() throws Exception {
+	public List<AuctionVO> getAList(String order, String met) throws Exception {
 		
-		return adao.getAList();
+		return adao.getAList(order, met);
 	}
 
 	@Override
@@ -61,6 +61,16 @@ public class AcutionServiceImpl implements AuctionService {
 	@Override
 	public void plusPay(String lBuyer, int pPay) throws Exception {
 		adao.plusPay(lBuyer, pPay);
+	}
+
+	@Override
+	public List<AuctionVO> getSearchList(String search) throws Exception {
+		return adao.getSearchList(search);
+	}
+
+	@Override
+	public List<AuctionVO> bestAList() throws Exception {
+		return adao.bestAList();
 	}
 	
 	
