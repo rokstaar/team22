@@ -14,9 +14,9 @@ public class ProductVO {
 	private String product_content;
 	private int product_price;
 	private Object product_pic;
-	private int product_readcount;
+	private Integer product_readcount;
 	private Date product_date;
 	private String product_status;
 	private String product_grade;
-	private int product_favorite;
+	private Integer product_favorite;
 }

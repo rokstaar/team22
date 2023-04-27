@@ -48,17 +48,37 @@ public class ProductController {
 	
 	// 상품 찜하기
 	@GetMapping(value = "/likeProd")
-	public void likeProd(@RequestParam(value = "product_num") int pnum) {
+	public void likeProd(@RequestParam(value = "product_num") int pnum
+						,@RequestParam(value = "seller") String id) {
 		service.likeProd(pnum);
+		if(service.likeExist(id) == 0) {
+			
+		}else {
+			
+		}
 	}
 	// 상품 찜하기
 	
 	// 상품 찜취소하기
 	@GetMapping(value = "/likeProdCancel")
-	public void likeProdCancel(@RequestParam(value = "product_num") int pnum) {
+	public void likeProdCancel(@RequestParam(value = "product_num") int pnum
+							,@RequestParam(value = "seller") String id) {
 		service.likeProdCancel(pnum);
 	}
 	// 상품 찜취소하기
+	
+	// 회원이 상품 찜했는지 확인
+	@GetMapping(value = "/memlikeCheck")
+	@ResponseBody
+	public boolean memlikeCheck(@RequestParam(value = "product_num") int pnum
+							,@RequestParam(value = "seller") String id) {
+		if(service.likeExist(id) == 0) {
+			service.regFavorite(pnum, id);
+			return false;
+		}
+		
+		return false;
+	}
 	
 	// 상품 정보 가져오기
 	@RequestMapping(value = "/prodInfo",method = {RequestMethod.GET, RequestMethod.POST})
