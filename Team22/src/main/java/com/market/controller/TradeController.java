@@ -11,10 +11,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.market.domain.MemberVO;
+import com.market.domain.ReviewVO;
 import com.market.domain.TradeVO;
 import com.market.service.TradeService;
 
@@ -32,29 +35,12 @@ public class TradeController {
 	//http://localhost:8080/main
 	
 	
-	@RequestMapping(value = "/review", method = RequestMethod.GET) 
-	public String tradeReview(Model model,HttpSession session) throws Exception {
-		
-		String id = (String)session.getAttribute("id");
-		
-		List<TradeVO> tBuyReview = service.getBuyReview();
-
-		logger.info("@@@@@@@@@@"+tBuyReview);
-		logger.info("@@@@@@@@@@"+id);
-		model.addAttribute("tBuyReview",tBuyReview);	
-		
-//		if(id == vo.getBuy_mem_id()) {
-			
-			return "/trade/tradeReview";
-//		}else {
-//			return "redirect:/members/login";
-//			
-//		}
-	}
 	
 	@RequestMapping(value = "/buyReview", method = RequestMethod.GET)
-	public String buyReview() throws Exception {
+	public String buyReview(Model model) throws Exception {
+		List<Map<String,Object>> buyReview = service.getBuyReview();
 		
+		model.addAttribute("buyReview",buyReview);
 		
 		return "/trade/buyReview";
 	}
@@ -74,6 +60,8 @@ public class TradeController {
 	public void buyList(Model model) throws Exception {
 		
 		List<Map<String,Object>> buyList = service.buyList();
+		
+		
 		logger.info("b@@@@@@@@@@@@@@"+buyList);
 		
 		
@@ -95,14 +83,16 @@ public class TradeController {
 	
 	
 	@RequestMapping(value = "/reviewInsert", method = RequestMethod.POST)
-	public String reviewWritePOST() throws Exception{
-
+	public String reviewWritePOST(Model model, ReviewVO rvo,RedirectAttributes rttr ) throws Exception{
+		List<Map<String,Object>> List = service.buyList();
 		
-			
-		return "/trade/tradeReview";
+		service.writeReview(rvo);
+		model.addAttribute("List",List);
+		rttr.addFlashAttribute("result","ok");
+		
+		return "redirect:/trade/buyReview";
 	}
 
-	
 	
 	
 }

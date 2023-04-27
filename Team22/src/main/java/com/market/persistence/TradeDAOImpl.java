@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.market.domain.ReviewVO;
 import com.market.domain.TradeVO;
 
 @Repository
@@ -23,9 +24,9 @@ public class TradeDAOImpl implements TradeDAO{
 	private static final Logger logger = LoggerFactory.getLogger(TradeDAOImpl.class);
 
 	@Override
-	public List<TradeVO> getBuyReview() throws Exception {
+	public List<Map<String,Object>> buyReviewList() throws Exception {
 		
-		return sqlSession.selectList(NAMESPACE+".getBuyReview");
+		return sqlSession.selectList(NAMESPACE+".buyReviewList");
 	}
 
 	@Override
@@ -37,6 +38,7 @@ public class TradeDAOImpl implements TradeDAO{
 	@Override
 	public List<Map<String,Object>> buyList() throws Exception {
 		
+		
 		return sqlSession.selectList(NAMESPACE+".buyList");
 	}
 	
@@ -46,6 +48,18 @@ public class TradeDAOImpl implements TradeDAO{
 		return sqlSession.selectList(NAMESPACE+".prodList");
 	}
 
+	@Override
+	public void insertReview(ReviewVO rvo) throws Exception {
+		
+		 sqlSession.insert(NAMESPACE+".insertReview",rvo);
+	}
+
+	@Override
+	public void avgScore(double score) throws Exception {
+		
+	}
+	
+	
 	
 	
 }

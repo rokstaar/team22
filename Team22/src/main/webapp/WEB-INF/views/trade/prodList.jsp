@@ -250,11 +250,13 @@ div{
 										<div class="shippingStatusContainer">
 										
 										<c:forEach var="vo" items="${prodList }">
+										<c:if test="${vo.buy_mem_id eq sessionScope.id }">
 									<div class="infoContainer">
 										
 										<div class="item">
 									        <div>
-									          <img src="/resources/images/${vo.product_pic.split(',')[0] }">
+									        <img src="/resources/images/${vo.product_pic.split(',')[0] }" 
+									        onerror="this.src='/resources/images/default_product.jpg'" width="100px" height="80px">
 									        </div>
 									        </div>
 										<div class="item">
@@ -264,8 +266,9 @@ div{
 									        </div>
 										<div class="item">
 									        <div>
+									        <a href="/product/prodInfo?product_num=${vo.prod_num }&seller=${vo.sell_mem_id}">
 									          <div>${vo.product_title }</div>
-									          <div>${vo.product_price }원</div>
+									          <div>${vo.product_price }원</div></a>
 									        </div>
 									        </div>
 										<div class="item">
@@ -280,6 +283,7 @@ div{
 									        </div>
 									        
 										</div>
+										</c:if>
 										</c:forEach>
 									</div>
 									

@@ -318,11 +318,12 @@ textarea{
          background-color: white; 
          padding: 1rem 1.5rem; 
          width: 500px; 
-         height: 250px; 
+         height: 300px; 
          border-radius: 0.5rem; 
      } 
 .close-button:hover { 
        background-color: darkgray; 
+       font-weight: bold;
 } 
 .show-modal { 
 
@@ -352,15 +353,16 @@ textarea{
 							<!-- Header -->
 								<%@ include file="../include/header.jsp" %>
 								<%@ include file="../include/mypageTrade.jsp" %>
+							<div class="shippingStatusContainer">
 								
-										<div class="shippingStatusContainer">
-								
-										<c:forEach var="vo" items="${buyList }">
-									<div class="infoContainer">
+								<c:forEach var="vo" items="${buyList }">
+								<div class="infoContainer">
+								<c:if test="${vo.buy_mem_id eq sessionScope.id }">
 										
 										<div class="item">
 									        <div>
-									        <img src="/resources/images/${vo.product_pic.split(',')[0] }">
+									        <img src="/resources/images/${vo.product_pic.split(',')[0] }" 
+									        onerror="this.src='/resources/images/default_product.jpg'" width="100px" height="80px">
 									          <%-- <div>${vo.product_pic }</div> --%>
 									        </div>
 									        </div>
@@ -371,38 +373,54 @@ textarea{
 									        </div>
 										<div class="item">
 									        <div>
+		        				<a href="/product/prodInfo?product_num=${vo.prod_num }&seller=${vo.sell_mem_id}">
 									          <div>${vo.product_title }</div>
-									          <div>${vo.product_price }원</div>
+									          <div>${vo.product_price }원</div></a>
 									        </div>
 									        </div>
 										<div class="item">
 									        <div>
-									          <div>${vo.sell_mem_id }</div>
+							         	  <a href="/members/memberInfo?mem_id=${vo.sell_mem_id }"> 
+							         	  <div>${vo.sell_mem_id }</div>
+							         	   </a>
 									        </div>
 									        </div>
 								<div class="script">
-									       
-						         <button class="trigger">구매후기 작성</button>      
+							
+ 	       
+						         <button name="asd" class="trigger">구매후기 작성</button>      
 								     <div class="modal"> 
 								         <div class="modal-content"> 
 								             <span class="close-button">&times;</span> 
 								             <h1 class="title">구매후기</h1> 
-								             <form action="/trade/reviewInsert" method="POST"> 
-								               <label for="">${vo.sell_mem_id }님에게 구매후기 작성해주세요.</label> 
+								             <form action="/trade/reviewInsert" method="POST">
+								               
+								               <label for="">${vo.member_nickname }님에게 구매후기 작성해주세요.</label> 
 								               <label></label> 
 								               <textarea name="rv_content" placeholder="Test Message" required="required"></textarea> 
-								               <input type="hidden" name="reviewee" value="${vo.sell_mem_id}">
-								               <input type="hidden" name="reviewer" value="${vo.member_id}">
-								               <input type="button" id="cancel" value="취소" onclick="href.location='/trade/buyList'" > 
+								               <select name="rv_score" id="rv_score" style="width:100px;height:30px;">
+													<option>평점</option>
+													<option value="5">5</option>
+													<option value="4">4</option>
+													<option value="3">3</option>
+													<option value="2">2</option>
+													<option value="1">1</option>
+													<option value="0">0</option>
+												</select>
+								               <input type="button" id="cancel" value="취소" onclick="location.href='/trade/buyList'" > 
 								               <input type="submit" id="submit" value="작성"> 
-								             </form> 
+								             	<input type="hidden" name="reviewee" value="${vo.sell_mem_id}">
+												<input type="hidden" name="reviewer" value="${vo.buy_mem_id}">
+												<input type="hidden" name="prod_num" value="${vo.prod_num}">
+												
+								             </form> 	
 								         </div> 
 								     </div>
 						        </div>
-									        
-										</div>
-										</c:forEach>
+									        </c:if>
 									</div>
+										</c:forEach>
+								</div>
 									
 	
 						</div>
@@ -434,10 +452,15 @@ textarea{
 
   <script type="text/javascript"> 
          var modal = document.querySelector(".modal"); 
-         var trigger = document.querySelector(".trigger"); 
+        // var trigger = document.querySelector(".trigger");  
+         var trigger = document.querySelectorAll(".trigger");  
          var closeButton = document.querySelector(".close-button"); 
          var cancelButton = document.querySelector("#cancel");
 
+         console.log(trigger);
+         for( var i = 0; i < trigger.length; i++ ){
+        	 trigger[i].addEventListener("click", toggleModal); 
+			}
         //console.log(modal);
 
         function toggleModal() { 
@@ -450,7 +473,7 @@ textarea{
              } 
          }
 
-        trigger.addEventListener("click", toggleModal); 
+         /* trigger.addEventListener("click", toggleModal);  */
          closeButton.addEventListener("click", toggleModal); 
          cancel.addEventListener("click", toggleModal); 
          window.addEventListener("click", windowOnClick); 

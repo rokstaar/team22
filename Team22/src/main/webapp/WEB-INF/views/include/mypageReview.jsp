@@ -45,7 +45,7 @@
 									        </div>
 									      </div>     
 									      <div class="item">
-									     <a href="/trade/review">  <div>
+									     <a href="/trade/buyReview">  <div>
 									          <div class="text">거래후기</div>
 									          <div class="rightBlue number">3</div></a>
 									        </div>

@@ -5,17 +5,14 @@
   
 <mapper namespace="com.market.mapper.tradeMapper">
 
-	<insert id="createReview" >
-		insert into review 
-		values(#{rv_num},#{reviewee},#{reviewer},#{rv_score},#{rv_content});
-	
-	</insert>
-
-	<select id="getBuyReview" resultType="com.market.domain.TradeVO">
-		<![CDATA[
-		select * 
-		from trade
-		]]>
+	<select id="buyReviewList" resultType="map">
+		SELECT DISTINCT r.reviewer, r.reviewee, r.rv_content, m.member_pic, p.product_title, r.rv_score, p.product_num,
+		p.product_pic, t.t_div
+		FROM review r
+		JOIN member m ON r.reviewer = m.member_id
+		JOIN product p ON r.reviewee = p.product_seller
+		JOIN trade t ON r.reviewer = t.buy_mem_id
+		WHERE reviewer = t.buy_mem_id AND t.t_div = 1;
 	</select>
 	
 	<select id="tSellReview" resultType="com.market.domain.TradeVO">
@@ -32,7 +29,7 @@
 		 join product p on t.sell_mem_id = p.product_seller
          and t.prod_num = p.product_num 
 		 join member m on t.buy_mem_id = m.member_id
-		where t.buy_mem_id = m.member_id and t.t_div = 1;
+		 where t.buy_mem_id = m.member_id and t.t_div = 1;
 	</select>
 	
 	<select id="prodList" resultType="map">
@@ -44,6 +41,18 @@
 		 join member m on t.buy_mem_id = m.member_id
 		where t.buy_mem_id = m.member_id and t.t_div = 2;
 	
+	</select>
+	
+	<insert id="insertReview">
+		insert into review(reviewee, reviewer, rv_score, rv_content)
+		values(#{reviewee},#{reviewer},#{rv_score},#{rv_content});
+	</insert>
+		
+	<select id="avgScore" resultType="double">
+		select avg(rv_score)
+		from review
+		where reviewee = #{reviewee};
+		
 	</select>
 
 </mapper>
