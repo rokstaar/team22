@@ -8,7 +8,6 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
-
 <html>
 
 	<head>
@@ -23,6 +22,26 @@
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function(){
+				
+				function ubid(){
+					$.ajax({
+						url:"/auction/uBid",
+						data:{
+							au_num:'${vo.au_num}'
+						},
+						dataType:"JSON",
+						success:function(data){
+							$('#uBid').attr("value", data.bid);
+							$('#nowBid').html('현재 입찰금 : ' + data.bid.toLocaleString("ko-KR"));
+							$('#myPay').attr("value", data.pay);
+							$('#rPay').html('${id }' + '님의 보유금액 : '+data.pay.toLocaleString("ko-KR"));
+							$('#lastBuyer').attr("value", data.buyer);
+							
+						}
+					});
+				}
+				//setInterval(ubid,1000);
+				
 				var timer; 
 				
 				function setTimer(){
@@ -58,13 +77,6 @@
 			    }
 				timer = setInterval(setTimer, 1000);
 				
-				/* var sse = new EventSource("/auction/sse");
-				
-				sse.onmessage = function (evt) {
-				    console.log(evt.data);
-				}; */
-				
-				
 				$('#bid').click(function(){
 					
 					if(${id == null}){
@@ -80,7 +92,7 @@
 						return false;
 					}
 					
-					if(${vo.au_sellerId.equals(id)}){
+					if(${vo.au_sellerId.equals(id) }){
 						alert('나의 경매에 참여할수 없습니다.');
 						return false;
 					}
@@ -88,11 +100,11 @@
 						alert('입찰할 금액을 입력하세요');
 						return false;
 					}
-					if($("#au_bidPrice").val() < ${vo.au_bidPrice}){
+					if($("#au_bidPrice").val() < $("#uBid").val()){
 						alert('현재 입찰가보다 작은 금액을 입력했습니다.');
 						return false;
 					}
-					if($("#au_bidPrice").val() > ${pay}){
+					if(parseInt($("#au_bidPrice").val()) > parseInt($("#myPay").val())){
 						if(confirm('페이가 부족합니다. 충천하시겠습니까?')){
 							alert('페이충전페이지로');
 							return false;
@@ -116,9 +128,10 @@
 								au_content:'${vo.au_content}',
 								au_category:'${vo.au_category}',
 								lastBuyer:$("#lastBuyer").val(),
-								lastBid:'${vo.au_bidPrice}'
+								lastBid:$("#ubid").val()
 							},
 							success:function(data){
+								console.log(data);
 								$('#nowBid').html('현재 입찰금 : ' + data[0].toLocaleString("ko-KR"));
 								$('#myPay').html('${id }' + '님의 보유금액 : '+data[1].toLocaleString("ko-KR"));
 							}
@@ -128,12 +141,7 @@
 						alert('취소하셨습니다.');
 						return false;
 					}
-					
-					
 				});
-				
-				
-				
 				
 			});
 			
@@ -168,11 +176,10 @@
 								<section id="banner">
 									<div class="content">
 										<header>
-										${vo.au_endTime }
 										<f:parseDate value="${vo.au_endTime}" var="format" pattern="yyyy-MM-dd HH:mm:ss"/>
 										<f:formatDate var="endTime" value="${format}" pattern="yyyy-MM-dd HH:mm:ss"/>
 										<input type="hidden" value="${endTime }" id="endDate">
-										<f:formatNumber value="${pay }" pattern="#,###" var="pay"/>
+										<f:formatNumber value="${pay }" pattern="#,###" var="myPay"/>
 										<f:formatNumber value="${vo.au_startPrice }" pattern="#,###" var="startPrice"/>
 										<f:formatNumber value="${vo.au_endPrice }" pattern="#,###" var="endPrice"/>
 										<f:formatNumber value="${vo.au_bidPrice }" pattern="#,###" var="bidPrice"/>
@@ -184,7 +191,9 @@
 											</p> 
 											<p class="button" id="time"></p>
 											<p class="button" id="nowBid">현재 입찰금 : ${bidPrice }</p><br>
-											<input type="hidden" id="lastBuyer" value="${vo.au_buyerId }">
+											<input type="hidden" id="uBid" value="${vo.au_bidPrice != null? vo.au_bidPrice : 0 }">
+											<input type="hidden" id="lastBuyer" value="${vo.au_buyerId != null? vo.au_buyerId : '' }">
+											<input type="hidden" id="myPay" value="${pay }">
 											
 											
 											
@@ -192,13 +201,12 @@
 										<form action="">
 											<ul class="actions">
 											<c:if test="${id != null }">
-												<li><p class="button" id="myPay">${id }님의 보유금액 : ${pay }</p></li>
+												<li><p class="button" id="rPay">${id }님의 보유금액 : ${myPay }</p></li>
 											</c:if>
 												<hr>
 												<li><input type="text" id="au_bidPrice" placeholder="입찰할 금액 입력"></li>
 												<li><a class="button" id="bid">입찰하기</a></li>
-												<!-- <li><a href="" class="button">최소입찰</a></li> -->
-												<li><a class="button">즉시구매하기</a></li>
+												<li><a class="button" id="nowBuy">즉시구매하기</a></li>
 											</ul>
 										</form>
 									</div>
