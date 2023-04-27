@@ -329,12 +329,13 @@
 	
 	
 	// 찜하기,취소 나중에 click 익명 함수로
-	function likeit(pnum){
+	function likeit(pnum, id){
 		$.ajax({
 			type: "GET",
 			url: "/product/likeProd",
-			dataType: "text",
-			data: {product_num : pnum},
+			dataType: "json",
+			data: {product_num : pnum
+				,seller : id},
 			success: function(response){
 				console.log("찜 목록");
 			},

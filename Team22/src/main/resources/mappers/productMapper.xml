@@ -45,16 +45,38 @@
 	<!-- 찜하기 -->
 	<update id="likeProd">
 		UPDATE PRODUCT SET PRODUCT_FAVORITE = PRODUCT_FAVORITE + 1
-		WHERE PRODUCT_NUM = #{PRODUCT_NUM}
+		WHERE PRODUCT_NUM = #{product_num}
 	</update>
 	<!-- 찜하기 -->
 	
 	<!-- 찜취소 -->
 	<update id="likeProdCancel">
 		UPDATE PRODUCT SET PRODUCT_FAVORITE = PRODUCT_FAVORITE - 1
-		WHERE PRODUCT_NUM = #{PRODUCT_NUM}
+		WHERE PRODUCT_NUM = #{product_num}
 	</update>
 	<!-- 찜취소 -->
+	
+	<!-- 회원이 찜목록에 있는지 판단 -->
+	<select id="likeExist" resultType="Integer">
+		select count(member_id) from favorite
+		where member_id = #{member_id}
+	</select>
+	<!-- 회원이 찜목록에 있는지 판단 -->
+	
+	<!-- 회원 찜 -->
+	<insert id="regFav">
+		insert into favorite
+		values (#{pnum}, #{id})
+	</insert>
+	<!-- 회원 찜 -->
+	
+	<!-- 회원 찜 취소 -->
+	<delete id="delFav">
+		delete from favorite
+		where product_num = #{pnum}
+		and member_id = #{id}
+	</delete>
+	<!-- 회원 찜 취소 -->
 	
 	<!-- 상품 세부정보 -->
 	<select id="getProdInfo" resultType="hashMap">
@@ -80,10 +102,12 @@
 	
 	<!-- 판매자 온도 -->
 	<select id="getScore" resultType="double">
-		SELECT AVG(RV_SCORE)
-		FROM REVIEW
-		GROUP BY REVIEWEE
-		HAVING REVIEWEE = #{reviewee}
+		SELECT IFNULL(
+        (SELECT AVG(RV_SCORE)
+         FROM REVIEW
+         WHERE REVIEWEE = #{reviewee}
+         GROUP BY REVIEWEE),
+    2.5)
 	</select>
 	<!-- 판매자 온도 -->
 	
@@ -96,8 +120,8 @@
 	<!-- 상품 등록 -->
 	<insert id="regProd">
 		INSERT INTO PRODUCT 
-		VALUES(DEFAULT, #{product_seller}, #{product_cate}, #{product_title}, #{product_content}, #{product_price}
-		, #{product_grade}, #{product_pic}, DEFAULT, DEFAULT, DEFAULT, DEFAULT)
+		VALUES(default, #{product_seller}, #{product_cate}, #{product_title}, #{product_content}, #{product_price}
+		, #{product_grade}, #{product_pic}, default, default, default, default)
 	</insert>
 	<!-- 상품 등록 -->
 </mapper>

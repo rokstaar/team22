@@ -49,7 +49,29 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public Map<String, Object> getProdInfo(int pnum) {
+	public int likeExist(String seller) {
+		return pdao.likeExist(seller);
+	}
+	
+	@Override
+	public void regFavorite(int pnum, String seller) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("pnum", pnum);
+		map.put("id", seller);
+		pdao.regFavorite(map);
+	}
+
+	@Override
+	public void delFavorite(int pnum, String seller) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("pnum", pnum);
+		map.put("id", seller);
+		pdao.delFavorite(map);
+	}
+
+
+	@Override
+	public Map<String, Object> getProdInfo(Integer pnum) {
 		logger.info("service - 상품 정보 가져오기");
 		return pdao.getProdInfo(pnum);
 	}
@@ -115,6 +137,7 @@ public class ProductServiceImpl implements ProductService{
 			response.addCookie(viewedCookie);
 		}
 	}
+
 
 
 }

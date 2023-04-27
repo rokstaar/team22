@@ -19,8 +19,17 @@ public interface ProductDAO {
 	// 찜취소
 	public void likeProdCancel(int pnum);
 	
+	// 찜목록에 당 회원 있는지
+	public int likeExist(String member_id);
+	
+	// 찜 회원 등록
+	public void regFavorite(Map<String, Object> map);
+	
+	// 찜 회원 삭제
+	public void delFavorite(Map<String, Object> map);
+	
 	// 상품 세부정보
-	public Map<String, Object> getProdInfo(int product_num);
+	public Map<String, Object> getProdInfo(Integer product_num);
 	
 	// 같은 종류의 상품 추천
 	public List<ProductVO> getRecProdList(String product_cate);

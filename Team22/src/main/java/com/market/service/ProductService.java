@@ -21,8 +21,17 @@ public interface ProductService {
 	// 상품 찜 취소
 	public void likeProdCancel(int pnum);
 	
+	// 회원 찜목록 있는지
+	public int likeExist(String seller);
+	
+	// 찜 회원 등록
+	public void regFavorite(int pnum, String seller);
+	
+	// 찜 취소
+	public void delFavorite(int pnum, String seller);
+	
 	// 해당 상품 정보 가져오기
-	public Map<String, Object> getProdInfo(int pnum);
+	public Map<String, Object> getProdInfo(Integer pnum);
 	
 	// 같은 카테고리의 상품 상위 8개 무작위 추출
 	public List<ProductVO> getRecProdList(String category);

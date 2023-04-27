@@ -36,10 +36,28 @@ public class ProductDAOImpl implements ProductDAO{
 	public void likeProdCancel(int product_num) {
 		session.update(NAMESPACE + ".likeProdCancel", product_num);
 	}
+	
+	@Override
+	public int likeExist(String member_id) {
+		return session.selectOne(NAMESPACE + ".likeExist", member_id);
+	}
+
+	@Override
+	public void regFavorite(Map<String, Object> map) {
+		session.insert(NAMESPACE + ".regFav", map);
+	}
+
+	@Override
+	public void delFavorite(Map<String, Object> map) {
+		session.delete(NAMESPACE + ".delFav", map);
+	}
+
+	
+	
 
 	// 상품 정보
 	@Override
-	public Map<String, Object> getProdInfo(int product_num) {
+	public Map<String, Object> getProdInfo(Integer product_num) {
 		logger.info("DAO - 상품 정보 가져오기");
 		return session.selectOne(NAMESPACE + ".getProdInfo", product_num);
 	}
@@ -64,6 +82,6 @@ public class ProductDAOImpl implements ProductDAO{
 	public void incView(Integer product_num) {
 		session.update(NAMESPACE + ".viewInc", product_num);
 	}
-	
+
 	
 }
