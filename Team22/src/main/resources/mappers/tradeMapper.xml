@@ -5,23 +5,34 @@
   
 <mapper namespace="com.market.mapper.tradeMapper">
 
+	<!-- 구매리뷰 정보 및 리스트 -->
 	<select id="buyReviewList" resultType="map">
 		SELECT DISTINCT r.reviewer, r.reviewee, r.rv_content, m.member_pic, p.product_title, r.rv_score, p.product_num,
-		p.product_pic, t.t_div
+		p.product_pic, t.t_div, t.type_div
 		FROM review r
 		JOIN member m ON r.reviewer = m.member_id
 		JOIN product p ON r.reviewee = p.product_seller
+		and r.rv_num = p.product_num
 		JOIN trade t ON r.reviewer = t.buy_mem_id
-		WHERE reviewer = t.buy_mem_id AND t.t_div = 1;
+		WHERE reviewer = #{id} AND t.t_div = 1;
 	</select>
+	<!-- 구매리뷰 정보 및 리스트 -->
 	
-	<select id="tSellReview" resultType="com.market.domain.TradeVO">
-		<![CDATA[
-		select * 
-		from trade
-		]]>
+	<!-- 사용자의 판매 정보 -->
+	<select id="tSellReview" resultType="map">
+		select r.reviewer, r.reviewee, r.rv_content, m.member_pic, p.product_title, r.rv_score, p.product_num,
+		p.product_pic, t.t_div, t.type_div
+		from trade t
+		join product p on t.sell_mem_id = p.product_seller
+		join member m on t.buy_mem_id = m.member_id
+		join review r on r.reviewer = m.member_id
+		and r.rv_num = p.product_num
+		where reviewee = #{id};
+				
 	</select>
+	<!-- 사용자의 판매 정보 -->
 	
+	<!-- 구매내역  -->
 	<select id="buyList" resultType="map">
 		select t.t_num, t.buy_mem_id,t.sell_mem_id,t.t_div,t.type_div,p.product_title,t.prod_num,
 		p.product_price, p.product_pic,p.product_cate,m.member_nickname
@@ -29,9 +40,11 @@
 		 join product p on t.sell_mem_id = p.product_seller
          and t.prod_num = p.product_num 
 		 join member m on t.buy_mem_id = m.member_id
-		 where t.buy_mem_id = m.member_id and t.t_div = 1;
+		 where t.buy_mem_id = #{id} and t.t_div = 1;
 	</select>
+	<!-- 구매내역  -->
 	
+	<!-- 판매내역  -->
 	<select id="prodList" resultType="map">
 		select t.t_num, t.buy_mem_id,t.sell_mem_id,t.t_div,t.type_div,p.product_title,t.prod_num,
 		p.product_price,p.product_pic,p.product_cate,m.member_nickname
@@ -39,20 +52,43 @@
 		 join product p on t.sell_mem_id = p.product_seller
          and t.prod_num = p.product_num
 		 join member m on t.buy_mem_id = m.member_id
-		where t.buy_mem_id = m.member_id and t.t_div = 2;
-	
+		 where t.sell_mem_id = p.product_seller and t.prod_num = p.product_num and t_div=2;
 	</select>
+	<!-- 판매내역  -->
 	
+	<!-- 구매 리뷰  -->
 	<insert id="insertReview">
-		insert into review(reviewee, reviewer, rv_score, rv_content)
-		values(#{reviewee},#{reviewer},#{rv_score},#{rv_content});
+		insert into review(rv_num,reviewee, reviewer, rv_score, rv_content)
+		values(#{rv_num},#{reviewee},#{reviewer},#{rv_score},#{rv_content});
 	</insert>
+	<!-- 구매 리뷰  -->
 		
+	<!-- 판매자 온도  -->
 	<select id="avgScore" resultType="double">
 		select avg(rv_score)
 		from review
-		where reviewee = #{reviewee};
-		
+		group by reviewee
+		having reviewee = #{reviewee}
 	</select>
-
+	<!-- 판매자 온도  -->
+	
+	<!-- 내 판매 상품  -->
+	<select id="myProdList" resultType="com.market.domain.ProductVO">
+		select product_pic,product_title,product_price,product_date,product_status,product_num,product_seller
+		from product
+		where product_seller = #{id}
+	
+	</select>
+	
+	<select id="auList" resultType="map">
+		select a.au_num, a.au_startPrice,a.au_sellerId, a.au_buyerId, a.au_bidPirce, a.au_endPirce, a.au_pic, a.au_status,
+		a.au_title, a.au_content, a.au_category,t.type_div
+		from trade t
+		join auction a on t.sell_mem_id = a.au_sellerId	
+		and t.au_num = a.au_num
+		join member m on t.buy_mem_id = m.member_id
+		where t.buy_mem_id = #{id} and t.type_div = 2;
+	</select>
+	
+	
 </mapper>

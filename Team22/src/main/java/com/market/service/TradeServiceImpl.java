@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.market.domain.ProductVO;
 import com.market.domain.ReviewVO;
 import com.market.domain.TradeVO;
 import com.market.persistence.TradeDAO;
@@ -22,22 +23,22 @@ public class TradeServiceImpl implements TradeService{
 	private TradeDAO tdao;
 	
 	@Override
-	public List<Map<String,Object>> getBuyReview() throws Exception {
+	public List<Map<String,Object>> getBuyReview(String id) throws Exception {
 		
-		return tdao.buyReviewList();
+		return tdao.buyReviewList(id);
 	}
 
 	@Override
-	public List<TradeVO> tSellReview() throws Exception {
+	public List<Map<String,Object>> tSellReview(String id) throws Exception {
 		
-		return tdao.tSellReview();
+		return tdao.tSellReview(id);
 	}
 
 	@Override
-	public List<Map<String,Object>> buyList() throws Exception {
+	public List<Map<String,Object>> buyList(String id) throws Exception {
 		
 		
-		return tdao.buyList();
+		return tdao.buyList(id);
 		
 	}
 	
@@ -57,6 +58,12 @@ public class TradeServiceImpl implements TradeService{
 	@Override
 	public void memberScore(double score) throws Exception {
 		tdao.avgScore(score);
+	}
+
+	@Override
+	public List<ProductVO> myProdList(String id) throws Exception {
+
+		return tdao.getProdList(id);
 	}
 
 	

@@ -21,27 +21,26 @@
 									      
 									      <div class="item">
 									       <div>
-									      <a href="/trade/review" > 
-									          <div class="text">거래내역</div>
-									          <div class="rightBlue number">3</div></a>
+									      <a href="/trade/buyList" > <div class="text">거래내역</div>
+									          <div class="rightBlue number">6</div></a>
 									        </div>
 									      </div>      
 									      <div class="item">
 									        <div>
-									        <a href="/trade/buyList" > <div class="text">거래내역</div>
+									        <a href="/trade/mySaleProduct" > <div class="text">판매내역</div>
 									          <div class="rightBlue number">6</div></a>
 									        </div>
 									      </div>     
 									      <div class="item">
 									        <div>
-									          <div class="text">경매내역</div>
-									          <div class="rightBlue number">0</div>
+									         <a href="/trade/myAuctionList" > <div class="text">경매내역</div>
+									          <div class="rightBlue number">6</div></a>
 									        </div>
 									      </div>     
 									      <div class="item">
 									        <div>
-									          <div class="text">찜한상품</div>
-									          <div class="rightBlue number">1</div>
+									          <a href="/trade/favorite" > <div class="text">찜한상품</div>
+									          <div class="rightBlue number">6</div></a>
 									        </div>
 									      </div>     
 									      <div class="item">

@@ -366,43 +366,12 @@ textarea{
 						        </div>						
 								<div class="item">
 						        <div>
-   		        				<a href="/product/prodInfo?product_num=${vo.product_num }&seller=${vo.reviewer}">
+   		        				<a href="/product/prodInfo?product_num=${vo.product_num }&seller=${vo.reviewee}">
 						          <div>${vo.rv_content}</div></a>
 						        </div>
 						        </div>								
 							
-							<div class="script">
-							
- 	       
-						         <button name="asd" class="trigger">구매후기 작성</button>      
-								     <div class="modal"> 
-								         <div class="modal-content"> 
-								             <span class="close-button">&times;</span> 
-								             <h1 class="title">구매후기</h1> 
-								             <form action="/trade/reviewInsert" method="POST">
-								               
-								               <label for="">${vo.member_nickname }님에게 구매후기 작성해주세요.</label> 
-								               <label></label> 
-								               <textarea name="rv_content" placeholder="Test Message" required="required"></textarea> 
-								               <select name="rv_score" id="rv_score" style="width:100px;height:30px;">
-													<option>평점</option>
-													<option value="5">5</option>
-													<option value="4">4</option>
-													<option value="3">3</option>
-													<option value="2">2</option>
-													<option value="1">1</option>
-													<option value="0">0</option>
-												</select>
-								               <input type="button" id="cancel" value="취소" onclick="location.href='/trade/buyReview'" > 
-								               <input type="submit" id="submit" value="작성"> 
-								             	<input type="hidden" name="reviewee" value="${vo.sell_mem_id}">
-												<input type="hidden" name="reviewer" value="${vo.buy_mem_id}">
-												<input type="hidden" name="prod_num" value="${vo.prod_num}">
-												
-								             </form> 	
-								         </div> 
-								     </div>
-						        </div>
+									
 							</c:if>
 							</div>
 							</c:forEach>
@@ -427,7 +396,7 @@ textarea{
 	//alert("${result}");
 	var result = "${result}";
 	
-	if(result == "ok"){
+	if(result == "buy"){
 		alert("구매후기 작성 완료!");		
 	}
 	

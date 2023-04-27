@@ -38,7 +38,7 @@
 									      </div>     
 									      <div class="item">
 									        <div>
-									          <a href="/trade/favorite" > <div class="text">찜한상품</div>
+									        <a href="/trade/favorite" > <div class="text">찜한상품</div>
 									          <div class="rightBlue number">6</div></a>
 									        </div>
 									      </div>     
@@ -56,12 +56,12 @@
 									</div>	
 								
 									 <div class="infoContainer">
-									    <a href="/trade/buyList" class="item">
-									      <div>구매내역</div>
+									    <a href="/trade/mySaleProduct" class="item">
+									      <div>판매중</div>
 									    </a>    
 									   
-									    <a href="/trade/prodList" class="item">
-									      <div>판매내역</div>
+									    <a href="#" class="item">
+									      <div>판매완료</div>
 									    </a>    
 									  </div>	
 									  </section>

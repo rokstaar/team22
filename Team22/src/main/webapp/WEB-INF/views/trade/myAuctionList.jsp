@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE HTML>
 <!--
@@ -212,10 +213,23 @@ div{
   border-bottom: solid 5px #769fcd;
 } 
 
+/* 자바 스크립트 */
+ .script{
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 23px;
+  text-decoration: none;
+  color: 769fcd;
+  font-weight: bold;
+  border-bottom: solid 5px #769fcd;
+} 
+
 /* .infoContainer .item > div:first-child{
   margin-bottom: 2px;
 } */
-
 
 
 /*  */
@@ -317,18 +331,6 @@ textarea{
          visibility: visible; 
          transform: scale(1.0); 
          transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s; 
-}
-.script{
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  font-size: 23px;
-  text-decoration: none;
-  color: 769fcd;
-  font-weight: bold;
-  border-bottom: solid 5px #769fcd;
 } 
 		
 		</style>
@@ -345,42 +347,20 @@ textarea{
 			<div id="wrapper">
 
 				<!-- Main -->
-				<div id="main">
-					<div class="inner">
+					<div id="main">
+						<div class="inner">
 
 							<!-- Header -->
-					<%@ include file="../include/header.jsp" %>
-					<%@ include file="../include/mypageReview.jsp" %>
-				
-						<div class="shippingStatusContainer">
-							<c:forEach var = "vo" items="${tSellReview }">
-							<div class="infoContainer">
-							<%-- <c:if test="${vo.reviewer eq sessionScope.id }"> --%>
-						          
-						        <div class="item">
-						        <div>
-						        <img src="/resources/images/${vo.product_pic.split(',')[0] }" 
-						        onerror="this.src='/resources/images/default_product.jpg'" alt="" width="100px" height="80px">
-						        <%-- <div>${vo.member_pic }</div> --%>
-						        </div>
-						        </div>						
-								<div class="item">
-						        <div>
-   		        				<a href="/product/prodInfo?product_num=${vo.product_num }&seller=${vo.reviewee}">
-						          <div>${vo.rv_content}</div></a>
-						        </div>
-						        </div>								
+								<%@ include file="../include/header.jsp" %>
+								<%@ include file="../include/mypageTrade.jsp" %>
+							<div class="shippingStatusContainer">
+								
+										ㅁㄴㅇㄻㄴㅇ
 							
-							<%-- </c:if> --%>
 							</div>
-							</c:forEach>
-							
 									
 						</div>
-									
-	
 					</div>
-				</div>
 
 					<%@ include file="../include/sidebar.jsp" %>
 			</div>
@@ -391,41 +371,50 @@ textarea{
 			<script src="/resources/assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="/resources/assets/js/main.js"></script>
-<script type="text/javascript">
-	//alert("${result}");
-	var result = "${result}";
-	
-	if(result == "ok"){
-		alert("구매후기 작성 완료!");		
-	}
-	
-	 var modal = document.querySelector(".modal"); 
-     // var trigger = document.querySelector(".trigger");  
-      var trigger = document.querySelectorAll(".trigger");  
-      var closeButton = document.querySelector(".close-button"); 
-      var cancelButton = document.querySelector("#cancel");
 
-      console.log(trigger);
-      for( var i = 0; i < trigger.length; i++ ){
-     	 trigger[i].addEventListener("click", toggleModal); 
+		<!-- <script type="text/javascript">
+		$(".script").click(function(){
+			  var screenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;
+		      var screenTop = window.screenTop != undefined ? window.screenTop : screen.top;
+		 
+			
+			var pop_name = "WRITE FORM";
+			var popOption =	"width = 800, height = 650, left=300,top=100, location=no"
+			window.open("/trade/reviewInsert",pop_name,popOption);
+			
+		});
+	
+	</script> -->
+
+  <script type="text/javascript"> 
+         var modal = document.querySelector(".modal"); 
+        // var trigger = document.querySelector(".trigger");  
+         var trigger = document.querySelectorAll(".trigger");  
+         var closeButton = document.querySelector(".close-button"); 
+         var cancelButton = document.querySelector("#cancel");
+
+         console.log(trigger);
+         for( var i = 0; i < trigger.length; i++ ){
+        	 trigger[i].addEventListener("click", toggleModal); 
 			}
-     //console.log(modal);
+        //console.log(modal);
 
-     function toggleModal() { 
-          modal.classList.toggle("show-modal"); 
-      }
+        function toggleModal() { 
+             modal.classList.toggle("show-modal"); 
+         }
 
-     function windowOnClick(event) { 
-          if (event.target === modal) { 
-              toggleModal(); 
-          } 
-      }
+        function windowOnClick(event) { 
+             if (event.target === modal) { 
+                 toggleModal(); 
+             } 
+         }
 
-      /* trigger.addEventListener("click", toggleModal);  */
-      closeButton.addEventListener("click", toggleModal); 
-      cancel.addEventListener("click", toggleModal); 
-      window.addEventListener("click", windowOnClick); 
-</script>
+         /* trigger.addEventListener("click", toggleModal);  */
+         closeButton.addEventListener("click", toggleModal); 
+         cancel.addEventListener("click", toggleModal); 
+         window.addEventListener("click", windowOnClick); 
+     </script>
+
 
 
 	</body>

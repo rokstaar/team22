@@ -411,7 +411,7 @@ textarea{
 								               <input type="submit" id="submit" value="작성"> 
 								             	<input type="hidden" name="reviewee" value="${vo.sell_mem_id}">
 												<input type="hidden" name="reviewer" value="${vo.buy_mem_id}">
-												<input type="hidden" name="prod_num" value="${vo.prod_num}">
+												<input type="hidden" name="rv_num" value="${vo.prod_num}">
 												
 								             </form> 	
 								         </div> 

@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.market.domain.ProductVO;
 import com.market.domain.ReviewVO;
 import com.market.domain.TradeVO;
 
@@ -24,22 +25,22 @@ public class TradeDAOImpl implements TradeDAO{
 	private static final Logger logger = LoggerFactory.getLogger(TradeDAOImpl.class);
 
 	@Override
-	public List<Map<String,Object>> buyReviewList() throws Exception {
+	public List<Map<String,Object>> buyReviewList(String id) throws Exception {
 		
-		return sqlSession.selectList(NAMESPACE+".buyReviewList");
+		return sqlSession.selectList(NAMESPACE+".buyReviewList",id);
 	}
 
 	@Override
-	public List<TradeVO> tSellReview() throws Exception {
+	public List<Map<String,Object>> tSellReview(String id) throws Exception {
 		
-		return sqlSession.selectList(NAMESPACE+".tSellReview");
+		return sqlSession.selectList(NAMESPACE+".tSellReview",id);
 	}
 
 	@Override
-	public List<Map<String,Object>> buyList() throws Exception {
+	public List<Map<String,Object>> buyList(String id) throws Exception {
 		
 		
-		return sqlSession.selectList(NAMESPACE+".buyList");
+		return sqlSession.selectList(NAMESPACE+".buyList",id);
 	}
 	
 	@Override
@@ -58,6 +59,19 @@ public class TradeDAOImpl implements TradeDAO{
 	public void avgScore(double score) throws Exception {
 		
 	}
+
+	@Override
+	public List<ProductVO> getProdList(String id) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".myProdList", id);
+	}
+
+	@Override
+	public List<Map<String, Object>> auList(String id) throws Exception {
+		
+		
+		return null;
+	}
+	
 	
 	
 	
