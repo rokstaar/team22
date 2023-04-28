@@ -115,6 +115,15 @@
 							</div>
 						
 				</div>
+				
+				<!-- 채팅하기 -->
+				<form action="/chatroom" method="post">
+					<input type="hidden" value="${product_num}" name="product_num" readonly >
+					<input type="hidden" value="${seller}" name="seller" readonly >
+					<input type="submit" value="판매자와 채팅하기">
+				 </form>
+				 <!-- 채팅하기 -->
+				 
 				<div class="div-member">
 					<div class="div-img" id="score">
 						<c:choose>
@@ -132,9 +141,11 @@
 							</c:otherwise>
 						</c:choose>
 						</div>
+						
 						<div class="score">
 					평판 : <fmt:formatNumber value="${score }" pattern="#.##" />
 					</div>
+					
 				</div>
 			</div>
 		</section>			
