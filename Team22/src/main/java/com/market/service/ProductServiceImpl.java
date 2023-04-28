@@ -1,7 +1,9 @@
 package com.market.service;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -15,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.market.domain.ProductVO;
 import com.market.persistence.ProductDAO;
@@ -48,8 +51,11 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public int likeExist(String seller) {
-		return pdao.likeExist(seller);
+	public int likeExist(int pnum, String seller) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("pnum", pnum);
+		map.put("id", seller);
+		return pdao.likeExist(map);
 	}
 	
 	@Override
@@ -90,6 +96,7 @@ public class ProductServiceImpl implements ProductService{
 						, MultipartFile[] files
 						, HttpServletRequest request) throws Exception {
 		logger.info("service - 상품 등록");
+		// String currentWorkingDirectory = new File(".").getCanonicalPath(); -> Team22까지
 		String path = "C:\\Users\\ITWILL\\git\\team22\\Team22\\src\\main\\webapp\\resources\\images";
 		StringBuilder sb = new StringBuilder();
 		
@@ -112,6 +119,14 @@ public class ProductServiceImpl implements ProductService{
 		pdao.regProduct(vo);
 	}
 
+	@Override
+	public void regProduct(ProductVO vo, MultipartHttpServletRequest request) throws Exception {
+		List<MultipartFile> files = request.getFiles("product_pics");
+		String path = new File(".").getCanonicalPath() + "\\src\\main\\webapp\\resources\\images";
+		
+		List<String> fileNames = fileProcess(request, path);
+	}
+	
 	@Override
 	public void incView(HttpServletRequest request, HttpServletResponse response, Integer product_num) {
 		String viewedCookieName = "vc" + product_num;
@@ -138,5 +153,42 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 
-
+	// 파일 업로드 처리
+		private List<String> fileProcess(MultipartHttpServletRequest multiRequest
+										,String path) throws Exception {
+			// 파일이름 저장하는 리스트
+			List<String> fileList = new ArrayList<String>();
+			
+			// input-file 파라미터 정보 가져오기
+			Iterator<String> fileNames = multiRequest.getFileNames();
+			while(fileNames.hasNext()) {
+				String fileName = fileNames.next();
+				
+				// 이름에 해당하는 실제 파일의 데이터를 저장
+				MultipartFile mFile = multiRequest.getFile(fileName);
+				// 파일의 이름
+				String oFileName = mFile.getOriginalFilename();
+				fileList.add(oFileName);
+				
+				File file = new File(path + fileName);
+				// 파일의 내용 추가
+				// 업로드한 파일이 있을 때
+				if(mFile.getSize() != 0) {
+					//해당 경로에 파일이 없을 경우
+					if(!file.exists()) {
+						// 해당하는 디렉토리 생성 후 파일을 업로드
+						if(file.getParentFile().mkdirs()) {
+							file.createNewFile();
+						}// mkdir
+					}// exists
+					
+					// 임시로 생성(저장) MultipartFile을 실제 파일로 전송
+					mFile.transferTo(new File(path + oFileName));
+				}// getSize
+			}
+			logger.info(fileList.toString());
+			
+			return fileList;
+		}
+		// 파일 업로드 처리
 }

@@ -59,7 +59,8 @@
 	<!-- 회원이 찜목록에 있는지 판단 -->
 	<select id="likeExist" resultType="Integer">
 		select count(member_id) from favorite
-		where member_id = #{member_id}
+		where member_id = #{id}
+		and product_num = #{pnum}
 	</select>
 	<!-- 회원이 찜목록에 있는지 판단 -->
 	

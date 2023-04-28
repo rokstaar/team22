@@ -20,7 +20,7 @@ public interface ProductDAO {
 	public void likeProdCancel(int pnum);
 	
 	// 찜목록에 당 회원 있는지
-	public int likeExist(String member_id);
+	public int likeExist(Map<String, Object> map);
 	
 	// 찜 회원 등록
 	public void regFavorite(Map<String, Object> map);

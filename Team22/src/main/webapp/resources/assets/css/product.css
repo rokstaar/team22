@@ -55,7 +55,9 @@ section div img{
 }
 
 .product-section{
+	max-width: 420px;
 	height: 200px;
+	display: inline-block;
 }
 
 .select-container {
@@ -172,6 +174,11 @@ div.smalldiv{
   float: right;
 }
 
+.div-likeit{
+	display: flex;
+    justify-content: flex-end;
+    width: 420px;
+}
 
 #filter-form{
 	display: flex;
@@ -205,8 +212,59 @@ div.smalldiv{
 	
 }
 
+.regProd{
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	margin: 2em 0;
+}
+
+.file-input-wrapper{
+	margin: 10px 0px;
+}
+
+.file-input-wrapper input{
+	width:330px;
+}
+
+#div-file{
+	display: flex;
+}
+
+input,
+textarea{
+	margin-top: 10px;
+}
+
+#file-inputs-container+input[type="submit"]{
+	width: fit-content;
+}
+
 #score{
 	max-width: 60px;
+}
+
+#regProd{
+	width: 800px;
+    display: flex;
+    flex-direction: column;
+    /* align-content: center; */
+    flex-wrap: wrap;
+}
+
+.img-wrapper {
+  width: 420px; /* Set the desired fixed width */
+  height: 250px; /* Set the desired fixed height */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.img-wrapper img {
+  max-width: 100%;
+  max-height: 100%;
 }
 
 
@@ -239,6 +297,7 @@ div.smalldiv{
 
 .main-image img {
   max-width: 100%;
+  max-height: 100%;
   height: auto;
 }
 
@@ -265,3 +324,23 @@ div.smalldiv{
   height: 100px;
   object-fit: cover;
 }
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes zoom {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.blink {
+  animation: blink 0.5s linear;
+}
+
+.zoom {
+  animation: zoom 0.5s linear;
+}
+
