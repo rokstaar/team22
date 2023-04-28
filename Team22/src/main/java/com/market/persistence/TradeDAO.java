@@ -25,7 +25,9 @@ public interface TradeDAO {
 	public List<ProductVO> getProdList(String id) throws Exception;
 	// 내가 신청한 경매 리스트
 	public List<AuctionVO> auBuyList(String id) throws Exception;
-	
-	
+	// 내가 신청한 경매 상품들의 현재 정보
+	public List<AuctionVO> getAList()throws Exception;
+	// 내가 판매중인 경매상품
+		public List<AuctionVO> getAuctList(String id) throws Exception;
 }
 

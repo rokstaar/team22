@@ -72,6 +72,17 @@ public class TradeDAOImpl implements TradeDAO{
 		return sqlSession.selectList(NAMESPACE+".auBuyList", id);
 	}
 
+	@Override
+	public List<AuctionVO> getAList() throws Exception {
+
+		return sqlSession.selectList(NAMESPACE+".getAList");
+	}
+
+	@Override
+	public List<AuctionVO> getAuctList(String id) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".myAuctionList", id);
+	}
+
 	
 	
 	

@@ -72,6 +72,18 @@ public class TradeServiceImpl implements TradeService{
 		return tdao.auBuyList(id);
 	}
 
+	@Override
+	public List<AuctionVO> getAuctionList() throws Exception {
+		return tdao.getAList();
+	}
+
+	@Override
+	public List<AuctionVO> mySaleAuction(String id) throws Exception {
+		// TODO Auto-generated method stub
+		return tdao.getAuctList(id);
+	}
+	
+	
 	
 	
 	

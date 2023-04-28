@@ -15,5 +15,6 @@ public class TradeVO {
 	private int type_div;
 	private int prod_num;
 	private int au_num;
+	private int ran_num;
 	
 }

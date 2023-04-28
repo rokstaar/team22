@@ -65,3 +65,7 @@
 									    </a>    
 									  </div>	
 									  </section>
+									  
+				  <a href="/trade/mySaleProduct?product" class="button" style="display: inline-block; float: right;">거래</a>
+				  <a href="/trade/mySaleAuction" class="button" style="display: inline-block; float: right;">경매</a>
+				<a href="/trade/mySaleProduct?" class="button" style="display: inline-block; float: right;">응모</a>

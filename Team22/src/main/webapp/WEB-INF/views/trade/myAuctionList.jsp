@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE HTML>
 <!--
 	Editorial by HTML5 UP
@@ -295,7 +296,7 @@ div{
 									      
 									    </div>
 								
-													    
+																				    
 									  </div>  
 									</div>	
 								
@@ -314,23 +315,28 @@ div{
 									<header class="major">
 									</header>
 									<div class="posts">
-										<c:forEach var="vo" items="${buyAuctionList }">
+										<c:forEach begin="0" var="i" end="${buyAuctionList.size() }">
 											<article>
 										
-										<a class="product-section" href="/auction/aDetail?au_num=${vo.au_num }">
-											<img src="/resources/images/${vo.au_pic.split(',')[0] } " width="511px" height="306px" 
+										<a class="product-section" href="/auction/aDetail?au_num=${buyAuctionList[i].au_num }">
+											<img src="/resources/images/${buyAuctionList[i].au_pic.split(',')[0] } " width="511px" height="306px" 
 											onerror="this.src='/resources/images/default_product.jpg'">
-										<div>${vo.au_title }</div>
-
+										<div>
+										${buyAuctionList[i].au_title }</div>
+										
 										<div style="float:left;">
-											<fmt:formatNumber value="${vo.au_bidPrice }" pattern="#,###" />원
-										</div>
-										<div style="float:right;">
+											현재 금액<fmt:formatNumber value="${getAList[i].au_bidPrice }" pattern="#,###" />원
+										</div><br>
+										
+										<div style="float:left;">
+											입찰 금액<fmt:formatNumber value="${buyAuctionList[i].au_bidPrice }" pattern="#,###" />원
+										</div><br>
+											
+										<div style="float:left;">
 											<div>경매 종료시간</div>
-											${vo.au_endTime }
+											${buyAuctionList[i].au_endTime }
 										</div>									
 											</a>
-										
 											</article>
 										</c:forEach>
 									</div>

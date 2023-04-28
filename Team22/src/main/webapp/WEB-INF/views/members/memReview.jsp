@@ -261,7 +261,6 @@ div{
 									          <div class="text">닉네임</div>
 									        </div>
 									      </div>
-									      ${memReview }
 									       <div class="item">
 									        <div>
 									        <a href="/members/memberInfo?mem_id=${vo.reviewer} " > <div class="text">판매상품</div>

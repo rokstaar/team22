@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.annotation.JacksonInject.Value;
 import com.market.domain.MemberVO;
 import com.market.domain.ProductVO;
 import com.market.service.MemberService;
@@ -141,5 +142,18 @@ public class MembersController {
 			return "/members/memReview";
 		}
 	
-
+	// 회원 수정	
+		@RequestMapping(value = "/memberUpdate",method = RequestMethod.GET)
+		public String memberUpdateGET(HttpSession session) {
+			String id = (String)session.getAttribute("id");
+			if(id == null) {
+				return "redirect:/login";
+			}
+			
+			return "/members/updateForm";
+		}
+		
+		
+		
+		
 }

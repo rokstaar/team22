@@ -129,11 +129,26 @@ public class TradeController {
 		logger.info("@@@@@@@@@@@@@@@"+id);
 		
 		List<AuctionVO> buyAuctionList = service.buyAuctionList(id);
+		List<AuctionVO> getAList = service.getAuctionList();
 		
 		model.addAttribute("buyAuctionList", buyAuctionList);
+		model.addAttribute("getAList", getAList);
 		
 		
 		return "/trade/myAuctionList";
 	}
+	
+	// 내 경매 판매 목록
+	@RequestMapping(value = "/mySaleAuction", method = RequestMethod.GET)
+	public String getSaleAuction(Model model,HttpSession session) throws Exception{
+		
+		String id = (String)session.getAttribute("id");
+		
+		List<AuctionVO> mySaleAuction = service.mySaleAuction(id);
+		
+		model.addAttribute("mySaleAuction",mySaleAuction);
+		
+		return "/trade/mySaleAuction";
+	} 
 	
 }

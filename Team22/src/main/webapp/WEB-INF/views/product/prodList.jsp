@@ -167,7 +167,6 @@
 			<div style="float:left;">
 				<fmt:formatNumber value="${list.product_price }" pattern="#,###" />원
 			</div>
-			
 			</a>
 			
 				</article>

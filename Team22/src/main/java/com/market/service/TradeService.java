@@ -26,4 +26,9 @@ public interface TradeService {
 	public List<ProductVO> myProdList(String id) throws Exception;
 	
 	public List<AuctionVO> buyAuctionList(String id) throws Exception;
+	
+	public List<AuctionVO> getAuctionList() throws Exception;
+	
+	public List<AuctionVO> mySaleAuction(String id) throws Exception;
+	
 }

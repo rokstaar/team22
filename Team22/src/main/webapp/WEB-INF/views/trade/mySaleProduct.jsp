@@ -249,9 +249,12 @@ div{
 								
 										<div class="shippingStatusContainer">
 										<section>
+										
 									<header class="major">
+									
 									</header>
 									<div class="posts">
+									
 										<c:forEach var="vo" items="${myProdList }">
 											<article>
 										

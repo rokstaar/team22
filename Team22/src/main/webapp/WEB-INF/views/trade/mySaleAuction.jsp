@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE HTML>
 <!--
 	Editorial by HTML5 UP
@@ -9,18 +9,17 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <html>
-<head>
-<title>My Page</title>
-	
-<style type="text/css">
-body{
+	<head>
+		<title>My Page</title>
+		<style type="text/css">
+		body{
   padding: 0;
   margin: 0;
 }
-
 div{
   box-sizing: border-box;
 }
+
 
 /* alert badge */
 .circle{
@@ -186,7 +185,8 @@ div{
   background-color: white; 
   display: flex;
   height: 100px;
-  margin-bottom: 10px;    
+  margin-bottom: 10px;  
+  text-decoration: none;
 }
 
 /* .infoContainer .item{
@@ -209,10 +209,12 @@ div{
   text-decoration: none;
   color: 769fcd;
   font-weight: bold;
-}
-.infoContainer .item > div:first-child{
+  border-bottom: solid 5px #769fcd;
+} 
+
+/* .infoContainer .item > div:first-child{
   margin-bottom: 2px;
-}
+} */
 
 
 
@@ -224,19 +226,18 @@ div{
 /*   background-color: #f8f8f8; */
 }
 		
-</style>
-
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-	<link rel="stylesheet" href="/resources/assets/css/main.css" />
-	<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-	<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-</head>
-
+		</style>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="/resources/assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+	</head>
 	<body>
+
 		<!-- Wrapper -->
-		<div id="wrapper">
+			<div id="wrapper">
 
 				<!-- Main -->
 					<div id="main">
@@ -244,80 +245,52 @@ div{
 
 							<!-- Header -->
 								<%@ include file="../include/header.jsp" %>
-
-							<!-- Banner -->
-								<section id="banner">
-									<div class="content">
-									<div class="wrap">
-									  <div class="shippingStatusContainer">
-									    <div class="status">
-									      
-									      <div class="item">
-									        <div>
-									        <img alt="프로필사진" src="/resources/img/soul.jpg" width="150px" height="100px" >
-									       </div>
-									      	
-									        <div>
-									          <div class="text">${sessionScope.id }</div>
-									       	   <div class="text">페이 : 50,000원</div>
-									         <a href="/members/memberUpdate"><div class="memberUpdate">회원정보수정</div></a>
-									        </div>
-									      </div>
-									      
-									      <div class="item">
-									        <div>
-									          <a href="/trade/buyList" > <div class="text">거래내역</div>
-									          <div class="rightBlue number">6</div></a>
-									        </div>
-									      </div>     
-									       <div class="item">
-									        <div>
-									        <a href="/trade/mySaleProduct" > <div class="text">판매내역</div>
-									          <div class="rightBlue number">6</div></a>
-									        </div>
-									      </div>      
-									      <div class="item">
-									        <div>
-									          <a href="/trade/myAuctionList" > <div class="text">경매내역</div>
-									          <div class="rightBlue number">6</div></a>
-									        </div>
-									      </div>     
-									      <div class="item">
-									        <div>
-									          <a href="/trade/favorite" > <div class="text">찜한상품</div>
-									          <div class="rightBlue number">6</div></a>
-									        </div>
-									      </div>     
-									      <div class="item">
-									      <a href="/trade/buyReview">  <div>
-									          <div class="text">거래후기</div>
-									          <div class="rightBlue number">3</div></a>
-									        </div>
-									      </div>        
-									      
-									    </div>
-
-													    
-									  </div>  
-									</div>	
-									 
-									 <div class="infoContainer">
-									    <a href="#" class="item">
-									      <div>거래내역</div>
-									    </a>    
-									 
-									  </div>	
+								<%@ include file="../include/mypageProdList.jsp" %>
+								
+										<div class="shippingStatusContainer">
+										<section>
+										
+									<header class="major">
 									
+									</header>
+									<div class="posts">
+									
+										<c:forEach var="vo" items="${mySaleAuction }">
+											<article>
+										
+										<a class="product-section" href="/auction/aDetail?au_num=${vo.au_num }">
+											<img src="/resources/images/${vo.au_pic.split(',')[0] } " width="511px" height="306px" 
+											onerror="this.src='/resources/images/default_product.jpg'">
+										<div>${vo.au_title }</div>
+
+										<div style="float:left;">
+											입찰 금액<fmt:formatNumber value="${vo.au_bidPrice }" pattern="#,###" />원
+										</div><br>
+										<div style="float:left;">
+											<div>경매 종료시간</div>
+											${vo.au_endTime }
+										</div>
+										</a>
+										
+											</article>
+										</c:forEach>
 									</div>
 								</section>
-
+									</div>
+									
+	
 						</div>
 					</div>
 
 					<%@ include file="../include/sidebar.jsp" %>
 			</div>
 
+		<!-- Scripts -->
+			<script src="/resources/assets/js/jquery.min.js"></script>
+			<script src="/resources/assets/js/skel.min.js"></script>
+			<script src="/resources/assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="/resources/assets/js/main.js"></script>
 
-		
 	</body>
 </html>

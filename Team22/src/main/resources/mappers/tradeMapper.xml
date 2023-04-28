@@ -83,13 +83,35 @@
 	
 	<!-- 경매 신청 내역  -->
 	<select id="auBuyList" resultType="map">
-		select * 
+		select au_num, au_startPrice, au_endTime, au_sellerId, au_buyerId, max(au_bidPrice)as au_bidPrice, au_endPrice, au_pic,
+		au_status, au_title,au_content, au_category
 		from auction
-		where au_buyerId = #{id}
+		where au_buyerId = #{id} and au_num is not null
+		group by au_num
+		order by au_num desc;
+
 		
 	</select>
 	<!-- 경매 신청 내역  -->
 	
+	<!-- 전체 경매 리스트  -->
+	<select id="getAList" resultType="com.market.domain.AuctionVO">
+		select max(au_bidPrice) as au_bidPrice
+		from auction
+		group by au_num
+		order by au_num desc;
+	</select>
+	<!-- 전체 경매 리스트  -->
 	
+	<!-- 내 경매 판매목록 -->
+	<select id="myAuctionList" resultType="com.market.domain.AuctionVO">
+		select au_num, au_startPrice, au_endTime, au_sellerId, au_buyerId, max(au_bidPrice)as au_bidPrice, au_endPrice, au_pic,
+		au_status, au_title,au_content, au_category
+		from auction
+		where au_sellerId = #{id} and au_num is not null
+		group by au_num
+		order by au_num desc;
+	</select>
+	<!-- 내 경매 판매목록 -->
 	
 </mapper>
