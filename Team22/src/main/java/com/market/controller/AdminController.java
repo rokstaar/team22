@@ -42,13 +42,15 @@ public class AdminController {
 		int mcount = service.countMember();
 		int procount = service.countProduct();
 		int noticount = service.countNotice();
+		int tradecount = service.countTrade();
 				
-		logger.info(memberList.toString());
+		//logger.info(memberList.toString());
 		// view �럹�씠吏� �쟾�떖
 		model.addAttribute("memberList",memberList);
 		model.addAttribute("mcount", mcount);
 		model.addAttribute("procount", procount);
 		model.addAttribute("noticount", noticount);
+		model.addAttribute("tradecount", tradecount);
 		
 		
 		return "/admin/adminPage";
@@ -64,13 +66,15 @@ public class AdminController {
 		int mcount = service.countMember();
 		int procount = service.countProduct();
 		int noticount = service.countNotice();
+		int tradecount = service.countTrade();
 		
-		logger.info(productList.toString());
+		//logger.info(productList.toString());
 		//view 페이지 전달
 		model.addAttribute("productList",productList);
 		model.addAttribute("mcount", mcount);
 		model.addAttribute("procount", procount);
 		model.addAttribute("noticount", noticount);
+		model.addAttribute("tradecount", tradecount);
 	}
 	
 	// 모든 공지사항 조회
@@ -83,13 +87,15 @@ public class AdminController {
 		int mcount = service.countMember();
 		int procount = service.countProduct();
 		int noticount = service.countNotice();
+		int tradecount = service.countTrade();
 		
-		logger.info(notiList.toString());
+		//logger.info(notiList.toString());
 		
 		model.addAttribute("notiList",notiList);
 		model.addAttribute("mcount", mcount);
 		model.addAttribute("procount", procount);
 		model.addAttribute("noticount", noticount);
+		model.addAttribute("tradecount", tradecount);
 	}
 	
 	// http://localhost:8080/admin/noticewrite
@@ -202,14 +208,15 @@ public class AdminController {
 			int mcount = service.countMember();
 			int procount = service.countProduct();
 			int noticount = service.countNotice();
+			int tradecount = service.countTrade();
 						
 			model.addAttribute("buyprodList",buyprodList);
 			model.addAttribute("sellprodList",sellprodList);
 			model.addAttribute("mcount", mcount);
 			model.addAttribute("procount", procount);
 			model.addAttribute("noticount", noticount);
+			model.addAttribute("tradecount", tradecount);
 		}
 		
 		
-
 	}

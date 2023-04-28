@@ -106,6 +106,12 @@ public class AdminDAOImpl implements AdminDAO {
 		return sqlSession.selectList(NAMESPACE+".getsellList");
 	}
 
+	@Override
+	public int countTrade() throws Exception {
+		
+		return sqlSession.selectOne(NAMESPACE+".countTrade");
+	}
+
 	
 	
 	

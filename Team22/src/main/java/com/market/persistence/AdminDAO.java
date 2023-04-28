@@ -29,6 +29,9 @@ public interface AdminDAO {
 	// 모든 판매내역 조회
 	public List<Map<String, Object>> getsellprodList() throws Exception;
 	
+	// 총 거래내역 수
+	public int countTrade() throws Exception;
+	
 	
 	
 	// 공지사항 쓰기

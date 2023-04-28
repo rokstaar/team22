@@ -353,38 +353,28 @@ textarea{
 						 <hr>
 						 
 					<div class="table-wrapper">
-							<table>
-									<tr>
-										<th>아이디</th>
-										<th>핸드폰번호</th>
-										<th>이름</th>
-										<th>이메일</th>
-										<th>페이</th>
-										<th>상세조회</th>
-									</tr>
+									<table>
+										<tr>
+											<th>아이디</th>
+											<th>핸드폰번호</th>
+											<th>이름</th>
+											<th>이메일</th>
+											<th>페이</th>
+											<th>상세조회</th>
+										</tr>
 
-							<c:forEach var="mlist" items="${memberList}"> 
-									<tr>
-										<td>${mlist.member_id} </td>
-										<td>${mlist.member_phone} </td>
-										<td>${mlist.member_name} </td>
-										<td>${mlist.member_email} </td>
-										<td>${mlist.member_pay} </td>
-									<td><button class="trigger">조회하기</button>   <td>	  
-								   <div class="modal">
-		                            <div class="modal-content"> 
-			                         <span class="close-button">&times;</span>
-									<h1 class="title">구매후기</h1> 
-									<h3>아이디 : ${mlist.member_id} </h3>
-									<h3>이름 : ${mlist.member_name }</h3> 
-			<input type="button" id="cancel" value="취소" onclick="location.href='/admin/adminPage'" > 
-		</div> 
-	</div>   
-</tr>								
- </c:forEach>										
-</table>
-				</div> 
-
+										<c:forEach var="mlist" items="${memberList}">
+											<tr>
+												<td>${mlist.member_id}</td>
+												<td>${mlist.member_phone}</td>
+												<td>${mlist.member_name}</td>
+												<td>${mlist.member_email}</td>
+												<td>${mlist.member_pay}</td>
+											</tr>
+										</c:forEach>	
+									</table>
+								</div> 
+								
 					</div>  
 				</div>	   
            </div>
