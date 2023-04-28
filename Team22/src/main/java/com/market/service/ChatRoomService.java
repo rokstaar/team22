@@ -12,4 +12,6 @@ public interface ChatRoomService {
 	
 	public ChatRoomVO searchChatRoomInfo(int room_id);
 	
+	public String searchTitle(int room_id);
+	
 }

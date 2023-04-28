@@ -38,7 +38,7 @@
 	from chat_room cr join product p
 	on cr.product_num = p.product_num
 	where cr.product_num = p.product_num
-	and cr.room_id = #{room_id}
+	and cr.room_id = #{cr.room_id}
   </select>
   
   

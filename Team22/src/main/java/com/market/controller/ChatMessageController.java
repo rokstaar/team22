@@ -2,16 +2,19 @@ package com.market.controller;
 
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.market.domain.ChatMessageVO;
 import com.market.domain.ChatRoomVO;
@@ -19,6 +22,7 @@ import com.market.service.ChatMessageService;
 import com.market.service.ChatRoomService;
 
 @Controller
+@RequestMapping("/chatroom")
 public class ChatMessageController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ChatMessageController.class);
@@ -26,44 +30,50 @@ public class ChatMessageController {
 	@Autowired
 	private ChatRoomService crservice;
 	
-//	@Autowired
-//	private ChatMessageService cmservice;
-		
-    
-//	// √§∆√ ≈¬Ω∫∆Æ ------------------------------------------------------
-//    @RequestMapping("/test/{id}")
-//    public String test(HttpSession session, @PathVariable String id) {
-//        session.setAttribute("id", id);
-//        return "chat/test";
-//    }
-//    
-//	// √§∆√«œ±‚
-//	@RequestMapping(value = "/chat", method = RequestMethod.GET)
-//	public String createChatroom(HttpSession session, Model model, ChatRoomVO crvo) {
-//		
-//		// ∑Œ±◊¿Œ ¡¶æÓ
-//		String id = (String) session.getAttribute("id");
-//		if(id == null) {
-//			return "redirect:/members/insert";
-//		}
-//		
-//		crvo.setSeller(id);
-//		
-//		
-//		return "/chat/myChat";
-//	}
-	
-	public List<ChatMessageVO> registChatDiaolog(HttpSession session) {
-		
+	@Inject
+	private ChatMessageService cmservice;
+
+    // Ï±ÑÌåÖ Í∏∞Î°ù Í∞ÄÏ†∏Ïò§Í∏∞
+    @RequestMapping(value="/chatdialog", method=RequestMethod.POST)
+    @ResponseBody
+    public List<ChatMessageVO> chatdialog(@RequestParam int room_id, HttpSession session) {
+    	String id = (String) session.getAttribute("id");
+    	
+    	List<ChatMessageVO> cmList = cmservice.searchChatDialog(room_id, id);
+    	
+		return cmList;
+    }
+
+	// Ï±ÑÌåÖ ÌïòÍ∏∞
+	@RequestMapping(value = "/chatdialog/{room_id}", method = RequestMethod.POST)
+	public List<ChatMessageVO> registChatDiaolog(
+			@PathVariable("room_id") int room_id, @RequestBody ChatMessageVO vo, HttpSession session) {
+
 		String id = (String) session.getAttribute("id");
 		
+		ChatRoomVO crvo = crservice.searchChatRoomInfo(room_id);
 		
+		logger.info(" Ï±ÑÌåÖÎ∞© Ï∞æÏïòÎî∞ @@@@@@@@@@@@ " + room_id);
 		
-		return null;
+		ChatMessageVO cmvo = new ChatMessageVO();
+		cmvo.setRoom_id(room_id);
+		cmvo.setSeller_id(id);
+		cmvo.setChat_content(vo.getChat_content());
+		
+		if(crvo.getSeller().equals(id)) { 
+			cmvo.setBuyer_id(crvo.getBuyer());
+		} else {
+			cmvo.setBuyer_id(crvo.getSeller());
+		}
+		
+		cmservice.registChatDialog(cmvo);
+		
+		logger.info(" Ï±ÑÌåÖÎ∞© ÏÉùÏÑ± ÏôÑÎ£å @@@@@@@@@@@@ ");
+		
+		List<ChatMessageVO> cmList = cmservice.searchChatDialog(cmvo.getRoom_id(), id);
+		
+		return cmList;
 		
 	}
 	
-
-
-
 }
