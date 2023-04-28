@@ -2,12 +2,13 @@ package com.market.service;
 
 import java.util.List;
 
+import com.market.domain.ACriteria;
 import com.market.domain.AuctionVO;
 
 
 public interface AuctionService {
 	
-	public List<AuctionVO> getAList(String order, String met) throws Exception;
+	public List<AuctionVO> getAList(String order, String met, ACriteria cri) throws Exception;
 	
 	public AuctionVO nowBest() throws Exception;
 	
@@ -25,7 +26,9 @@ public interface AuctionService {
 	
 	public void plusPay(String lBuyer, int pPay) throws Exception;
 	
-	public List<AuctionVO> getSearchList(String search) throws Exception;
+	public List<AuctionVO> getSearchList(String type, String search, ACriteria cri) throws Exception;
 	
-	public List<AuctionVO> bestAList() throws Exception;
+	public List<AuctionVO> bestAList(ACriteria cri) throws Exception;
+	
+	public Integer countAuction() throws Exception;
 }
