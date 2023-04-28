@@ -13,7 +13,7 @@
 									       </div>
 									      	
 									        <div>
-									          <div class="text">관리자</div>
+									          <div class="text">${sessionScope.id }</div>
 									       	   <div class="text">페이 : 50,000원</div>
 									         <a href="#"><div class="memberUpdate">회원정보수정</div></a>
 									        </div>
@@ -27,7 +27,7 @@
 									      </div>      
 									      <div class="item">
 									        <div>
-									        <a href="/trade/mySaleProduct" > <div class="text">판매내역</div>
+									        <a href="/trade/mySaleProduct" > <div class="text">판매상품</div>
 									          <div class="rightBlue number">6</div></a>
 									        </div>
 									      </div>     

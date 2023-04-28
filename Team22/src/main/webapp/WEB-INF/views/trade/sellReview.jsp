@@ -359,6 +359,12 @@ textarea{
 						          
 						        <div class="item">
 						        <div>
+   		        				<a href="/members/memberInfo?mem_id=${vo.reviewer} ">
+						          <div>${vo.reviewer}</div></a>
+						        </div>
+						        </div>	
+						        <div class="item">
+						        <div>
 						        <img src="/resources/images/${vo.product_pic.split(',')[0] }" 
 						        onerror="this.src='/resources/images/default_product.jpg'" alt="" width="100px" height="80px">
 						        <%-- <div>${vo.member_pic }</div> --%>

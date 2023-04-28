@@ -3,6 +3,7 @@ package com.market.persistence;
 import java.util.List;
 import java.util.Map;
 
+import com.market.domain.AuctionVO;
 import com.market.domain.ProductVO;
 import com.market.domain.ReviewVO;
 import com.market.domain.TradeVO;
@@ -22,9 +23,9 @@ public interface TradeDAO {
 	public void avgScore(double score)throws Exception;
 	// 내가 판매중인 상품
 	public List<ProductVO> getProdList(String id) throws Exception;
-	// 진행중인 경매 리스트
-	public List<Map<String,Object>> auList(String id) throws Exception; 
-
+	// 내가 신청한 경매 리스트
+	public List<AuctionVO> auBuyList(String id) throws Exception;
+	
 	
 }
 

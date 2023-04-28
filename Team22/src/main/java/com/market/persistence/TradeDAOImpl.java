@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.market.domain.AuctionVO;
 import com.market.domain.ProductVO;
 import com.market.domain.ReviewVO;
 import com.market.domain.TradeVO;
@@ -65,12 +66,12 @@ public class TradeDAOImpl implements TradeDAO{
 		return sqlSession.selectList(NAMESPACE+".myProdList", id);
 	}
 
+
 	@Override
-	public List<Map<String, Object>> auList(String id) throws Exception {
-		
-		
-		return null;
+	public List<AuctionVO> auBuyList(String id) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".auBuyList", id);
 	}
+
 	
 	
 	

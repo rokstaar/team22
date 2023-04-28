@@ -258,42 +258,23 @@ div{
 									       </div>
 									      	
 									        <div>
-									          <div class="text">${sessionScope.id }</div>
-									       	   <div class="text">페이 : 50,000원</div>
-									         <a href="#"><div class="memberUpdate">회원정보수정</div></a>
+									          <div class="text">닉네임</div>
 									        </div>
 									      </div>
 									      
-									      <div class="item">
-									        <div>
-									          <a href="/trade/buyList" > <div class="text">거래내역</div>
-									          <div class="rightBlue number">6</div></a>
-									        </div>
-									      </div>     
 									       <div class="item">
 									        <div>
-									        <a href="/trade/mySaleProduct" > <div class="text">판매내역</div>
+									         <a href="/members/memberInfo?mem_id=${memProdList[0].product_seller }"> <div class="text">판매상품</div>
 									          <div class="rightBlue number">6</div></a>
 									        </div>
 									      </div>      
-									      <div class="item">
-									        <div>
-									          <a href="/trade/myAuctionList" > <div class="text">경매내역</div>
-									          <div class="rightBlue number">6</div></a>
-									        </div>
-									      </div>     
-									      <div class="item">
-									        <div>
-									          <a href="/trade/favorite" > <div class="text">찜한상품</div>
-									          <div class="rightBlue number">6</div></a>
-									        </div>
-									      </div>     
-									      <div class="item">
-									      <a href="/trade/buyReview">  <div>
+									      
+								      <div class="item">		
+									      <a href="/members/review?mem_id=${memProdList[0].product_seller }">  <div>
 									          <div class="text">거래후기</div>
 									          <div class="rightBlue number">3</div></a>
 									        </div>
-									      </div>        
+									      </div>  
 									      
 									    </div>
 
@@ -303,11 +284,33 @@ div{
 									 
 									 <div class="infoContainer">
 									    <a href="#" class="item">
-									      <div>거래내역</div>
+									      <div>${memProdList[0].product_seller }님이 판매중인 상품</div>
 									    </a>    
-									 
 									  </div>	
-									
+									<div class="shippingStatusContainer">
+										<section>
+									<header class="major">
+									</header>
+									<div class="posts">
+										<c:forEach var="vo" items="${memProdList }">
+											<article>
+										
+										<a class="product-section" href="/product/prodInfo?product_num=${vo.product_num }&seller=${vo.product_seller}">
+											<img src="/resources/images/${vo.product_pic.split(',')[0] } " width="511px" height="306px" 
+											onerror="this.src='/resources/images/default_product.jpg'">
+										<div>${vo.product_title }</div>
+
+										<div style="float:left;">
+											<fmt:formatNumber value="${vo.product_price }" pattern="#,###" />원
+										</div>
+										
+										</a>
+										
+											</article>
+										</c:forEach>
+									</div>
+								</section>
+									</div>
 									</div>
 								</section>
 

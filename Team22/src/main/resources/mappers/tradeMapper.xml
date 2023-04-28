@@ -18,7 +18,7 @@
 	</select>
 	<!-- 구매리뷰 정보 및 리스트 -->
 	
-	<!-- 사용자의 판매 정보 -->
+	<!-- 판매리뷰 -->
 	<select id="tSellReview" resultType="map">
 		select r.reviewer, r.reviewee, r.rv_content, m.member_pic, p.product_title, r.rv_score, p.product_num,
 		p.product_pic, t.t_div, t.type_div
@@ -30,7 +30,8 @@
 		where reviewee = #{id};
 				
 	</select>
-	<!-- 사용자의 판매 정보 -->
+	<!-- 판매리뷰 -->
+
 	
 	<!-- 구매내역  -->
 	<select id="buyList" resultType="map">
@@ -80,15 +81,15 @@
 	
 	</select>
 	
-	<select id="auList" resultType="map">
-		select a.au_num, a.au_startPrice,a.au_sellerId, a.au_buyerId, a.au_bidPirce, a.au_endPirce, a.au_pic, a.au_status,
-		a.au_title, a.au_content, a.au_category,t.type_div
-		from trade t
-		join auction a on t.sell_mem_id = a.au_sellerId	
-		and t.au_num = a.au_num
-		join member m on t.buy_mem_id = m.member_id
-		where t.buy_mem_id = #{id} and t.type_div = 2;
+	<!-- 경매 신청 내역  -->
+	<select id="auBuyList" resultType="map">
+		select * 
+		from auction
+		where au_buyerId = #{id}
+		
 	</select>
+	<!-- 경매 신청 내역  -->
+	
 	
 	
 </mapper>

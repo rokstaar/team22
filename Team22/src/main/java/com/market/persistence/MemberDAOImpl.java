@@ -1,6 +1,7 @@
 package com.market.persistence;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.market.domain.MemberVO;
+import com.market.domain.ProductVO;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO {
@@ -43,7 +45,16 @@ public class MemberDAOImpl implements MemberDAO {
 		return result;
 	}
 	
+	@Override
+	public List<ProductVO> getProdList(String id) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".memProdList", id);
+	}
+	@Override
+	public List<Map<String, Object>> memProdReview(String id) throws Exception {
 
+		return sqlSession.selectList(NAMESPACE+".memProdReview", id);
+	}
 
+	
 
 }

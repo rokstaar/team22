@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.market.domain.AuctionVO;
 import com.market.domain.ProductVO;
 import com.market.domain.ReviewVO;
 import com.market.domain.TradeVO;
@@ -64,6 +65,11 @@ public class TradeServiceImpl implements TradeService{
 	public List<ProductVO> myProdList(String id) throws Exception {
 
 		return tdao.getProdList(id);
+	}
+
+	@Override
+	public List<AuctionVO> buyAuctionList(String id) throws Exception {
+		return tdao.auBuyList(id);
 	}
 
 	

@@ -1,6 +1,9 @@
 package com.market.controller;
 
 
+import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -11,9 +14,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.market.domain.MemberVO;
+import com.market.domain.ProductVO;
 import com.market.service.MemberService;
 
 @Controller
@@ -113,6 +118,28 @@ public class MembersController {
 		return result;
 	}
 	
+	// 다른 회원 정보 및 판매중인 상품
+	@RequestMapping(value = "/memberInfo", method = RequestMethod.GET)
+	public void memProdListGET(@RequestParam("mem_id") String mem_id, Model model) throws Exception{
+
+		logger.info("전달정보 id: "+ mem_id);
+		List<ProductVO> memProdList = service.memProdList(mem_id);
+		
+		model.addAttribute("memProdList",memProdList);
+		
+	}
+	
+	// 다른 회원 판매후기
+	
+		@RequestMapping(value = "/review", method = RequestMethod.GET)
+		public String memReview(Model model,HttpSession session,
+						@RequestParam("mem_id") String id) throws Exception {
+			logger.info("id판매후기@@@@@@@@@@@@@@@@@@@@@@: "+ id);
+			List<Map<String,Object>> memReview = service.memSellReview(id);
+			model.addAttribute("memReview",memReview);
+			
+			return "/members/memReview";
+		}
 	
 
 }

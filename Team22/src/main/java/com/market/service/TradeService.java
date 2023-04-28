@@ -4,6 +4,7 @@
 import java.util.List;
 import java.util.Map;
 
+import com.market.domain.AuctionVO;
 import com.market.domain.ProductVO;
 import com.market.domain.ReviewVO;
 import com.market.domain.TradeVO;
@@ -24,4 +25,5 @@ public interface TradeService {
 	
 	public List<ProductVO> myProdList(String id) throws Exception;
 	
+	public List<AuctionVO> buyAuctionList(String id) throws Exception;
 }

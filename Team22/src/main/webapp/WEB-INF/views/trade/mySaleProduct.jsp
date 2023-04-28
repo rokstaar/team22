@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE HTML>
 <!--
 	Editorial by HTML5 UP
@@ -259,9 +259,9 @@ div{
 											<img src="/resources/images/${vo.product_pic.split(',')[0] } " width="511px" height="306px" 
 											onerror="this.src='/resources/images/default_product.jpg'">
 										<div>${vo.product_title }</div>
-										
+
 										<div style="float:left;">
-											${vo.product_price } 원
+											<fmt:formatNumber value="${vo.product_price }" pattern="#,###" />원
 										</div>
 										
 										</a>
