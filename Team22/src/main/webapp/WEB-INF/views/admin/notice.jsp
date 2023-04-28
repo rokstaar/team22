@@ -100,7 +100,7 @@
 					</section>
 
              </div>
-			      <%@ include file="../include/sidebar.jsp" %>		
+			    <%@ include file="../include/sidebar.jsp" %>		
 			
 			 </div>
 		

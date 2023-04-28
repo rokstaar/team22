@@ -8,27 +8,33 @@ import com.market.domain.ProductVO;
 
 public interface AdminService {
 	
-	// È¸¿øÀüÃ¼¸ñ·Ï Á¶È¸
+	// ëª¨ë“ íšŒì› ì •ë³´
 	public List<MemberVO> memberList() throws Exception;
 	
-	// »óÇ°ÀüÃ¼¸ñ·Ï Á¶È¸
+	// íšŒì› ìˆ˜(ëª…)
+	public int countMember() throws Exception;
+	
+	
+	
+	// ëª¨ë“  ì œí’ˆ ì •ë³´
 	public List<ProductVO> productList() throws Exception;
 	
-	// °øÁö»çÇ× ±Û¾²±â
+	// ê³µì§€ì‚¬í•­ ì“°ê¸°
 	public void writeNotice(NoticeVO vo) throws Exception;
 	
-	// °øÁö»çÇ× ÀüÃ¼¸ñ·Ï Á¶È¸
+	// ê³µì§€ì‚¬í•­ ë¦¬ìŠ¤íŠ¸ ëª©ë¡
 	public List<NoticeVO> noticeList() throws Exception;
 	
-	// °Ô½ÃÆÇ ±Û Á¶È¸¼ö 1Áõ°¡
+	// ê³µì§€ì‚¬í•­ ì¡°íšŒìˆ˜1ì¦ê°€
 	public void updateReadCnt(Integer noti_num) throws Exception;
 		
-	// ±ÛÁ¤º¸ Á¶È¸(Æ¯Á¤±Û)
+	// ê³µì§€ì‚¬í•­ íŠ¹ì •ê¸€ ê°€ì ¸ì˜¤ê¸°
 	public NoticeVO getBoard(Integer noti_num) throws Exception;
 	
-	 // ±ÛÁ¤º¸ ¼öÁ¤
+	// ê³µì§€ì‚¬í•­ ì—…ë°ì´íŠ¸
     public Integer modifyBoard(NoticeVO uvo) throws Exception;
 	
-	
+    // ê³µì§€ì‚¬í•­ ì‚­ì œí•˜ê¸°
+    public Integer deleteNotice(Integer noti_num)throws Exception;
 
 }

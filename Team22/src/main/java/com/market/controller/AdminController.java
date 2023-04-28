@@ -29,13 +29,13 @@ public class AdminController {
 	             = LoggerFactory.getLogger(AdminController.class);
 	
 	// http://localhost:8080/admin/adminPage
-	// 紐⑤뱺 �쉶�썝�젙蹂� 議고쉶
+	// 모든 회원정보 조회
 	@RequestMapping(value = "/adminPage",method = RequestMethod.GET)
 	public String adminPageGET(HttpServletRequest request, Model model) throws Exception{
 		logger.info(" adminPageGET() �샇異� (�뿈'�뿠'�뿈)(�뿈'�뿠'�뿈)");
 		
-		// �꽌鍮꾩뒪 - �쉶�썝�젙蹂� 媛��졇�삤湲�
-		List memberList = new ArrayList<>();
+		// 서비스 - 회원정보 가져오기
+		List memberList = new ArrayList();
 		if(((String)request.getSession().getAttribute("id")).equals("admin")) memberList = service.memberList();
 				
 		logger.info(memberList.toString());
@@ -45,103 +45,116 @@ public class AdminController {
 		return "/admin/adminPage";
 	}
 	
-	//紐⑤뱺 �긽�뭹�젙蹂� 議고쉶
+	//모든 상품정보 조회
 	@RequestMapping(value = "/manageprod",method = RequestMethod.GET)
 	public void manageprodGET(HttpServletRequest request, Model model) throws Exception {
-		logger.info(" manageprodGET() �샇異� (�뿈'�뿠'�뿈)(�뿈'�뿠'�뿈) ");
+		logger.info(" manageprodGET() 호출 (●'◡'●)(●'◡'●) ");
 		
 		// �꽌鍮꾩뒪 - �긽�뭹�젙蹂� 媛��졇�삤湲�
-		List productList = new ArrayList<>();
+		List productList = new ArrayList();
 		if(((String)request.getSession().getAttribute("id")).equals("admin")) productList = service.productList();
 		
 		logger.info(productList.toString());
-		//view �럹�씠吏� �쟾�떖
+		//view 페이지 전달
 		model.addAttribute("productList",productList);
 	}
 	
 	// http://localhost:8080/admin/noticewrite
-	// 怨듭��궗�빆 �벐湲�
+	// 공지사항 쓰기
 	@RequestMapping(value = "/noticewrite", method = RequestMethod.GET)
 	public void noticewriteGET() throws Exception {
-		logger.info(" noticewriteGET() �샇異� (�뿈'�뿠'�뿈)(�뿈'�뿠'�뿈) ");
+		logger.info(" noticewriteGET() 호출 (●'◡'●)(●'◡'●) ");
 	}
 	
-	// 怨듭��궗�빆 �벐湲� - �젙蹂댁��옣
+	// 공지사항 쓰기 - 정보저장
 	@RequestMapping(value = "/noticewrite", method = RequestMethod.POST)
 	public String noticewritePOST(NoticeVO vo,RedirectAttributes rttr) throws Exception{
-		logger.info(" noticewritePOST() �샇異� (�뿈'�뿠'�뿈)(�뿈'�뿠'�뿈)");
+		logger.info(" noticewritePOST() 호출 (●'◡'●)(●'◡'●)");
 		
-		// �꽌鍮꾩뒪 �젙蹂� 媛��졇�삤湲�
+		// 서비스 정보 가져오기
 		service.writeNotice(vo);
 		logger.info(vo.toString());
 		
-		// �젙蹂� ���옣
+		// 정보 저장
 		rttr.addFlashAttribute("result","ok");
 		
 		return "redirect:/admin/notice";
 	}
 
 	// http://localhost:8080/admin/notice
-	// 怨듭��궗�빆 紐⑸줉
+	// 공지사항 목록
 	@RequestMapping(value = "/notice",method = RequestMethod.GET)
 	public void noticeGET(HttpServletRequest request, Model model) throws Exception{
-		logger.info(" noticeGET() �샇異� (�뿈'�뿠'�뿈)(�뿈'�뿠'�뿈) ");
+		logger.info(" noticeGET() 호출 (●'◡'●)(●'◡'●) ");
 		
-		// �꽌鍮꾩뒪 - �긽�뭹�젙蹂� 媛��졇�삤湲�
+		// 서비스 - 상품정보 가져오기
 		List<NoticeVO> noticeList = service.noticeList();
 		logger.info("怨듭��궗�빆 媛쒖닔 :"+noticeList.size());
 		
-		//view �럹�씠吏� �쟾�떖
+		//view 페이지 전달
 		model.addAttribute("noticeList",noticeList);
 	}
 	
 	// http://localhost:8080/admin/notiread
-	// 怨듭��궗�빆 �듅�젙 湲� �씫湲�
+	// 공지사항 특정 글 읽기
 	@RequestMapping(value = "/notiread",method = RequestMethod.GET)
 	public void notireadGET(@RequestParam("noti_num") int noti_num,Model model) throws Exception {
 		logger.info(" notireadGET() �샇異� (�뿈'�뿠'�뿈)(�뿈'�뿠'�뿈) ");
 		
-		// �꽌鍮꾩뒪 - 議고쉶�닔 1利앷�
+		// 서비스 - 조회수 1증가
 		service.updateReadCnt(noti_num);
 		
-		// 湲�踰덊샇�뿉 �빐�떦�븯�뒗 �젙蹂� 媛��졇�삤湲�
+		// 글번호에 해당하는 정보 가져오기
 		NoticeVO resultVO = service.getBoard(noti_num);
 		logger.info(resultVO.toString());
 		
-		// 湲��젙蹂� ���옣 -> view�럹�씠吏� 
+		// 글정보 저장 -> view페이지 
 		model.addAttribute("resultVO",resultVO);
 	}
 	
-	// 怨듭��궗�빆 湲� �닔�젙�븯湲�(湲곗〈 湲� 蹂댁뿬二쇨린)
+	// 공지사항 글 수정하기(기존 글 보여주기)
 	@RequestMapping(value = "/notimodify", method = RequestMethod.GET)
 	public void notimodifyGET(@RequestParam("noti_num") int noti_num,Model model) throws Exception {
-		logger.info(" notimodifyGET() �샇異� (�뿈'�뿠'�뿈)(�뿈'�뿠'�뿈) ");
+		logger.info(" notimodifyGET()  ");
 		
-		// 湲�踰덊샇�뿉 �빐�떦�븯�뒗 �젙蹂� 媛��졇�삤湲�
+		// 글번호에 해당하는 정보 가져오기
 		NoticeVO vo = service.getBoard(noti_num);
 		logger.info(vo.toString());
 		
-		// view�럹�씠吏� 異쒕젰
+		// view페이지 출력
 		model.addAttribute("vo",vo);		
 	}
 	
-	// 怨듭��궗�빆 湲� �닔�젙�븯湲�(湲� �닔�젙 �뾽�뜲�씠�듃 蹂댁뿬二쇨린)
+	// 공지사항 글 수정하기(글 수정 업데이트 보여주기)
 	@RequestMapping(value = "/notimodify",method = RequestMethod.POST) 
 	public String notimodifyPOST(NoticeVO vo,RedirectAttributes rttr) throws Exception {
-		logger.info(" notimodifyPOST() �샇異� (�뿈'�뿠'�뿈)(�뿈'�뿠'�뿈) ");
+		logger.info(" notimodifyPOST()  ");
 		logger.info(vo.toString());
 		
-		//�꽌鍮꾩뒪 - 湲��젙蹂� �닔�젙
+		//서비스 - 글정보 수정
 		int result = service.modifyBoard(vo);
 				
-		if(result == 1) {   // �닔�젙�맂 �젙蹂닿� 1媛쒖씪�븣
+		if(result == 1) {   // 수정된 정보가 1개일때
 			rttr.addFlashAttribute("result","modOK");
 	 }
 		
 		return "redirect:/admin/notice";
 	}
 	
-	// 怨듭��궗�빆 湲� �궘�젣�븯湲�
-	
+	// 공지사항 글 삭제하기
+		@RequestMapping(value = "/deletenoti",method = RequestMethod.GET)
+		public String deletenotiGET(@RequestParam("noti_num") int noti_num,RedirectAttributes rttr)throws Exception{
+			//전달정보
+			logger.info("noti_num :"+noti_num);
+			
+			// 서비스 - 글정보 삭제 처리
+			int result = service.deleteNotice(noti_num);
+			
+			if(result == 1) {   
+				rttr.addFlashAttribute("result","deleOK");
+		 }
+				
+			return "redirect:/admin/notice";
+		}
 
-}
+	}

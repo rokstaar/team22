@@ -57,7 +57,7 @@
                 <button type="button" class="btn btn-sm btn-primary" 
                         id="btnList" onclick="location.href='/admin/notimodify?noti_num=${resultVO.noti_num}';">수정</button>
                 <button type="button" class="btn btn-sm btn-primary" 
-                        id="btnList" onclick="">삭제</button>        
+                        id="btnList" onclick="location.href='/admin/deletenoti?noti_num=${resultVO.noti_num}';">삭제</button>      
           </c:if>              
            
            </div>

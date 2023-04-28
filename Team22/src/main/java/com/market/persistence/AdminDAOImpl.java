@@ -24,7 +24,7 @@ public class AdminDAOImpl implements AdminDAO {
 	@Inject
 	private SqlSession sqlSession;
 
-	// mapper-namespace¸¦ »ó¼ö·Î ¼³Á¤
+	// mapper-namespaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	private static final String NAMESPACE 
 	     = "com.itwillbs.mapper.adminMapper";
 
@@ -70,11 +70,15 @@ public class AdminDAOImpl implements AdminDAO {
 		return sqlSession.update(NAMESPACE+".updateNotice",uvo);
 	}  
 	
-	
-	
-	
-	
-	
+	@Override
+	public Integer deleteNotice(Integer noti_num) throws Exception {
+         return sqlSession.delete(NAMESPACE+".deleteNotice",noti_num);
+	}
 
+	@Override
+	public int countMember() throws Exception {
+		
+		return sqlSession.selectOne(NAMESPACE+".countMember");
+	}
 
 }

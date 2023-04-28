@@ -22,9 +22,7 @@
 		<link rel="stylesheet" href="/resources/assets/css/styles.css" />
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" 
-		      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-			<link href="/resources/assets/css/notice.css" rel="stylesheet"/>      
+		<link href="/resources/assets/css/notice.css" rel="stylesheet"/>      
 <style>
 
 body {

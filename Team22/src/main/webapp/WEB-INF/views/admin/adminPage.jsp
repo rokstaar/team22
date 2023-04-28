@@ -222,6 +222,101 @@ div{
 .infoContainer .item:hover{
 /*   background-color: #f8f8f8; */
 }
+
+
+ h1{ 
+         font-family: 'Oswald', sans-serif; 
+         font-size: 30px; 
+         color: #216182; 
+     } 
+     label { 
+         display: block; 
+         margin-top: 20px; 
+         letter-spacing: 2px; 
+     } 
+
+input, textarea { 
+         width: 439px; 
+         height: 27px; 
+         background-color: #efefef; 
+         border-radius: 6px; 
+         border: 1px solid #dedede; 
+         padding: 10px; 
+         margin-top: 3px; 
+         font-size: 0.9em; 
+         color: #3a3a3a; 
+     }
+
+input:focus, textarea:focus{ 
+             border: 1px solid #97d6eb; 
+         } 
+         
+textarea{ 
+         height: 60px; 
+         background-color: #efefef; 
+     } 
+#submit{ 
+         width: 127px; 
+         height: 48px; 
+         text-align: center; 
+         border: none; 
+         margin-top: 20px; 
+         cursor: pointer; 
+     } 
+#cancel { 
+         width: 127px; height: 48px; 
+         text-align: center; 
+         border: none; 
+         margin-top: 20px; 
+         cursor: pointer; 
+     } 
+     
+.modal { 
+         position: fixed; 
+         left: 0; 
+         top: 0; 
+         width: 100%; 
+         height: 100%; 
+         background-color: rgba(0, 0, 0, 0.5); 
+         opacity: 0; 
+         visibility: hidden; 
+         transform: scale(1.1); 
+         transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s; 
+     } 
+.close-button { 
+         float: right; 
+         width: 1.5rem; 
+         line-height: 1.5rem; 
+         text-align: center; 
+         cursor: pointer; 
+         border-radius: 0.25rem; 
+         background-color: lightgray; 
+} 
+
+
+.modal-content { 
+         position: absolute; 
+         top: 50%; 
+         left: 50%; 
+         transform: translate(-50%, -50%); 
+         background-color: white; 
+         padding: 1rem 1.5rem; 
+         width: 500px; 
+         height: 350px; 
+         border-radius: 0.5rem; 
+     } 
+.close-button:hover { 
+       background-color: darkgray; 
+} 
+.show-modal { 
+
+         opacity: 1; 
+         visibility: visible; 
+         transform: scale(1.0); 
+         transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s; 
+} 
+
+
 		
 		</style>
 
@@ -262,13 +357,13 @@ div{
 									        
 									        <div>
 									          <div class="text">관리자</div>
-									       	   <div class="text">페이 : 50,000원</div>
 									        <div class="memberUpdate"> 회원정보수정</a></div>
 									        </div>
 									      </div>
 									      <div class="item">
 									        <div>
 									          <div class="rightBlue number"> <a href="/admin/adminPage">회원 관리 </a> </div>
+									          <div class="text">${mcount }명</div>
 									        </div>
 									      </div>     
 									      <div class="item">
@@ -283,7 +378,6 @@ div{
 									      </div>     
 									      <div class="item">
 									        <div>
-									          <!-- <div class="text">찜한상품</div> -->
 									          <div class="rightBlue number"> <a href="#">공지사항 관리</a> </div>
 									        </div>
 									      </div>          
@@ -297,9 +391,9 @@ div{
 										<th>아이디</th>
 										<th>핸드폰번호</th>
 										<th>이름</th>
-										<th>닉네임</th>
 										<th>이메일</th>
 										<th>페이</th>
+										<th>상세조회</th>
 									</tr>
 
 							<c:forEach var="mlist" items="${memberList}"> 
@@ -307,31 +401,68 @@ div{
 										<td>${mlist.member_id} </td>
 										<td>${mlist.member_phone} </td>
 										<td>${mlist.member_name} </td>
-										<td>${mlist.member_nickname} </td>
 										<td>${mlist.member_email} </td>
 										<td>${mlist.member_pay} </td>
-									</tr>
-					        </c:forEach>										
-					</table>
+										<td><button class="trigger">조회하기</button></td>   	  
+								   <div class="modal">
+		                            <div class="modal-content"> 
+			                         <span class="close-button">&times;</span>
+					<h1 class="title">구매후기</h1> 
+					<h3>아이디 : ${mlist.member_id} </h3>
+					<h3>이름 : ${mlist.member_name }</h3>
+			<input type="button" id="cancel" value="취소" onclick="location.href='/admin/adminPage'" > 
+		</div> 
+	</div>   
+</tr>								
+ </c:forEach>										
+</table>
 				</div> 
-						 
-						 	   
-									
-									  </div>  
-									</div>	   
-                                 </div>
-			                 </div>
-					</section>
-                   
-                
+
+					</div>  
+				</div>	   
+           </div>
+		</div>
+	</section>
+                   							         
                    
                    </div>
-			      <%-- <%@ include file="../include/sidebar.jsp" %>		 --%>
+			    <%@ include file="../include/sidebar.jsp" %>		
 			
 			 </div>
 		
 	
+<script type="text/javascript">
 
+var modal = document.querySelector(".modal"); 
+var trigger = document.querySelectorAll(".trigger"); 
+var closeButton = document.querySelector(".close-button"); 
+var cancelButton = document.querySelector("#cancel");
+
+for(var i=0; i< trigger.length; i++){
+	trigger[i].addEventListener("click", toggleModal); 
+}
+//console.log(modal);
+
+function toggleModal() { 
+    modal.classList.toggle("show-modal"); 
+}
+
+function windowOnClick(event) { 
+    if (event.target === modal) { 
+        toggleModal(); 
+    } 
+}
+
+/* trigger.addEventListener("click", toggleModal);  */
+closeButton.addEventListener("click", toggleModal); 
+cancel.addEventListener("click", toggleModal); 
+window.addEventListener("click", windowOnClick); 
+
+
+
+
+
+</script>
 
    
 

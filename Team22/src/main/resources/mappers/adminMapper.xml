@@ -12,6 +12,14 @@
 	</select>
 	<!-- 모든 회원 조회하기  -->
 	
+	<!-- 모든 회원 수(명) 조회  -->
+	  <select id="countMember" resultType="int">
+	    select count(member_id)
+        from member	  
+	  </select>
+	<!-- 모든 회원 수(명) 조회  -->
+	
+	
 	<!-- 모든 상품 조회하기  -->
 	<select id="getProductList" resultType="ProductVO">
 		select * from product
@@ -34,7 +42,7 @@
 	<!-- 공지사항 조회수 1증가  -->
 	   <update id="addReadcnt">
 	     update notice set noti_readcount = noti_readcount + 1
-         where noti_num =#{noti_num};
+         where noti_num =#{noti_num}
 	   </update>
 	<!-- 공지사항 조회수 1증가  -->
 	
@@ -55,8 +63,10 @@
 	<!-- 공지사항 삭제하기  -->
 	   <delete id="deleteNotice">
         delete from notice
-	   where noti_num=#{noti_num}	   
+	    where noti_num=#{noti_num}	   
 	   </delete>
 	<!-- 공지사항 삭제하기  -->
+	
+	
 
 </mapper>  
