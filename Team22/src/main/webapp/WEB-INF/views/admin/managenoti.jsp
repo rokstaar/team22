@@ -252,40 +252,39 @@ div{
 								 <div class="content">
 								 <div class="wrap">
 									  <div class="shippingStatusContainer">
-									   
-									    <%@ include file="../include/adminmypage.jsp" %> 
+									  
+									   <%@ include file="../include/adminmypage.jsp" %> 
 									    
 						 <hr>
 						 
-					<div class="table-wrapper">
-						
-						
+					<div class="table-wrapper">						
 							<table>
 									<tr>
-										<th>판매 회원 아이디</th>
-										<th>상품 카테고리</th>
-										<th>상품 이름</th>
-										<th>상품 상세설명</th>
-										<th>상품 가격</th>
+										<th>글번호</th>
+										<th>제목</th>
+										<th>조회수</th>
+										<th>등록일</th>
 									</tr>
 
-                               <c:forEach var="plist" items="${productList}">
+                               <c:forEach var="nolist" items="${notiList}">
 									<tr>
-										<td>${plist.product_seller} </td>
-										<td>${plist.product_cate}</td>
-										
+										<td>${nolist.noti_num} </td>
 										<td>
-										<a href="/product/prodInfo?product_num=${plist.product_num }">${plist.product_title}</a>
-										</td>
-										
-										<td>${plist.product_content}</td>
-										<td>${plist.product_price}</td>
-
+										  <a href="/admin/notiread?noti_num=${nolist.noti_num}">${nolist.noti_title} </a>
+										</td>										
+										<td>${nolist.noti_readcount} </td>	
+										<td>${nolist.noti_date} </td>										
 									</tr>	
 							</c:forEach>										
 					</table>
 				</div> 
-						 
+				
+			<c:if test="${id != null && id ==('admin')}">	
+				<div style="text-align: right;">	
+					<button onclick="location.href='/admin/noticewrite';">공지사항 등록</button>				
+			   </div> 
+			</c:if>		
+								 
 						 	   
 									
 									  </div>  

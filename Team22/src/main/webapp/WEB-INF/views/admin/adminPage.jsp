@@ -347,42 +347,9 @@ textarea{
 								 <div class="content">
 								 <div class="wrap">
 									  <div class="shippingStatusContainer">
-									   <div class="status">
-									      
-									       <div class="item">
-									        <div>
-									           <img alt="프로필사진" src="/resources/img/profile.png" width="150px" height="100px" >
-									        </div>
-									      	
-									        
-									        <div>
-									          <div class="text">관리자</div>
-									        <div class="memberUpdate"> 회원정보수정</a></div>
-									        </div>
-									      </div>
-									      <div class="item">
-									        <div>
-									          <div class="rightBlue number"> <a href="/admin/adminPage">회원 관리 </a> </div>
-									          <div class="text">${mcount }명</div>
-									        </div>
-									      </div>     
-									      <div class="item">
-									        <div>
-									          <div class="rightBlue number"> <a href="/admin/manageprod">상품 관리</a> </div>
-									        </div>
-									      </div>     
-									      <div class="item">
-									        <div>
-									          <div class="rightBlue number"> <a href="#">문의사항 관리</a> </div>
-									        </div>
-									      </div>     
-									      <div class="item">
-									        <div>
-									          <div class="rightBlue number"> <a href="#">공지사항 관리</a> </div>
-									        </div>
-									      </div>          
-									    </div>	
-									    
+									     
+									      <%@ include file="../include/adminmypage.jsp" %>
+
 						 <hr>
 						 
 					<div class="table-wrapper">
@@ -403,13 +370,13 @@ textarea{
 										<td>${mlist.member_name} </td>
 										<td>${mlist.member_email} </td>
 										<td>${mlist.member_pay} </td>
-										<td><button class="trigger">조회하기</button></td>   	  
+									<td><button class="trigger">조회하기</button>   <td>	  
 								   <div class="modal">
 		                            <div class="modal-content"> 
 			                         <span class="close-button">&times;</span>
-					<h1 class="title">구매후기</h1> 
-					<h3>아이디 : ${mlist.member_id} </h3>
-					<h3>이름 : ${mlist.member_name }</h3>
+									<h1 class="title">구매후기</h1> 
+									<h3>아이디 : ${mlist.member_id} </h3>
+									<h3>이름 : ${mlist.member_name }</h3> 
 			<input type="button" id="cancel" value="취소" onclick="location.href='/admin/adminPage'" > 
 		</div> 
 	</div>   

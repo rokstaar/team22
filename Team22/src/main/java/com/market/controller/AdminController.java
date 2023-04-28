@@ -2,6 +2,7 @@ package com.market.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.market.domain.NoticeVO;
+import com.market.domain.TradeVO;
 import com.market.service.AdminServiceImpl;
 
 @Controller
@@ -37,10 +39,17 @@ public class AdminController {
 		// 서비스 - 회원정보 가져오기
 		List memberList = new ArrayList();
 		if(((String)request.getSession().getAttribute("id")).equals("admin")) memberList = service.memberList();
+		int mcount = service.countMember();
+		int procount = service.countProduct();
+		int noticount = service.countNotice();
 				
 		logger.info(memberList.toString());
 		// view �럹�씠吏� �쟾�떖
 		model.addAttribute("memberList",memberList);
+		model.addAttribute("mcount", mcount);
+		model.addAttribute("procount", procount);
+		model.addAttribute("noticount", noticount);
+		
 		
 		return "/admin/adminPage";
 	}
@@ -50,13 +59,37 @@ public class AdminController {
 	public void manageprodGET(HttpServletRequest request, Model model) throws Exception {
 		logger.info(" manageprodGET() 호출 (●'◡'●)(●'◡'●) ");
 		
-		// �꽌鍮꾩뒪 - �긽�뭹�젙蹂� 媛��졇�삤湲�
 		List productList = new ArrayList();
 		if(((String)request.getSession().getAttribute("id")).equals("admin")) productList = service.productList();
+		int mcount = service.countMember();
+		int procount = service.countProduct();
+		int noticount = service.countNotice();
 		
 		logger.info(productList.toString());
 		//view 페이지 전달
 		model.addAttribute("productList",productList);
+		model.addAttribute("mcount", mcount);
+		model.addAttribute("procount", procount);
+		model.addAttribute("noticount", noticount);
+	}
+	
+	// 모든 공지사항 조회
+	@RequestMapping(value = "/managenoti",method = RequestMethod.GET)
+	public void managenotiGET(HttpServletRequest request, Model model)throws Exception{
+		logger.info(" managenotiGET() 호출 (●'◡'●)(●'◡'●) ");
+		
+		List notiList = new ArrayList();
+		if(((String)request.getSession().getAttribute("id")).equals("admin")) notiList = service.noticeList();
+		int mcount = service.countMember();
+		int procount = service.countProduct();
+		int noticount = service.countNotice();
+		
+		logger.info(notiList.toString());
+		
+		model.addAttribute("notiList",notiList);
+		model.addAttribute("mcount", mcount);
+		model.addAttribute("procount", procount);
+		model.addAttribute("noticount", noticount);
 	}
 	
 	// http://localhost:8080/admin/noticewrite
@@ -156,5 +189,27 @@ public class AdminController {
 				
 			return "redirect:/admin/notice";
 		}
+		
+	   // 모든 구매내역 	
+		@RequestMapping(value = "/managetrade",method = RequestMethod.GET)
+		public void managetradeGET(Model model) throws Exception{
+			List<Map<String, Object>> buyprodList = service.getbuyprodList();
+			List<Map<String, Object>> sellprodList = service.getsellprodList();
+			
+			logger.info(buyprodList.toString());
+			logger.info(sellprodList.toString());
+			
+			int mcount = service.countMember();
+			int procount = service.countProduct();
+			int noticount = service.countNotice();
+						
+			model.addAttribute("buyprodList",buyprodList);
+			model.addAttribute("sellprodList",sellprodList);
+			model.addAttribute("mcount", mcount);
+			model.addAttribute("procount", procount);
+			model.addAttribute("noticount", noticount);
+		}
+		
+		
 
 	}
