@@ -375,7 +375,7 @@ textarea{
 									        <div>
 		        				<a href="/product/prodInfo?product_num=${vo.prod_num }&seller=${vo.sell_mem_id}">
 									          <div>${vo.product_title }</div>
-									          <div>${vo.product_price }원</div></a>
+									          <fmt:formatNumber value="${vo.product_price }" pattern="#,###" />원</a>
 									        </div>
 									        </div>
 										<div class="item">

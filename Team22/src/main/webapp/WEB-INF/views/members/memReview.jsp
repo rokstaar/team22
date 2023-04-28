@@ -258,90 +258,64 @@ div{
 									       </div>
 									      	
 									        <div>
-									          <div class="text">관리자</div>
-									       	   <div class="text">페이 : 50,000원</div>
-									         <a href="#"><div class="memberUpdate">회원정보수정</div></a>
+									          <div class="text">닉네임</div>
 									        </div>
 									      </div>
-									      
-									      <div class="item">
-									        <div>
-									           <a href="/trade/buyList" > <div class="text">거래내역</div>
-									          <div class="rightBlue number">6</div></a>
-									        </div>
-									      </div>     
+									      ${memReview }
 									       <div class="item">
 									        <div>
-									        <a href="/trade/mySaleProduct" > <div class="text">판매상품</div>
+									        <a href="/members/memberInfo?mem_id=${vo.reviewer} " > <div class="text">판매상품</div>
 									          <div class="rightBlue number">6</div></a>
 									        </div>
 									      </div>      
-									      <div class="item">
-									        <div>
-									          <a href="/trade/myAuctionList" > <div class="text">경매내역</div>
-									          <div class="rightBlue number">6</div></a>
-									        </div>
-									      </div>     
-									      <div class="item">
-									        <div>
-									           <a href="/trade/favorite" > <div class="text">찜한상품</div>
-									          <div class="rightBlue number">6</div></a>
-									        </div>
-									      </div>     
-									      <div class="item">
-									      <a href="/trade/buyReview">  <div>
+									      
+								      <div class="item">		
+									      <a href="/members/review?mem_id=${memReview[0].reviewee }">  <div>
 									          <div class="text">거래후기</div>
 									          <div class="rightBlue number">3</div></a>
 									        </div>
 									      </div>        
 									      
 									    </div>
-
+						
 													    
 									  </div>  
 									</div>	
 									 
-									  <div class="infoContainer">
+									 <div class="infoContainer">
 									    <a href="#" class="item">
-									      <div>찜한상품</div>
+									      <div>${memReview[0].member_nickname }님의 판매후기</div>
 									    </a>    
-									   
-									   
 									  </div>	
-									  
-									  <div class="shippingStatusContainer">
-										<section>
-									<header class="major">
-									</header>
-									<div class="posts">
-										<c:forEach var="vo" items="${myProdList }">
-											<article>
-										
-										<a class="product-section" href="/product/prodInfo?product_num=${vo.product_num }&seller=${vo.product_seller}">
-											<img src="/resources/images/${vo.product_pic.split(',')[0] } " width="511px" height="306px" 
-											onerror="this.src='/resources/images/default_product.jpg'">
-										<div style="float:right;">
-										찜<c:if test="${count==0 }">
-                        <a href="../trip/jjim.do?no=${tvo.no }"><button class="ripple" id="jjim">찜하기</button></a>
-                        </c:if>
-                        <c:if test="${count!=0 }">
-                        <button class="ripple" id="jjim">찜완료</button>
-                        </c:if>
-										</div>
-										<div>${vo.product_title }</div>
-										
-										<div style="float:left;">
-											<fmt:formatNumber value="${vo.product_price }" pattern="#,###" />원
-										</div>
-										
-										</a>
-										
-											</article>
-										</c:forEach>
+									<div class="shippingStatusContainer">
+										<c:forEach var = "vo" items="${memReview }">
+							<div class="infoContainer">
+						          
+								<div class="item">
+						        <div>
+   		        				<a href="/members/memberInfo?mem_id=${vo.reviewer}">
+						          <div>${vo.reviewer}</div></a>
+						        </div>
+						        </div>								
+						        <div class="item">
+						        <div>
+						        <img src="/resources/images/${vo.product_pic.split(',')[0] }" 
+						        onerror="this.src='/resources/images/default_product.jpg'" width="100px" height="80px">
+						        </div>
+						        </div>						
+								<div class="item">
+						        <div>
+   		        				<a href="/product/prodInfo?product_num=${vo.product_num }&seller=${vo.reviewee}">
+						          <div>${vo.rv_content}</div></a>
+						        </div>
+						        </div>								
+							
+									
+							</div>
+							</c:forEach>
+									</div>
 									</div>
 								</section>
-									</div>
-									  </section>
 
 						</div>
 					</div>
