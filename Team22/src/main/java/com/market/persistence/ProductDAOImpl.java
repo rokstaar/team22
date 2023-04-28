@@ -38,8 +38,8 @@ public class ProductDAOImpl implements ProductDAO{
 	}
 	
 	@Override
-	public int likeExist(String member_id) {
-		return session.selectOne(NAMESPACE + ".likeExist", member_id);
+	public int likeExist(Map<String, Object> map) {
+		return session.selectOne(NAMESPACE + ".likeExist", map);
 	}
 
 	@Override

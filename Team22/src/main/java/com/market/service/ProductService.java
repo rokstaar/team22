@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.market.domain.ProductVO;
 
@@ -22,7 +23,7 @@ public interface ProductService {
 	public void likeProdCancel(int pnum);
 	
 	// 회원 찜목록 있는지
-	public int likeExist(String seller);
+	public int likeExist(int pnum, String seller);
 	
 	// 찜 회원 등록
 	public void regFavorite(int pnum, String seller);
@@ -41,6 +42,7 @@ public interface ProductService {
 	
 	// 상품정보 등록하기
 	public void regProduct(ProductVO vo, MultipartFile[] files, HttpServletRequest request) throws Exception;
+	public void regProduct(ProductVO vo, MultipartHttpServletRequest request) throws Exception;
 	
 	// 조회했는지 확인하며 조회수 증가시키기
 	public void incView(HttpServletRequest request, HttpServletResponse response, Integer product_num);

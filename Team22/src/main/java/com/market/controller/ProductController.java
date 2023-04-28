@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.market.domain.ProductVO;
@@ -47,23 +48,24 @@ public class ProductController {
 	// 상품 리스트
 	
 	// 상품 찜하기
+	@ResponseBody
 	@GetMapping(value = "/likeProd")
 	public void likeProd(@RequestParam(value = "product_num") int pnum
 						,@RequestParam(value = "seller") String id) {
+		logger.info("{}번 상품 찜하기", pnum);
 		service.likeProd(pnum);
-		if(service.likeExist(id) == 0) {
-			
-		}else {
-			
-		}
+		service.regFavorite(pnum, id);
 	}
 	// 상품 찜하기
 	
 	// 상품 찜취소하기
+	@ResponseBody
 	@GetMapping(value = "/likeProdCancel")
 	public void likeProdCancel(@RequestParam(value = "product_num") int pnum
 							,@RequestParam(value = "seller") String id) {
+		logger.info("{}번 상품 찜취소", pnum);
 		service.likeProdCancel(pnum);
+		service.delFavorite(pnum, id);
 	}
 	// 상품 찜취소하기
 	
@@ -72,12 +74,11 @@ public class ProductController {
 	@ResponseBody
 	public boolean memlikeCheck(@RequestParam(value = "product_num") int pnum
 							,@RequestParam(value = "seller") String id) {
-		if(service.likeExist(id) == 0) {
-			service.regFavorite(pnum, id);
+		if(service.likeExist(pnum, id) == 0) {
 			return false;
 		}
 		
-		return false;
+		return true;
 	}
 	
 	// 상품 정보 가져오기
@@ -116,13 +117,22 @@ public class ProductController {
 	// 상품 등록 페이지
 	
 	// 상품 등록 후 해당 페이지
+//	@PostMapping(value = "/regProduct")
+//	public String regProduct(@ModelAttribute ProductVO productVO 
+//							,@RequestParam("product_pics") MultipartFile[] file
+//							,HttpServletRequest request) throws Exception {
+//		logger.info("Controller - 상품 등록 실행!");
+//		logger.info(productVO.toString());
+//		service.regProduct(productVO, file, request);
+//		
+//		return "redirect:/product/prodInfo";
+//	}
 	@PostMapping(value = "/regProduct")
 	public String regProduct(@ModelAttribute ProductVO productVO 
-							,@RequestParam("product_pics") MultipartFile[] file
-							,HttpServletRequest request) throws Exception {
+							,MultipartHttpServletRequest request) throws Exception {
 		logger.info("Controller - 상품 등록 실행!");
 		logger.info(productVO.toString());
-		service.regProduct(productVO, file, request);
+		service.regProduct(productVO, request);
 		
 		return "redirect:/product/prodInfo";
 	}

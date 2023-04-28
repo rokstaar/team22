@@ -14,7 +14,7 @@
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<style>
 			#sidebar.force-inactive{
-				margin-left: -24em;
+				margin-left: -26em;
 			}
 		</style>
 	</head>
@@ -64,38 +64,61 @@
 			
 								</section>
 
-<section>
-	<form action="/product/regProduct" method="post" enctype="multipart/form-data">
+<section style="display:flex; justify-content:center;">
+	<form id="regProd" action="/product/regProduct" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="product_seller" value="${id }">
-		분류
-		<select name="product_cate">
-			<option value="의류">의류</option>
-			<option value="가전제품">가전제품</option>
-			<option value="식기,가구">식기,가구</option>
-			<option value="디지털,전자기기">디지털,전자기기</option>
-			<option value="식품,생필품">식품,생필품</option>
-			<option value="스포츠,건강">스포츠,건강</option>
-			<option value="기기,공구">기기,공구</option>
-			<option value="도서,쿠폰">도서,쿠폰</option>
-			<option value="유아">유아</option>
-			<option value="애완동물">애완동물</option>
-			<option value="기타">기타</option>
-		</select><br>
-		제목 <input type="text" name="product_title"><br>
-		내용 <input type="text" name="product_content"><br>
-		가격 <input type="text" name="product_price"><br>
-		물품상태<br>
-		<select name="product_grade">
-			<option value="상">상</option>
-			<option value="중">중</option>
-			<option value="하">하</option>
-		</select>
-		<br>
+		<div class="regProd">
+		<div id="regTitle">
+			제목 <input type="text" name="product_title">
+		</div>
+		<div id="regCategory" class="select-container">
+			<select name="product_cate">
+				<option value="" hidden>분류</option>
+				<option value="의류">의류</option>
+				<option value="가전제품">가전제품</option>
+				<option value="식기,가구">식기,가구</option>
+				<option value="디지털,전자기기">디지털,전자기기</option>
+				<option value="식품,생필품">식품,생필품</option>
+				<option value="스포츠,건강">스포츠,건강</option>
+				<option value="기기,공구">기기,공구</option>
+				<option value="도서,쿠폰">도서,쿠폰</option>
+				<option value="유아">유아</option>
+				<option value="애완동물">애완동물</option>
+				<option value="기타">기타</option>
+			</select>
+		</div>
+		</div>
+		
+		내용
+		<textarea rows="5" cols="" name="product_content"></textarea>
+		<div class="regProd">
+		<div id="regPrice">
+			가격 <input type="text" name="product_price">
+		</div>
+		<div id="regGrade" class="select-container">
+			<select name="product_grade">
+				<option value="" hidden>상품상태</option>
+				<option value="상">상</option>
+				<option value="중">중</option>
+				<option value="하">하</option>
+			</select>
+		</div>
+		</div>
 		
 		<div id="file-inputs-container">
+		제품사진
 			<div class="file-input-wrapper">
-				제품사진<input type="file" name="product_pics">
-				<button type="button" class="add-button">+</button>
+				<!-- 제품사진<input type="file" name="product_pics">
+				<button type="button" class="add-button">+</button> -->
+				
+				<div id="div-file">
+				<div class="div-file-insert">
+					<input type="file" name="product_pics">
+				</div>
+				<div class="div-button">
+					<button type="button" class="add-button">+</button>
+				</div>
+				</div>
 			</div>
 		</div>
 		
