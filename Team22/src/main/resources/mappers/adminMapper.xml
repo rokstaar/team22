@@ -14,7 +14,7 @@
 	
 	<!-- 모든 회원 수(명) 조회  -->
 	  <select id="countMember" resultType="int">
-	    select count(member_id)
+	    select count(member_num)
         from member	  
 	  </select>
 	<!-- 모든 회원 수(명) 조회  -->
@@ -25,6 +25,37 @@
 		select * from product
 	</select>
 	<!-- 모든 상품 조회하기  -->
+	
+	<!-- 모든 상품 개수 조회  -->
+	  <select id="countProduct" resultType="int">
+	    select count(product_num)
+        from product
+	  </select>
+	
+	
+	<!-- 모든 구매내역 조회  -->
+	  <select id="getbuyList" resultType="map">
+	   select t.buy_mem_id, t.sell_mem_id, p.product_cate, p.product_title,p.product_price
+       from trade t join product p
+       on t.prod_num = p.product_num
+       where t.t_div = 1;	  
+	  </select>
+	<!-- 모든 구매내역 조회  -->
+	
+	<!-- 모든 판매내역 조회  -->
+	  <select id="getsellList" resultType="map">
+	   select t.buy_mem_id, t.sell_mem_id, p.product_cate, p.product_title,p.product_price
+       from trade t join product p
+       on t.prod_num = p.product_num
+       where t.t_div = 2;	  
+	  </select>	
+	<!-- 모든 판매내역 조회  -->
+	
+	
+	
+	
+	
+
 	
 	<!-- 공지사항 등록하기  -->
 	  <insert id="writeNotice">
@@ -38,6 +69,13 @@
 	      select * from notice  
 	    </select>
 	<!-- 모든 공지사항 조회하기  -->
+	
+	<!-- 공지사항 글 개수 조회 -->
+	    <select id="countNotice" resultType="int"> 
+	      select count(noti_num)
+          from notice;
+	    </select>
+	<!-- 공지사항 글 개수 조회 -->
 	
 	<!-- 공지사항 조회수 1증가  -->
 	   <update id="addReadcnt">

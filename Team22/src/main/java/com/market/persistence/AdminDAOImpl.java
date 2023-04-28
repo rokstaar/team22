@@ -1,6 +1,7 @@
 package com.market.persistence;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -13,6 +14,7 @@ import com.market.domain.CustomerserviceVO;
 import com.market.domain.MemberVO;
 import com.market.domain.NoticeVO;
 import com.market.domain.ProductVO;
+import com.market.domain.TradeVO;
 
 @Repository
 public class AdminDAOImpl implements AdminDAO {
@@ -24,7 +26,6 @@ public class AdminDAOImpl implements AdminDAO {
 	@Inject
 	private SqlSession sqlSession;
 
-	// mapper-namespace�� ����� ����
 	private static final String NAMESPACE 
 	     = "com.itwillbs.mapper.adminMapper";
 
@@ -80,5 +81,35 @@ public class AdminDAOImpl implements AdminDAO {
 		
 		return sqlSession.selectOne(NAMESPACE+".countMember");
 	}
+
+	@Override
+	public int countProduct() throws Exception {
+	
+		return sqlSession.selectOne(NAMESPACE+".countProduct");
+	}
+
+	@Override
+	public int countNotice() throws Exception {
+	
+		return sqlSession.selectOne(NAMESPACE+".countNotice");
+	}
+
+	@Override
+	public List<Map<String, Object>> getbuyprodList() throws Exception {
+		
+		return sqlSession.selectList(NAMESPACE+".getbuyList");
+	}
+
+	@Override
+	public List<Map<String, Object>> getsellprodList() throws Exception {
+		
+		return sqlSession.selectList(NAMESPACE+".getsellList");
+	}
+
+	
+	
+	
+	
+	
 
 }

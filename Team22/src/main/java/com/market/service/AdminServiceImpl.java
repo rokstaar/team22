@@ -1,6 +1,7 @@
 package com.market.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.market.domain.MemberVO;
 import com.market.domain.NoticeVO;
 import com.market.domain.ProductVO;
+import com.market.domain.TradeVO;
 import com.market.persistence.AdminDAO;
 
 @Service
@@ -66,6 +68,35 @@ public class AdminServiceImpl implements AdminService {
 		
 		return adao.countMember();
 	}
+
+	@Override
+	public int countProduct() throws Exception {
+		
+		return adao.countProduct();
+	}
+
+	@Override
+	public int countNotice() throws Exception {
+
+		return adao.countNotice();
+	}
+
+	@Override
+	public List<Map<String, Object>> getbuyprodList() throws Exception {
+		
+		return adao.getbuyprodList();
+	}
+
+	@Override
+	public List<Map<String, Object>> getsellprodList() throws Exception {
+		
+		return adao.getsellprodList();
+	}
+
+	
+	
+	
+	
 
 
 }

@@ -1,10 +1,12 @@
 package com.market.persistence;
 
 import java.util.List;
+import java.util.Map;
 
 import com.market.domain.MemberVO;
 import com.market.domain.NoticeVO;
 import com.market.domain.ProductVO;
+import com.market.domain.TradeVO;
 
 public interface AdminDAO {
 	
@@ -18,11 +20,25 @@ public interface AdminDAO {
 	// 모든 제품 정보
 	public List<ProductVO> getProductList() throws Exception;
 	
+	// 모든 제품 개수
+	public int countProduct() throws Exception;
+	
+	// 모든 구매내역 조회
+	public List<Map<String,Object>> getbuyprodList() throws Exception;
+	
+	// 모든 판매내역 조회
+	public List<Map<String, Object>> getsellprodList() throws Exception;
+	
+	
+	
 	// 공지사항 쓰기
 	public void createNotice(NoticeVO vo) throws Exception;
 	
 	// 공지사항 리스트 목록
 	public List<NoticeVO> getNoticeList() throws Exception;
+	
+	// 공지사항 글 개수 
+	public int countNotice() throws Exception;
 	
 	// 공지사항 조회수1증가
 	public void addReadcnt(Integer noti_num) throws Exception;
