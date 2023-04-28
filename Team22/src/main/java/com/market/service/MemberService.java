@@ -11,7 +11,11 @@ public interface MemberService {
 
 	public void memberJoin(MemberVO vo);
 	
-	public int idChk(MemberVO vo)throws Exception;
+	//아이디 중복체크
+	public boolean isDuplicated(String member_id);
+		
+	//닉네임 중복체크
+	public boolean isCopy(String member_nickname);
 	
 	public List<ProductVO> memProdList(String id) throws Exception;
 

@@ -38,13 +38,15 @@ public class MemberDAOImpl implements MemberDAO {
 			logger.info("DAO : ȸ������ ����!");
 		}
 	}
-	// 아이디 중복 체크
 	@Override
-	public int idChk(MemberVO vo) throws Exception {
-		int result= sqlSession.selectOne(NAMESPACE+".idchk",vo);
-		return result;
+	public int getCountById(String member_id) {
+		
+		return sqlSession.selectOne(NAMESPACE+".getCountById", member_id);
 	}
-	
+	@Override
+	public int getCountByNick(String member_nickname) {
+		return sqlSession.selectOne(NAMESPACE+".getCountByNick", member_nickname);
+	}
 	@Override
 	public List<ProductVO> getProdList(String id) throws Exception {
 		return sqlSession.selectList(NAMESPACE+".memProdList", id);

@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
+
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
 <html>
 
 
@@ -9,6 +13,13 @@
 <meta charset="EUC-KR">
 <title>Insert title here</title>
     <link rel="stylesheet" type="text/css" href="/resources/assets/css/login.css" />
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   
+
+
+ 
+</script>
+    
 </head>
 <body>
 
@@ -39,6 +50,8 @@
               placeholder="아이디"
               value="${not empty param.member_id ? param.member_id : ''}"
               required=""
+              minlength="4"
+              maxlength="12"
             />
           </div>
         </div>
@@ -78,15 +91,16 @@
           </div>
           <div class="forgot-id-ps__list">
             <li>
-              <a href="#">아이디 찾기</a>
+              <a id="find_id_btn">아이디 찾기</a>
             </li>
             <li>
-              <a href="#">비밀번호 찾기</a>
+              <a href="/members/findPassword">비밀번호 찾기</a>
             </li>
           </div>
         </ul>
+
       </form>
-    </div>
+    
 
 </body>
 </html>
