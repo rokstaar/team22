@@ -93,6 +93,12 @@ public class AdminServiceImpl implements AdminService {
 		return adao.getsellprodList();
 	}
 
+	@Override
+	public int countTrade() throws Exception {
+		
+		return adao.countTrade();
+	}
+
 	
 	
 	

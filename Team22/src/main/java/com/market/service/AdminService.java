@@ -13,7 +13,7 @@ public interface AdminService {
 	// 모든회원 정보
 	public List<MemberVO> memberList() throws Exception;
 	
-	// 회원 수(명)
+	// 총 회원 수(명)
 	public int countMember() throws Exception;
 	
 	
@@ -30,6 +30,10 @@ public interface AdminService {
 	// 모든 판매내역 조회
 	public List<Map<String, Object>> getsellprodList() throws Exception;
 	
+	// 총 거래내역
+	public int countTrade() throws Exception;
+	
+	
 	
 	
 	// 공지사항 쓰기
@@ -38,7 +42,7 @@ public interface AdminService {
 	// 공지사항 리스트 목록
 	public List<NoticeVO> noticeList() throws Exception;
 	
-	// 공지사항 글 개수 
+	// 공지사항 총 개수 
 	public int countNotice() throws Exception;
 	
 	// 공지사항 조회수1증가

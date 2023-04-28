@@ -30,6 +30,7 @@
 									       <div class="item">
 									        <div>
 									          <div class="rightBlue number"> <a href="/admin/managetrade">거래내역 관리 </a> </div>
+									          <div class="text">총 거래수 : ${tradecount }</div>
 									        </div>
 									      </div>
 									       
