@@ -29,6 +29,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import com.market.domain.ACriteria;
+import com.market.domain.APageDTO;
 import com.market.domain.AuctionVO;
 import com.market.service.AuctionService;
 
@@ -45,7 +47,9 @@ public class AuctionController {
 	public String AListGET(Model model,@RequestParam(value = "search", required = false) String search
 									  ,@RequestParam(value = "order", required = false) String order
 									  ,@RequestParam(value= "met", required = false) String met
-									  ,@RequestParam(value= "cate", required = false) String cate) throws Exception {
+									  ,@RequestParam(value= "cate", required = false) String cate
+									  ,@RequestParam(value= "type", required = false) String type
+									  ,ACriteria cri) throws Exception {
 
 		if(order == null) {
 			order = "au_num";
@@ -53,25 +57,44 @@ public class AuctionController {
 		if(met == null) {
 			met = "desc";
 		}
+		if(type == null) {
+			type = "au_title";
+		}
+		
 		
 		if(order.equals("best")) {
-			List<AuctionVO> aList = service.bestAList();
+			List<AuctionVO> aList = service.bestAList(cri);
+			APageDTO pageDTO = new APageDTO();
+			pageDTO.setCri(cri);
+			pageDTO.setTotalCount(service.countAuction());
 			model.addAttribute("aList", aList);
 			model.addAttribute("best", service.nowBest());
+			model.addAttribute("pageDTO", pageDTO);
+			
 			return "/auction/auctionList";
 		}
 		
 		if(search == null || search == "") {
-			List<AuctionVO> aList = service.getAList(order, met);
+			List<AuctionVO> aList = service.getAList(order, met, cri);
+			APageDTO pageDTO = new APageDTO();
+			pageDTO.setCri(cri);
+			pageDTO.setTotalCount(service.countAuction());
 			model.addAttribute("aList", aList);
 			model.addAttribute("best", service.nowBest());
+			model.addAttribute("pageDTO", pageDTO);
+			return "/auction/auctionList";
 		}else {
-			List<AuctionVO> aList = service.getSearchList(search);
-			
+			List<AuctionVO> aList = service.getSearchList(type, search, cri);
+			APageDTO pageDTO = new APageDTO();
+			pageDTO.setCri(cri);
+			pageDTO.setTotalCount(service.countAuction());
 			model.addAttribute("aList", aList);
+			model.addAttribute("pageDTO", pageDTO);
+			
+			return "/auction/auctionList";
 		}
 		
-		return "/auction/auctionList";
+		
 	}
 	
 	@RequestMapping(value = "/aRegist", method = RequestMethod.GET)
@@ -87,7 +110,8 @@ public class AuctionController {
 	
 	@RequestMapping(value = "/aRegist", method = RequestMethod.POST)
 	public String auctionRegistPOST(AuctionVO vo,HttpSession session, MultipartHttpServletRequest multiRequest, HttpServletResponse respose, Model model) throws Exception{
-		vo.setAu_sellerId((String)session.getAttribute("id"));	
+		vo.setAu_sellerId((String)session.getAttribute("id"));
+		vo.setAu_buyerId((String)session.getAttribute("id"));
 		
 		multiRequest.setCharacterEncoding("UTF-8");
 		
@@ -101,7 +125,6 @@ public class AuctionController {
 		List fileList = fileProcess(multiRequest);
 //		model.addAttribute("paramMap", paramMap);
 //		model.addAttribute("fileList", fileList);
-		
 		vo.setAu_pic(fileList.toString());
 		service.registAuction(vo);
 		

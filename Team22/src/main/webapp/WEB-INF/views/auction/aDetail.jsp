@@ -144,6 +144,13 @@
 					}
 				});
 				
+				$('.subPic').hover(function(){
+					$('.mainPic').attr("src", $(this).attr("src"));
+				});
+				
+				
+				
+				
 			});
 			
 		</script>
@@ -196,8 +203,14 @@
 											</ul>
 										</form>
 									</div>
+									
+									<c:set value="${vo.au_pic.replace('[','').replace(']','').split(', ')}" var="down" />
+									
 									<span class="image object">
-										<img src="/resources/images/${vo.au_pic.split(',')[1] }" style="width:644.7px; height:438.4px" />
+										<img class="mainPic" src="/auction/download?fileName=${down[0]}" style="width:644.7px; height:438.4px; margin-bottom: 30px " />
+										<c:forEach items="${down}" var="dList">
+											<img class="subPic" src="/auction/download?fileName=${dList}" style="width:70px; height:70px; float:left; margin-right: 10px " />
+										</c:forEach>
 									</span>
 								</section>
 

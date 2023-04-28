@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.market.domain.ACriteria;
 import com.market.domain.AuctionVO;
 import com.market.persistence.AuctionDAO;
 
@@ -18,9 +19,9 @@ public class AcutionServiceImpl implements AuctionService {
 	private AuctionDAO adao;
 
 	@Override
-	public List<AuctionVO> getAList(String order, String met) throws Exception {
+	public List<AuctionVO> getAList(String order, String met, ACriteria cri) throws Exception {
 		
-		return adao.getAList(order, met);
+		return adao.getAList(order, met, cri);
 	}
 
 	@Override
@@ -64,13 +65,18 @@ public class AcutionServiceImpl implements AuctionService {
 	}
 
 	@Override
-	public List<AuctionVO> getSearchList(String search) throws Exception {
-		return adao.getSearchList(search);
+	public List<AuctionVO> getSearchList(String type, String search, ACriteria cri) throws Exception {
+		return adao.getSearchList(type, search, cri);
 	}
 
 	@Override
-	public List<AuctionVO> bestAList() throws Exception {
-		return adao.bestAList();
+	public List<AuctionVO> bestAList(ACriteria cri) throws Exception {
+		return adao.bestAList(cri);
+	}
+
+	@Override
+	public Integer countAuction() throws Exception {
+		return adao.countAuction();
 	}
 	
 	

@@ -16,6 +16,20 @@
 		<link rel="stylesheet" href="/resources/assets/css/main.css" />
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		
+		<script type="text/javascript">
+			var dropFile = function(event) {
+				alert('dd');
+			    event.preventDefault();
+			}
+		
+			$(document).ready(funtion(){
+				
+			});
+		
+		</script>
+		
+		
 	</head>
 	<body>
 
@@ -52,7 +66,11 @@
 																</select>
 															</div>
 															<div class="col-6 col-12-xsmall">
-																<input type="file" name="file" id="au_pic" value="" placeholder="사진등록">
+																<!-- <input type="button" id="au_pic" class="button" value="" > -->
+																<input type="file" name="file1" value="" placeholder="사진등록">
+																<input type="file" name="file2" value="" placeholder="사진등록">
+																<input type="file" name="file3" value="" placeholder="사진등록">
+																<!-- <div onchange="dropfile();">Drap and Drop here.</div> -->
 															</div>
 															<!-- Break -->
 															<br>

@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.market.domain.ACriteria;
 import com.market.domain.AuctionVO;
 
 @Repository
@@ -19,10 +20,12 @@ public class AuctionDAOImpl implements AuctionDAO{
 	private static final String NAMESPACE = "com.market.mapper.auctionMapper";
 
 	@Override
-	public List<AuctionVO> getAList(String order, String met) throws Exception {
-		HashMap<String, String> map = new HashMap<String, String>();
+	public List<AuctionVO> getAList(String order, String met, ACriteria cri) throws Exception {
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("order", order);
 		map.put("met", met);
+		map.put("pageStart", cri.getPageStart());
+		map.put("pageSize", cri.getPageSize());
 		return sqlSession.selectList(NAMESPACE + ".getAList", map);
 	}
 
@@ -74,13 +77,23 @@ public class AuctionDAOImpl implements AuctionDAO{
 	}
 
 	@Override
-	public List<AuctionVO> getSearchList(String search) throws Exception {
-		return sqlSession.selectList(NAMESPACE+".getSearchAList", search);
+	public List<AuctionVO> getSearchList(String type, String search, ACriteria cri) throws Exception {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("type", type);
+		map.put("search", search);
+		map.put("pageStart", cri.getPageStart());
+		map.put("pageSize", cri.getPageSize());
+		return sqlSession.selectList(NAMESPACE+".getSearchAList", map);
 	}
 
 	@Override
-	public List<AuctionVO> bestAList() throws Exception {
-		return sqlSession.selectList(NAMESPACE+".bestAList");
+	public List<AuctionVO> bestAList(ACriteria cri) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".bestAList", cri);
+	}
+
+	@Override
+	public Integer countAuction() throws Exception {
+		return sqlSession.selectOne(NAMESPACE+".countAuction");
 	}
 	
 	
