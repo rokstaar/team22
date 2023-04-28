@@ -29,9 +29,16 @@ public class MemberServiceImpl implements MemberService {
 		mvo.insertMember(vo);
 	}
 
+	  @Override
+	    public boolean isDuplicated(String member_id) {
+	        int count = mvo.getCountById(member_id);
+	        return (count > 0);
+	    }
+
 	@Override
-	public int idChk(MemberVO vo) throws Exception {
-		return mvo.idChk(vo);
+	public boolean isCopy(String member_nickname) {
+		int count =mvo.getCountByNick(member_nickname);
+		return (count>0);
 	}
 
 	@Override

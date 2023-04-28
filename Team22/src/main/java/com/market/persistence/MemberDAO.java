@@ -14,7 +14,11 @@ public interface MemberDAO {
 	public void insertMember(MemberVO vo);
 
 	//아이디 중복 체크
-	public int idChk(MemberVO vo) throws Exception;
+	public int getCountById(String member_id);
+
+	//닉네임 중복 체크
+	public int getCountByNick(String member_nickname);
+
 	
 	// 조회한 프로필 판매 정보 
 	public List<ProductVO> getProdList(String id) throws Exception;
