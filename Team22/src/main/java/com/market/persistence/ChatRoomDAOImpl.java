@@ -34,4 +34,11 @@ public class ChatRoomDAOImpl implements ChatRoomDAO {
 		return sqlSession.selectOne(NAMESPACE  + ".selectChatRoomInfo", room_id);
 	}
 
+	@Override
+	public String selectTitle(int room_id) {
+		return sqlSession.selectOne(NAMESPACE + ".selectTitle", room_id); 
+	}
+
+	
+
 }

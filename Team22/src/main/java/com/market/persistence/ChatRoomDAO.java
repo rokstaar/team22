@@ -11,5 +11,7 @@ public interface ChatRoomDAO {
 	public int insertChatRoom(ChatRoomVO crvo);
 	
 	public ChatRoomVO selectChatRoomInfo(int room_id);
+	
+	public String selectTitle(int room_id);
 
 }
