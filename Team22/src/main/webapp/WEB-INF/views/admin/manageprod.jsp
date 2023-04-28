@@ -245,20 +245,7 @@ div{
 					<div id="main">
 						<div class="inner">
 
-							<!-- Header -->
-								<header id="header">
-									<a href="/main" class="logo"><strong>있지마켓</strong></a>
-									<ul class="icons">
-										<c:if test="${id == null }">
-											<li><a href="/members/login"><span class="label">로그인</span></a></li>
-										</c:if>
-										<c:if test="${id != null }">
-											<li><a href="/members/logout"><span class="label">로그아웃</span></a></li>
-											<li><a href="/members/myPage" ><span class="label">마이페이지</span></a></li>
-											<li><a href="/members/logout"><span class="label">판매하기</span></a></li>
-										</c:if>
-									</ul>
-								</header>
+		               <%@ include file="../include/header.jsp" %>			
 																
 							<!-- Banner -->
 							<section id="banner">
@@ -282,6 +269,7 @@ div{
 									      <div class="item">
 									        <div>
 									          <div class="rightBlue number"> <a href="/admin/adminPage">회원 관리 </a> </div>
+									          <div class="text">${mcount }명</div>
 									        </div>
 									      </div>     
 									      <div class="item">
@@ -320,7 +308,11 @@ div{
 									<tr>
 										<td>${plist.product_seller} </td>
 										<td>${plist.product_cate}</td>
-										<td>${plist.product_title}</td>
+										
+										<td>
+										<a href="/product/prodInfo?product_num=${plist.product_num }">${plist.product_title}</a>
+										</td>
+										
 										<td>${plist.product_content}</td>
 										<td>${plist.product_price}</td>
 
@@ -340,7 +332,7 @@ div{
                 
                    
                    </div>
-			      <%@ include file="../include/sidebar.jsp" %>		
+		   <%@ include file="../include/sidebar.jsp" %>		 
 			
 			 </div>
 		

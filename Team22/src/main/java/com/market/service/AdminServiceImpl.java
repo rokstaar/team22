@@ -56,7 +56,16 @@ public class AdminServiceImpl implements AdminService {
 		return adao.updateBoard(uvo);
 	}
 	
-	
+	@Override
+	public Integer deleteNotice(Integer noti_num) throws Exception {
+         return adao.deleteNotice(noti_num);
+	}
+
+	@Override
+	public int countMember() throws Exception {
+		
+		return adao.countMember();
+	}
 
 
 }
