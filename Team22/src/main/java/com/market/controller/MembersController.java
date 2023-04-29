@@ -1,17 +1,23 @@
 package com.market.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.market.domain.MemberVO;
+import com.market.domain.ProductVO;
 import com.market.service.MemberService;
 
 
@@ -95,6 +101,23 @@ public class MembersController {
     @ResponseBody
     public boolean nickCheck(@RequestBody String member_nickname) throws Exception{
     	return service.isCopy(member_nickname);
+    }
+    
+    // 다른 회원 판매 목록
+    @RequestMapping(value = "/memberInfo")
+    public String memberInfoGET(HttpSession session, Model model,String id) throws Exception {
+		
+		List<ProductVO> memProdList = service.memProdList(id);
+		logger.info("@@@@@@@@@@@@@@@@@@"+id);
+    	return "/members/memberInfo";
+    }
+    // 다른 회원 리뷰 목록
+    @RequestMapping(value = "/review")
+    public String memberReviewGET(HttpSession session, Model model,String id) throws Exception {
+    	
+    	List<Map<String,Object>> memProdList = service.memSellReview(id);
+    	logger.info("@@@@@@@@@@@@@@@@@@"+id);
+    	return "/members/memReview";
     }
     
     

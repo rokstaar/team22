@@ -16,8 +16,8 @@ public interface MemberService {
 		
 	//닉네임 중복체크
 	public boolean isCopy(String member_nickname);
-	
+	// 다른 회원 판매 목록
 	public List<ProductVO> memProdList(String id) throws Exception;
-
+	// 다른 회원 리뷰
 	public List<Map<String,Object>> memSellReview(String id) throws Exception;
 }
