@@ -4,12 +4,14 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -104,24 +106,43 @@ public class MembersController {
     }
     
     // 다른 회원 판매 목록
-    @RequestMapping(value = "/memberInfo")
-    public String memberInfoGET(HttpSession session, Model model,String id) throws Exception {
-		
-		List<ProductVO> memProdList = service.memProdList(id);
-		logger.info("@@@@@@@@@@@@@@@@@@"+id);
+    @RequestMapping(value = "/memberInfo", method = RequestMethod.GET)
+    public String memberInfoGET(Model model, HttpServletRequest request) throws Exception {
+    	String id =  request.getParameter("mem_id");
+    	List<ProductVO> memProdList = service.memProdList(id);
+		model.addAttribute("memProdList",memProdList);
     	return "/members/memberInfo";
     }
     // 다른 회원 리뷰 목록
-    @RequestMapping(value = "/review")
-    public String memberReviewGET(HttpSession session, Model model,String id) throws Exception {
-    	
-    	List<Map<String,Object>> memProdList = service.memSellReview(id);
-    	logger.info("@@@@@@@@@@@@@@@@@@"+id);
+    @RequestMapping(value = "/review", method = RequestMethod.GET)
+    public String memberReviewGET(Model model,HttpServletRequest request) throws Exception {
+    	String id =  request.getParameter("mem_id");
+    	List<Map<String,Object>> memReview = service.memSellReview(id);
+    	model.addAttribute("memReview",memReview);
     	return "/members/memReview";
     }
     
+    // 회원 정보 수정 페이지
+    @RequestMapping(value = "/memberUpdate", method = RequestMethod.GET)
+    public String memberUpdateGET(HttpSession session,Model model) throws Exception {
+    	String id = (String)session.getAttribute("id");
+    	
+    	model.addAttribute("memberInfo",service.memberInfo(id));
+    	
+    	if (id == null) {
+    		return "redirect:/members/login";
+    	}
+    	
+    	return "/members/updateForm";
+    }
     
-///////////////////////////////////////////////////////////
-//
-
+    // 회원 정보 수정 입력
+    @RequestMapping(value = "/memberUpdate", method = RequestMethod.POST)
+    public String memberUpdatePOST(HttpSession session,Model model,MemberVO vo) throws Exception {
+    	logger.info("@@@@@@@@@@@@@@"+vo);
+    	service.memberInfoUpdate(vo);
+    	
+    	return "redirect:/members/myPage";
+    		
+    }
 }

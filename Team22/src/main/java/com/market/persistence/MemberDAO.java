@@ -25,4 +25,10 @@ public interface MemberDAO {
 	
 	// 다른회원 판매후기
 	public List<Map<String,Object>> memProdReview(String id) throws Exception;
+	
+	// 회원 수정 정보 불러오기
+	public MemberVO memberInfo(String id)throws Exception;
+	// 회원 수정 
+	public void memberInfoUpdate(MemberVO vo)throws Exception;
+	
 }

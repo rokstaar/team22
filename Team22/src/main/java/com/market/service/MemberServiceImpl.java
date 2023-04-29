@@ -52,6 +52,17 @@ public class MemberServiceImpl implements MemberService {
 
 		return mvo.memProdReview(id);
 	}
+
+	@Override
+	public MemberVO memberInfo(String id) throws Exception {
+		return mvo.memberInfo(id);
+	}
+
+	@Override
+	public void memberInfoUpdate(MemberVO vo) throws Exception {
+		mvo.memberInfoUpdate(vo);
+		
+	}
    
 	
 }

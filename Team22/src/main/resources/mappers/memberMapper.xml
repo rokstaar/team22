@@ -58,7 +58,20 @@
 	</select>
     <!-- 다른 회원 판매 후기 -->
     
+    <select id="memberInfo" resultType="com.market.domain.MemberVO">
+    	select *
+    	from member
+    	where member_id = #{member_id}
     
+    </select>
+    
+    <update id="memberInfoUpdate" parameterType="com.market.domain.MemberVO"> 
+    	update member
+    	set member_pass = #{member_pass}, member_phone = #{member_phone}, member_nickname = #{member_nickname}, member_email = #{member_email},
+    	member_address = #{member_address}, member_pic = #{member_pic}
+    	where member_id = #{member_id}
+    
+    </update>
     
     
 </mapper>

@@ -263,7 +263,7 @@ div{
 									      </div>
 									       <div class="item">
 									        <div>
-									        <a href="/members/memberInfo?mem_id=${vo.reviewer} " > <div class="text">판매상품</div>
+									        <a href="/members/memberInfo?mem_id=${memReview[0].reviewee} " > <div class="text">판매상품</div>
 									          <div class="rightBlue number">6</div></a>
 									        </div>
 									      </div>      
@@ -277,7 +277,6 @@ div{
 									      
 									    </div>
 						
-													    
 									  </div>  
 									</div>	
 									 

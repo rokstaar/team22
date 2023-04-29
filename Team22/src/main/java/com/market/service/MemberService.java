@@ -20,4 +20,8 @@ public interface MemberService {
 	public List<ProductVO> memProdList(String id) throws Exception;
 	// 다른 회원 리뷰
 	public List<Map<String,Object>> memSellReview(String id) throws Exception;
+	// 회원 상세 불러오기
+	public MemberVO memberInfo(String id)throws Exception;
+	// 회원 수정
+	public void memberInfoUpdate(MemberVO vo)throws Exception;
 }
