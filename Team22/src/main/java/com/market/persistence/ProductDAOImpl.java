@@ -25,6 +25,11 @@ public class ProductDAOImpl implements ProductDAO{
 		logger.info("DAO - 상품 리스트 호출 {}", map);
 		return session.selectList(NAMESPACE + ".getProdList", map);
 	}
+	
+	@Override
+	public List<ProductVO> getProdListPage(Map<String, Object> map) {
+		return session.selectList(NAMESPACE + ".getProdListPage", map);
+	}
 
 	// 찜하기
 	@Override
@@ -82,6 +87,12 @@ public class ProductDAOImpl implements ProductDAO{
 	public void incView(Integer product_num) {
 		session.update(NAMESPACE + ".viewInc", product_num);
 	}
+
+	@Override
+	public int getTotalCount() {
+		return session.selectOne(NAMESPACE + ".getTotalCount");
+	}
+
 
 	
 }

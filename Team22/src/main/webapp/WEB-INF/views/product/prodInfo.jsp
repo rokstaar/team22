@@ -15,6 +15,8 @@
 		<link rel="stylesheet" href="/resources/assets/css/product.css" />
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<link rel="preload" href="/resources/images/${info.product_pic.split(',')[0]}" as="image">
+		
 		<style>
 			#sidebar.force-inactive{
 				margin-left: -26em;
@@ -77,8 +79,7 @@
 										</header>
 									</div>
 			
-								</section> -->
-								
+								</section> -->		
 	<section>
 		<div class="prodInfo">
 		<div class="image-gallery">
@@ -376,13 +377,15 @@
                 category: "${info.product_cate}"
             },
             success: function (response) {
-                
+            	var contextPath = '<c:url value="/" />';
+                console.log(contextPath);
             	var productHtml = '<div class="grid-container">';
             	for (var i = 0; i < response.length && i < 8; i++) {
             	  if (response[i].product_num != ${info.product_num}) {
             	    productHtml += '<div class="grid-item">';
             	    productHtml += '<a class="product-section" href="/product/prodInfo?product_num=' + response[i].product_num + '&seller=' + response[i].product_seller + '">';
-            	    productHtml += '<img src="/resources/images/' + response[i].product_pic.split(',')[0] + '" onerror="this.src=\'/resources/images/default_product.jpg\'" />';
+            	    /* productHtml += '<img src="/resources/images/' + response[i].product_pic.split(',')[0] + '" onerror="this.src=\'/resources/images/default_product.jpg\'" />'; */
+            	    productHtml += '<img src="/product/thumb?fileName=' + response[i].product_pic.split(',')[0] + '" onerror="this.src=\'/resources/images/default_product.jpg\'" />';
             	    productHtml += '<div>' + response[i].product_title + '</div>';
             	    productHtml += '<div>' + response[i].product_content + '</div>';
             	    productHtml += '</a>';

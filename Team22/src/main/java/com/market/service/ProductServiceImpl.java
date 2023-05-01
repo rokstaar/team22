@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.market.domain.PCriteria;
 import com.market.domain.ProductVO;
 import com.market.persistence.ProductDAO;
 
@@ -38,6 +39,21 @@ public class ProductServiceImpl implements ProductService{
 		map.put("title", title);
 		map.put("sortBy", sort);
 		return pdao.getProdList(map);
+	}
+
+	@Override
+	public List<ProductVO> getProdListPage(String grade, String category, String title, String sort,
+			PCriteria cri) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("grade", grade);
+		map.put("category", category);
+		map.put("title", title);
+		map.put("sortBy", sort);
+		map.put("pageSize", cri.getPageBlock());
+		map.put("startPage", (cri.getPageNum()-1) * cri.getPageBlock());
+		logger.info("service - 상품 목록 페이지 호출");
+		logger.info(map.toString());
+		return pdao.getProdListPage(map);
 	}
 
 	@Override
@@ -191,4 +207,10 @@ public class ProductServiceImpl implements ProductService{
 			return fileList;
 		}
 		// 파일 업로드 처리
+
+		// 상품 전체 개수
+		@Override
+		public int getTotalCount() {
+			return pdao.getTotalCount();
+		}
 }

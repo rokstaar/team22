@@ -11,7 +11,7 @@
 	<select id="getProdList" parameterType="map" resultType="ProductVO">
 		SELECT * FROM PRODUCT
 		<where>
-			PRODUCT_STATUS = '판매 중'
+			PRODUCT_STATUS = 0
 	        <if test="grade != null">
 	            AND PRODUCT_GRADE LIKE CONCAT('%', #{grade}, '%')
 	        </if>
@@ -41,6 +41,42 @@
     	</choose>
 	</select>
 	<!-- 상품 리스트 -->
+
+	<!-- 상품 리스트 페이지 -->
+	<select id="getProdListPage" parameterType="map" resultType="ProductVO">
+		SELECT * FROM PRODUCT
+		<where>
+			PRODUCT_STATUS = 0
+	        <if test="grade != null">
+	            AND PRODUCT_GRADE LIKE CONCAT('%', #{grade}, '%')
+	        </if>
+	        <if test="category != null">
+	            AND PRODUCT_CATE LIKE CONCAT('%', #{category}, '%')
+	        </if>
+	        <if test="title != null">
+	            AND PRODUCT_TITLE LIKE CONCAT('%', #{title}, '%')
+	        </if>
+	    </where>
+		<choose>
+	        <when test="sortBy == 'price_asc'">
+	            ORDER BY PRODUCT_PRICE ASC
+	        </when>
+	        <when test="sortBy == 'price_desc'">
+	            ORDER BY PRODUCT_PRICE DESC
+	        </when>
+	        <when test="sortBy == 'date_asc'">
+	            ORDER BY PRODUCT_DATE ASC
+	        </when>
+	        <when test="sortBy == 'date_desc'">
+	            ORDER BY PRODUCT_DATE DESC
+	        </when>
+	        <otherwise>
+	            ORDER BY PRODUCT_NUM ASC
+	        </otherwise>
+    	</choose>
+    	limit #{pageSize} offset #{startPage}
+	</select>
+	<!-- 상품 리스트 페이지 -->
 	
 	<!-- 찜하기 -->
 	<update id="likeProd">
@@ -125,6 +161,11 @@
 		, #{product_grade}, #{product_pic}, default, default, default, default)
 	</insert>
 	<!-- 상품 등록 -->
+	
+	<!-- 게시물 전체 숫자 -->
+	<select id="getTotalCount" resultType="int">
+		select count(product_num) from product
+	</select>
 </mapper>
 
 
