@@ -187,7 +187,7 @@ function exePost() {
            
            //바꿔줘야 하는 부분~
            $("[name=member_address]").val(data.zonecode);
-           $("[name=m_address_primary]").val(fullRoadAddr);
+           $("[name=member_address2]").val(fullRoadAddr);
            
            /* document.getElementById('signUpUserPostNo').value = data.zonecode; //5자리 새우편번호 사용
            document.getElementById('signUpUserCompanyAddress').value = fullRoadAddr;
@@ -200,32 +200,6 @@ function exePost() {
 
 //////////////////////////  이메일 ///////////////////////////////
 
-/**
- *  회원가입 관련 처리
- */
- 
- function fn_join(){
-	var f = $('#join_frm');
-	var formData = f.serialize();
-		
-	$.ajax({
-		type : "POST",
-		url : "/join",
-		data : formData,
-		success: function(data){
-			if(data == "Y"){
-				alert("회원가입이 완료되었습니다.");	
-				location.href="/"
-			}else{
-				alert("회원가입에 실패하였습니다.");
-			}
-		},
-		error: function(data){
-			alert("회원가입 에러 발생!");
-			console.log(data);
-		}
-	});
- }
  
 
 </script>   
@@ -238,7 +212,7 @@ function exePost() {
 			<h2 class="member-title text-center">회원가입</h2>
 
 			<!-- Form 시작 -->
-			<form class="form-signup" id="join" method="post" name="joinform" enctype="multipart/form-data">
+			<form class="form-signup" id="join" method="post" name="joinform" role="form" enctype="multipart/form-data">
 
 				<!-- 닉네임 -->
 				<div class="form-label-group">
@@ -296,8 +270,6 @@ function exePost() {
 					<input type="hidden" name="member_pic" value="${memberInfo.member_pic }">
 				</div>
 				
-				
-				
 				<div class="form-label-group">
 					<label for="addr">우편번호</label>
 					<br>
@@ -308,32 +280,16 @@ function exePost() {
 		
 			<div>
 			<tr>		
-		<td></td><td colspan="2"><input type="text" id="m_address_primary" name="m_address_primary" size="50" readonly="readonly" placeholder="기본주소"></td>
+		<td></td><td colspan="2"><input type="text" id="m_address_primary" name="member_address2" size="50" readonly="readonly" placeholder="기본주소"></td>
 		
 	</tr>
 		<tr>		
-		<td></td><td colspan="2"><input type="text" size="50" name="m_address_detail" placeholder="나머지 주소(선택 사항)"id="addressRest"></td>
+		<td></td><td colspan="2"><input type="text" size="50" name="member_address3" placeholder="나머지 주소(선택 사항)"id="addressRest"></td>
 	</tr>
 			</div>
 		
 
 
-				<!-- 문제의 input 부분 -->
-			<!-- 	<div class="form-label-group">
-					<label for="email">이메일</label>
-					<br>		
-					<input type="email" id="email" name="member_email" class="form-control form-margin-top" placeholder="이메일"> 
-				</div> -->
-					<tr>
-	<!-- 	<td>이메일</td><td><input type="text" name="member_email" id="email" size="30"></td><td><input type="button" value="인증코드 발송" onclick="sendEmail()"></td>
-	</tr>
-	<tr>
-		<td></td><td><input type="text" id="codeInput" size="30" placeholder="인증번호 입력" disabled="disabled"></td><td></td>
-	</tr>
-	<tr>
-		<td></td><td colspan="2" style="font-size: 3px" id="codecheck_blank"></td>
-	</tr> -->
-	
 					<div class="email_auth">
 						<input type="text" placeholder="이메일" name="email" id="email" class="email">
 						<button type="button" id="email_auth_btn" class="email_auth_btn">인증번호 받기</button>

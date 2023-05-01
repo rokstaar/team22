@@ -91,7 +91,7 @@
           </div>
           <div class="forgot-id-ps__list">
             <li>
-              <a id="find_id_btn">아이디 찾기</a>
+              <a id="find_id_btn" href="/members/findIdView">아이디 찾기</a>
             </li>
             <li>
               <a href="/members/findPassword">비밀번호 찾기</a>
