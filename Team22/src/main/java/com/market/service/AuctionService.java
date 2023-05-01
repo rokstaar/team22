@@ -31,4 +31,10 @@ public interface AuctionService {
 	public List<AuctionVO> bestAList(ACriteria cri) throws Exception;
 	
 	public Integer countAuction() throws Exception;
+	
+	public Integer countAuction(String type, String search) throws Exception;
+	
+	public void setEnd() throws Exception;
+	
+	public void endBid(AuctionVO vo) throws Exception;
 }

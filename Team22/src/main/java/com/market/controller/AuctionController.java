@@ -41,8 +41,6 @@ public class AuctionController {
 	@Inject
 	private AuctionService service;
 	
-	private ExecutorService nonBlockingService = Executors.newCachedThreadPool();
-	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String AListGET(Model model,@RequestParam(value = "search", required = false) String search
 									  ,@RequestParam(value = "order", required = false) String order
@@ -50,6 +48,9 @@ public class AuctionController {
 									  ,@RequestParam(value= "cate", required = false) String cate
 									  ,@RequestParam(value= "type", required = false) String type
 									  ,ACriteria cri) throws Exception {
+		
+		service.setEnd(); // 스케줄러 사용시 삭제
+		
 
 		if(order == null) {
 			order = "au_num";
@@ -60,7 +61,6 @@ public class AuctionController {
 		if(type == null) {
 			type = "au_title";
 		}
-		
 		
 		if(order.equals("best")) {
 			List<AuctionVO> aList = service.bestAList(cri);
@@ -87,7 +87,7 @@ public class AuctionController {
 			List<AuctionVO> aList = service.getSearchList(type, search, cri);
 			APageDTO pageDTO = new APageDTO();
 			pageDTO.setCri(cri);
-			pageDTO.setTotalCount(service.countAuction());
+			pageDTO.setTotalCount(service.countAuction(type, search));
 			model.addAttribute("aList", aList);
 			model.addAttribute("pageDTO", pageDTO);
 			
@@ -96,6 +96,14 @@ public class AuctionController {
 		
 		
 	}
+	
+	public String myList() throws Exception {
+		
+		
+		
+		return "/auction/myAList";
+	}
+	
 	
 	@RequestMapping(value = "/aRegist", method = RequestMethod.GET)
 	public String auctionRegistGET(HttpSession session) throws Exception{
@@ -188,9 +196,6 @@ public class AuctionController {
 		
 	}
 	
-	
-	
-	
 	@RequestMapping(value = "/aDetail", method = RequestMethod.GET)
 	public void auctionDetailGET(AuctionVO vo, Model model, HttpSession session) throws Exception {
 		String id = (String) session.getAttribute("id");
@@ -198,18 +203,16 @@ public class AuctionController {
 		model.addAttribute("vo", service.getADetail(vo));
 	}
 	
-	@RequestMapping(value = "/endDate", method = RequestMethod.GET)
-	public void endDate(@RequestParam("num") int au_num) throws Exception {
-		service.updateStatus(au_num);
+	@RequestMapping(value = "/endBid", method = RequestMethod.GET)
+	public void endBid(AuctionVO vo) throws Exception {
+		service.updateStatus(vo.getAu_num());
+//		service.endBid(vo);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/bid", method = RequestMethod.GET)
 	public List<Integer> bid(AuctionVO vo, @RequestParam("bidPrice") String price, HttpSession session, @RequestParam("lastBuyer") String lBuyer,
 			@RequestParam("lastBid") String lBid) throws Exception {
-		System.out.println(vo);
-		System.out.println(lBuyer);
-		System.out.println(lBid);
 		List<Integer> List = new ArrayList<Integer>();
 		String id = (String)session.getAttribute("id");
 		int aPrice = Integer.parseInt(price);
@@ -235,7 +238,12 @@ public class AuctionController {
 		String id = (String)session.getAttribute("id");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		map.put("bid", service.getADetail(vo).getAu_bidPrice());
+		if(service.getADetail(vo).getAu_bidPrice() == 0) {
+			map.put("bid", service.getADetail(vo).getAu_startPrice());
+		}else {
+			map.put("bid", service.getADetail(vo).getAu_bidPrice());
+		}
+		
 		map.put("pay", service.getMpay(id));
 		map.put("buyer", service.getADetail(vo).getAu_buyerId());
 		

@@ -137,7 +137,7 @@
 									<a href="/auction/list?order=au_bidPrice&met=asc" class="button" style="display: inline-block; float: left; margin-right:10px">가격순</a>
 									<a href="/auction/list?order=best" class="button" style="display: inline-block; float: left; margin-right:10px">인기순</a>
 									<a href="/auction/list" class="button" style="display: inline-block; float: left; margin-right:10px">최신순</a>
-									
+									<a href="/auction/myList" class="button" style="display: inline-block; float: left; margin-right:10px">경매 결과 확인	</a>
 									
 									<div class="features">
 									<c:forEach items="${aList }" var="aList">
@@ -145,7 +145,13 @@
 											<span id="subSpan"><img id="subPic" src="/auction/download?fileName=${aList.au_pic.replace('[','').replace(']','').split(',')[0]}" /></span>
 											<div class="content">
 												<h3>${aList.au_title }</h3>
-												<p>현재 입찰가 : ${aList.au_bidPrice }<br>
+												<p>
+												<c:if test="${aList.au_bidPrice == 0 }">
+													현재 입찰가 : ${aList.au_startPrice }<br>
+												</c:if>
+												<c:if test="${aList.au_bidPrice != 0 }">
+													현재 입찰가 : ${aList.au_bidPrice }<br>
+												</c:if>
 												판매자 : ${aList.au_sellerId }<br>
 												종료시간 : ${aList.au_endTime }<br>
 												<a href="/auction/aDetail?au_num=${aList.au_num }" class="button">입찰하기</a></p>
