@@ -6,7 +6,7 @@
 <mapper namespace="com.market.mapper.auctionMapper">
 
 	<select id="getAList" resultType="com.market.domain.AuctionVO">
-		select au_num, au_endTime, max(au_bidPrice) as au_bidPrice, au_sellerId, au_pic, au_title
+		select au_num, au_endTime, max(au_bidPrice) as au_bidPrice, au_sellerId, au_pic, au_title, au_startPrice
 		from auction
 		where au_status = 0
 		group by au_num
@@ -16,7 +16,7 @@
 	</select>
 	
 	<select id="getSearchAList" resultType="com.market.domain.AuctionVO">
-		select au_num, au_endTime, max(au_bidPrice) as au_bidPrice, au_sellerId, au_pic, au_title
+		select au_num, au_endTime, max(au_bidPrice) as au_bidPrice, au_sellerId, au_pic, au_title, au_startPrice
 		from auction
 		where au_status = 0 and ${type} like CONCAT('%',#{search},'%')
 		group by au_num
@@ -25,7 +25,7 @@
 	</select>
 	
 	<select id="bestAList" resultType="com.market.domain.AuctionVO">
-		select au_num, au_endTime, max(au_bidPrice) as au_bidPrice, au_sellerId, au_pic, au_title, au_status
+		select au_num, au_endTime, max(au_bidPrice) as au_bidPrice, au_sellerId, au_pic, au_title, au_status, au_startPrice
 		from auction
 		group by au_num
 		having au_status = 0
@@ -86,6 +86,22 @@
 		from auction
 		where au_status = 0
 	</select>
+	
+	<select id="searchCountAuction" resultType="int">
+		select count(distinct au_num)
+		from auction
+		where au_status = 0 and ${type} like CONCAT('%',#{search},'%')
+	</select>
+	
+	<update id="setEnd">
+		update auction set au_status = 1
+		<![CDATA[where au_endTime < now()]]>
+	</update>
+	
+	<update id="endBid">
+		update member set member_pay = member_pay + #{au_bidPrice}
+		where member_id = #{au_sellerId}
+	</update>
 
 </mapper>
 

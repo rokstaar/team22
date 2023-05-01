@@ -95,6 +95,26 @@ public class AuctionDAOImpl implements AuctionDAO{
 	public Integer countAuction() throws Exception {
 		return sqlSession.selectOne(NAMESPACE+".countAuction");
 	}
+
+	@Override
+	public Integer countAuction(String type, String search) throws Exception {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("type", type);
+		map.put("search", search);
+		return sqlSession.selectOne(NAMESPACE+".searchCountAuction", map);
+	}
+
+	@Override
+	public void setEnd() throws Exception {
+		sqlSession.update(NAMESPACE+".setEnd");
+	}
+
+	@Override
+	public void endBid(AuctionVO vo) throws Exception {
+		sqlSession.update(NAMESPACE+".endBid", vo);
+	}
+	
+	
 	
 	
 	

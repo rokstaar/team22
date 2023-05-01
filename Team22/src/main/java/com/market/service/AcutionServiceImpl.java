@@ -78,6 +78,24 @@ public class AcutionServiceImpl implements AuctionService {
 	public Integer countAuction() throws Exception {
 		return adao.countAuction();
 	}
+
+	@Override
+	public Integer countAuction(String type, String search) throws Exception {
+		return adao.countAuction(type, search);
+	}
+
+	@Override
+	public void setEnd() throws Exception {
+		adao.setEnd();
+	}
+
+	@Override
+	public void endBid(AuctionVO vo) throws Exception {
+		adao.endBid(vo);
+	}
+	
+	
+	
 	
 	
 	

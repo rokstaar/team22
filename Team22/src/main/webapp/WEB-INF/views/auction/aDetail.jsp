@@ -62,18 +62,23 @@
 			        $("#time").html("남은 시간 : " + days + "일 " + hours +":" + minutes + ":"+seconds);
 			        
 			        if (distance < 0){
-						alert('종료된 경매');
 						clearInterval(timer);
 						$.ajax({
-							url:'/auction/endDate',
+							url:'/auction/endBid',
 							type:'GET',
 							data:{
-								num : '${vo.au_num}'
+								au_num:'${vo.au_num}',
+								au_sellerId:'${vo.au_sellerId}',
+								au_bidPrice:$("#uBid").val()
 							}
+							
 						});
+						$('#bid').attr('class', 'button disabled');
+						$('#nowBuy').attr('class', 'button disabled');
+						
 						$("#time").html("경매 종료");
+						alert('경매종료');
 						// 경매시간 만료시 최종 입찰자한테 알림 보내기
-						/* location.href='/auction/list'; */
 					}
 			    }
 				timer = setInterval(setTimer, 1000);
@@ -88,13 +93,12 @@
 							return false;
 						}
 					}
-					if($('#lastBuyer').val() == '${id}'){
-						alert('상회입찰중 입니다.');
-						return false;
-					}
-					
 					if(${vo.au_sellerId.equals(id) }){
 						alert('나의 경매에 참여할수 없습니다.');
+						return false;
+					}
+					if($('#lastBuyer').val() == '${id}'){
+						alert('상회입찰중 입니다.');
 						return false;
 					}
 					if($("#au_bidPrice").val() == ""){
@@ -132,7 +136,6 @@
 								lastBid:$("#uBid").val()
 							},
 							success:function(data){
-								console.log(data);
 								$('#nowBid').html('현재 입찰금 : ' + data[0].toLocaleString("ko-KR"));
 								$('#myPay').html('${id }' + '님의 보유금액 : '+data[1].toLocaleString("ko-KR"));
 							}
@@ -183,7 +186,13 @@
 											즉시 구매가 : ${endPrice }<br>
 											</p> 
 											<p class="button" id="time"></p>
-											<p class="button" id="nowBid">현재 입찰금 : ${bidPrice }</p><br>
+											<c:if test="${vo.au_bidPrice == 0}">
+												<p class="button" id="nowBid">현재 입찰금 : ${startPrice }</p><br>
+											</c:if>
+											<c:if test="${vo.au_bidPrice != 0}">
+												<p class="button" id="nowBid">현재 입찰금 : ${bidPrice }</p><br>
+											</c:if>
+											
 											<input type="hidden" id="uBid" value="${vo.au_bidPrice }">
 											<input type="hidden" id="lastBuyer" value="${vo.au_buyerId }">
 											<input type="hidden" id="myPay" value="${pay }">
@@ -218,6 +227,7 @@
 								<section>
 									<div class="col-12">
 										<textarea name="au_content" id="au_content" rows="6" style="width:100%" readonly="readonly">${vo.au_content }</textarea>
+										<a style="margin-top: 20px; float:right;" class="button" href="/auction/list">목록</a>
 									</div>
 								</section>
 
