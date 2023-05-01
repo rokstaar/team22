@@ -31,4 +31,7 @@ public interface TradeService {
 	
 	public List<AuctionVO> mySaleAuction(String id) throws Exception;
 	
+	public List<Map<String,Object>> favoriteList(String id) throws Exception;
+
+	
 }

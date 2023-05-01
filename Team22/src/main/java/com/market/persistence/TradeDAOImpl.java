@@ -1,5 +1,6 @@
 package com.market.persistence;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -83,8 +84,20 @@ public class TradeDAOImpl implements TradeDAO{
 		return sqlSession.selectList(NAMESPACE+".myAuctionList", id);
 	}
 
+	@Override
+	public List<Map<String,Object>> getFavorite(String id) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".getFavorite",id);
+	}
+
+	@Override
+	public void delFavorite(Map<String, Object> map) {
+		sqlSession.update(NAMESPACE+".likeProdCancel",map);
+	}
+
 	
+
 	
+		
 	
 	
 	

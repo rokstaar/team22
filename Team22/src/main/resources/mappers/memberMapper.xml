@@ -68,9 +68,18 @@
     <update id="memberInfoUpdate" parameterType="com.market.domain.MemberVO"> 
     	update member
     	set member_pass = #{member_pass}, member_phone = #{member_phone}, member_nickname = #{member_nickname}, member_email = #{member_email},
-    	member_address = #{member_address}, member_pic = #{member_pic}
-    	where member_id = #{member_id}
+    	member_address = #{member_address}, member_pic = #{member_pic},member_pay = #{member_pay}
+    	where member_id = #{member_id} and member_num = #{member_num}
     
+    </update>
+    
+    <delete id="deleteMemPic" parameterType="String">
+        DELETE FROM member WHERE member_id = #{id}
+    </delete>
+    <update id="updateMemPic" parameterType="com.market.domain.MemberVO">
+        UPDATE member
+        SET member_pic = #{member_pic}
+        WHERE member_id = #{id}
     </update>
     
     

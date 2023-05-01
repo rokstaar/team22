@@ -63,6 +63,10 @@ public class MemberServiceImpl implements MemberService {
 		mvo.memberInfoUpdate(vo);
 		
 	}
-   
+
+	@Override
+	public void modifyUimage(String id, String memberPicPath) throws Exception {
+		mvo.updateMemberPic(id, memberPicPath);
+	}
 	
 }

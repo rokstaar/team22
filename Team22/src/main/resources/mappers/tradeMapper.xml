@@ -8,20 +8,20 @@
 	<!-- 구매리뷰 정보 및 리스트 -->
 	<select id="buyReviewList" resultType="map">
 		SELECT DISTINCT r.reviewer, r.reviewee, r.rv_content, m.member_pic, p.product_title, r.rv_score, p.product_num,
-		p.product_pic, t.t_div, t.type_div
+		p.product_pic, t.type_div
 		FROM review r
 		JOIN member m ON r.reviewer = m.member_id
 		JOIN product p ON r.reviewee = p.product_seller
 		and r.rv_num = p.product_num
 		JOIN trade t ON r.reviewer = t.buy_mem_id
-		WHERE reviewer = #{id} AND t.t_div = 1;
+		WHERE reviewer = #{id} AND t.type_div = #{type_div};
 	</select>
 	<!-- 구매리뷰 정보 및 리스트 -->
 	
 	<!-- 판매리뷰 -->
 	<select id="tSellReview" resultType="map">
 		select r.reviewer, r.reviewee, r.rv_content, m.member_pic, p.product_title, r.rv_score, p.product_num,
-		p.product_pic, t.t_div, t.type_div
+		p.product_pic, t.type_div
 		from trade t
 		join product p on t.sell_mem_id = p.product_seller
 		join member m on t.buy_mem_id = m.member_id
@@ -35,25 +35,25 @@
 	
 	<!-- 구매내역  -->
 	<select id="buyList" resultType="map">
-		select t.t_num, t.buy_mem_id,t.sell_mem_id,t.t_div,t.type_div,p.product_title,t.prod_num,
+		select t.t_num, t.buy_mem_id,t.sell_mem_id,t.type_div,p.product_title,t.prod_num,
 		p.product_price, p.product_pic,p.product_cate,m.member_nickname
 		from trade t
 		 join product p on t.sell_mem_id = p.product_seller
          and t.prod_num = p.product_num 
 		 join member m on t.buy_mem_id = m.member_id
-		 where t.buy_mem_id = #{id} and t.t_div = 1;
+		 where t.buy_mem_id = #{id} and type_div = #{type_div};
 	</select>
 	<!-- 구매내역  -->
 	
 	<!-- 판매내역  -->
 	<select id="prodList" resultType="map">
-		select t.t_num, t.buy_mem_id,t.sell_mem_id,t.t_div,t.type_div,p.product_title,t.prod_num,
+		select t.t_num, t.buy_mem_id,t.sell_mem_id,t.type_div,p.product_title,t.prod_num,
 		p.product_price,p.product_pic,p.product_cate,m.member_nickname
 		from trade t
 		 join product p on t.sell_mem_id = p.product_seller
          and t.prod_num = p.product_num
 		 join member m on t.buy_mem_id = m.member_id
-		 where t.sell_mem_id = p.product_seller and t.prod_num = p.product_num and t_div=2;
+		 where t.sell_mem_id = p.product_seller and t.prod_num = p.product_num and type_div = #{type_div};
 	</select>
 	<!-- 판매내역  -->
 	
@@ -86,7 +86,7 @@
 		select au_num, au_startPrice, au_endTime, au_sellerId, au_buyerId, max(au_bidPrice)as au_bidPrice, au_endPrice, au_pic,
 		au_status, au_title,au_content, au_category
 		from auction
-		where au_buyerId = #{id} and au_num is not null
+		where au_buyerId = #{id} and au_num is not null and au_bidPrice != 0
 		group by au_num
 		order by au_num desc;
 
@@ -113,5 +113,31 @@
 		order by au_num desc;
 	</select>
 	<!-- 내 경매 판매목록 -->
+	
+	<!-- 내  찜 상품목록 -->
+	<select id="getFavorite" resultType="map">
+	 	select f.product_num, f.member_id, p.product_title,p.product_price,p.product_pic,p.product_seller,p.product_readcount,
+	 	p.product_favorite
+	 	from favorite f
+	 	join product p
+	 	on f.product_num = p.product_num
+	 	where f.member_id = #{id}
+	 
+	</select>
+	<!-- 내  찜 상품목록 -->
+	
+	
+	<!-- 마이페이지 찜 취소 -->
+	<delete id="likeProdCancel">
+		delete from favorite
+		where member_id = #{member_id} and product_num = #{product_num}
+
+	</delete>
+	<!-- 마이페이지 찜 취소 -->
+	
+
+
+
+
 	
 </mapper>

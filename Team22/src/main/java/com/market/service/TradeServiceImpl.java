@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.market.domain.AuctionVO;
 import com.market.domain.ProductVO;
 import com.market.domain.ReviewVO;
-import com.market.domain.TradeVO;
 import com.market.persistence.TradeDAO;
 
 @Service
@@ -79,9 +78,16 @@ public class TradeServiceImpl implements TradeService{
 
 	@Override
 	public List<AuctionVO> mySaleAuction(String id) throws Exception {
-		// TODO Auto-generated method stub
 		return tdao.getAuctList(id);
 	}
+
+	@Override
+	public List<Map<String, Object>> favoriteList(String id) throws Exception {
+		return tdao.getFavorite(id);
+	}
+
+
+
 	
 	
 	

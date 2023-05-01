@@ -24,4 +24,6 @@ public interface MemberService {
 	public MemberVO memberInfo(String id)throws Exception;
 	// 회원 수정
 	public void memberInfoUpdate(MemberVO vo)throws Exception;
+	// 회원사진수정
+	public void modifyUimage(String id, String memberPicPath) throws Exception;
 }

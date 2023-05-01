@@ -1,9 +1,12 @@
 package com.market.controller;
 
+import java.io.File;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -11,13 +14,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.itwillbs.util.UploadFileUtils;
 import com.market.domain.MemberVO;
 import com.market.domain.ProductVO;
 import com.market.service.MemberService;
@@ -27,9 +31,14 @@ import com.market.service.MemberService;
 @RequestMapping(value = "/members")
 public class MembersController {
 	
+	
 	@Inject
 	private MemberService service;
 
+	@Inject
+	@Named("uploadPath")
+	private String uploadPath;
+	
 	private static final Logger logger = LoggerFactory.getLogger(MembersController.class);
 	
 	//http://localhost:8080/main
@@ -64,9 +73,10 @@ public class MembersController {
 	}
 	// 마이페이지
 	@RequestMapping(value = "/myPage", method = RequestMethod.GET)
-	public String myPageGET() {
-		
-		
+	public String myPageGET(Model model, HttpSession session)throws Exception{
+		String id = (String)session.getAttribute("id");
+	
+		model.addAttribute("memberInfo",service.memberInfo(id));
 		return "/members/myPage";
 	}
 	
@@ -80,10 +90,21 @@ public class MembersController {
 	}
 	// 회원가입-정보처리
 	@RequestMapping(value="/insert", method = RequestMethod.POST)
-	public String insertPOST(MemberVO vo) {
+	public String insertPOST(MemberVO vo,MultipartFile file)throws Exception {
 		logger.info("insertPOST() 호출");
 		logger.info(vo+"toString");
-		
+	
+		String imgUploadPath = uploadPath + File.separator + "imgUpload";
+		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+		String fileName = null;
+
+		if(file != null) {
+		 fileName =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+		} else {
+		 fileName = uploadPath + File.separator + "images" + File.separator + "none.png";
+		}
+
+		vo.setMember_pic(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
 
 		service.memberJoin(vo);
 		
@@ -138,11 +159,42 @@ public class MembersController {
     
     // 회원 정보 수정 입력
     @RequestMapping(value = "/memberUpdate", method = RequestMethod.POST)
-    public String memberUpdatePOST(HttpSession session,Model model,MemberVO vo) throws Exception {
-    	logger.info("@@@@@@@@@@@@@@"+vo);
-    	service.memberInfoUpdate(vo);
+    public String memberUpdatePOST(MemberVO vo, MultipartFile file, HttpServletRequest req,RedirectAttributes rttr) throws Exception {
+    	
+    	
+    	logger.info("@@@@@@@@@@@@@@memberUpdate"+vo);
+    	File convFile = new File(file.getOriginalFilename());
+    	file.transferTo(convFile);
+
+    	
+    	 // 새로운 파일이 등록되었는지 확인
+    	 if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+    	  // 기존 파일을 삭제
+    	  new File(uploadPath + req.getParameter("member_pic")).delete();
+    	  
+    	  // 새로 첨부한 파일을 등록
+    	  String imgUploadPath = uploadPath + File.separator + "imgUpload";
+    	  String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+    	  String fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
+    	  
+    	  vo.setMember_pic(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
+
+    	 } else {  // 새로운 파일이 등록되지 않았다면
+    	  // 기존 이미지를 그대로 사용
+    	  vo.setMember_pic(req.getParameter("member_pic"));
+    	  
+    	  
+    	 }
+    	 
+    	 rttr.addFlashAttribute("update","update");
+    	 service.memberInfoUpdate(vo);
+    	 
     	
     	return "redirect:/members/myPage";
     		
     }
+    
+    
+    
+    
 }

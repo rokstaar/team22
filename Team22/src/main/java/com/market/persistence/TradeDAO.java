@@ -28,6 +28,13 @@ public interface TradeDAO {
 	// 내가 신청한 경매 상품들의 현재 정보
 	public List<AuctionVO> getAList()throws Exception;
 	// 내가 판매중인 경매상품
-		public List<AuctionVO> getAuctList(String id) throws Exception;
+	public List<AuctionVO> getAuctList(String id) throws Exception;
+	// 내 관심상품 리스트
+	public List<Map<String,Object>> getFavorite(String id) throws Exception;
+	// 찜한 상품 삭제
+	public void delFavorite(Map<String, Object> map);
+	
+	
+	
 }
 

@@ -65,9 +65,20 @@ public class MemberDAOImpl implements MemberDAO {
 		
 		sqlSession.update(NAMESPACE+".memberInfoUpdate",vo);
 	}
+	@Override
+	public void deleteMemPic(String id) throws Exception {
+        sqlSession.delete(NAMESPACE + ".deleteMemPic", id);
+		
+	}
+	@Override
+	public void updateMemberPic(String id, String memberPicPath) throws Exception {
+		 Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("member_id", id);
+        paramMap.put("memberPicPath", memberPicPath);
+        sqlSession.update(NAMESPACE + ".updateMemberPic", paramMap);		
+	}
 	
 	
-
 	
 
 }

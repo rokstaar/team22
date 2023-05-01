@@ -30,5 +30,10 @@ public interface MemberDAO {
 	public MemberVO memberInfo(String id)throws Exception;
 	// 회원 수정 
 	public void memberInfoUpdate(MemberVO vo)throws Exception;
+	// 회원 사진 삭제
+	public void deleteMemPic(String id) throws Exception;
+	// 회원 사진 수정
+    public void updateMemberPic(String id, String memberPicPath) throws Exception;
+
 	
 }

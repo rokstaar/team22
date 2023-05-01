@@ -238,7 +238,7 @@ function exePost() {
 			<h2 class="member-title text-center">회원가입</h2>
 
 			<!-- Form 시작 -->
-			<form class="form-signup" id="join" method="post" name="joinform">
+			<form class="form-signup" id="join" method="post" name="joinform" enctype="multipart/form-data">
 
 				<!-- 닉네임 -->
 				<div class="form-label-group">
@@ -288,6 +288,15 @@ function exePost() {
 					<br>
 					<input type="text"  id="name" name="member_name" class="form-control form-margin-top" placeholder="이름" required> 
 				</div>
+				
+				<div class="form-label-group">
+					<label for="member_pic">이미지</label>
+					<input type="file"  id="name" name="file" class="form-control form-margin-top" value="${memberInfo.member_name }" required> 
+					<img alt="" src="${memberInfo.member_pic }">
+					<input type="hidden" name="member_pic" value="${memberInfo.member_pic }">
+				</div>
+				
+				
 				
 				<div class="form-label-group">
 					<label for="addr">우편번호</label>

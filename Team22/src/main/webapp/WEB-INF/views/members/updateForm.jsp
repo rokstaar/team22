@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -156,7 +153,7 @@ $("#checkPw").blur(function() {
 
 
 ////////////////////////////// 주소    //////////////////////////////////////////////////
-/* function exePost() {
+function exePost() {
 	 new daum.Postcode({
         oncomplete: function(data) {
            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -197,7 +194,7 @@ $("#checkPw").blur(function() {
            document.getElementById('signUpUserCompanyAddressDetail').value = data.jibunAddress; */
        }
     }).open();
-} */
+}
 //////////////////////////////주소    //////////////////////////////////////////////////
 
 
@@ -207,7 +204,7 @@ $("#checkPw").blur(function() {
  *  회원가입 관련 처리
  */
  
-/*  function fn_join(){
+ function fn_join(){
 	var f = $('#join_frm');
 	var formData = f.serialize();
 		
@@ -217,18 +214,18 @@ $("#checkPw").blur(function() {
 		data : formData,
 		success: function(data){
 			if(data == "Y"){
-				alert("회원수정이 완료되었습니다.");	
+				alert("회원가입이 완료되었습니다.");	
 				location.href="/"
 			}else{
-				alert("회원수정에 실패하였습니다.");
+				alert("회원가입에 실패하였습니다.");
 			}
 		},
 		error: function(data){
-			alert("회원수정 에러 발생!");
+			alert("회원가입 에러 발생!");
 			console.log(data);
 		}
 	});
- } */
+ }
  
 
 </script>   
@@ -238,24 +235,33 @@ $("#checkPw").blur(function() {
 
 		<div class="main-content">	
 
-			<h2 class="member-title text-center">${sessionScope.id }님의 회원수정</h2>
-			<c:if test="${memberInfo.member_id != null }">
-			<!-- Form 시작 -->
-			<form class="member" id="join" method="post" name="joinform" role="form">
-			<input type="hidden" name="member_id" value="${memberInfo.member_id }">
+			<h2 class="member-title text-center">회원수정</h2>
 
+			<!-- Form 시작 -->
+			<form class="form-signup" id="join" method="post" name="joinform" role="form" enctype="multipart/form-data">
+			<input type="hidden" name="member_num" value="${memberInfo.member_num }">
+			<input type="hidden" name="member_pay" value="${memberInfo.member_pay }">
 				<!-- 닉네임 -->
 				<div class="form-label-group">
 					<label for="nickname">닉네임</label>
 					<br>
 					<div class="form-input-box">
-						<input type="text" id="nickname" name="member_nickname" class="form-control" value="${memberInfo.member_nickname }" required=""> 
+						<input type="text" id="nickname" name="member_nickname" class="form-control" value=${memberInfo.member_nickname } required=""> 
 						<button type="submit" class="btn btn-info btn-sm" onclick="check_nick();">중복확인</button>
 					</div>
 					<span id="nickcheck_blank"></span>
 					
 				</div>
 
+				<!-- 아이디 -->
+				<div class="form-label-group">
+					<label for="id">아이디</label>
+					<br>
+					<div id="id_Confirm" class="form-input-box">
+						<input type="text" id="id" name="member_id" class="form-control"  value="${memberInfo.member_id }" readonly maxlength="16" size="30" required=""> 
+					</div>
+					<span id="idcheck_blank"></span>
+				</div>
 				
 				<!-- 비밀번호 -->
 				<div class="form-label-group">
@@ -280,15 +286,23 @@ $("#checkPw").blur(function() {
 				<div class="form-label-group">
 					<label for="member_name">이름</label>
 					<br>
-					<input type="text"  id="name" name="member_name" class="form-control form-margin-top" value = "${memberInfo.member_name }"placeholder="이름" required> 
-
+					<input type="text"  id="name" name="member_name" class="form-control form-margin-top" value="${memberInfo.member_name }" readonly required> 
 				</div>
+				
+				<div class="form-label-group">
+					<label for="member_pic">이미지</label>
+					<input type="file"  id="name" name="file" class="form-control form-margin-top" value="${memberInfo.member_name }" required> 
+					<img alt="" width="150px" height="100px" src="${memberInfo.member_pic }">
+					<input type="hidden" name="member_pic" value="${memberInfo.member_pic }">
+				</div>
+				
+				
 				
 				<div class="form-label-group">
 					<label for="addr">우편번호</label>
 					<br>
-					<input type="text" name="member_address" class="form-control form-margin-top" placeholder="우편번호" size="30" readonly="readonly"> 					
-					<button type="button" value=""class="btn btn-info btn-sm"onclick="exePost()" id="addressSearch">주소검색</button>	
+					<input type="text" name="member_address" value="${memberInfo.member_address }" class="form-control form-margin-top" placeholder="우편번호" size="30" readonly="readonly"> 					
+					<button type="button" value="주소검색"class="btn btn-info btn-sm"onclick="exePost()" id="addressSearch">주소검색</button>	
 				</div>
 		
 		
@@ -301,26 +315,47 @@ $("#checkPw").blur(function() {
 		<td></td><td colspan="2"><input type="text" size="50" name="m_address_detail" placeholder="나머지 주소(선택 사항)"id="addressRest"></td>
 	</tr>
 			</div>
+		
 
 
+				<!-- 문제의 input 부분 -->
+			<!-- 	<div class="form-label-group">
+					<label for="email">이메일</label>
+					<br>		
+					<input type="email" id="email" name="member_email" class="form-control form-margin-top" placeholder="이메일"> 
+				</div> -->
+					<tr>
+	<!-- 	<td>이메일</td><td><input type="text" name="member_email" id="email" size="30"></td><td><input type="button" value="인증코드 발송" onclick="sendEmail()"></td>
+	</tr>
+	<tr>
+		<td></td><td><input type="text" id="codeInput" size="30" placeholder="인증번호 입력" disabled="disabled"></td><td></td>
+	</tr>
+	<tr>
+		<td></td><td colspan="2" style="font-size: 3px" id="codecheck_blank"></td>
+	</tr> -->
+	
 
 				 <div class="form-label-group btn-sign-up-margin">
 					<label for="phone">연락처</label>
 					<br>	
-					<input type="text" id="phone" name="member_phone" class="form-control form-margin-top" value="${memberInfo.member_phone }" placeholder="휴대전화" required=""> 
+					<input type="text" id="phone" name="member_phone" class="form-control form-margin-top" value="${memberInfo.member_phone }" required=""> 
+				</div>
+				 <div class="form-label-group btn-sign-up-margin">
+					<label for="phone">이메일</label>
+					<br>	
+					<input type="text" id="email" name="member_email" class="form-control form-margin-top" value="${memberInfo.member_email }" required=""> 
 				</div>
 				 
 				
 				
 				<button type="submit" class="btn btn-default">
 					<p class="btn-sign-up">
-						수정하기
+						회원수정
 					</p>
 				</button>
-		
 			</form>
-		</c:if>
 		</div>
+
 
 </body>
 </html>
