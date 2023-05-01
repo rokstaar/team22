@@ -79,6 +79,14 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 	
 	
+	@Override
+	public List<MemberVO> findId(String memberEmail)throws Exception{
+		return sqlSession.selectList(NAMESPACE+".findId", memberEmail);
+	}
 	
+	@Override
+	public int findIdCheck(String memberEmail)throws Exception{
+		return sqlSession.selectOne(NAMESPACE+".findIdCheck", memberEmail);
+	}
 
 }

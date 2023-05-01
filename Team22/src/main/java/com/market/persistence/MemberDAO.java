@@ -35,5 +35,9 @@ public interface MemberDAO {
 	// 회원 사진 수정
     public void updateMemberPic(String id, String memberPicPath) throws Exception;
 
+ // �븘�씠�뵒 李얘린
+ 	public List<MemberVO> findId(String memberEmail)throws Exception;
+ 	
+ 	public int findIdCheck(String memberEmail)throws Exception;
 	
 }

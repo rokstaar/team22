@@ -83,4 +83,28 @@
     </update>
     
     
+       <!-- 아이디 찾기 -->
+  
+	  <!-- resultMap 설정 추가 -->
+	<resultMap id="MemberVOResultMap" type="com.market.domain.MemberVO">
+	  <id property="member_num" column="member_num"/>
+	  <result property="member_id" column="member_id"/>
+	  <result property="member_pass" column="member_pass"/>
+	  <result property="member_phone" column="member_phone"/>
+	  <result property="member_name" column="member_name"/>
+	  <result property="member_nickname" column="member_nickname"/>
+	  <result property="member_email" column="member_email"/>
+	  <result property="member_address" column="member_address"/>
+	  <result property="member_pay" column="member_pay"/>
+	  <result property="member_pic" column="member_pic"/>
+	</resultMap>
+	    
+	    <select id="findId" resultMap="MemberVOResultMap">
+	select * from member where member_email = #{memberEmail}
+	</select>
+	
+	<select id="findIdCheck" resultType="int">
+	select count(*) from member where member_email = #{memberEmail}
+	</select>
+    
 </mapper>

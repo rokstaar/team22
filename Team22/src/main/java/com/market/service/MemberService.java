@@ -26,4 +26,8 @@ public interface MemberService {
 	public void memberInfoUpdate(MemberVO vo)throws Exception;
 	// 회원사진수정
 	public void modifyUimage(String id, String memberPicPath) throws Exception;
+	
+	public List<MemberVO> findId(String memberEmail)throws Exception;
+	
+	public int findIdCheck(String memberEmail)throws Exception;
 }

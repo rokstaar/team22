@@ -68,5 +68,13 @@ public class MemberServiceImpl implements MemberService {
 	public void modifyUimage(String id, String memberPicPath) throws Exception {
 		mvo.updateMemberPic(id, memberPicPath);
 	}
+	@Override
+	public List<MemberVO> findId(String memberEmail)throws Exception{
+		return mvo.findId(memberEmail);
+	}
 	
+	@Override
+	public int findIdCheck(String memberEmail)throws Exception{
+		return mvo.findIdCheck(memberEmail);
+	}
 }

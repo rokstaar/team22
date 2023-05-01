@@ -1,7 +1,6 @@
 package com.market.controller;
 
 import java.io.File;
-import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -14,9 +13,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -43,13 +44,13 @@ public class MembersController {
 	
 	//http://localhost:8080/main
 	
-	// 로그인 - 정보입력
+	// 濡쒓렇�씤 - �젙蹂댁엯�젰
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginGET() {
 		
 		return "/members/loginForm";
 	}
-	// 로그인 - 정보처리
+	// 濡쒓렇�씤 - �젙蹂댁쿂由�
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginPOST(HttpSession session, MemberVO vo) {
 		
@@ -64,14 +65,14 @@ public class MembersController {
 		}
 		
 	}
-	//로그아웃
+	//濡쒓렇�븘�썐
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logoutGET(HttpSession session) {
 		session.invalidate();
 		
 		return "redirect:/main";
 	}
-	// 마이페이지
+	// 留덉씠�럹�씠吏�
 	@RequestMapping(value = "/myPage", method = RequestMethod.GET)
 	public String myPageGET(Model model, HttpSession session)throws Exception{
 		String id = (String)session.getAttribute("id");
@@ -81,17 +82,17 @@ public class MembersController {
 	}
 	
 
-	// 회원가입-정보입력
+	// �쉶�썝媛��엯-�젙蹂댁엯�젰
 	@RequestMapping(value = "/insert", method=RequestMethod.GET)
 	public String insertGET() {
-		logger.info("insertGET() 호출");
-		logger.info(" /insert 주소에 연결된 view페이지(./members/insertForm.jsp)�� �̵� ");
+		logger.info("insertGET() �샇異�");
+		logger.info(" /insert 二쇱냼�뿉 �뿰寃곕맂 view�럹�씠吏�(./members/insertForm.jsp)占쏙옙 占싱듸옙 ");
 		return "/members/insertForm";
 	}
-	// 회원가입-정보처리
+	// �쉶�썝媛��엯-�젙蹂댁쿂由�
 	@RequestMapping(value="/insert", method = RequestMethod.POST)
 	public String insertPOST(MemberVO vo,MultipartFile file)throws Exception {
-		logger.info("insertPOST() 호출");
+		logger.info("insertPOST() �샇異�");
 		logger.info(vo+"toString");
 	
 		String imgUploadPath = uploadPath + File.separator + "imgUpload";
@@ -112,21 +113,21 @@ public class MembersController {
 				
 	}
 
-	// 아이디 중복체크
+	// �븘�씠�뵒 以묐났泥댄겕
     @RequestMapping(value="/idCheck")
     @ResponseBody
     public boolean idCheck(@RequestBody String member_id) throws Exception {
         return service.isDuplicated(member_id);
     }
     
-    // 닉네임 중복체크 
+    // �땳�꽕�엫 以묐났泥댄겕 
     @RequestMapping(value="/nickCheck")
     @ResponseBody
     public boolean nickCheck(@RequestBody String member_nickname) throws Exception{
     	return service.isCopy(member_nickname);
     }
     
-    // 다른 회원 판매 목록
+    // �떎瑜� �쉶�썝 �뙋留� 紐⑸줉
     @RequestMapping(value = "/memberInfo", method = RequestMethod.GET)
     public String memberInfoGET(Model model, HttpServletRequest request) throws Exception {
     	String id =  request.getParameter("mem_id");
@@ -134,7 +135,7 @@ public class MembersController {
 		model.addAttribute("memProdList",memProdList);
     	return "/members/memberInfo";
     }
-    // 다른 회원 리뷰 목록
+    // �떎瑜� �쉶�썝 由щ럭 紐⑸줉
     @RequestMapping(value = "/review", method = RequestMethod.GET)
     public String memberReviewGET(Model model,HttpServletRequest request) throws Exception {
     	String id =  request.getParameter("mem_id");
@@ -143,7 +144,7 @@ public class MembersController {
     	return "/members/memReview";
     }
     
-    // 회원 정보 수정 페이지
+    // �쉶�썝 �젙蹂� �닔�젙 �럹�씠吏�
     @RequestMapping(value = "/memberUpdate", method = RequestMethod.GET)
     public String memberUpdateGET(HttpSession session,Model model) throws Exception {
     	String id = (String)session.getAttribute("id");
@@ -157,7 +158,7 @@ public class MembersController {
     	return "/members/updateForm";
     }
     
-    // 회원 정보 수정 입력
+    // �쉶�썝 �젙蹂� �닔�젙 �엯�젰
     @RequestMapping(value = "/memberUpdate", method = RequestMethod.POST)
     public String memberUpdatePOST(MemberVO vo, MultipartFile file, HttpServletRequest req,RedirectAttributes rttr) throws Exception {
     	
@@ -167,20 +168,20 @@ public class MembersController {
     	file.transferTo(convFile);
 
     	
-    	 // 새로운 파일이 등록되었는지 확인
+    	 // �깉濡쒖슫 �뙆�씪�씠 �벑濡앸릺�뿀�뒗吏� �솗�씤
     	 if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
-    	  // 기존 파일을 삭제
+    	  // 湲곗〈 �뙆�씪�쓣 �궘�젣
     	  new File(uploadPath + req.getParameter("member_pic")).delete();
     	  
-    	  // 새로 첨부한 파일을 등록
+    	  // �깉濡� 泥⑤��븳 �뙆�씪�쓣 �벑濡�
     	  String imgUploadPath = uploadPath + File.separator + "imgUpload";
     	  String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
     	  String fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
     	  
     	  vo.setMember_pic(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
 
-    	 } else {  // 새로운 파일이 등록되지 않았다면
-    	  // 기존 이미지를 그대로 사용
+    	 } else {  // �깉濡쒖슫 �뙆�씪�씠 �벑濡앸릺吏� �븡�븯�떎硫�
+    	  // 湲곗〈 �씠誘몄�瑜� 洹몃�濡� �궗�슜
     	  vo.setMember_pic(req.getParameter("member_pic"));
     	  
     	  
@@ -193,7 +194,47 @@ public class MembersController {
     	return "redirect:/members/myPage";
     		
     }
-    
+    // 占쎈툡占쎌뵠占쎈탵 筌≪뼐由�
+    @RequestMapping(value="/findIdView", method=RequestMethod.GET)
+	public String findIdView() throws Exception{
+		return"/members/findIdView";
+	}
+	
+	@RequestMapping(value="/findId", method=RequestMethod.POST)
+	public String findId(MemberVO memberVO,Model model) throws Exception{
+		logger.info("memberEmail"+memberVO.getMember_email());
+				
+		if(service.findIdCheck(memberVO.getMember_email())==0) {
+		model.addAttribute("msg", "占쎌뵠筌롫뗄�뵬占쎌뱽 占쎌넇占쎌뵥占쎈퉸雅뚯눘苑�占쎌뒄");
+		return "/members/findIdView";
+		}else {
+		model.addAttribute("member", service.findId(memberVO.getMember_email()));
+		return "/members/findId";
+				
+		}
+	}
+	@RequestMapping(value="/pay", method=RequestMethod.GET)
+	public String payGET(HttpSession session,Model model,MemberVO vo) throws Exception{
+		String id = (String)session.getAttribute("id");
+		
+		model.addAttribute("memberInfo",service.memberInfo(id));
+		
+//		MemberVO result = service.loginMember(vo);
+		model.addAttribute("id",id);
+//		model.addAttribute("result",result);
+		
+//		model.addAttribute("memberInfo", service.memberInfo(id));
+		
+			return "/members/pay";
+	}
+	
+	@RequestMapping(value="/pay", method=RequestMethod.POST)
+	public String payPOST(@ModelAttribute("memberInfo") MemberVO vo) throws Exception{
+		logger.info("@@@@@@@@@@@@@@@@@@@"+vo);
+//		model.addAttribute("memberInfo", service.memberInfo(id));
+		
+		return "/members/pay";
+	}
     
     
     
