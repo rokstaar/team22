@@ -13,6 +13,9 @@ public interface ProductDAO {
 	// 상품 리스트
 	public List<ProductVO> getProdList(Map<String, Object> map);
 	
+	// 상품 리스트 페이지
+	public List<ProductVO> getProdListPage(Map<String, Object> map);
+	
 	// 찜하기
 	public void likeProd(int pnum);
 	
@@ -42,4 +45,7 @@ public interface ProductDAO {
 	
 	// 조회수 증가
 	public void incView(Integer product_num);
+	
+	// 상품 숫자 세기
+	public int getTotalCount();
 }

@@ -9,12 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.market.domain.PCriteria;
 import com.market.domain.ProductVO;
 
 public interface ProductService {
 
 	// 상품 리스트 가져오기
 	public List<ProductVO> getProdList(String status, String category, String title, String sortvalue);
+	// 상품 리스트 가져오기
+	public List<ProductVO> getProdListPage(String status, String category, String title, String sortvalue
+			,PCriteria cri);
 	
 	// 해당 상품 찜하기
 	public void likeProd(int pnum);
@@ -46,4 +50,7 @@ public interface ProductService {
 	
 	// 조회했는지 확인하며 조회수 증가시키기
 	public void incView(HttpServletRequest request, HttpServletResponse response, Integer product_num);
+	
+	// 상품 전체 개수 가져오기
+	public int getTotalCount();
 }

@@ -1,5 +1,7 @@
 package com.market.controller;
 
+import java.io.File;
+import java.io.OutputStream;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,11 +20,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.market.domain.PCriteria;
 import com.market.domain.ProductVO;
 import com.market.service.ProductService;
+
+import net.coobird.thumbnailator.Thumbnails;
 
 @Controller
 @RequestMapping(value = "/product")
@@ -33,15 +37,37 @@ public class ProductController {
 	ProductService service;
 	
 	// 상품 리스트
+//	@GetMapping(value = "/prodList")
+//	public String getProdList(@RequestParam(value = "sort", defaultValue="") String sort,
+//							@RequestParam(value = "grade", required = false) String grade,
+//							@RequestParam(value = "category", required = false) String category,
+//							@RequestParam(value = "title", required = false) String title,
+//							Model model){
+//		logger.info("상품 리스트 페이지 호출 {}", sort);
+//		List<ProductVO> list = service.getProdList(grade, category, title, sort);
+//		model.addAttribute("prodList", list);
+//		logger.info(list.toString());
+//		return "/product/prodList";
+//	}
+	// 상품 리스트
+	
+	// 상품 리스트 페이지
 	@GetMapping(value = "/prodList")
-	public String getProdList(@RequestParam(value = "sort", defaultValue="") String sort,
-							@RequestParam(value = "grade", required = false) String grade,
-							@RequestParam(value = "category", required = false) String category,
-							@RequestParam(value = "title", required = false) String title,
-							Model model){
-		logger.info("상품 페이지 호출 {}", sort);
-		List<ProductVO> list = service.getProdList(grade, category, title, sort);
+	public String getProdListPage(@RequestParam(value = "sort", defaultValue="") String sort,
+			@RequestParam(value = "grade", required = false) String grade,
+			@RequestParam(value = "category", required = false) String category,
+			@RequestParam(value = "title", required = false) String title,
+			@RequestParam(value = "pageNum", required = false) Integer pageNum,
+			Model model){
+		logger.info("상품 리스트 페이지 Paginationed 호출 {}", sort);
+		PCriteria cri = new PCriteria();
+		
+		if(pageNum == null) pageNum = 1;
+		cri.setPageNum(pageNum);
+		List<ProductVO> list = service.getProdListPage(grade, category, title, sort, cri);
+		logger.info(list.toString());
 		model.addAttribute("prodList", list);
+		model.addAttribute("totalPage", (int)Math.ceil(service.getTotalCount()/(double)cri.getPageBlock()));
 		
 		return "/product/prodList";
 	}
@@ -117,24 +143,48 @@ public class ProductController {
 	// 상품 등록 페이지
 	
 	// 상품 등록 후 해당 페이지
-//	@PostMapping(value = "/regProduct")
-//	public String regProduct(@ModelAttribute ProductVO productVO 
-//							,@RequestParam("product_pics") MultipartFile[] file
-//							,HttpServletRequest request) throws Exception {
-//		logger.info("Controller - 상품 등록 실행!");
-//		logger.info(productVO.toString());
-//		service.regProduct(productVO, file, request);
-//		
-//		return "redirect:/product/prodInfo";
-//	}
 	@PostMapping(value = "/regProduct")
 	public String regProduct(@ModelAttribute ProductVO productVO 
-							,MultipartHttpServletRequest request) throws Exception {
+							,@RequestParam("product_pics") MultipartFile[] file
+							,HttpServletRequest request) throws Exception {
 		logger.info("Controller - 상품 등록 실행!");
 		logger.info(productVO.toString());
-		service.regProduct(productVO, request);
+		service.regProduct(productVO, file, request);
 		
 		return "redirect:/product/prodInfo";
 	}
+//	@PostMapping(value = "/regProduct")
+//	public String regProduct(@ModelAttribute ProductVO productVO 
+//							,MultipartHttpServletRequest request) throws Exception {
+//		logger.info("Controller - 상품 등록 실행!");
+//		logger.info(productVO.toString());
+//		service.regProduct(productVO, request);
+//		
+//		return "redirect:/product/prodInfo";
+//	}
 	// 상품 등록 후 해당 페이지
+	
+	@RequestMapping(value = "/thumb", method = {RequestMethod.GET, RequestMethod.POST})
+	public void thumbnail(@RequestParam("fileName") String img
+						,HttpServletResponse response) throws Exception {
+		String path = "C:\\Users\\ITWILL\\git\\team22\\Team22\\src\\main\\webapp\\resources\\images\\" + img;
+		
+		File file = new File(path);
+		String oFileName = img.substring(0, img.lastIndexOf('.'));
+		
+		File thumb = new File("C:\\Users\\ITWILL\\git\\team22\\Team22\\src\\main\\webapp\\resources\\images\\thumb"
+				+ oFileName + ".png");
+		OutputStream out = response.getOutputStream();
+		
+		if(file.exists()) {
+			Thumbnails.of(file).size(200, 200).outputFormat("png").toOutputStream(out);
+		}else {
+			return;
+		}
+		
+		byte[] buffer = new byte[1024 * 8];
+		
+		out.write(buffer);
+		out.close();
+	}
 }
