@@ -113,6 +113,16 @@ public class AuctionDAOImpl implements AuctionDAO{
 	public void endBid(AuctionVO vo) throws Exception {
 		sqlSession.update(NAMESPACE+".endBid", vo);
 	}
+
+	@Override
+	public List<AuctionVO> myList(String id) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".myList", id);
+	}
+
+	@Override
+	public void Aconfirmed(AuctionVO vo) throws Exception {
+		sqlSession.insert(NAMESPACE+".Aconfirmed", vo);
+	}
 	
 	
 	

@@ -97,11 +97,26 @@ public class AuctionController {
 		
 	}
 	
-	public String myList() throws Exception {
+	@RequestMapping(value = "/myList", method = RequestMethod.GET)
+	public String myList(HttpSession session, Model model) throws Exception {
+		String id = (String) session.getAttribute("id");
 		
+		if(id == null) {
+			return "redirect:/members/login";
+		}
 		
+		model.addAttribute("aList", service.myList(id));
 		
 		return "/auction/myAList";
+	}
+	
+	@RequestMapping(value = "/Aconfirmed", method = RequestMethod.GET)
+	public String Aconfirmed(AuctionVO vo, HttpSession session) throws Exception{
+		vo.setAu_buyerId((String)session.getAttribute("id"));
+		service.Aconfirmed(vo);
+		service.endBid(vo);
+		
+		return "redirect:/auction/myList";
 	}
 	
 	
@@ -117,22 +132,13 @@ public class AuctionController {
 	}
 	
 	@RequestMapping(value = "/aRegist", method = RequestMethod.POST)
-	public String auctionRegistPOST(AuctionVO vo,HttpSession session, MultipartHttpServletRequest multiRequest, HttpServletResponse respose, Model model) throws Exception{
+	public String auctionRegistPOST(AuctionVO vo,HttpSession session, MultipartHttpServletRequest multiRequest, HttpServletResponse response, Model model) throws Exception{
 		vo.setAu_sellerId((String)session.getAttribute("id"));
 		vo.setAu_buyerId((String)session.getAttribute("id"));
 		
 		multiRequest.setCharacterEncoding("UTF-8");
 		
-//		Map paramMap = new HashMap();
-//		Enumeration enu = multiRequest.getParameterNames();
-//		while(enu.hasMoreElements()) {
-//			String name = (String) enu.nextElement();
-//			String value = multiRequest.getParameter(name);
-//			paramMap.put(name, value);
-//		}
 		List fileList = fileProcess(multiRequest);
-//		model.addAttribute("paramMap", paramMap);
-//		model.addAttribute("fileList", fileList);
 		vo.setAu_pic(fileList.toString());
 		service.registAuction(vo);
 		
@@ -206,7 +212,6 @@ public class AuctionController {
 	@RequestMapping(value = "/endBid", method = RequestMethod.GET)
 	public void endBid(AuctionVO vo) throws Exception {
 		service.updateStatus(vo.getAu_num());
-//		service.endBid(vo);
 	}
 	
 	@ResponseBody
