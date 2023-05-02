@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.market.mapper.randomMapper">
+
+	<insert id="rRegist">
+		insert into random(ran_price, ran_endTime, ran_sellerId, ran_pic, ran_maxPp, ran_title, ran_content, ran_bidPrice)
+		values(#{ran_price}, #{ran_endTime}, #{ran_sellerId}, #{ran_pic}, #{ran_maxPp}, #{ran_title}, #{ran_content}, #{ran_bidPrice} )
+	</insert>
+
+	<select id="rList" resultType="com.market.domain.RandomVO">
+		select * from random
+		order by ran_num desc
+	</select>
+	
+	<select id="rDetail" resultType="com.market.domain.RandomVO">
+		select * from random
+		where ran_num = #{ran_num}
+	</select>
+	
+	<select id="countP" resultType="int">
+		select count(ran_num) from random
+		where ran_num = #{ran_num}
+	</select>
+
+	<select id="getMPay" resultType="int">
+		select member_pay from member where member_id = #{member_id}
+	</select>
+
+</mapper>

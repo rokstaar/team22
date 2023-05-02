@@ -22,20 +22,24 @@
 		
 			$(document).ready(function(){
 				$('#submit').click(function(){
-					if($('#au_title').val() == ""){
+					if($('#ran_title').val() == ""){
 						alert('제목을 입력하세요');
 						return false;
 					}
-					if($('#au_startPrice').val() == ""){
-						alert('시작금액을 입력하세요');
+					if($('#ran_maxPp').val() == ""){
+						alert('모집인원을 입력하세요');
 						return false;
 					}
-					if($('#au_endTime').val() == ""){
-						alert('경매종료 시간을 입력하세요');
+					if($('#ran_startPrice').val() == ""){
+						alert('금액을 입력하세요');
+						return false;
+					}
+					if($('#ran_endTime').val() == ""){
+						alert('응모종료 시간을 입력하세요');
 						return false;
 					}
 					// 파일 유효성검사 추가
-					if($('#au_content').val() == ""){
+					if($('#ran_content').val() == ""){
 						alert('상품 설명을 입력하세요');
 						return false;
 					}
@@ -56,22 +60,25 @@
 						<div class="inner">
 
 							<%@ include file="../include/header.jsp" %>
-							<header class="major">
-								<h2 style="margin-top:20px">경매 등록</h2>
-							</header>
 
+							<header class="major">
+								<h2 style="margin-top:20px">응모 등록</h2>
+							</header>
 							<!-- Banner -->
 								<section id="banner">
 									<form method="post" enctype="multipart/form-data">
 														<div class="row gtr-uniform">
 															<div class="col-6 col-12-xsmall">
-																<input type="text" name="au_title" id="au_title" style="width:1000px" value="" placeholder="제목">
+																<input type="text" name="ran_title" id="ran_title" style="width:1000px" value="" placeholder="제목">
 															</div>
 															<div class="col-6 col-12-xsmall">
-																<input type="text" name="au_startPrice" id="au_startPrice" value="" placeholder="시작가격">
+																<input type="text" name="ran_price" id="ran_price" value="" placeholder="가격">
 															</div>
 															<div class="col-6 col-12-xsmall">
-																<input type="datetime-local" name="au_endTime" id="au_endTime" value="" placeholder="종료시간">
+																<input type="text" name="ran_maxPp" id="ran_maxPp" value="" placeholder="모집 인원">
+															</div>
+															<div class="col-6 col-12-xsmall">
+																<input type="datetime-local" name="ran_endTime" id="ran_endTime" value="" placeholder="종료시간">
 															</div>
 															<!-- Break -->
 															
@@ -86,12 +93,12 @@
 															<br>
 															<!-- Break -->
 															<div class="col-12">
-																<textarea name="au_content" id="au_content" placeholder="경매 상품 설명" rows="6" style="width:1000px"></textarea>
+																<textarea name="ran_content" id="ran_content" placeholder="응모 상품 설명" rows="6" style="width:1000px"></textarea>
 															</div>
 															<!-- Break -->
 															<div class="col-12">
 																<ul class="actions">
-																	<li><input id="submit" type="submit" value="경매 등록" class="primary"></li>
+																	<li><input id="submit" type="submit" value="응모 등록" class="primary"></li>
 																	<li><input type="reset" value="초기화"></li>
 																</ul>
 															</div>

@@ -93,6 +93,16 @@ public class AcutionServiceImpl implements AuctionService {
 	public void endBid(AuctionVO vo) throws Exception {
 		adao.endBid(vo);
 	}
+
+	@Override
+	public List<AuctionVO> myList(String id) throws Exception {
+		return adao.myList(id);
+	}
+
+	@Override
+	public void Aconfirmed(AuctionVO vo) throws Exception {
+		adao.Aconfirmed(vo);
+	}
 	
 	
 	

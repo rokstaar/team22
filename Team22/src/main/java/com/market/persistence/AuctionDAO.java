@@ -35,5 +35,11 @@ public interface AuctionDAO {
 	public void setEnd() throws Exception;
 	
 	public void endBid(AuctionVO vo) throws Exception;
+	
+	public List<AuctionVO> myList(String id) throws Exception;
+	
+	public void Aconfirmed(AuctionVO vo) throws Exception;
+	
+	
 
 }

@@ -23,11 +23,11 @@
 		<script type="text/javascript">
 			$(document).ready(function(){
 				
-				function ubid(){
+				/* function ubid(){
 					$.ajax({
 						url:"/auction/uBid",
 						data:{
-							au_num:'${vo.au_num}'
+							au_num:'${vo.ran_num}'
 						},
 						dataType:"JSON",
 						success:function(data){
@@ -39,8 +39,8 @@
 							
 						}
 					});
-				}
-				setInterval(ubid,1000);
+				} */
+				//setInterval(ubid,1000);
 				
 				var timer; 
 				
@@ -63,95 +63,14 @@
 			        
 			        if (distance < 0){
 						clearInterval(timer);
-						$.ajax({
-							url:'/auction/endBid',
-							type:'GET',
-							data:{
-								au_num:'${vo.au_num}',
-								au_sellerId:'${vo.au_sellerId}',
-								au_bidPrice:$("#uBid").val()
-							}
-							
-						});
-						$('#bid').attr('class', 'button disabled');
-						$('#nowBuy').attr('class', 'button disabled');
-						
 						$("#time").html("경매 종료");
-						alert('경매종료');
-						// 경매시간 만료시 최종 입찰자한테 알림 보내기
 					}
 			    }
 				timer = setInterval(setTimer, 1000);
 				
-				$('#bid').click(function(){
-					
-					if(${id == null}){
-						if(confirm('로그인 필요. 로그인 페이지로 가시겠습니까?')){
-							location.href='/members/login';
-							return false;
-						}else{
-							return false;
-						}
-					}
-					if(${vo.au_sellerId.equals(id) }){
-						alert('나의 경매에 참여할수 없습니다.');
-						return false;
-					}
-					if($('#lastBuyer').val() == '${id}'){
-						alert('상회입찰중 입니다.');
-						return false;
-					}
-					if($("#au_bidPrice").val() == ""){
-						alert('입찰할 금액을 입력하세요');
-						return false;
-					}
-					if(parseInt($("#au_bidPrice").val()) <= parseInt($("#uBid").val())){
-						alert('현재 입찰가보다 큰 금액을 입력하셔야 합니다.');
-						return false;
-					}
-					if(parseInt($("#au_bidPrice").val()) > parseInt($("#myPay").val())){
-						if(confirm('페이가 부족합니다. 충천하시겠습니까?')){
-							alert('페이충전페이지로');
-							return false;
-						}else{
-							return false;
-						}
-					}
-					
-					if(confirm($('#au_bidPrice').val() + '원 입찰하시겠습니까?')){
-						$.ajax({
-							url:'/auction/bid',
-							data:{
-								au_num:'${vo.au_num}',
-								au_startPrice:'${vo.au_startPrice}',
-								au_sellerId:'${vo.au_sellerId}',
-								bidPrice:$("#au_bidPrice").val(),
-								au_endPrice:'${vo.au_endPrice}',
-								au_endTime:'${vo.au_endTime}',
-								au_pic:'${vo.au_pic}',
-								au_title:'${vo.au_title}',
-								au_content:'${vo.au_content}',
-								au_category:'${vo.au_category}',
-								lastBuyer:$("#lastBuyer").val(),
-								lastBid:$("#uBid").val()
-							},
-							success:function(data){
-								$('#nowBid').html('현재 입찰금 : ' + data[0].toLocaleString("ko-KR"));
-								$('#myPay').html('${id }' + '님의 보유금액 : '+data[1].toLocaleString("ko-KR"));
-							}
-							
-						});
-					}else{
-						alert('취소하셨습니다.');
-						return false;
-					}
-				});
-				
 				$('.subPic').hover(function(){
 					$('.mainPic').attr("src", $(this).attr("src"));
 				});
-				
-				
 				
 				
 			});
@@ -172,28 +91,22 @@
 								<section id="banner">
 									<div class="content">
 										<header>
-										<f:parseDate value="${vo.au_endTime}" var="format" pattern="yyyy-MM-dd HH:mm:ss"/>
+										<f:parseDate value="${vo.ran_endTime}" var="format" pattern="yyyy-MM-dd HH:mm:ss"/>
 										<f:formatDate var="endTime" value="${format}" pattern="yyyy-MM-dd HH:mm:ss"/>
 										<input type="hidden" value="${endTime }" id="endDate">
 										<f:formatNumber value="${pay }" pattern="#,###" var="myPay"/>
-										<f:formatNumber value="${vo.au_startPrice }" pattern="#,###" var="startPrice"/>
-										<f:formatNumber value="${vo.au_endPrice }" pattern="#,###" var="endPrice"/>
-										<f:formatNumber value="${vo.au_bidPrice }" pattern="#,###" var="bidPrice"/>
-											<h1>${vo.au_title }<br/></h1>
+										<f:formatNumber value="${vo.ran_price }" pattern="#,###" var="Price"/>
+										<f:formatNumber value="${vo.ran_bidPrice }" pattern="#,###" var="bidPrice"/>
+											<h1>${vo.ran_title }<br/></h1>
 											<p>
-											판매자 : ${vo.au_sellerId }<br>
-											시작가 : ${startPrice }<br>
+											판매자 : ${vo.ran_sellerId }<br>
+											시작가 : ${Price }<br>
 											</p> 
 											<p class="button" id="time"></p>
-											<c:if test="${vo.au_bidPrice == 0}">
-												<p class="button" id="nowBid">현재 입찰금 : ${startPrice }</p><br>
-											</c:if>
-											<c:if test="${vo.au_bidPrice != 0}">
-												<p class="button" id="nowBid">현재 입찰금 : ${bidPrice }</p><br>
-											</c:if>
+											<p class="button" id="nowBid">응모 금액 : ${bidPrice }</p><br>
 											
-											<input type="hidden" id="uBid" value="${vo.au_bidPrice }">
-											<input type="hidden" id="lastBuyer" value="${vo.au_buyerId }">
+											<input type="hidden" id="uBid" value="${vo.ran_bidPrice }">
+											<input type="hidden" id="lastBuyer" value="${vo.ran_buyerId }">
 											<input type="hidden" id="myPay" value="${pay }">
 											
 											
@@ -205,18 +118,18 @@
 												<li><p class="button" id="rPay">${id }님의 보유금액 : ${myPay }</p></li>
 											</c:if>
 												<hr>
-												<li><input type="text" id="au_bidPrice" placeholder="입찰할 금액 입력"></li>
-												<li><a class="button" id="bid">입찰하기</a></li>
+												<li><a class="button">응모현황 ${countP} / ${vo.ran_maxPp }</a></li>
+												<li><a class="button" id="bid">응모하기</a></li>
 											</ul>
 										</form>
 									</div>
 									
-									<c:set value="${vo.au_pic.replace('[','').replace(']','').split(', ')}" var="down" />
+									<c:set value="${vo.ran_pic.replace('[','').replace(']','').split(', ')}" var="down" />
 									
 									<span class="image object">
-										<img class="mainPic" src="/auction/download?fileName=${down[0]}" style="width:644.7px; height:438.4px; margin-bottom: 30px " />
+										<img class="mainPic" src="/random/download?fileName=${down[0]}" style="width:644.7px; height:438.4px; margin-bottom: 30px " />
 										<c:forEach items="${down}" var="dList">
-											<img class="subPic" src="/auction/download?fileName=${dList}" style="width:70px; height:70px; float:left; margin-right: 10px " />
+											<img class="subPic" src="/random/download?fileName=${dList}" style="width:70px; height:70px; float:left; margin-right: 10px " />
 										</c:forEach>
 									</span>
 								</section>
@@ -224,8 +137,8 @@
 							<!-- Section -->
 								<section>
 									<div class="col-12">
-										<textarea name="au_content" id="au_content" rows="6" style="width:100%" readonly="readonly">${vo.au_content }</textarea>
-										<a style="margin-top: 20px; float:right;" class="button" href="/auction/list">목록</a>
+										<textarea name="au_content" id="au_content" rows="6" style="width:100%" readonly="readonly">${vo.ran_content }</textarea>
+										<a style="margin-top: 20px; float:right;" class="button" href="/random/rList">목록</a>
 									</div>
 								</section>
 

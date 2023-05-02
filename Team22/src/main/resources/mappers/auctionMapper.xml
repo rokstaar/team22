@@ -102,6 +102,24 @@
 		update member set member_pay = member_pay + #{au_bidPrice}
 		where member_id = #{au_sellerId}
 	</update>
+	
+	<select id="myList" resultType="com.market.domain.AuctionVO">
+		select au_num, au_sellerId, au_buyerId, max(au_bidPrice) as au_bidPrice, au_pic, au_title
+		from auction
+		where au_buyerId = #{id} and au_status = 1 and (au_num,au_bidPrice) in (select au_num,max(au_bidPrice)
+																		from auction
+																		where au_status = 1
+                                                                        group by au_num)
+													and au_num not in(select au_num
+																	 from trade
+																	 where buy_mem_id = #{id} and type_div = 'au')
+		group by au_num
+	</select>
+	
+	<insert id="Aconfirmed">
+		insert into trade(buy_mem_id, sell_mem_id, prod_sell_date, type_div, au_num, product_title)
+		values(#{au_buyerId}, #{au_sellerId}, now(), 'au', #{au_num}, #{au_title})
+	</insert>
 
 </mapper>
 
