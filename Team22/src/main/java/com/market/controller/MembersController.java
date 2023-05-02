@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -86,13 +87,11 @@ public class MembersController {
 	@RequestMapping(value = "/insert", method=RequestMethod.GET)
 	public String insertGET() {
 		logger.info("insertGET() �샇異�");
-		logger.info(" /insert 二쇱냼�뿉 �뿰寃곕맂 view�럹�씠吏�(./members/insertForm.jsp)占쏙옙 占싱듸옙 ");
 		return "/members/insertForm";
 	}
 	// �쉶�썝媛��엯-�젙蹂댁쿂由�
 	@RequestMapping(value="/insert", method = RequestMethod.POST)
 	public String insertPOST(MemberVO vo,MultipartFile file)throws Exception {
-		logger.info("insertPOST() �샇異�");
 		logger.info(vo+"toString");
 	
 		String imgUploadPath = uploadPath + File.separator + "imgUpload";
@@ -236,6 +235,34 @@ public class MembersController {
 		return "/members/pay";
 	}
     
-    
-    
+	@RequestMapping(value = "/updatePwCk", method = RequestMethod.GET)
+    public String updatePwCkGET() {
+    	return "/members/updatePwCk";
+    }
+	@RequestMapping(value = "/updatePwCk", method = RequestMethod.POST)
+	public String updatePwCkPOST(Model model,@RequestParam("member_pass") String member_pass,
+					@RequestParam("member_id")String id,RedirectAttributes rttr)throws Exception {
+			MemberVO vo = service.memberInfo(id);
+			
+			if(vo == null || !vo.getMember_pass().equals(member_pass)) {
+				return "/members/updatePwCk";
+			}else {
+				rttr.addFlashAttribute("result","O");
+				return "redirect:/members/memberUpdate";
+			}
+		 
+	}
+	
+	@RequestMapping(value = "/deletePwCk", method = RequestMethod.GET)
+    public String deletePwCkGET() {
+		
+    	return "/members/deletePwCk";
+    }
+	@RequestMapping(value = "/deletePwCk", method = RequestMethod.POST)
+	public String deletePwCkPOST(Model model,@RequestParam("member_pass") String member_pass,
+					@RequestParam("member_id")String id,RedirectAttributes rttr)throws Exception {
+			MemberVO vo = service.memberInfo(id);
+			
+			return "/members/removeForm";
+	}
 }

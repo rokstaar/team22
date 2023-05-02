@@ -15,7 +15,7 @@
 									        <div>
 									          <div class="text">${sessionScope.id }</div>
 									       	   <div class="text">페이 : 50,000원</div>
-									         <a href="#"><div class="memberUpdate">회원정보수정</div></a>
+									         <a href="/members/updatePwCks"><div class="memberUpdate">회원정보수정</div></a>
 									        </div>
 									      </div>
 									      <div class="item">

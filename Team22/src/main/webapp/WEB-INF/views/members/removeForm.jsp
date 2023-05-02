@@ -394,7 +394,7 @@ function exePost() {
 				
 				<button type="submit" class="btn btn-default">
 					<p class="btn-sign-up">
-						회원수정
+						회원탈퇴
 					</p>
 				</button>
 			</form>
