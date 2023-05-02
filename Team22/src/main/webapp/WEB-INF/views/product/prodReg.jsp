@@ -69,7 +69,8 @@
 		<input type="hidden" name="product_seller" value="${id }">
 		<div class="regProd">
 		<div id="regTitle">
-			제목 <input type="text" name="product_title">
+			제목 <input type="text" name="product_title" onkeyup="checkByte(this, 50, document.getElementById('inputAlert1'));">
+			<span id="inputAlert1" style="color: red;"></span>
 		</div>
 		<div id="regCategory" class="select-container">
 			<select name="product_cate">
@@ -90,10 +91,12 @@
 		</div>
 		
 		내용
-		<textarea rows="5" cols="" name="product_content"></textarea>
+		<textarea rows="5" cols="" name="product_content" onkeyup="checkByte(this, 1000, document.getElementById('inputAlert2'));"></textarea>
+		<span id="inputAlert2" style="color: red;"></span>
 		<div class="regProd">
 		<div id="regPrice">
-			가격 <input type="text" name="product_price">
+			가격 <input type="text" name="product_price" onkeyup="checkRule(this);">
+			<span id="priceAlert" style="color: red;"></span>
 		</div>
 		<div id="regGrade" class="select-container">
 			<select name="product_grade">
@@ -254,7 +257,56 @@
 		});
 	});
 
+	
+	function checkByte(inputElement, maxBytes, alertS) {
+		  const text = inputElement.value;
+		  let currentBytes = 0;
 
+		  for (let i = 0; i < text.length; i++) {
+		    const charCode = text.charCodeAt(i);
+		    if (charCode <= 0x7F) {
+		      currentBytes += 1;
+		    } else if (charCode <= 0x7FF) {
+		      currentBytes += 2;
+		    } else {
+		      currentBytes += 3;
+		    }
+
+		    if (currentBytes > maxBytes) {
+		      inputElement.value = text.substring(0, i);
+		      alertS.innerHTML = '글자 최대 바이트 수는 ' + maxBytes + '입니다';
+		      return false;
+		    }else{
+		    	alertS.innerHTML = '';
+		    }
+		  }
+		  return true;
+		}
+
+
+	function checkRule(inputElement) {
+		  const value = inputElement.value;
+		  const alertElement = document.getElementById('priceAlert');
+
+		  if (!/^\d+$/.test(value) || parseInt(value) > 100000000 || parseInt(value) < 0) {
+		    alertElement.innerHTML = '유효한 숫자를 적어주세요';
+		    return false;
+		  } else {
+		    alertElement.innerHTML = '';
+		    return true;
+		  }
+	}
+	
+	document.getElementById('regProd').addEventListener('submit', function (event) {
+		  const priceInput = document.getElementById('product_price');
+		  const contentInput = document.getElementById('product_content');
+
+		  if (!checkRule(priceInput) || !checkByte(contentInput, 1000)) {
+		    event.preventDefault();
+		  }
+	});
+
+	
 	</script>
 			<script src="/resources/assets/js/jquery.min.js"></script>
 			<script src="/resources/assets/js/skel.min.js"></script>

@@ -1,5 +1,7 @@
 package com.market.service;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,7 +9,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +27,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.market.domain.PCriteria;
 import com.market.domain.ProductVO;
 import com.market.persistence.ProductDAO;
+
+import net.coobird.thumbnailator.Thumbnails;
 
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -108,31 +115,50 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public void regProduct(ProductVO vo
-						, MultipartFile[] files
-						, HttpServletRequest request) throws Exception {
+	public int regProduct(ProductVO vo
+						, MultipartFile[] files) throws Exception {
 		logger.info("service - 상품 등록");
 		// String currentWorkingDirectory = new File(".").getCanonicalPath(); -> Team22까지
 		String path = "C:\\Users\\ITWILL\\git\\team22\\Team22\\src\\main\\webapp\\resources\\images";
 		StringBuilder sb = new StringBuilder();
 		
+		
 		for(MultipartFile file : files) {
 			if(!file.isEmpty()) {
 			    UUID uuid = UUID.randomUUID();
 			    String origin = file.getOriginalFilename();
-			    String fileName = uuid + "-" + origin;
+//			    String fileName = uuid + "-" + origin;
+			    String fileName = origin;
 			    File saveFile = new File(path, fileName);
 			    file.transferTo(saveFile);
+			    
+			    // Thumbnail part
+			    
+//			    File thumbnail = new File(path+"\\thumb", "thumb_" + fileName);
+//			    
+//			    BufferedImage bo_image = ImageIO.read(file.getInputStream());
+//			    
+//			    double ratio = 3;
+//	            int width = (int) (bo_image.getWidth() / ratio);
+//	            int height = (int) (bo_image.getHeight() / ratio);
+//	            
+//	            Thumbnails.of(saveFile).size(width, height).toFile(thumbnail);
+			    
+			    // Thumbnail part
+			    
 			    if(sb.length() > 0) {
 			    	sb.append(",");
 			    }
 			    sb.append(fileName);
 			}
 		}
+		
 	    vo.setProduct_pic(sb.toString());
 
 	    logger.info("vo : " + vo.toString());
 		pdao.regProduct(vo);
+		
+		return pdao.getLastProdNum(vo.getProduct_seller());
 	}
 
 	@Override

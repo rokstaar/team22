@@ -60,6 +60,12 @@ section div img{
 	display: inline-block;
 }
 
+.product-content{
+	height: 50px;
+	overflow-y: hidden;
+	word-wrap: break-word;
+}
+
 .select-container {
 	position: relative;
 	display: inline-block;
@@ -121,11 +127,11 @@ section div img{
 .fixed {
   position: fixed;
   bottom: 60px;
-  right: 100px;
+  right: 80px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width: 60px;
+  width: 70px;
 }
 
 .member{
@@ -184,6 +190,10 @@ div.smalldiv{
 #content p{
 	font-family: 'FontAwesome';
     color: black;
+}
+
+.div-chat{
+	cursor:pointer;
 }
 
 #div-likeit {
@@ -359,4 +369,26 @@ textarea{
 .zoom {
   animation: zoom 0.5s linear;
 }
+
+.toast {
+  position: fixed;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+}
+
+.toast.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 

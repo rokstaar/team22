@@ -69,7 +69,6 @@
 
 									</ul>
 								</header>
-
 							<!-- Banner -->
 								<!-- <section id="banner">
 									<div class="content">
@@ -84,14 +83,16 @@
 		<div class="prodInfo">
 		<div class="image-gallery">
 		  <div class="main-image">
-		    <img id="main-image" src="/resources/images/${info.product_pic.split(',')[0]}" onerror="imgerr(this)">
+		    <%-- <img id="main-image" src="/resources/images/${info.product_pic.split(',')[0]}" onerror="imgerr(this)"> --%>
+		    <img id="main-image" src="/product/download?fileName=${info.product_pic.split(',')[0]}" onerror="imgerr(this)">
 		  </div>
 		  <div class="thumbnail-container">
 		    <ul class="thumbnails">
 		      <c:forEach var="i" begin="0" end="2">
 		        <c:if test="${not empty info.product_pic.split(',')[i]}">
 		          <li>
-		            <img class="thumbnail" src="/resources/images/${info.product_pic.split(',')[i]}" onerror="imgerr(this)" onclick="changeMainImage(this)">
+		            <%-- <img class="thumbnail" src="/resources/images/${info.product_pic.split(',')[i]}" onerror="imgerr(this)" onclick="changeMainImage(this)"> --%>
+		            <img class="thumbnail" src="/product/thumb?fileName=${info.product_pic.split(',')[i]}" onerror="imgerr(this)" onclick="changeMainImage(this)">
 		          </li>
 		        </c:if>
 		      </c:forEach>
@@ -107,6 +108,7 @@
 				<div>
 					<div class="div-img" style="width:200px;">
 						<img src="/resources/images/${info.member_pic }" onerror="imgerr(this)">
+						<!-- <img src="/product/download?fileName=${info.member_pic }" onerror="imgerr(this)"> -->
 					</div>
 						<div class="profile">
 							${info.member_nickname }
@@ -117,13 +119,7 @@
 						
 				</div>
 				
-				<!-- 채팅하기 -->
-				<form action="/chatroom" method="post">
-					<input type="hidden" value="${product_num}" name="product_num" readonly >
-					<input type="hidden" value="${seller}" name="seller" readonly >
-					<input type="submit" value="판매자와 채팅하기">
-				 </form>
-				 <!-- 채팅하기 -->
+				
 				 
 				<div class="div-member">
 					<div class="div-img" id="score">
@@ -185,8 +181,21 @@
 		</div>
 		
 	</section>
-	
-	
+	<div class="fixed">
+		<div class="div-chat">
+		<?xml version="1.0" ?><svg id="goto-list" style="enable-background:new 0 0 100.4 100.4;" version="1.1" viewBox="0 0 100.4 100.4" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M79.1,10.1H63.2V3.3c0-0.8-0.7-1.5-1.5-1.5H38c-0.8,0-1.5,0.7-1.5,1.5v6.8H19.7c-3.5,0-6.3,2.8-6.3,6.3v75.4   c0,3.5,2.8,6.3,6.3,6.3h59.5c3.5,0,6.3-2.8,6.3-6.3V16.4C85.4,12.9,82.6,10.1,79.1,10.1z M38,29.5h23.7c0.8,0,1.5-0.7,1.5-1.5v-6.5   h10.5v64.7H25.1V21.6h11.4V28C36.5,28.9,37.2,29.5,38,29.5z M60.2,4.8V20c0,0,0,0,0,0s0,0,0,0v6.5H39.5v-6.5c0,0,0,0,0,0s0,0,0,0   v-8.5c0,0,0,0,0,0s0,0,0,0V4.8L60.2,4.8L60.2,4.8z M82.4,91.7c0,1.8-1.5,3.3-3.3,3.3H19.7c-1.8,0-3.3-1.5-3.3-3.3V16.4   c0-1.8,1.5-3.3,3.3-3.3h16.8v5.5H23.6c-0.8,0-1.5,0.7-1.5,1.5v67.7c0,0.8,0.7,1.5,1.5,1.5h51.6c0.8,0,1.5-0.7,1.5-1.5V20.1   c0-0.8-0.7-1.5-1.5-1.5h-12v-5.5h15.9c1.8,0,3.3,1.5,3.3,3.3V91.7z"/><path d="M28.8,46.4c0,0.8,0.7,1.5,1.5,1.5h38.5c0.8,0,1.5-0.7,1.5-1.5s-0.7-1.5-1.5-1.5H30.3C29.5,44.9,28.8,45.6,28.8,46.4z"/><path d="M68.8,55.4H30.3c-0.8,0-1.5,0.7-1.5,1.5s0.7,1.5,1.5,1.5h38.5c0.8,0,1.5-0.7,1.5-1.5S69.6,55.4,68.8,55.4z"/><path d="M68.8,66.4H30.3c-0.8,0-1.5,0.7-1.5,1.5c0,0.8,0.7,1.5,1.5,1.5h38.5c0.8,0,1.5-0.7,1.5-1.5C70.3,67.1,69.6,66.4,68.8,66.4z   "/></g></svg>
+		목록으로
+		</div>
+		<div class="div-chat">
+	<?xml version="1.0" ?><svg id="svg-chat" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:#101820;}</style></defs><title/><g data-name="Layer 25" id="Layer_25"><path class="cls-1" d="M24,22a1,1,0,0,1-.64-.23L18.84,18H17A8,8,0,0,1,17,2h6a8,8,0,0,1,2,15.74V21a1,1,0,0,1-.58.91A1,1,0,0,1,24,22ZM17,4a6,6,0,0,0,0,12h2.2a1,1,0,0,1,.64.23L23,18.86V16.92a1,1,0,0,1,.86-1A6,6,0,0,0,23,4Z"/><rect class="cls-1" height="2" width="2" x="19" y="9"/><rect class="cls-1" height="2" width="2" x="14" y="9"/><rect class="cls-1" height="2" width="2" x="24" y="9"/><path class="cls-1" d="M8,30a1,1,0,0,1-.42-.09A1,1,0,0,1,7,29V25.74a8,8,0,0,1-1.28-15,1,1,0,1,1,.82,1.82,6,6,0,0,0,1.6,11.4,1,1,0,0,1,.86,1v1.94l3.16-2.63A1,1,0,0,1,12.8,24H15a5.94,5.94,0,0,0,4.29-1.82,1,1,0,0,1,1.44,1.4A8,8,0,0,1,15,26H13.16L8.64,29.77A1,1,0,0,1,8,30Z"/></g></svg>
+		<!-- 채팅하기 -->
+		판매자와 <br>채팅하기</div>
+		<form id="chat-to-seller" action="/chatroom" method="post">
+			<input type="hidden" value="${info.product_num}" name="product_num" readonly >
+			<input type="hidden" value="${info.product_seller}" name="seller" readonly >
+		 </form>
+		 <!-- 채팅하기 -->
+	</div>
 	<div class="prodInfo">
 	<hr>
 	<h4> 이런 제품은 어떠세요? </h4>
@@ -194,7 +203,7 @@
 	<div id="rec"></div>
 	
 	</div>
-							
+							<div id="toast" class="toast"></div>
 							
 							</div>
 								</div>
@@ -296,6 +305,16 @@
 		<script src="https://code.jquery.com/jquery-3.6.4.js" 
 	integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
 	<script type="text/javascript">
+	function showToast(message, duration = 3000) {
+		const toastElement = document.getElementById('toast');
+		toastElement.innerText = message;
+		toastElement.classList.add('show');
+
+		setTimeout(() => {
+			toastElement.classList.remove('show');
+		}, duration);
+	}
+	
 	$(document).ready(function() {
         
         function heartChange($svg1, $svg2, pnum, seller) {
@@ -305,7 +324,7 @@
 	                url: '/product/likeProdCancel',
 	                data: {product_num: pnum, seller: seller},
 	                success: function() {
-	                    console.log('success Del');
+	                    //console.log('success Del');
 	                    $svg1.hide();
 	                    $svg2.show();
 	                },
@@ -324,7 +343,8 @@
 	                url: '/product/likeProd',
 	                data: {product_num: pnum, seller: seller},
 	                success: function() {
-	                	console.log('success Reg');
+	                	//console.log('success Reg');
+	                	showToast('찜 완료!', 3000);
 	                	$svg2.hide();
 	                    $svg1.show();
 	                },
@@ -377,17 +397,15 @@
                 category: "${info.product_cate}"
             },
             success: function (response) {
-            	var contextPath = '<c:url value="/" />';
-                console.log(contextPath);
             	var productHtml = '<div class="grid-container">';
             	for (var i = 0; i < response.length && i < 8; i++) {
             	  if (response[i].product_num != ${info.product_num}) {
             	    productHtml += '<div class="grid-item">';
             	    productHtml += '<a class="product-section" href="/product/prodInfo?product_num=' + response[i].product_num + '&seller=' + response[i].product_seller + '">';
-            	    /* productHtml += '<img src="/resources/images/' + response[i].product_pic.split(',')[0] + '" onerror="this.src=\'/resources/images/default_product.jpg\'" />'; */
+            	    //productHtml += '<img src="/resources/images/thumb/thumb_' + response[i].product_pic.split(',')[0] + '" onerror="this.src=\'/resources/images/default_product.jpg\'" />';
             	    productHtml += '<img src="/product/thumb?fileName=' + response[i].product_pic.split(',')[0] + '" onerror="this.src=\'/resources/images/default_product.jpg\'" />';
             	    productHtml += '<div>' + response[i].product_title + '</div>';
-            	    productHtml += '<div>' + response[i].product_content + '</div>';
+            	    productHtml += '<div class="product-content">' + response[i].product_content + '</div>';
             	    productHtml += '</a>';
             	    productHtml += '</div>';
             	  }
@@ -404,7 +422,13 @@
         });
     });
 	
+	$("#svg-chat").on('click', function(){
+		$("#chat-to-seller").submit();
+	});
 	
+	$("#goto-list").on('click', function(){
+		location.href="/product/prodList";
+	});
 	
 	</script>
 			<script src="/resources/assets/js/jquery.min.js"></script>

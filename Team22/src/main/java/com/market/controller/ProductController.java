@@ -1,7 +1,10 @@
 package com.market.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.market.domain.PCriteria;
@@ -36,29 +40,15 @@ public class ProductController {
 	@Autowired
 	ProductService service;
 	
-	// 상품 리스트
-//	@GetMapping(value = "/prodList")
-//	public String getProdList(@RequestParam(value = "sort", defaultValue="") String sort,
-//							@RequestParam(value = "grade", required = false) String grade,
-//							@RequestParam(value = "category", required = false) String category,
-//							@RequestParam(value = "title", required = false) String title,
-//							Model model){
-//		logger.info("상품 리스트 페이지 호출 {}", sort);
-//		List<ProductVO> list = service.getProdList(grade, category, title, sort);
-//		model.addAttribute("prodList", list);
-//		logger.info(list.toString());
-//		return "/product/prodList";
-//	}
-	// 상품 리스트
 	
 	// 상품 리스트 페이지
 	@GetMapping(value = "/prodList")
 	public String getProdListPage(@RequestParam(value = "sort", defaultValue="") String sort,
-			@RequestParam(value = "grade", required = false) String grade,
-			@RequestParam(value = "category", required = false) String category,
-			@RequestParam(value = "title", required = false) String title,
-			@RequestParam(value = "pageNum", required = false) Integer pageNum,
-			Model model){
+								@RequestParam(value = "grade", required = false) String grade,
+								@RequestParam(value = "category", required = false) String category,
+								@RequestParam(value = "title", required = false) String title,
+								@RequestParam(value = "pageNum", required = false) Integer pageNum,
+								Model model){
 		logger.info("상품 리스트 페이지 Paginationed 호출 {}", sort);
 		PCriteria cri = new PCriteria();
 		
@@ -143,41 +133,129 @@ public class ProductController {
 	// 상품 등록 페이지
 	
 	// 상품 등록 후 해당 페이지
-	@PostMapping(value = "/regProduct")
-	public String regProduct(@ModelAttribute ProductVO productVO 
-							,@RequestParam("product_pics") MultipartFile[] file
-							,HttpServletRequest request) throws Exception {
-		logger.info("Controller - 상품 등록 실행!");
-		logger.info(productVO.toString());
-		service.regProduct(productVO, file, request);
-		
-		return "redirect:/product/prodInfo";
-	}
 //	@PostMapping(value = "/regProduct")
 //	public String regProduct(@ModelAttribute ProductVO productVO 
-//							,MultipartHttpServletRequest request) throws Exception {
+//							,@RequestParam("product_pics") MultipartFile[] file
+//							,HttpServletRequest request) throws Exception {
 //		logger.info("Controller - 상품 등록 실행!");
 //		logger.info(productVO.toString());
-//		service.regProduct(productVO, request);
+//		service.regProduct(productVO, file, request);
 //		
 //		return "redirect:/product/prodInfo";
 //	}
+	@PostMapping(value = "/regProduct")
+	public String regProduct(@ModelAttribute ProductVO vo
+							,@RequestParam("product_pics") MultipartFile[] files
+							,MultipartHttpServletRequest request
+							,Model model) throws Exception {
+		logger.info("Controller - 상품 등록 실행!");
+		logger.info(vo.toString());
+		
+		request.setCharacterEncoding("utf-8");
+		fileProcess(request);
+		int num = service.regProduct(vo, files);
+		model.addAttribute("product_num", num);
+		model.addAttribute("seller", vo.getProduct_seller());
+		
+		return "redirect:/product/prodInfo";
+//		return "redirect:/product/prodList";
+	}
 	// 상품 등록 후 해당 페이지
 	
+
+	private List<String> fileProcess(MultipartHttpServletRequest multiRequest) throws Exception {
+		List<String> fileList = new ArrayList<String>();
+		
+		Iterator<String> fileNames =  multiRequest.getFileNames();
+		
+		while(fileNames.hasNext()) {
+			String fileName = fileNames.next();
+			
+			MultipartFile mFile = multiRequest.getFile(fileName);
+			String oFileName = mFile.getOriginalFilename();
+			fileList.add(oFileName);
+			
+			File file = 
+					new File("C:\\Users\\ITWILL\\git\\team22\\Team22\\src\\main\\webapp\\resources\\images\\" 
+			+ fileName);
+			
+			if(mFile.getSize() != 0) {
+				if(!file.exists()) { 
+					if(file.getParentFile().mkdir()) {
+						file.createNewFile();
+					}
+				}
+				
+				mFile.transferTo(
+						new File(
+								"C:\\Users\\ITWILL\\git\\team22\\Team22\\src\\main\\webapp\\resources\\images\\" 
+						+ oFileName));
+				
+			}
+		}
+		
+		return fileList;
+	}
+	
+	@RequestMapping(value = "/download", method = RequestMethod.GET)
+	public void fileDownloadGET(@RequestParam("fileName") String fileName
+								,HttpServletResponse response) throws Exception {
+		logger.info("fileDownloadGET() 실행");
+		
+		// 파일의 정보
+		logger.info("fileName : " + fileName);
+		// 다운로드할 파일의 위치
+		String downFile = "C:\\Users\\ITWILL\\git\\team22\\Team22\\src\\main\\webapp\\resources\\images\\" + fileName;
+		
+		File file = new File(downFile);
+		
+		// 파일의 정보를 화면에 출력
+		OutputStream out = response.getOutputStream();
+		
+		response.setHeader("Cache-Control", "no-cache");
+		response.addHeader("Content-disposition", "attachment; fileName="+fileName);
+		
+		FileInputStream fis = new FileInputStream(file);
+		
+		byte[] buffer = new byte[1024 * 8];
+		
+//		while(true) {
+//			int data = fis.read(buffer);
+//			if(data == -1) break;
+//			
+//			// 화면에 데이터 출력
+//			out.write(buffer, 0, data);
+//		}
+		int data;
+		while((data = fis.read(buffer)) != -1) {
+			
+			// 화면에 데이터 출력
+			out.write(buffer, 0, data);
+		}
+		
+		fis.close();
+		out.close();
+		
+	}
+	
 	@RequestMapping(value = "/thumb", method = {RequestMethod.GET, RequestMethod.POST})
-	public void thumbnail(@RequestParam("fileName") String img
+	public void thumbnail(@RequestParam("fileName") String fileName
 						,HttpServletResponse response) throws Exception {
-		String path = "C:\\Users\\ITWILL\\git\\team22\\Team22\\src\\main\\webapp\\resources\\images\\" + img;
+		logger.info("Controller - 썸네일 파일 생성 및 호출");
+		String path = "C:\\Users\\ITWILL\\git\\team22\\Team22\\src\\main\\webapp\\resources\\images\\" + fileName;
 		
 		File file = new File(path);
-		String oFileName = img.substring(0, img.lastIndexOf('.'));
+		String oFileName = fileName.substring(0, fileName.lastIndexOf('.'));
+		logger.info(oFileName);
 		
-		File thumb = new File("C:\\Users\\ITWILL\\git\\team22\\Team22\\src\\main\\webapp\\resources\\images\\thumb"
+		File thumb = new File("C:\\Users\\ITWILL\\git\\team22\\Team22\\src\\main\\webapp\\resources\\images\\thumb\\"
 				+ oFileName + ".png");
 		OutputStream out = response.getOutputStream();
+		response.setContentType("image/png");
 		
 		if(file.exists()) {
 			Thumbnails.of(file).size(200, 200).outputFormat("png").toOutputStream(out);
+			out.flush();
 		}else {
 			return;
 		}
