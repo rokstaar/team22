@@ -43,6 +43,9 @@ public interface ProductDAO {
 	// 상품 등록
 	public void regProduct(ProductVO vo);
 	
+	// 상품 마지막 등록 번호
+	public int getLastProdNum(String product_seller);
+	
 	// 조회수 증가
 	public void incView(Integer product_num);
 	

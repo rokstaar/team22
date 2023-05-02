@@ -45,7 +45,7 @@ public interface ProductService {
 	public double getScore(String name);
 	
 	// 상품정보 등록하기
-	public void regProduct(ProductVO vo, MultipartFile[] files, HttpServletRequest request) throws Exception;
+	public int regProduct(ProductVO vo, MultipartFile[] files) throws Exception;
 	public void regProduct(ProductVO vo, MultipartHttpServletRequest request) throws Exception;
 	
 	// 조회했는지 확인하며 조회수 증가시키기

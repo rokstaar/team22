@@ -84,6 +84,11 @@ public class ProductDAOImpl implements ProductDAO{
 	}
 
 	@Override
+	public int getLastProdNum(String product_seller) {
+		return session.selectOne(NAMESPACE + ".lastProdNum", product_seller);
+	}
+
+	@Override
 	public void incView(Integer product_num) {
 		session.update(NAMESPACE + ".viewInc", product_num);
 	}
@@ -92,6 +97,7 @@ public class ProductDAOImpl implements ProductDAO{
 	public int getTotalCount() {
 		return session.selectOne(NAMESPACE + ".getTotalCount");
 	}
+
 
 
 	

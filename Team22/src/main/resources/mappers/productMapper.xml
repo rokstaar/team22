@@ -8,6 +8,22 @@
 	
 
 	<!-- 상품 리스트 -->
+	<resultMap type="ProductVO" id="ProductVO">
+		<id column="product_num" property="product_num" />
+		<id column="product_seller" property="product_seller" />
+		<id column="product_cate" property="product_cate" />
+		<id column="product_title" property="product_title" />
+		<id column="product_content" property="product_content" />
+		<id column="product_price" property="product_price" />
+		<id column="product_grade" property="product_grade" />
+		<id column="product_pic" property="product_pic" />
+		<id column="product_readcount" property="product_readcount" />
+		<id column="product_date" property="product_date" />
+		<id column="product_favorite" property="product_favorite" />
+		<id column="product_status" property="product_status" />
+	</resultMap>
+	
+	
 	<select id="getProdList" parameterType="map" resultType="ProductVO">
 		SELECT * FROM PRODUCT
 		<where>
@@ -156,11 +172,18 @@
 	
 	<!-- 상품 등록 -->
 	<insert id="regProd">
-		INSERT INTO PRODUCT 
-		VALUES(default, #{product_seller}, #{product_cate}, #{product_title}, #{product_content}, #{product_price}
-		, #{product_grade}, #{product_pic}, default, default, default, default)
+		INSERT INTO PRODUCT(product_seller, product_cate, product_title
+		, product_content, product_price, product_grade, product_pic) 
+		VALUES(#{product_seller}, #{product_cate}, #{product_title}, #{product_content}, #{product_price}
+		, #{product_grade}, #{product_pic})
 	</insert>
 	<!-- 상품 등록 -->
+	
+	<!-- 상품 등록할때 번호 알아내기 -->
+	<select id="lastProdNum" resultType="int">
+		select product_num from product where product_seller = #{product_seller} order by product_num desc limit 1;
+	</select>
+	<!-- 상품 등록할때 번호 알아내기 -->
 	
 	<!-- 게시물 전체 숫자 -->
 	<select id="getTotalCount" resultType="int">
