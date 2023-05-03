@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -110,7 +111,7 @@ public class RandomController {
 	@RequestMapping(value = "/rList", method = RequestMethod.GET)
 	public void rListGET(Model model) throws Exception{
 		model.addAttribute("rList", service.rlist());
-		// best 추가?
+		// best 異붽�?
 	}
 	
 	@RequestMapping(value = "rDetail", method = RequestMethod.GET)
@@ -119,9 +120,19 @@ public class RandomController {
 		model.addAttribute("vo", service.rDetail(ran_num));
 		model.addAttribute("countP", service.countP(ran_num));
 		model.addAttribute("pay", service.getMPay(id));
-		System.out.println(service.getMPay(id));
 	}
 	
+	
+	@ResponseBody
+	@RequestMapping(value = "/rBid", method = RequestMethod.GET)
+	public int rBidGET(RandomVO vo, HttpSession session) throws Exception {
+		String id = (String) session.getAttribute("id");
+		vo.setRan_buyerId(id);
+		
+//		service.rBid(vo);
+		
+		return service.countP(vo.getRan_num());
+	}
 
 }
 
