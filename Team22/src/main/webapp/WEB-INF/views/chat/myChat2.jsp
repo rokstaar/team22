@@ -375,6 +375,7 @@ div{
 	    roomNum = "${currRoomId}";
 	  }
 	  
+	  
 	  connect();
 		function connect() {
 			sock = new SockJS("<c:url value="/chat"/>");

@@ -56,7 +56,6 @@ public class ChatHandler extends TextWebSocketHandler {
 		ChatMessageVO cmvo = new ChatMessageVO();
 		cmvo.setBuyer_id(arr[0]);
 		cmvo.setChat_content(arr[1]);
-	
 		
 		
 	}

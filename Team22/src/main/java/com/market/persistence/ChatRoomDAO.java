@@ -14,4 +14,5 @@ public interface ChatRoomDAO {
 	
 	public String selectTitle(int room_id);
 
+	
 }

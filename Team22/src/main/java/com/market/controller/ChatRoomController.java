@@ -72,6 +72,7 @@ public class ChatRoomController {
 
 	}
 	
+	
     @RequestMapping(value="/chatroom", method=RequestMethod.GET)
     public String chatroomGet(HttpSession session) {
     	

@@ -32,6 +32,7 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 	public ChatRoomVO searchChatRoomInfo(int room_id) {
 		return crdao.selectChatRoomInfo(room_id);
 	}
+	
 
 	@Override
 	public String searchTitle(int room_id) {
