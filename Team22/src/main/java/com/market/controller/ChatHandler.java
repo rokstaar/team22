@@ -12,6 +12,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.market.domain.ChatMessageVO;
 import com.market.service.ChatRoomService;
 
 
@@ -37,12 +38,27 @@ public class ChatHandler extends TextWebSocketHandler {
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		
+		// view에서 보낸 메세지(이름, 채팅내용, 방번호)를 msg 변수에 담아줌
+		String msg = message.getPayload();
+		// 메세지를 구분자(",")를 이용하여 잘라서 배열형태로 담아줌 
+		String[] arr = msg.split(",");
+		
 		logger.info(" {}님이 >>>>>> '{}' 보냄  ", session.getId(), message.getPayload());
 		
 		for(WebSocketSession sess : sessionList) {
-			sess.sendMessage(new TextMessage(message.getPayload()));
+			sess.sendMessage(new TextMessage(arr[0]+","+arr[1] + "," + arr[2]));
+			//sess.sendMessage(new TextMessage(message.getPayload()));
 		}
-
+		
+		logger.info(" 메세지 보낸 사람 : " + arr[0]);
+		logger.info(" 메세지 내용 : " + arr[1]);
+		
+		ChatMessageVO cmvo = new ChatMessageVO();
+		cmvo.setBuyer_id(arr[0]);
+		cmvo.setChat_content(arr[1]);
+	
+		
+		
 	}
 
 	@Override

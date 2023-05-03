@@ -37,6 +37,9 @@ public class ChatMessageController {
     @RequestMapping(value="/chatdialog", method=RequestMethod.POST)
     @ResponseBody
     public List<ChatMessageVO> chatdialog(@RequestParam int room_id, HttpSession session) {
+    	
+    	logger.info(" chatdialogPost() 실행 ");
+    	
     	String id = (String) session.getAttribute("id");
     	
     	List<ChatMessageVO> cmList = cmservice.searchChatDialog(room_id, id);
@@ -46,8 +49,11 @@ public class ChatMessageController {
 
 	// 채팅 하기
 	@RequestMapping(value = "/chatdialog/{room_id}", method = RequestMethod.POST)
+	@ResponseBody
 	public List<ChatMessageVO> registChatDiaolog(
 			@PathVariable("room_id") int room_id, @RequestBody ChatMessageVO vo, HttpSession session) {
+		
+		logger.info(" registChatDiaologPost() 실행 ");
 
 		String id = (String) session.getAttribute("id");
 		
@@ -57,13 +63,13 @@ public class ChatMessageController {
 		
 		ChatMessageVO cmvo = new ChatMessageVO();
 		cmvo.setRoom_id(room_id);
-		cmvo.setSeller_id(id);
+		cmvo.setBuyer_id(id);
 		cmvo.setChat_content(vo.getChat_content());
 		
-		if(crvo.getSeller().equals(id)) { 
-			cmvo.setBuyer_id(crvo.getBuyer());
+		if(crvo.getSeller().equals(id)) { // 판매글 작성자와 접속한 회원의 정보가 같다면
+			cmvo.setSeller_id(crvo.getBuyer());
 		} else {
-			cmvo.setBuyer_id(crvo.getSeller());
+			cmvo.setSeller_id(crvo.getSeller()); 
 		}
 		
 		cmservice.registChatDialog(cmvo);
