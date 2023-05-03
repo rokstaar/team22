@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -48,6 +50,10 @@ public class RandomController {
 		
 		List fileList = fileProcess(multiRequest);
 		vo.setRan_pic(fileList.toString());
+		if(vo.getRan_buyerId() == null) {
+			vo.setRan_buyerId(vo.getRan_sellerId());
+		}
+		
 		service.rRegist(vo);
 		
 		return "redirect:/random/rList";
@@ -111,27 +117,50 @@ public class RandomController {
 	@RequestMapping(value = "/rList", method = RequestMethod.GET)
 	public void rListGET(Model model) throws Exception{
 		model.addAttribute("rList", service.rlist());
-		// best 異붽�?
+		model.addAttribute("best", service.nowBest());
 	}
 	
 	@RequestMapping(value = "rDetail", method = RequestMethod.GET)
 	public void rDetailGET(@RequestParam("ran_num") int ran_num, Model model, HttpSession session) throws Exception{
 		String id = (String) session.getAttribute("id");
 		model.addAttribute("vo", service.rDetail(ran_num));
-		model.addAttribute("countP", service.countP(ran_num));
+		model.addAttribute("countP", service.countP(ran_num)-1);
 		model.addAttribute("pay", service.getMPay(id));
 	}
 	
 	
 	@ResponseBody
 	@RequestMapping(value = "/rBid", method = RequestMethod.GET)
-	public int rBidGET(RandomVO vo, HttpSession session) throws Exception {
+	public Map<String, Integer> rBidGET(RandomVO vo, HttpSession session) throws Exception {
 		String id = (String) session.getAttribute("id");
 		vo.setRan_buyerId(id);
 		
-//		service.rBid(vo);
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		List<String> bList = service.selectBuyer(vo.getRan_num());
 		
-		return service.countP(vo.getRan_num());
+		for(int i=0; i<bList.size(); i++) {
+			if(id.equals(bList.get(i))) {
+				map.put("error", 1);
+				return map;
+			}
+		}
+		
+		
+		service.minusPay(id, vo.getRan_bidPrice());
+		service.rBid(vo);
+		
+		map.put("pay", service.getMPay(id));
+		map.put("ran_num",service.countP(vo.getRan_num())-1);
+		
+		return map;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/uBid", method = RequestMethod.GET)
+	public Integer uBidGET(@RequestParam("ran_num") String num) throws Exception {
+		int ran_num = Integer.parseInt(num);
+		
+		return service.countP(ran_num)-1;
 	}
 
 }

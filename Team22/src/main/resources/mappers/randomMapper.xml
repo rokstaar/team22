@@ -6,18 +6,33 @@
 <mapper namespace="com.market.mapper.randomMapper">
 
 	<insert id="rRegist">
-		insert into random(ran_price, ran_endTime, ran_sellerId, ran_pic, ran_maxPp, ran_title, ran_content, ran_bidPrice)
-		values(#{ran_price}, #{ran_endTime}, #{ran_sellerId}, #{ran_pic}, #{ran_maxPp}, #{ran_title}, #{ran_content}, #{ran_bidPrice} )
+		insert into random(ran_price, ran_endTime, ran_sellerId, ran_pic, ran_maxPp, ran_title, ran_content, ran_bidPrice, ran_buyerId)
+		values(#{ran_price}, #{ran_endTime}, #{ran_sellerId}, #{ran_pic}, #{ran_maxPp}, #{ran_title}, #{ran_content}, #{ran_bidPrice}, #{ran_buyerId} )
 	</insert>
+	
+	<select id="nowBest" resultType="com.market.domain.RandomVO">
+		select *, count(ran_num)-1 as count from random
+		where ran_num = (select ran_num
+						from random
+						group by ran_num
+                		having ran_status = 0
+						order by count(ran_num) desc
+                		limit 1)
+		order by ran_maxPp desc
+		limit 1;
+	</select>
 
 	<select id="rList" resultType="com.market.domain.RandomVO">
-		select * from random
-		order by ran_num desc
+		select A.*, count(ran_num)-1 as count
+		from (select * from random order by ran_maxPp desc limit 0, 10) A
+		where A.ran_status = 0
+		group by A.ran_num
+		order by A.ran_num desc;
 	</select>
 	
 	<select id="rDetail" resultType="com.market.domain.RandomVO">
 		select * from random
-		where ran_num = #{ran_num}
+		where ran_num = #{ran_num} and ran_sellerId is not null
 	</select>
 	
 	<select id="countP" resultType="int">
@@ -27,6 +42,21 @@
 
 	<select id="getMPay" resultType="int">
 		select member_pay from member where member_id = #{member_id}
+	</select>
+	
+	<insert id="rBid">
+		insert into random(ran_num, ran_buyerId, ran_bidPrice, ran_price)
+		values(#{ran_num}, #{ran_buyerId}, #{ran_bidPrice}, #{ran_price})
+	</insert>
+	
+	<update id="minusPay">
+		update member set member_pay = member_pay - #{mPay} 
+		where member_id = #{id}
+	</update>
+	
+	<select id="selectBuyer" resultType="String">
+		select ran_buyerId
+		from random where ran_num = #{ran_num}
 	</select>
 
 </mapper>

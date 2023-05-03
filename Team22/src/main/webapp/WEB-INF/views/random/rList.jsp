@@ -94,25 +94,24 @@
 									<div class="content">
 										<header style="text-align: center;">
 											<h1>HOT<br/>
-											${best.au_title }</h1>
-											<p>기간 : ${best.au_endTime }<br>
-											시작가 : ${best.au_startPrice }<br>
-											현재 입찰금 : ${best.au_bidPrice }<br>
-											즉시 구매가 : ${best.au_endPrice }<br>
-											판매자 : ${best.au_sellerId } </p>
-											
+											${best.ran_title }</h1>
+											<p>기간 : ${best.ran_endTime }<br>
+											가격 : ${best.ran_price }<br>
+											응모금 : ${best.ran_bidPrice }<br>
+											판매자 : ${best.ran_sellerId } </p>
+											<p class="button">남은 응모 가능 인원 : ${best.ran_maxPp - best.count }</p>
 											<ul class="actions" style="text-align: center;">
 												<li class="button" id="time" style="text-align: center; width:230px"></li>
-												<li><a href="/auction/aDetail?au_num=${best.au_num }" class="button">입찰하기</a></li>
+												<li><a href="/random/rDetail?ran_num=${best.ran_num }" class="button">응모하기</a></li>
 											</ul>
 											
-											<input type="hidden" value="${best.au_endTime }" id="endDate">
+											<input type="hidden" value="${best.ran_endTime }" id="endDate">
 											
 										</header>
 										
 									</div>
 									<span class="image object">
-										<img src="/random/download?fileName=${best.au_pic.replace('[','').replace(']','').split(',')[0]} " style="width:644.7px; height:438.4px" />
+										<img src="/random/download?fileName=${best.ran_pic.replace('[','').replace(']','').split(',')[0]} " style="width:644.7px; height:438.4px" />
 									</span>
 								</section>
 
@@ -121,8 +120,8 @@
 								<section style="padding-top:20px">
 								
 									<header class="major">
-										<h2 style="margin-bottom:10px">경매 물품</h2>
-										<a href='/auction/aRegist'>상품 등록하기</a>
+										<h2 style="margin-bottom:10px">상품 목록</h2>
+										<a href='/random/rRegist'>응모 등록하기</a>
 									</header>
 									<section id="search" class="alt" style="display: inline-block; float: right;">
 										<form method="get" action="/auction/list" style="display: flex">
@@ -147,7 +146,7 @@
 												<h3>${rList.ran_title }</h3>
 												<p>
 												응모금액 : ${rList.ran_bidPrice }<br>
-												응모가능 인원 : ${rList.ran_maxPp }<br>
+												응모가능 인원 : ${rList.ran_maxPp - rList.count }<br>
 												판매자 : ${rList.ran_sellerId }<br>
 												종료시간 : ${rList.ran_endTime }<br>
 												<a href="/random/rDetail?ran_num=${rList.ran_num }" class="button">응모하기</a></p>

@@ -23,24 +23,66 @@
 		<script type="text/javascript">
 			$(document).ready(function(){
 				
-				/* function ubid(){
+				function ubid(){
 					$.ajax({
-						url:"/auction/uBid",
+						url:"/random/uBid",
 						data:{
-							au_num:'${vo.ran_num}'
+							ran_num:'${vo.ran_num}'
 						},
 						dataType:"JSON",
 						success:function(data){
-							$('#uBid').attr("value", data.bid);
-							$('#nowBid').html('현재 입찰금 : ' + data.bid.toLocaleString("ko-KR"));
-							$('#myPay').attr("value", data.pay);
-							$('#rPay').html('${id }' + '님의 보유금액 : '+data.pay.toLocaleString("ko-KR"));
-							$('#lastBuyer').attr("value", data.buyer);
-							
+							$('#countP').html('응모현황 ' + data +  ' / ' + '${vo.ran_maxPp }');
 						}
 					});
-				} */
-				//setInterval(ubid,1000);
+				} 
+				setInterval(ubid,1000);
+				
+				$('#rBid').click(function(){
+					if(${id == null}){
+						if(confirm('로그인 필요. 로그인 페이지로 가시겠습니까?')){
+							location.href='/members/login';
+							return false;
+						}else{
+							return false;
+						}
+					}
+					if(${vo.ran_sellerId.equals(id) }){
+						alert('나의 응모에 참여할수 없습니다.');
+						return false;
+					}
+					if(parseInt("${vo.ran_bidPrice}") > parseInt("${pay}")){
+						if(confirm('페이가 부족합니다. 충천하시겠습니까?')){
+							alert('페이충전페이지로');
+							return false;
+						}else{
+							return false;
+						}
+					}
+					
+					
+					if(confirm('응모 하시겠습니까?')){
+						$.ajax({
+							url:"/random/rBid",
+							data:{
+								ran_num:'${vo.ran_num}',
+								ran_bidPrice:'${vo.ran_bidPrice}',
+								ran_price:'${vo.ran_price}'
+							},
+							success:function(data){
+								if(data.error == 1){
+									alert('이미 응모하셨습니다.');
+									return false;
+								}else{
+									$('#rPay').html('${id }' + '님의 보유금액 : '+data.pay.toLocaleString("ko-KR"));
+									$('#countP').html('응모현황 ' + data.ran_num +  ' / ' + ${vo.ran_maxPp });
+								}
+							}
+						});
+					}else{
+						return false;
+					}
+					
+				});
 				
 				var timer; 
 				
@@ -100,13 +142,11 @@
 											<h1>${vo.ran_title }<br/></h1>
 											<p>
 											판매자 : ${vo.ran_sellerId }<br>
-											시작가 : ${Price }<br>
+											금액 : ${Price }<br>
 											</p> 
 											<p class="button" id="time"></p>
 											<p class="button" id="nowBid">응모 금액 : ${bidPrice }</p><br>
 											
-											<input type="hidden" id="uBid" value="${vo.ran_bidPrice }">
-											<input type="hidden" id="lastBuyer" value="${vo.ran_buyerId }">
 											<input type="hidden" id="myPay" value="${pay }">
 											
 											
@@ -118,8 +158,8 @@
 												<li><p class="button" id="rPay">${id }님의 보유금액 : ${myPay }</p></li>
 											</c:if>
 												<hr>
-												<li><a class="button">응모현황 ${countP} / ${vo.ran_maxPp }</a></li>
-												<li><a class="button" id="bid">응모하기</a></li>
+												<li><a class="button" id="countP">응모현황 ${countP} / ${vo.ran_maxPp }</a></li>
+												<li><a class="button" id="rBid">응모하기</a></li>
 											</ul>
 										</form>
 									</div>
@@ -137,7 +177,7 @@
 							<!-- Section -->
 								<section>
 									<div class="col-12">
-										<textarea name="au_content" id="au_content" rows="6" style="width:100%" readonly="readonly">${vo.ran_content }</textarea>
+										<textarea name="ran_content" id="ran_content" rows="6" style="width:100%" readonly="readonly">${vo.ran_content }</textarea>
 										<a style="margin-top: 20px; float:right;" class="button" href="/random/rList">목록</a>
 									</div>
 								</section>
