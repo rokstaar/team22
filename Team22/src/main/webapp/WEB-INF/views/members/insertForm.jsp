@@ -61,7 +61,7 @@ function checkIdDuplicate() {
   $.ajax({
     url: "idCheck",
     type: "POST",
-    data: JSON.stringify(id),
+    data: id,
     contentType: "application/json; charset=UTF-8",
     dataType: "JSON",
     success: function(data) {

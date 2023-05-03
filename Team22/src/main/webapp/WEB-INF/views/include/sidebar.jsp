@@ -119,13 +119,13 @@ div{
   font-weight: 500;
   text-align: center;
 }
-.shippingStatusContainer .text{
+/* .shippingStatusContainer .text{
   font-size: 14px;
   font-weight: normal;
   color: black;
   font-weight : bold;
   text-align: center;
-}
+} */
 .shippingStatusContainer .memberUpdate{
   font-size: 14px;
   font-weight: normal;

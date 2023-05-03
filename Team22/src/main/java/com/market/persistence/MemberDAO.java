@@ -40,4 +40,7 @@ public interface MemberDAO {
  	
  	public int findIdCheck(String memberEmail)throws Exception;
 	
+ 	// 회원 탈퇴
+ 	public void memberDelete(MemberVO vo)throws Exception;
+ 	
 }

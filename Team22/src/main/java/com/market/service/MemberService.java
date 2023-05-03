@@ -30,4 +30,7 @@ public interface MemberService {
 	public List<MemberVO> findId(String memberEmail)throws Exception;
 	
 	public int findIdCheck(String memberEmail)throws Exception;
+	// 회원탈퇴
+	public void removeMember(MemberVO vo)throws Exception;
+	
 }

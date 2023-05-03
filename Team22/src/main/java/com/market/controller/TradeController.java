@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.market.domain.AuctionVO;
 import com.market.domain.ProductVO;
+import com.market.domain.RandomVO;
 import com.market.domain.ReviewVO;
 import com.market.service.TradeService;
 
@@ -70,7 +71,7 @@ public class TradeController {
 		
 		logger.info("@@@@@@@@@@@@@@@"+id);
 		
-		logger.info("b@@@@@@@@@@@@@@"+buyList);
+		logger.info("@@@@@@@@@@@@@@"+buyList);
 		
 		model.addAttribute("buyList",buyList);
 		
@@ -79,9 +80,8 @@ public class TradeController {
 	// 판매 내역
 	@RequestMapping(value = "/prodList", method = RequestMethod.GET)
 	public void prodList(Model model) throws Exception {
-		
 		List<Map<String,Object>> prodList = service.prodList();
-		logger.info("b@@@@@@@@@@@@@@"+prodList);
+		logger.info("@@@@@@@@@@@@@@"+prodList);
 		
 		model.addAttribute("prodList",prodList);
 		
@@ -96,7 +96,6 @@ public class TradeController {
 		service.writeReview(rvo);
 //		model.addAttribute("List",List);
 		rttr.addFlashAttribute("result","buy");
-		rttr.addFlashAttribute("result","prod");
 		
 		return "redirect:/trade/buyReview";
 	}
@@ -151,6 +150,18 @@ public class TradeController {
 		model.addAttribute("mySaleAuction",mySaleAuction);
 		
 		return "/trade/mySaleAuction";
+	} 
+	// 내 랜덤 판매 목록
+	@RequestMapping(value = "/mySaleRandom", method = RequestMethod.GET)
+	public String getSaleRandom(Model model,HttpSession session) throws Exception{
+		
+		String id = (String)session.getAttribute("id");
+		
+		List<RandomVO> mySaleRandom = service.mySaleRandom(id);
+		
+		model.addAttribute("mySaleRandom",mySaleRandom);
+		
+		return "/trade/mySaleRandom";
 	} 
 	
 }

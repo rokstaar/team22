@@ -114,7 +114,7 @@ div{
   text-align: center;
 }
 .shippingStatusContainer .text{
-  font-size: 14px;
+  font-size: 25px;
   font-weight: normal;
   color: black;
   font-weight : bold;
@@ -244,7 +244,7 @@ div{
 						<div class="inner">
 
 							<!-- Header -->
-								<%@ include file="../include/header.jsp" %>
+							<%@ include file="../include/header.jsp" %>
 								<%@ include file="../include/mypageProdList.jsp" %>
 								
 										<div class="shippingStatusContainer">

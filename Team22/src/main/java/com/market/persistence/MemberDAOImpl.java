@@ -88,5 +88,10 @@ public class MemberDAOImpl implements MemberDAO {
 	public int findIdCheck(String memberEmail)throws Exception{
 		return sqlSession.selectOne(NAMESPACE+".findIdCheck", memberEmail);
 	}
+	@Override
+	public void memberDelete(MemberVO vo) throws Exception {
+		sqlSession.delete(NAMESPACE+".memberDelete",vo);
+	}
 
+	
 }

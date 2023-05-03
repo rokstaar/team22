@@ -100,7 +100,16 @@
         </ul>
 
       </form>
-    
+  
+  <script type="text/javascript">
+	//alert("${result}");
+	var result = "${result}";
+	
+	if(result == "O"){
+		alert("회원가입이 되었습니다.");		
+	}
+	
+</script>  
 
 </body>
 </html>

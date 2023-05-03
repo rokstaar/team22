@@ -91,7 +91,7 @@ public class MembersController {
 	}
 	// �쉶�썝媛��엯-�젙蹂댁쿂由�
 	@RequestMapping(value="/insert", method = RequestMethod.POST)
-	public String insertPOST(MemberVO vo,MultipartFile file)throws Exception {
+	public String insertPOST(MemberVO vo,MultipartFile file,RedirectAttributes rttr)throws Exception {
 		logger.info(vo+"toString");
 	
 		String imgUploadPath = uploadPath + File.separator + "imgUpload";
@@ -105,7 +105,8 @@ public class MembersController {
 		}
 
 		vo.setMember_pic(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
-
+		rttr.addFlashAttribute("result","O");
+		
 		service.memberJoin(vo);
 		
 		return "redirect:/members/login";
@@ -182,7 +183,6 @@ public class MembersController {
     	 } else {  // �깉濡쒖슫 �뙆�씪�씠 �벑濡앸릺吏� �븡�븯�떎硫�
     	  // 湲곗〈 �씠誘몄�瑜� 洹몃�濡� �궗�슜
     	  vo.setMember_pic(req.getParameter("member_pic"));
-    	  
     	  
     	 }
     	 
@@ -262,7 +262,50 @@ public class MembersController {
 	public String deletePwCkPOST(Model model,@RequestParam("member_pass") String member_pass,
 					@RequestParam("member_id")String id,RedirectAttributes rttr)throws Exception {
 			MemberVO vo = service.memberInfo(id);
+			if(vo == null || !vo.getMember_pass().equals(member_pass)) {
+				return "/members/deletePwCk";
+			}else {
+				rttr.addFlashAttribute("result","O");
+				return "redirect:/members/remove";
+			}
+			
+	}
+	@RequestMapping(value = "/remove", method = RequestMethod.GET)
+	public String removeGET(HttpSession session,Model model) throws Exception{
+		
+		String id = (String)session.getAttribute("id");
+    	
+    	model.addAttribute("memberInfo",service.memberInfo(id));
+    	
+	    	if (id == null) {
+	    		return "redirect:/members/login";
+	    	}
 			
 			return "/members/removeForm";
+		}
+	
+	@RequestMapping(value = "/remove", method = RequestMethod.POST)
+	public String removePOST(RedirectAttributes rttr,
+							@RequestParam("member_id")String id,
+							@RequestParam("member_pass") String member_pass,
+							Model model,HttpSession session) throws Exception{
+		
+		MemberVO vo = service.memberInfo(id);
+		logger.info("@@@@@@@@@@@@@@memberdelete"+vo);
+		
+		if(vo == null || !vo.getMember_pass().equals(member_pass)) {
+			model.addAttribute("memberInfo", vo) ;
+			rttr.addFlashAttribute("result",false);
+			return "/members/removeForm";
+		}else {
+			service.removeMember(vo);
+			session.invalidate();
+			rttr.addFlashAttribute("result","delete");
+			return "redirect:/main";
+		}
+    	 
+    	
 	}
+	
+	
 }

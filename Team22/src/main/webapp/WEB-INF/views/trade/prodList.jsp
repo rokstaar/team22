@@ -115,7 +115,7 @@ div{
   text-align: center;
 }
 .shippingStatusContainer .text{
-  font-size: 14px;
+  font-size: 25px;
   font-weight: normal;
   color: black;
   font-weight : bold;
@@ -357,7 +357,6 @@ textarea{
 								
 								<div class="infoContainer">
 								<c:forEach var="vo" items="${prodList }">
-								<c:if test="${vo.sell_mem_id eq sessionScope.id }">
 										
 										<div class="item">
 									        <div>
@@ -384,7 +383,6 @@ textarea{
 							         	   </a>
 									        </div>
 									        </div>
-									        </c:if>
 										</c:forEach>
 									</div>
 								</div>
