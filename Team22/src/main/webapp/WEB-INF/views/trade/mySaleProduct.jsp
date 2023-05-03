@@ -114,7 +114,7 @@ div{
   text-align: center;
 }
 .shippingStatusContainer .text{
-  font-size: 14px;
+  font-size: 25px;
   font-weight: normal;
   color: black;
   font-weight : bold;

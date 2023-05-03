@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.market.domain.AuctionVO;
 import com.market.domain.ProductVO;
+import com.market.domain.RandomVO;
 import com.market.domain.ReviewVO;
 import com.market.persistence.TradeDAO;
 
@@ -86,8 +87,14 @@ public class TradeServiceImpl implements TradeService{
 		return tdao.getFavorite(id);
 	}
 
+	@Override
+	public List<RandomVO> mySaleRandom(String id) throws Exception {
+		// TODO Auto-generated method stub
+		return tdao.myRandomList(id);
+	}
 
 
+	
 	
 	
 	

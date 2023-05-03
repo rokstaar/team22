@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.market.domain.AuctionVO;
 import com.market.domain.ProductVO;
+import com.market.domain.RandomVO;
 import com.market.domain.ReviewVO;
 import com.market.domain.TradeVO;
 
@@ -32,6 +33,8 @@ public interface TradeService {
 	public List<AuctionVO> mySaleAuction(String id) throws Exception;
 	
 	public List<Map<String,Object>> favoriteList(String id) throws Exception;
-
+	
+	public List<RandomVO> mySaleRandom(String id) throws Exception;
+	
 	
 }

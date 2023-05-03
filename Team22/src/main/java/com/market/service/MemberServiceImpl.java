@@ -77,4 +77,12 @@ public class MemberServiceImpl implements MemberService {
 	public int findIdCheck(String memberEmail)throws Exception{
 		return mvo.findIdCheck(memberEmail);
 	}
+
+	@Override
+	public void removeMember(MemberVO vo) throws Exception {
+		mvo.memberDelete(vo);
+	}
+	
+	
+	
 }

@@ -68,7 +68,7 @@
     <update id="memberInfoUpdate" parameterType="com.market.domain.MemberVO"> 
     	update member
     	set member_pass = #{member_pass}, member_phone = #{member_phone}, member_nickname = #{member_nickname}, member_email = #{member_email},
-    	member_address = #{member_address}, member_pic = #{member_pic},member_pay = #{member_pay}
+    	member_address = #{member_address},member_address2 =#{member_address2},member_address3 =#{member_address3}, member_pic = #{member_pic},member_pay = #{member_pay}
     	where member_id = #{member_id} and member_num = #{member_num}
     
     </update>
@@ -81,7 +81,6 @@
         SET member_pic = #{member_pic}
         WHERE member_id = #{id}
     </update>
-    
     
        <!-- 아이디 찾기 -->
   
@@ -106,5 +105,13 @@
 	<select id="findIdCheck" resultType="int">
 	select count(*) from member where member_email = #{memberEmail}
 	</select>
+    
+    <!-- 회원탈퇴 -->
+    <delete id="memberDelete">
+    	delete from member
+    	where member_id = #{member_id} and member_pass = #{member_pass}
+    
+    </delete>
+    <!-- 회원탈퇴 -->
     
 </mapper>

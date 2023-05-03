@@ -105,50 +105,6 @@ function check_nick(){
 };
 
 
-//////////////////////////////   비밀번호   /////////////////////////////////////////////////
-$(document).ready(function() {
-	let pw = false;
-	let checkPw = false;
-
-
-$("#pw").blur(function() {
-	let pwdCheck= /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
-
-	if ($("#pw").val() == "") {
-		$("#pwdcheck_blank1").css("color", "red");
-		$("#pwdcheck_blank1").text("필수정보예요.");
-		pw = false;
-	}	
-	else if (!pwdCheck.test($("#pw").val())) {
-		$("#pwdcheck_blank1").css("color", "red");
-		$("#pwdcheck_blank1").text("비밀번호는 영문+숫자+특수문자 조합하여 8~16자리를 사용해야 합니다");
-		pw = false;
-	}else {
-		$("#pwdcheck_blank1").css("color", "blue");
-		$("#pwdcheck_blank1").text("안전한 비밀번호 입니다. 아래에 한번 더 입력하세요");
-		pw = true;
-	}
-});
-
-$("#checkPw").blur(function() {
-	if($("#checkPw").val() == "") {
-		$("#pwdcheck_blank2").css("color", "red");
-		$("#pwdcheck_blank2").text("필수정보예요.");
-		checkPw = false;
-	}
-	else if(pw == true && $("#pw").val() == $("#checkPw").val()) {
-		$("#pwdcheck_blank2").css("color", "blue");
-		$("#pwdcheck_blank2").text("비밀번호가 일치합니다!");
-		checkPw = true;
-	}else {
-		$("#pwdcheck_blank2").css("color", "red");
-		$("#pwdcheck_blank2").text("비밀번호를 다시 확인해주세요");
-		$("#checkPw").val("");
-		checkPw = false;
-	}
-});
-});
-//////////////////////////////비밀번호   /////////////////////////////////////////////////
 
 
 
@@ -247,28 +203,6 @@ function exePost() {
  *  회원가입 관련 처리
  */
  
- function fn_join(){
-	var f = $('#join_frm');
-	var formData = f.serialize();
-		
-	$.ajax({
-		type : "POST",
-		url : "/join",
-		data : formData,
-		success: function(data){
-			if(data == "Y"){
-				alert("회원가입이 완료되었습니다.");	
-				location.href="/"
-			}else{
-				alert("회원가입에 실패하였습니다.");
-			}
-		},
-		error: function(data){
-			alert("회원가입 에러 발생!");
-			console.log(data);
-		}
-	});
- }
  
 
 </script>   
@@ -278,7 +212,7 @@ function exePost() {
 
 		<div class="main-content">	
 
-			<h2 class="member-title text-center">회원수정</h2>
+			<h2 class="member-title text-center">회원탈퇴</h2>
 
 			<!-- Form 시작 -->
 			<form class="form-signup" id="join" method="post" name="joinform" role="form" enctype="multipart/form-data">
@@ -289,8 +223,7 @@ function exePost() {
 					<label for="nickname">닉네임</label>
 					<br>
 					<div class="form-input-box">
-						<input type="text" id="nickname" name="member_nickname" class="form-control" value=${memberInfo.member_nickname } required=""> 
-						<button type="submit" class="btn btn-info btn-sm" onclick="check_nick();">중복확인</button>
+						<input type="text" id="nickname" name="member_nickname" class="form-control" readonly value="${memberInfo.member_nickname }" required=""> 
 					</div>
 					<span id="nickcheck_blank"></span>
 					
@@ -310,7 +243,7 @@ function exePost() {
 				<div class="form-label-group">
 					<label for="pwd">비밀번호</label>
 					<br>
-					<input type="password" id="pw" name="member_pass" class="form-control form-margin-top" placeholder="영문,숫자,특수문자 조합하여 8자~16자" size="30" maxlength="16" required=""> 
+					<input type="password" id="pw" name="member_pass" class="form-control form-margin-top" placeholder="비밀번호 입력" size="30" maxlength="16" required=""> 
 				</div>
 						<span id="pwdcheck_blank1"></span>
 				
@@ -319,75 +252,24 @@ function exePost() {
 	</tr>
 				
 				
-				<div class="form-label-group">
-					<label for="pwdcheck">비밀번호 재확인</label>	
-					<br>						
-					<input type="password" id="checkPw" name="confirm-password" class="form-control form-margin-top" placeholder="비밀번호 재확인" required="">
-				</div>
-				<span id="pwdcheck_blank2"></span>
 				
 				<div class="form-label-group">
 					<label for="member_name">이름</label>
 					<br>
-					<input type="text"  id="name" name="member_name" class="form-control form-margin-top" value="${memberInfo.member_name }" readonly required> 
-				</div>
-				
-				<div class="form-label-group">
-					<label for="member_pic">이미지</label>
-					<input type="file"  id="name" name="file" class="form-control form-margin-top" value="${memberInfo.member_name }" required> 
-					<img alt="" width="150px" height="100px" src="${memberInfo.member_pic }">
-					<input type="hidden" name="member_pic" value="${memberInfo.member_pic }">
+					<input type="text"  id="name" name="member_name" class="form-control form-margin-top" readonly value="${memberInfo.member_name }" readonly required> 
 				</div>
 				
 				
-				
-				<div class="form-label-group">
-					<label for="addr">우편번호</label>
-					<br>
-					<input type="text" name="member_address" class="form-control form-margin-top"  value="${memberInfo.member_address }" size="30" readonly="readonly"> 					
-					<button type="button" class="btn btn-info btn-sm"onclick="exePost()" id="addressSearch">주소검색</button>	
-				</div>
-		
-		
-			<div>
-			<tr>		
-		<td></td><td colspan="2"><input type="text" id="m_address_primary" name="member_address2" size="50" readonly="readonly" value="${memberInfo.member_address2 }"></td>
-		
-	</tr>
-		<tr>		
-		<td></td><td colspan="2"><input type="text" size="50" name="member_address3" value="${memberInfo.member_address3 }"id="addressRest"></td>
-	</tr>
-			</div>
-		
-		
-
-
-				<!-- 문제의 input 부분 -->
-			<!-- 	<div class="form-label-group">
-					<label for="email">이메일</label>
-					<br>		
-					<input type="email" id="email" name="member_email" class="form-control form-margin-top" placeholder="이메일"> 
-				</div> -->
-					<tr>
-	<!-- 	<td>이메일</td><td><input type="text" name="member_email" id="email" size="30"></td><td><input type="button" value="인증코드 발송" onclick="sendEmail()"></td>
-	</tr>
-	<tr>
-		<td></td><td><input type="text" id="codeInput" size="30" placeholder="인증번호 입력" disabled="disabled"></td><td></td>
-	</tr>
-	<tr>
-		<td></td><td colspan="2" style="font-size: 3px" id="codecheck_blank"></td>
-	</tr> -->
-	
 
 				 <div class="form-label-group btn-sign-up-margin">
 					<label for="phone">연락처</label>
 					<br>	
-					<input type="text" id="phone" name="member_phone" class="form-control form-margin-top" value="${memberInfo.member_phone }" required=""> 
+					<input  type="text" id="phone" name="member_phone" class="form-control form-margin-top"  readonly value="${memberInfo.member_phone }" required=""> 
 				</div>
 				 <div class="form-label-group btn-sign-up-margin">
 					<label for="phone">이메일</label>
 					<br>	
-					<input type="text" id="email" name="member_email" class="form-control form-margin-top" value="${memberInfo.member_email }" required=""> 
+					<input type="text" id="email" name="member_email" class="form-control form-margin-top" readonly value="${memberInfo.member_email }" required=""> 
 				</div>
 				 
 				
@@ -398,16 +280,7 @@ function exePost() {
 					</p>
 				</button>
 			</form>
+			
 		</div>
-<script type="text/javascript">
-	//alert("${result}");
-	var result = "${result}";
-	
-	if(result == "O"){
-		alert("비밀번호가 일치합니다.");		
-	}
-	
-</script>
-
 </body>
 </html>

@@ -264,14 +264,14 @@ div{
 									       <div class="item">
 									        <div>
 									        <a href="/members/memberInfo?mem_id=${memReview[0].reviewee} " > <div class="text">판매상품</div>
-									          <div class="rightBlue number">6</div></a>
+									          </a>
 									        </div>
 									      </div>      
 									      
 								      <div class="item">		
 									      <a href="/members/review?mem_id=${memReview[0].reviewee }">  <div>
 									          <div class="text">거래후기</div>
-									          <div class="rightBlue number">3</div></a>
+									          </a>
 									        </div>
 									      </div>        
 									      
@@ -320,7 +320,6 @@ div{
 
 					<%@ include file="../include/sidebar.jsp" %>
 			</div>
-
 
 		
 	</body>

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.market.domain.AuctionVO;
 import com.market.domain.ProductVO;
+import com.market.domain.RandomVO;
 import com.market.domain.ReviewVO;
 import com.market.domain.TradeVO;
 
@@ -33,6 +34,8 @@ public interface TradeDAO {
 	public List<Map<String,Object>> getFavorite(String id) throws Exception;
 	// 찜한 상품 삭제
 	public void delFavorite(Map<String, Object> map);
+	// 내 판매중인 랜덤상품
+	public List<RandomVO> myRandomList(String id) throws Exception;
 	
 	
 	

@@ -152,7 +152,14 @@
 				<%@ include file="include/sidebar.jsp" %>
 			
 			</div>
-
+<script type="text/javascript">
+	var result = "${result}";
+	
+	if(result == "delete"){
+		alert("회원탈퇴가 되었습니다.");		
+	}
+	
+</script>
 
 	</body>
 </html>

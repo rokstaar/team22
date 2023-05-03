@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE HTML>
 <!--
 	Editorial by HTML5 UP
@@ -225,111 +225,6 @@ div{
 .infoContainer .item:hover{
 /*   background-color: #f8f8f8; */
 }
-
- h1{ 
-         font-family: 'Oswald', sans-serif; 
-         font-size: 30px; 
-         color: #216182; 
-     } 
-     label { 
-         display: block; 
-         margin-top: 20px; 
-         letter-spacing: 2px; 
-     } 
-
-input, textarea { 
-         width: 439px; 
-         height: 27px; 
-         background-color: #efefef; 
-         border-radius: 6px; 
-         border: 1px solid #dedede; 
-         padding: 10px; 
-         margin-top: 3px; 
-         font-size: 0.9em; 
-         color: #3a3a3a; 
-     }
-
-input:focus, textarea:focus{ 
-             border: 1px solid #97d6eb; 
-         } 
-         
-textarea{ 
-         height: 60px; 
-         background-color: #efefef; 
-     } 
-#submit{ 
-         width: 127px; 
-         height: 48px; 
-         text-align: center; 
-         border: none; 
-         margin-top: 20px; 
-         cursor: pointer; 
-     } 
-#cancel { 
-         width: 127px; height: 48px; 
-         text-align: center; 
-         border: none; 
-         margin-top: 20px; 
-         cursor: pointer; 
-     } 
-     
-.modal { 
-         position: fixed; 
-         left: 0; 
-         top: 0; 
-         width: 100%; 
-         height: 100%; 
-         background-color: rgba(0, 0, 0, 0.5); 
-         opacity: 0; 
-         visibility: hidden; 
-         transform: scale(1.1); 
-         transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s; 
-     } 
-.close-button { 
-         float: right; 
-         width: 1.5rem; 
-         line-height: 1.5rem; 
-         text-align: center; 
-         cursor: pointer; 
-         border-radius: 0.25rem; 
-         background-color: lightgray; 
-} 
-
-
-.modal-content { 
-         position: absolute; 
-         top: 50%; 
-         left: 50%; 
-         transform: translate(-50%, -50%); 
-         background-color: white; 
-         padding: 1rem 1.5rem; 
-         width: 500px; 
-         height: 300px; 
-         border-radius: 0.5rem; 
-     } 
-.close-button:hover { 
-       background-color: darkgray; 
-       font-weight: bold;
-} 
-.show-modal { 
-
-         opacity: 1; 
-         visibility: visible; 
-         transform: scale(1.0); 
-         transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s; 
-}
-.script{
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  font-size: 23px;
-  text-decoration: none;
-  color: 769fcd;
-  font-weight: bold;
-  border-bottom: solid 5px #769fcd;
-} 
 		
 		</style>
 		<meta charset="utf-8" />
@@ -345,48 +240,54 @@ textarea{
 			<div id="wrapper">
 
 				<!-- Main -->
-				<div id="main">
-					<div class="inner">
+					<div id="main">
+						<div class="inner">
 
 							<!-- Header -->
-					<%@ include file="../include/header.jsp" %>
-					<%@ include file="../include/mypageReview.jsp" %>
-				
-						<div class="shippingStatusContainer">
-							<c:forEach var = "vo" items="${tSellReview }">
-							<div class="infoContainer">
-							<%-- <c:if test="${vo.reviewer eq sessionScope.id }"> --%>
-						          
-						        <div class="item">
-						        <div>
-   		        				<a href="/members/memberInfo?mem_id=${vo.reviewer} ">
-						          <div>${vo.reviewer}</div></a>
-						        </div>
-						        </div>	
-						        <div class="item">
-						        <div>
-						        <img src="/resources/images/${vo.product_pic.split(',')[0] }" 
-						        onerror="this.src='/resources/images/default_product.jpg'" alt="" width="100px" height="80px">
-						        <%-- <div>${vo.member_pic }</div> --%>
-						        </div>
-						        </div>						
-								<div class="item">
-						        <div>
-   		        				<a href="/product/prodInfo?product_num=${vo.product_num }&seller=${vo.reviewee}">
-						          <div>${vo.rv_content}</div></a>
-						        </div>
-						        </div>								
-							
-							<%-- </c:if> --%>
-							</div>
-							</c:forEach>
-							
+							<%@ include file="../include/header.jsp" %>
+								<%@ include file="../include/mypageProdList.jsp" %>
+								
+										<div class="shippingStatusContainer">
+										<section>
+										
+									<header class="major">
 									
-						</div>
+									</header>
+									<div class="posts">
+									
+										<c:forEach var="vo" items="${mySaleRandom }">
+											<article>
+										
+										<a class="product-section" href="/auction/aDetail?ran_num=${ran_num }">
+											<img src="/resources/images/${vo.ran_pic.split(',')[0] } " width="511px" height="306px" 
+											onerror="this.src='/resources/images/default_product.jpg'">
+										<div>${vo.ran_title }</div>
+
+										<div style="float:left;">
+											총 금액<fmt:formatNumber value="${vo.ran_price }" pattern="#,###" />원
+										</div><br>
+										<div style="float:left;">
+											응모 금액<fmt:formatNumber value="${vo.ran_bidPrice }" pattern="#,###" />원
+										</div><br>
+									
+										<div style="float:left;">
+											<div>경매 종료시간</div>
+											${vo.ran_endTime }
+										<div  style="margin-left:150px;float:right;">
+											최대 응모 인원<fmt:formatNumber value="${vo.ran_maxPp }"/>명
+										</div><br>
+										</div>
+										</a>
+										
+											</article>
+										</c:forEach>
+									</div>
+								</section>
+									</div>
 									
 	
+						</div>
 					</div>
-				</div>
 
 					<%@ include file="../include/sidebar.jsp" %>
 			</div>
@@ -397,42 +298,6 @@ textarea{
 			<script src="/resources/assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="/resources/assets/js/main.js"></script>
-<script type="text/javascript">
-	//alert("${result}");
-	var result = "${result}";
-	
-	if(result == "ok"){
-		alert("구매후기 작성 완료!");		
-	}
-	
-	 var modal = document.querySelector(".modal"); 
-     // var trigger = document.querySelector(".trigger");  
-      var trigger = document.querySelectorAll(".trigger");  
-      var closeButton = document.querySelector(".close-button"); 
-      var cancelButton = document.querySelector("#cancel");
-
-      console.log(trigger);
-      for( var i = 0; i < trigger.length; i++ ){
-     	 trigger[i].addEventListener("click", toggleModal); 
-			}
-     //console.log(modal);
-
-     function toggleModal() { 
-          modal.classList.toggle("show-modal"); 
-      }
-
-     function windowOnClick(event) { 
-          if (event.target === modal) { 
-              toggleModal(); 
-          } 
-      }
-
-      /* trigger.addEventListener("click", toggleModal);  */
-      closeButton.addEventListener("click", toggleModal); 
-      cancel.addEventListener("click", toggleModal); 
-      window.addEventListener("click", windowOnClick); 
-</script>
-
 
 	</body>
 </html>

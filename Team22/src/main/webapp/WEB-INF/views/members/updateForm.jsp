@@ -338,6 +338,7 @@ function exePost() {
 					<img alt="" width="150px" height="100px" src="${memberInfo.member_pic }">
 					<input type="hidden" name="member_pic" value="${memberInfo.member_pic }">
 				</div>
+				<%=request.getRealPath("/") %>
 				
 				
 				

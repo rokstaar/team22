@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.market.domain.AuctionVO;
 import com.market.domain.ProductVO;
+import com.market.domain.RandomVO;
 import com.market.domain.ReviewVO;
 import com.market.domain.TradeVO;
 
@@ -92,6 +93,11 @@ public class TradeDAOImpl implements TradeDAO{
 	@Override
 	public void delFavorite(Map<String, Object> map) {
 		sqlSession.update(NAMESPACE+".likeProdCancel",map);
+	}
+
+	@Override
+	public List<RandomVO> myRandomList(String id) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".myRandomList",id);
 	}
 
 	
