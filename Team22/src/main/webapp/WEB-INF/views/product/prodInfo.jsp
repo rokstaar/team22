@@ -143,16 +143,6 @@
 					평판 : <fmt:formatNumber value="${score }" pattern="#.##" />
 					</div>
 					
-				<!-- 채팅하기 -->
-				<c:if test="${info.product_seller ne id }">
-				<form action="/chatroom" method="post">
-					<input type="hidden" value="${product_num}" name="product_num" readonly >
-					<input type="hidden" value="${seller}" name="seller" readonly >
-					<input type="submit" value="판매자와 채팅하기">
-				 </form>
-				 </c:if>
-				 <!-- 채팅하기 -->
-				 
 				</div>
 			</div>
 		</section>			

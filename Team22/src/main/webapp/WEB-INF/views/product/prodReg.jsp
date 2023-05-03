@@ -69,7 +69,7 @@
 		<input type="hidden" name="product_seller" value="${id }">
 		<div class="regProd">
 		<div id="regTitle">
-			제목 <input type="text" name="product_title" onkeyup="checkByte(this, 50, document.getElementById('inputAlert1'));">
+			제목 <input type="text" name="product_title" onkeyup="return checkByte(this, 50, document.getElementById('inputAlert1'));">
 			<span id="inputAlert1" style="color: red;"></span>
 		</div>
 		<div id="regCategory" class="select-container">
@@ -91,11 +91,11 @@
 		</div>
 		
 		내용
-		<textarea rows="5" cols="" name="product_content" onkeyup="checkByte(this, 1000, document.getElementById('inputAlert2'));"></textarea>
+		<textarea rows="5" cols="" name="product_content" onkeyup="return checkByte(this, 1000, document.getElementById('inputAlert2'));"></textarea>
 		<span id="inputAlert2" style="color: red;"></span>
 		<div class="regProd">
 		<div id="regPrice">
-			가격 <input type="text" name="product_price" onkeyup="checkRule(this);">
+			가격 <input type="text" name="product_price" onkeyup="return checkRule(this);">
 			<span id="priceAlert" style="color: red;"></span>
 		</div>
 		<div id="regGrade" class="select-container">
@@ -290,6 +290,7 @@
 
 		  if (!/^\d+$/.test(value) || parseInt(value) > 100000000 || parseInt(value) < 0) {
 		    alertElement.innerHTML = '유효한 숫자를 적어주세요';
+		    $('input[name="product_price"]').value() = 0;
 		    return false;
 		  } else {
 		    alertElement.innerHTML = '';

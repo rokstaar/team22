@@ -208,9 +208,8 @@
 		상품등록
 		</div>
 		</c:if>
-		<form id="prodRegForm" action="/product/prodReg" method="POST">
+		<form id="prodRegForm" action="/product/prodReg" method="GET">
 			<input type="hidden" name="id" value="${id }">
-			<!-- <button type="button" class="sub-button" id="register">상품 등록 페이지 가기</button> -->
 		</form>
 	</div>
 

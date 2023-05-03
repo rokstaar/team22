@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,6 +34,7 @@ import com.market.service.ProductService;
 import net.coobird.thumbnailator.Thumbnails;
 
 @Controller
+@SessionAttributes("id")
 @RequestMapping(value = "/product")
 public class ProductController {
 	
@@ -126,24 +128,14 @@ public class ProductController {
 	// 같은 종류의 추천 상품 가져오기
 	
 	// 상품 등록 페이지
-	@PostMapping(value = "/prodReg")
+	@GetMapping(value = "/prodReg")
 	public void prodReg(@RequestParam(value = "id") String id, Model model) {
 		model.addAttribute("id",id);
 	}
 	// 상품 등록 페이지
 	
 	// 상품 등록 후 해당 페이지
-//	@PostMapping(value = "/regProduct")
-//	public String regProduct(@ModelAttribute ProductVO productVO 
-//							,@RequestParam("product_pics") MultipartFile[] file
-//							,HttpServletRequest request) throws Exception {
-//		logger.info("Controller - 상품 등록 실행!");
-//		logger.info(productVO.toString());
-//		service.regProduct(productVO, file, request);
-//		
-//		return "redirect:/product/prodInfo";
-//	}
-	@PostMapping(value = "/regProduct")
+	@PostMapping(value = "/prodReg")
 	public String regProduct(@ModelAttribute ProductVO vo
 							,@RequestParam("product_pics") MultipartFile[] files
 							,MultipartHttpServletRequest request
