@@ -14,6 +14,8 @@
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<link rel="stylesheet" href="/resources/assets/css/product.css" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.4/nouislider.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.4/nouislider.min.js"></script>
 		
 		<style>
 			#sidebar.force-inactive{
@@ -108,7 +110,10 @@
 									
 									
 									<section>
+									<div id="div-filter-show">
 	<form id="filter-form">
+		<div class="div-filter-part">
+		<button>검색조건 초기화</button>
 		<div class="select-container">
 			<select name="sort" id="sort-select" class="select_filter">
 				<option value="" hidden>===정렬===</option>
@@ -144,14 +149,20 @@
 				<option value="애완동물">애완동물</option>
 				<option value="기타">기타</option>
 			</select>
+			</div>
 		</div>
+		<div class="div-filter-part">
+		최소가격<input type="number" name="minPrice" id="min-price" min="0" max="100000000" value="${param.minPrice }">
+		~최대가격<input type="number" name="maxPrice" id="max-price" min="0" max="100000000" value="${param.maxPrice }">
 		<div class="div-search">		
 			<input type="text" name="title" class="search-input">
 			<div id="div-filter-submit">
 				<i class="fas fa-search"></i>
 			</div>
 		</div>
+		</div>
 	</form>
+	</div>
 	
 	<section>
 		<header class="major">
@@ -208,9 +219,8 @@
 		상품등록
 		</div>
 		</c:if>
-		<form id="prodRegForm" action="/product/prodReg" method="GET">
-			<input type="hidden" name="id" value="${id }">
-		</form>
+		<!-- <form id="prodRegForm" action="/product/prodReg" method="get">
+		</form> -->
 	</div>
 
 	</section>
@@ -360,9 +370,14 @@
 	}
 	infiniteScroll();
 	/* 스크롤 페이지 로딩 */
-	
+	let globalMinPrice = 0;
+	let globalMaxPrice = 100000000;
 	/* 페이지 추가로 불러오기 */
 	function getList(){
+		
+		const minPriceValue = parseInt($("#minPrice").val(), 10);
+	    const maxPriceValue = parseInt($("input[name=maxPrice]").val(), 10);
+	    
 		$.ajax({
 			url:"/product/prodList",
 			type:"GET",
@@ -371,6 +386,8 @@
 				grade:$("select[name=grade]").val(),
 				category:$("select[name=category]").val(),
 				title:$("input[name=title]").val(),
+				minPrice:$("input[name=minPrice]").val(),
+				maxPrice:$("input[name=maxPrice]").val(),
 				pageNum:++pageNum
 			},
 			success:function(data){
@@ -378,7 +395,11 @@
 		        tempDiv.innerHTML = data;
 		        const newData = tempDiv.querySelector('.posts');
 		        if (newData) {
-		          $(".posts").append(newData.innerHTML);
+		        	if(pageNum === 1){
+		        		$(".posts").html(newData.innerHTML);
+		        	}else{
+		          		$(".posts").append(newData.innerHTML);
+		        	}
 		        }
 			},
 			error:function(data){
@@ -489,13 +510,76 @@
 
 	
 	document.getElementById('svg-submit').addEventListener('click', function() {
-	    document.getElementById('prodRegForm').submit();
+	    //document.getElementById('prodRegForm').submit();
+	    location.href="/product/prodReg";
 	  });
 	
-	
+	document.getElementById('min-price').addEventListener('input', function() {
+		  var minValue = parseInt(this.getAttribute('min'));
+		  var maxValue = parseInt(this.getAttribute('max'));
+		  var maxPrice = document.getElementById('max-price');
+
+		  if (this.value < minValue) {
+		    this.value = minValue;
+		  } else if (this.value > maxValue) {
+		    this.value = maxValue;
+		  }
+
+		  if (this.value > maxPrice.value) {
+		    maxPrice.value = this.value;
+		  }
+		});
+
+		document.getElementById('max-price').addEventListener('input', function() {
+		  var minValue = parseInt(this.getAttribute('min'));
+		  var maxValue = parseInt(this.getAttribute('max'));
+		  var minPrice = document.getElementById('min-price');
+
+		  if (this.value < minValue) {
+		    this.value = minValue;
+		  } else if (this.value > maxValue) {
+		    this.value = maxValue;
+		  }
+
+		  if (this.value < minPrice.value) {
+		    minPrice.value = this.value;
+		  }
+		});
 
 	
-	
+
+	// 이중 레인지 슬라이더
+/* 	const priceRangeSlider = document.getElementById('filter-range');
+
+	noUiSlider.create(priceRangeSlider, {
+	    start: [0, 100000000],
+	    connect: true,
+	    range: {
+	        'min': 0,
+	        'max': 100000000
+	    }
+	});
+
+	priceRangeSlider.noUiSlider.on('update', function (values, handle) {
+	    const minPrice = parseInt(values[0]);
+	    const maxPrice = parseInt(values[1]);
+	    fetchFilteredProducts(minPrice, maxPrice);
+	});
+
+	function fetchFilteredProducts(minPrice, maxPrice) {
+		console.log("확인 중...");
+		  const xhttp = new XMLHttpRequest();
+		  xhttp.onreadystatechange = function () {
+		    if (this.readyState === 4 && this.status === 200) {
+		      document.getElementById("productList").innerHTML = this.responseText;
+		      console.log(this.responseText);
+		    }
+		  };
+
+		  xhttp.open("GET", "/product/priceShow?minPrice=" + minPrice + "&maxPrice=" + maxPrice, true);
+		  xhttp.send();
+		} */
+
 
 	
 	</script>

@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +35,6 @@ import com.market.service.ProductService;
 import net.coobird.thumbnailator.Thumbnails;
 
 @Controller
-@SessionAttributes("id")
 @RequestMapping(value = "/product")
 public class ProductController {
 	
@@ -50,13 +50,15 @@ public class ProductController {
 								@RequestParam(value = "category", required = false) String category,
 								@RequestParam(value = "title", required = false) String title,
 								@RequestParam(value = "pageNum", required = false) Integer pageNum,
+								@RequestParam(value = "minPrice", required = false) Integer min,
+								@RequestParam(value = "maxPrice", required = false) Integer max,
 								Model model){
-		logger.info("상품 리스트 페이지 Paginationed 호출 {}", sort);
+		logger.info("상품 리스트 페이지 Paginationed 호출 {}", min);
 		PCriteria cri = new PCriteria();
 		
 		if(pageNum == null) pageNum = 1;
 		cri.setPageNum(pageNum);
-		List<ProductVO> list = service.getProdListPage(grade, category, title, sort, cri);
+		List<ProductVO> list = service.getProdListPage(grade, category, title, sort,min,max, cri);
 		logger.info(list.toString());
 		model.addAttribute("prodList", list);
 		model.addAttribute("totalPage", (int)Math.ceil(service.getTotalCount()/(double)cri.getPageBlock()));
@@ -129,13 +131,14 @@ public class ProductController {
 	
 	// 상품 등록 페이지
 	@GetMapping(value = "/prodReg")
-	public void prodReg(@RequestParam(value = "id") String id, Model model) {
-		model.addAttribute("id",id);
+	public String prodReg(HttpSession session, Model model) {
+		model.addAttribute("product_seller",session.getAttribute("id"));
+		return "/product/prodReg";
 	}
 	// 상품 등록 페이지
 	
 	// 상품 등록 후 해당 페이지
-	@PostMapping(value = "/prodReg")
+	@PostMapping(value = "/regProduct")
 	public String regProduct(@ModelAttribute ProductVO vo
 							,@RequestParam("product_pics") MultipartFile[] files
 							,MultipartHttpServletRequest request

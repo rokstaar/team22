@@ -50,12 +50,14 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public List<ProductVO> getProdListPage(String grade, String category, String title, String sort,
-			PCriteria cri) {
+			Integer min, Integer max, PCriteria cri) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("grade", grade);
 		map.put("category", category);
 		map.put("title", title);
 		map.put("sortBy", sort);
+		map.put("min", min);
+		map.put("max", max);
 		map.put("pageSize", cri.getPageBlock());
 		map.put("startPage", (cri.getPageNum()-1) * cri.getPageBlock());
 		logger.info("service - 상품 목록 페이지 호출");

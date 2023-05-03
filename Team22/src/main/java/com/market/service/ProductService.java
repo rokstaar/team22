@@ -18,7 +18,7 @@ public interface ProductService {
 	public List<ProductVO> getProdList(String status, String category, String title, String sortvalue);
 	// 상품 리스트 가져오기
 	public List<ProductVO> getProdListPage(String status, String category, String title, String sortvalue
-			,PCriteria cri);
+			,Integer min,Integer max, PCriteria cri);
 	
 	// 해당 상품 찜하기
 	public void likeProd(int pnum);

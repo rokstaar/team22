@@ -66,14 +66,15 @@
 
 <section style="display:flex; justify-content:center;">
 	<form id="regProd" action="/product/regProduct" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="product_seller" value="${id }">
+		<input type="hidden" name="product_seller" value="${product_seller }">
 		<div class="regProd">
 		<div id="regTitle">
-			제목 <input type="text" name="product_title" onkeyup="return checkByte(this, 50, document.getElementById('inputAlert1'));">
+			제목 <input type="text" name="product_title" 
+			 onchange="validateForm()" onkeyup="return checkByte(this, 50, document.getElementById('inputAlert1'));">
 			<span id="inputAlert1" style="color: red;"></span>
 		</div>
 		<div id="regCategory" class="select-container">
-			<select name="product_cate">
+			<select name="product_cate" onchange="validateForm()">
 				<option value="" hidden>분류</option>
 				<option value="의류">의류</option>
 				<option value="가전제품">가전제품</option>
@@ -91,15 +92,16 @@
 		</div>
 		
 		내용
-		<textarea rows="5" cols="" name="product_content" onkeyup="return checkByte(this, 1000, document.getElementById('inputAlert2'));"></textarea>
+		<textarea rows="5" cols="" name="product_content" 
+		 onchange="validateForm()" onkeyup="return checkByte(this, 1000, document.getElementById('inputAlert2'));"></textarea>
 		<span id="inputAlert2" style="color: red;"></span>
 		<div class="regProd">
 		<div id="regPrice">
-			가격 <input type="text" name="product_price" onkeyup="return checkRule(this);">
+			가격 <input type="number" name="product_price" min='0' max='100000000' step='10' onchange="validateForm()">
 			<span id="priceAlert" style="color: red;"></span>
 		</div>
 		<div id="regGrade" class="select-container">
-			<select name="product_grade">
+			<select name="product_grade" onchange="validateForm()">
 				<option value="" hidden>상품상태</option>
 				<option value="상">상</option>
 				<option value="중">중</option>
@@ -116,7 +118,7 @@
 				
 				<div id="div-file">
 				<div class="div-file-insert">
-					<input type="file" name="product_pics">
+					<input type="file" name="product_pics" onchange="validateForm()">
 				</div>
 				<div class="div-button">
 					<button type="button" class="add-button">+</button>
@@ -125,7 +127,7 @@
 			</div>
 		</div>
 		
-		<input type="submit" value="등록하기">
+		<input id="submitButton" type="submit" value="등록하기">
 	</form>
 	</section>
 
@@ -230,6 +232,30 @@
 			<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript">
 	
+	function validateForm() {
+	    const productTitle = document.getElementsByName("product_title")[0];
+	    const productCate = document.getElementsByName("product_cate")[0];
+	    const productContent = document.getElementsByName("product_content")[0];
+	    const productPrice = document.getElementsByName("product_price")[0];
+	    const productGrade = document.getElementsByName("product_grade")[0];
+	    const productPics = document.getElementsByName("product_pics")[0];
+	    const submitButton = document.getElementById("submitButton");
+
+	    if (productTitle.value.trim() !== "" &&
+	        productCate.value !== "" &&
+	        productContent.value.trim() !== "" &&
+	        productPrice.value.trim() !== "" &&
+	        productGrade.value !== "" &&
+	        productPics.files.length > 0) {
+	        submitButton.disabled = false;
+	    } else {
+	        submitButton.disabled = true;
+	    }
+	}
+
+	validateForm();
+
+	
 	document.addEventListener('DOMContentLoaded', function () {
 		let fileInputCounter = 1;
 
@@ -284,19 +310,6 @@
 		}
 
 
-	function checkRule(inputElement) {
-		  const value = inputElement.value;
-		  const alertElement = document.getElementById('priceAlert');
-
-		  if (!/^\d+$/.test(value) || parseInt(value) > 100000000 || parseInt(value) < 0) {
-		    alertElement.innerHTML = '유효한 숫자를 적어주세요';
-		    $('input[name="product_price"]').value() = 0;
-		    return false;
-		  } else {
-		    alertElement.innerHTML = '';
-		    return true;
-		  }
-	}
 	
 	document.getElementById('regProd').addEventListener('submit', function (event) {
 		  const priceInput = document.getElementById('product_price');
