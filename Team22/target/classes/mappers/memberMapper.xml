@@ -23,11 +23,88 @@
 	</insert> 
     <!-- 회원가입 -->
     
-    <!-- 아이디 중복 체크 -->
-    <select id="idChk" resultType="int">
-    	select count(*) from member
-    	where member_id = #{member_id}
+  <!-- 아이디 중복체크 -->    
+   <select id="getCountById" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM member WHERE member_id = #{member_id}
     </select>
-    <!-- 아이디 중복 체크 -->
+    <!-- 아이디 중복체크 -->  
+    
+    <!-- 닉네임 중복체크 -->
+    <select id="getCountByNick" parameterType="java.lang.String" resultType="java.lang.Integer">
+    	select count(*) from member where member_nickname=#{member_nickname}
+    </select>
+    <!-- 닉네임 중복체크 -->
+    
+    
+    <!-- 다른 회원 판매정보  -->
+	<select id="memProdList" resultType="com.market.domain.ProductVO">
+		select product_pic,product_title,product_price,product_date,product_status,product_num,product_seller
+		from product
+		where product_seller = #{id}
+	
+	</select>
+	<!-- 다른 회원 판매정보  -->
+   
+    <!-- 다른 회원 판매 후기 -->
+    <select id="memProdReview" resultType="map">
+		select r.reviewer, r.reviewee, r.rv_content, m.member_pic, p.product_title, r.rv_score, p.product_num,
+		p.product_pic, t.t_div, t.type_div,m.member_nickname
+		from trade t
+		join product p on t.sell_mem_id = p.product_seller
+		join member m on t.buy_mem_id = m.member_id
+		join review r on r.reviewer = m.member_id
+		and r.rv_num = p.product_num
+		where reviewee = #{id};
+	</select>
+    <!-- 다른 회원 판매 후기 -->
+    
+    <select id="memberInfo" resultType="com.market.domain.MemberVO">
+    	select *
+    	from member
+    	where member_id = #{member_id}
+    
+    </select>
+    
+    <update id="memberInfoUpdate" parameterType="com.market.domain.MemberVO"> 
+    	update member
+    	set member_pass = #{member_pass}, member_phone = #{member_phone}, member_nickname = #{member_nickname}, member_email = #{member_email},
+    	member_address = #{member_address}, member_pic = #{member_pic},member_pay = #{member_pay}
+    	where member_id = #{member_id} and member_num = #{member_num}
+    
+    </update>
+    
+    <delete id="deleteMemPic" parameterType="String">
+        DELETE FROM member WHERE member_id = #{id}
+    </delete>
+    <update id="updateMemPic" parameterType="com.market.domain.MemberVO">
+        UPDATE member
+        SET member_pic = #{member_pic}
+        WHERE member_id = #{id}
+    </update>
+    
+    
+       <!-- 아이디 찾기 -->
+  
+	  <!-- resultMap 설정 추가 -->
+	<resultMap id="MemberVOResultMap" type="com.market.domain.MemberVO">
+	  <id property="member_num" column="member_num"/>
+	  <result property="member_id" column="member_id"/>
+	  <result property="member_pass" column="member_pass"/>
+	  <result property="member_phone" column="member_phone"/>
+	  <result property="member_name" column="member_name"/>
+	  <result property="member_nickname" column="member_nickname"/>
+	  <result property="member_email" column="member_email"/>
+	  <result property="member_address" column="member_address"/>
+	  <result property="member_pay" column="member_pay"/>
+	  <result property="member_pic" column="member_pic"/>
+	</resultMap>
+	    
+	    <select id="findId" resultMap="MemberVOResultMap">
+	select * from member where member_email = #{memberEmail}
+	</select>
+	
+	<select id="findIdCheck" resultType="int">
+	select count(*) from member where member_email = #{memberEmail}
+	</select>
     
 </mapper>

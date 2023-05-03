@@ -35,6 +35,7 @@ public class ChatMessageDAOImpl implements ChatMessageDAO {
 		return sqlSession.insert(NAMESPACE + ".insertChatDialog", cmvo); 
 	}
 
+	
 	//
 	@Override
 	public List<ChatMessageVO> selectRecentChatDialog(String id) {

@@ -8,10 +8,26 @@
 	
 
 	<!-- 상품 리스트 -->
+	<resultMap type="ProductVO" id="ProductVO">
+		<id column="product_num" property="product_num" />
+		<id column="product_seller" property="product_seller" />
+		<id column="product_cate" property="product_cate" />
+		<id column="product_title" property="product_title" />
+		<id column="product_content" property="product_content" />
+		<id column="product_price" property="product_price" />
+		<id column="product_grade" property="product_grade" />
+		<id column="product_pic" property="product_pic" />
+		<id column="product_readcount" property="product_readcount" />
+		<id column="product_date" property="product_date" />
+		<id column="product_favorite" property="product_favorite" />
+		<id column="product_status" property="product_status" />
+	</resultMap>
+	
+	
 	<select id="getProdList" parameterType="map" resultType="ProductVO">
 		SELECT * FROM PRODUCT
 		<where>
-			PRODUCT_STATUS = '판매 중'
+			PRODUCT_STATUS = 0
 	        <if test="grade != null">
 	            AND PRODUCT_GRADE LIKE CONCAT('%', #{grade}, '%')
 	        </if>
@@ -41,20 +57,79 @@
     	</choose>
 	</select>
 	<!-- 상품 리스트 -->
+
+	<!-- 상품 리스트 페이지 -->
+	<select id="getProdListPage" parameterType="map" resultType="ProductVO">
+		SELECT * FROM PRODUCT
+		<where>
+			PRODUCT_STATUS = 0
+	        <if test="grade != null">
+	            AND PRODUCT_GRADE LIKE CONCAT('%', #{grade}, '%')
+	        </if>
+	        <if test="category != null">
+	            AND PRODUCT_CATE LIKE CONCAT('%', #{category}, '%')
+	        </if>
+	        <if test="title != null">
+	            AND PRODUCT_TITLE LIKE CONCAT('%', #{title}, '%')
+	        </if>
+	    </where>
+		<choose>
+	        <when test="sortBy == 'price_asc'">
+	            ORDER BY PRODUCT_PRICE ASC
+	        </when>
+	        <when test="sortBy == 'price_desc'">
+	            ORDER BY PRODUCT_PRICE DESC
+	        </when>
+	        <when test="sortBy == 'date_asc'">
+	            ORDER BY PRODUCT_DATE ASC
+	        </when>
+	        <when test="sortBy == 'date_desc'">
+	            ORDER BY PRODUCT_DATE DESC
+	        </when>
+	        <otherwise>
+	            ORDER BY PRODUCT_NUM ASC
+	        </otherwise>
+    	</choose>
+    	limit #{pageSize} offset #{startPage}
+	</select>
+	<!-- 상품 리스트 페이지 -->
 	
 	<!-- 찜하기 -->
 	<update id="likeProd">
 		UPDATE PRODUCT SET PRODUCT_FAVORITE = PRODUCT_FAVORITE + 1
-		WHERE PRODUCT_NUM = #{PRODUCT_NUM}
+		WHERE PRODUCT_NUM = #{product_num}
 	</update>
 	<!-- 찜하기 -->
 	
 	<!-- 찜취소 -->
 	<update id="likeProdCancel">
 		UPDATE PRODUCT SET PRODUCT_FAVORITE = PRODUCT_FAVORITE - 1
-		WHERE PRODUCT_NUM = #{PRODUCT_NUM}
+		WHERE PRODUCT_NUM = #{product_num}
 	</update>
 	<!-- 찜취소 -->
+	
+	<!-- 회원이 찜목록에 있는지 판단 -->
+	<select id="likeExist" resultType="Integer">
+		select count(member_id) from favorite
+		where member_id = #{id}
+		and product_num = #{pnum}
+	</select>
+	<!-- 회원이 찜목록에 있는지 판단 -->
+	
+	<!-- 회원 찜 -->
+	<insert id="regFav">
+		insert into favorite
+		values (#{pnum}, #{id})
+	</insert>
+	<!-- 회원 찜 -->
+	
+	<!-- 회원 찜 취소 -->
+	<delete id="delFav">
+		delete from favorite
+		where product_num = #{pnum}
+		and member_id = #{id}
+	</delete>
+	<!-- 회원 찜 취소 -->
 	
 	<!-- 상품 세부정보 -->
 	<select id="getProdInfo" resultType="hashMap">
@@ -80,23 +155,40 @@
 	
 	<!-- 판매자 온도 -->
 	<select id="getScore" resultType="double">
-		SELECT AVG(RV_SCORE)
-		FROM REVIEW
-		GROUP BY REVIEWEE
-		HAVING REVIEWEE = #{REVIEWEE}
+		SELECT IFNULL(
+        (SELECT AVG(RV_SCORE)
+         FROM REVIEW
+         WHERE REVIEWEE = #{reviewee}
+         GROUP BY REVIEWEE),
+    2.5)
 	</select>
 	<!-- 판매자 온도 -->
 	
-	
-	
+	<!-- 조회수 증가 -->
+	<update id="viewInc">
+		update product set product_readcount = product_readcount + 1
+		where product_num = #{product_num}
+	</update>
 	
 	<!-- 상품 등록 -->
 	<insert id="regProd">
-		INSERT INTO PRODUCT 
-		VALUES(DEFAULT, #{product_seller}, #{product_cate}, #{product_title}, #{product_content}, #{product_price}
-		, #{product_grade}, #{product_pic}, DEFAULT, DEFAULT, DEFAULT, DEFAULT)
+		INSERT INTO PRODUCT(product_seller, product_cate, product_title
+		, product_content, product_price, product_grade, product_pic) 
+		VALUES(#{product_seller}, #{product_cate}, #{product_title}, #{product_content}, #{product_price}
+		, #{product_grade}, #{product_pic})
 	</insert>
 	<!-- 상품 등록 -->
+	
+	<!-- 상품 등록할때 번호 알아내기 -->
+	<select id="lastProdNum" resultType="int">
+		select product_num from product where product_seller = #{product_seller} order by product_num desc limit 1;
+	</select>
+	<!-- 상품 등록할때 번호 알아내기 -->
+	
+	<!-- 게시물 전체 숫자 -->
+	<select id="getTotalCount" resultType="int">
+		select count(product_num) from product
+	</select>
 </mapper>
 
 

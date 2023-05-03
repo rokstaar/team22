@@ -17,7 +17,7 @@
   <select id="selectRoomId" resultType="int">
   	select room_id from chat_room
   	where product_num = #{product_num}
-  	and buyer = #{buyer}
+  	and buyer = #{buyer} 
   </select>
   
   <!-- 채팅방 생성 -->
@@ -32,7 +32,8 @@
   	where room_id = #{room_id}  	
   </select>
   
-  <!-- 채팅방 번호로 상품 제목 조회 -->
+  
+  <!-- 채팅방 번호로 판매글 제목 조회 -->
   <select id="selectTitle" resultType="String">
   	select p.product_title
 	from chat_room cr join product p

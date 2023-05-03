@@ -14,4 +14,5 @@ public interface ChatRoomService {
 	
 	public String searchTitle(int room_id);
 	
+	
 }

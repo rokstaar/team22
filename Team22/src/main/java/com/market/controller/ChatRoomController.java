@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.market.domain.ChatMessageVO;
@@ -38,21 +39,13 @@ public class ChatRoomController {
         session.setAttribute("id", id);
         return "chat/test";
     }
-
-	/*
-	 * @RequestMapping("/chat") public ModelAndView chatControl(ChatRoomVO vo) {
-	 * 
-	 * if(!vo.getSeller().equals(vo.getBuyer())) { }
-	 * 
-	 * return null;
-	 * 
-	 * }
-	 */
     
 	// 채팅하기 클릭시 채팅 페이지 조회
 	@RequestMapping(value = "/chatroom", method = RequestMethod.POST)
 	public String createChatroom(HttpSession session, Model model, ChatRoomVO crvo, 
 				@RequestParam(value = "product_num") int pnum, @RequestParam(value = "seller") String seller) {
+		
+		logger.info(" createChatroom() 실행 ");
 		
 		// 세션 제어
 		String id = (String) session.getAttribute("id");
@@ -75,33 +68,39 @@ public class ChatRoomController {
         model.addAttribute("ptitle", crservice.searchTitle(crvo.getRoom_id()));
         
              
-        return "/chat/myChat3";
-        //return "/chat/t";
+        return "/chat/myChat2";
+
 	}
+	
 	
     @RequestMapping(value="/chatroom", method=RequestMethod.GET)
     public String chatroomGet(HttpSession session) {
+    	
+    	logger.info(" chatroomGet() 실행 ");
     	
     	String id = (String) session.getAttribute("id");
 		if(id == null) {
 			return "redirect:/members/login";
 		}
         
-        return "/chat/myChat3";
+        return "/chat/myChat2";
 
     }
     
     
     // 채팅방 조회
     @RequestMapping(value="/chatroom-info", method=RequestMethod.POST)
+    @ResponseBody
     public List<ChatMessageVO> chatroomPost(HttpSession session, Model model) {
+    	
+    	logger.info(" chatroomPost() 실행 ");
     	
     	String id = (String) session.getAttribute("id");
     	
     	List<ChatMessageVO> cmvoList = cmservice.searchRecentChatDialog(id);
     			
     	for(ChatMessageVO cmvo : cmvoList) {
-    		
+    		cmvo.setChat_profile(crservice.searchTitle(cmvo.getRoom_id()));
     	}
     	
 		return cmvoList;

@@ -236,20 +236,9 @@ div{
 						<div class="inner">
 
 							<!-- Header -->
-								<header id="header">
-									<a href="/main" class="logo"><strong>있지마켓</strong></a>
-									<ul class="icons">
-										<c:if test="${id == null }">
-											<li><a href="/members/login"><span class="label">로그인</span></a></li>
-										</c:if>
-										<c:if test="${id != null }">
-											<li><a href="/members/logout"><span class="label">로그아웃</span></a></li>
-											<li><a href="/members/myPage" ><span class="label">마이페이지</span></a></li>
-											<li><a href="#"><span class="label">판매하기</span></a></li>
-											<li><a href="#"><span class="label">내채팅</span></a></li>
-										</c:if>										
-									</ul>
-								</header>
+								
+								
+								<%@ include file="../include/header.jsp" %>
 
 							<!-- Banner -->
 								<section id="banner">
@@ -314,9 +303,9 @@ div{
 									</div>									  
 									
 
-									<input type="text" id="message" /> <br>
+									<!-- <input type="text" id="message" /> <br>
 									<input type="button" id="sendBtn" value="채팅 전송"/>
-									<div id="messageArea"></div> 
+									<div id="messageArea"></div>  -->
 
 									
 									 <!-- 채팅 -->
@@ -332,19 +321,19 @@ div{
 										            </div>
 										          </div>
 										          <div class="inbox_chat" id="inbox_chat" onclick="showChatList();">
-									
+													
 										          </div>
 										        </div>
 										        <div class="mesgs" id="chatbox">
 										
 										
 										          <div class="msg_history" id="msg_history">
-										          </div>
+										          </div>		
 										          <div class="type_msg">
 										            <div class="input_msg_write">
 										              <input type="text" class="write_msg" placeholder="메시지를 입력하세요." id="msgContent" onkeyup="enterkey();"/>
-										              <button class="msg_send_btn" id="sendBtn" type="button" onclick="sendMsg();">
-														<i class="fas fa-paper-plane"></i>
+             										  <button class="msg_send_btn" id="sendBtn" type="button" onclick="sendMsg();">
+														전송
 										             </button>
 
 										            </div>
@@ -366,42 +355,341 @@ div{
 
 
 		<!-- Scripts -->
-			<script src="/resources/assets/js/jquery.min.js"></script>
-			<script src="/resources/assets/js/skel.min.js"></script>
-			<script src="/resources/assets/js/util.js"></script>
-			<script src="/resources/assets/js/main.js"></script>
-			<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-			<script type="text/javascript"
-			src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
-		
-	</body>
-	
+		<script src="/resources/assets/js/jquery.min.js"></script>
+		<script src="/resources/assets/js/skel.min.js"></script>
+		<script src="/resources/assets/js/util.js"></script>
+		<script src="/resources/assets/js/main.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+		<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
+			
 	<script type="text/javascript">
-	$("#sendBtn").click(function() {
-		sendMessage();
-		$('#message').val('')
-	});
+	  let roomNum = 0;  // 채팅방 번호
+	  let cnt = 0;  // 방 호출 횟수 (처음만 스크롤 맨 아래로 두기)
+	  let maxHeight = 0; // 대화창의 최대 높이
+	  let currHeight = 0; // 현재 대화창에서의 높이(위치)
+	  let otherPerson = ""; // 대화 상대 아이디
+	  
+	  // 대화하기 버튼으로 들어온 경우 현재 채팅방 번호 설정
+	  if ("${currRoomId}" != null && "${currRoomId}" != "") {
+	    roomNum = "${currRoomId}";
+	  }
+	  
+	  
+	  connect();
+		function connect() {
+			sock = new SockJS("<c:url value="/chat"/>");
+			sock.onopen = function() {
+				console.log('open');
+			};
+			sock.onmessage = function(evt) {
+				var data = evt.data;
+				console.log(data);
+				//var obj = JSON.parse(data);
+				
+				//if(obj.buyer_id === ${data.seller_id })
+				//cosole.log(${data.seller_id });
+				//console.log(obj);
+				//console.log(obj.user_id);
+				//appendMessage(obj.message_content, obj.msg_sender);
+			};
+			sock.onclose = function() {
+				appendMessage("연결을 끊었습니다.");
+				console.log('close');
+			};
 
-	let sock = new SockJS("http://localhost:8080/chat");
-	sock.onmessage = onMessage;
-	sock.onclose = onClose;
-	
-	// 메시지 전송
-	function sendMessage() {
-		sock.send($("#message").val());
-	}
-	
-	// 서버로부터 메시지를 받았을 때
-	function onMessage(msg) {
-		var data = msg.data;
-		$("#messageArea").append("<br/>" + data);
-	}
-	
-	// 서버와 연결을 끊었을 때
-	function onClose(evt) {
-		$("#messageArea").append("연결 끊김");
+		}
+	  
+	  // 대화 내용 추가 (조회, 입력)
+	  const addDialog = function(data, userId) {
+	    for (let i=0; i<data.length; i++) {
+	       console.log(data[i].chat_date);
+	      
+	      if (userId == data[i].seller_id) {
+	        $('#msg_history')
+	          .append($('<div>')
+	            .attr('class', 'incoming_msg')
+//	             .append($('<div>')
+//	               .attr('class', 'incoming_msg_img')
+//	               .append($('<img>')
+//	                 .attr('src', 'https://ptetutorials.com/images/user-profile.png')
+//	                 .attr('alt', 'sunil')
+//	               )
+//	             )
+	            .append($('<div>')
+	              .attr('class', 'recieved_msg mb-4')
+	              .append($('<div>')
+	                .attr('class', 'received_withd_msg')
+	                .append($('<p>')
+	                  .text(data[i].chat_content)    
+	                )
+	                .append($('<span>')
+	                  .attr('class', 'time_date')
+	                  .text(data[i].buyer_id + ' | ' + data[i].chat_date)
+	                )
+	              )
+	            )
+	          )
+	      } else {
+	        $('#msg_history')
+	          .append($('<div>')
+	            .attr('class', 'outgoing_msg')
+	            .append($('<div>')
+	              .attr('class', 'sent_msg')
+	              .append($('<p>')
+	                .text(data[i].chat_content)
+	              )
+	              .append($('<span>')
+	                .attr('class', 'time_date')
+	                .text(data[i].chat_date)
+	              )
+	            )
+	          )
+	      }
+	    }  
+	  }
+	  
+	  // 채팅 목록 추가 (대화 상대)
+	  const addChatList = function(data, userId) {
+	    for (let i=0; i<data.length; i++) {
+	      
+	      let person = "";
+	      if (userId == data[i].buyer_id) {
+	        person = data[i].seller_id;
+	      } else {
+	        person = data[i].buyer_id;
+	      }
+	      
+	      let className = "";
+	      if (roomNum == data[i].room_id) {
+	        className = 'chat_list active_chat';
+	      } else {
+	        className = 'chat_list';
+	      } 
+	      
+	      let chatCtn = "";
+	      let chatTime = "";
+	      
+	      chatCtn = data[i].chat_content;
+	      chatTime = data[i].chat_date;
+	      /* if (data[i].dataState == "BOTH" || data[i].dataState == userId) {
+	        chatCtn = data[i].chat_content;
+	        chatTime = data[i].chat_date;
+	      } else {
+	        continue;
+	      } */
+	      
+	      let notReadMsgCount = "";
+	      let countClassName = "";
+	      
+	     /*  if (data[i].room_id == roomNum) {
+	        changeReadMsg(data[i].room_id);
+	      } else if (data[i].notReadMsgCount != 0) {
+	        notReadMsgCount = data[i].notReadMsgCount;
+	        countClassName = "float-end text-center text-white bg-danger rounded-circle";
+	      }  */
+	      
+	      
+	      let otherPersonImg = "https://ptetutorials.com/images/user-profile.png";
+	     /*  if (data[i].otherPersonImg != null && data[i].otherPersonImg != "") {
+	        otherPersonImg = data[i].otherPersonImg;
+	      } */
+	      
+	      let chat_profile = "";
+	      if (data[i].chat_profile != null && data[i].chat_profile != "") {
+	    	  chat_profile = "["+data[i].chat_profile+"]";
+	      }
+	      
 
-	}
+	      
+	      $('#inbox_chat')
+	      .append($('<div>')
+	        .attr('class', className)
+	        .on('click', function() {showDialog(data[i].room_id)})
+	        .append($('<div>')
+	          .attr('class', 'chat_people')
+	          .append($('<div>')
+	            .attr('class', 'chat_img')
+	            .append($('<img>')
+	              .attr('src', otherPersonImg)
+	              .attr('alt', 'sunil')
+	            )
+	          )
+	          .append($('<div>')
+	            .attr('class', 'chat_ib')
+	            .append($('<h5>')
+	              .text(person + " " + chat_profile)
+	              .append($('<span>')
+	                .attr('class', 'chat_date')
+	                .text(chatTime)
+	              )
+	            )
+	            .append($('<p>')
+	              .text(chatCtn)
+	              .append($('<span>')
+	                .attr('class', countClassName)
+	                .attr('style', 'width : 10%;')
+	                .text(notReadMsgCount)
+	              )
+	            )
+	          )
+	        ) 
+	      )
+	    }
+	  }
+	  
+	  // 채팅 내용 조회
+	  const showDialog = function(roomid) {
+	    roomNum = roomid;
+	    cnt = 0;
+	    $.ajax({
+	      url: "${path}/chatroom/chatdialog",
+	      type: "post",
+	      data: {"room_id" : roomid},
+	      dataType: "json",
+	      success: function(data) {
+	         console.log(data);
+	        
+	        // 메시지 기록 비우기
+	        $('#msg_history').empty();
+	       
+	        // 본인 아이디 선언
+	        let userId = "${id}";
+
+	        // 상대방 아이디 선언
+	        if(roomNum != 0 && data.length != 0) {
+	          if (data[0].buyer_id == userId) {
+	            otherPerson = data[0].seller_id;
+	          } else if (data[0].seller_id == userId){
+	            otherPerson = data[0].buyer_id;
+	          }
+	        }
+
+	        addDialog(data, userId); // 채팅 불러오기  
+	        
+	        // 대화 시 스크롤 조정을 위한 스크롤 함수
+	        $('#msg_history').scroll(function() {
+	          // maxHeigth 설정
+	          let chatBox = document.getElementById("msg_history");
+	          if (maxHeight < chatBox.scrollTop) {
+	            maxHeight = chatBox.scrollTop;
+	          }
+	          
+	          // currHeight 설정
+	          let scrollT = $(this).scrollTop();
+	          currHeight = scrollT;
+	        });
+	        
+	        // max와 curr이 같은 경우 맨 아래로 이동
+	        if (currHeight == maxHeight) {
+	          scrollDialog();
+	          currHeight = maxHeight;
+	        }
+
+	        // 처음 조회 시 맨 아래로 이동
+	        if (cnt == 0) {
+	          scrollDialog();
+	          showChatList();
+	        }
+	        
+	      },
+	      error: function(request, status, error) {
+	        
+	      }
+	    });
+	  }    
+	  
+	  // 채팅 전송하기
+	  const sendMsg = function() {
+	    if (roomNum == 0) {
+	      alert("채팅방을 선택하세요.");
+	      return;
+	    }
+
+	    let msgContent = document.getElementById("msgContent");
+	    if (msgContent.value == "") {
+	      alert("메세지를 입력하세요.");
+	      return;
+	    }
+
+	    $.ajax({
+	      url: "${path}/chatroom/chatdialog/" + roomNum,
+	      type: "post",
+	      data: JSON.stringify({"room_id" : roomNum, "chat_content" : msgContent.value}),
+	      dataType: "json",
+	      contentType: 'application/json',
+	      success: function(data) {
+	         console.log(data);
+	        
+	        $('#msg_history').empty();
+	        msgContent.value = "";
+	        
+	        let userId = "${id}";
+	        
+	        addDialog(data, userId); // 채팅 추가     
+	        showChatList(); // 채팅 목록 새로고침
+	        scrollDialog(); // 스크롤 맨 아래로 이동
+	      
+	      },
+	      error: function(request, status, error) {
+	        
+	      }
+	    });
+	  };
+	  
+	  // 채팅 목록 보기
+	  const showChatList = function() {
+	    $.ajax({
+	      url: "${path}/chatroom-info",
+	      type: "post",
+	      success: function(data) {
+	         console.log(data);
+	        
+	        let userId = "${id}";
+	        
+	        // 채팅 목록 초기화        
+	        $('#inbox_chat').empty();
+	        if (data.length != 0) {
+	          addChatList(data, userId); 
+	        }
+	      },
+	      error: function(request, status, error) {
+	        
+	      }
+	    });
+	  }
+	  
+	  // 엔터키 누를 시 전송
+	  const enterkey = function() {
+	    if (window.event.keyCode == 13) {
+	      sendMsg();
+	    }
+	  }
+
+	  // 스크롤 함수
+	  const scrollDialog = function() {
+	    let chatBox = document.getElementById("msg_history");
+	    chatBox.scrollTop = chatBox.scrollHeight; // 대화 시 스크롤 조정
+	    maxHeight = chatBox.scrollTop;
+	  }
+/* 
+	  // 반복해야 하는 함수
+	  const refreshMethod = function() {
+	    showDialog(roomNum);
+	    showChatList();
+	    cnt++;
+	  };
+
+	  // 최초 실행 후 반복 실행
+	  function startInterval(seconds, callback) {
+	    showDialog(roomNum);
+	    showChatList();
+	    return setInterval(callback, seconds * 1000);
+	  }
+	  
+	  startInterval(5, refreshMethod);	
+	   */
+	</script>
 	
-</script>
+</body>
 </html>
