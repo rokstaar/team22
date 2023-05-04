@@ -12,4 +12,6 @@ public interface ChatMessageDAO {
 	
 	public List<ChatMessageVO> selectRecentChatDialog(String id);
 	
+	public int updateExitChat(String id, int room_id, String person);
+	
 }

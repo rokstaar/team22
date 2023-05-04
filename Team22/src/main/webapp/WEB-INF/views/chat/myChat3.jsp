@@ -397,6 +397,7 @@ div{
 			sock.onclose = function() {
 				appendMessage("연결을 끊었습니다.");
 				console.log('close');
+				
 			};
 
 		}
@@ -415,31 +416,6 @@ div{
 
 			sock.send(JSON.stringify(message));
 			$("#message").val("");
-			
-
-		    $.ajax({
-		      url: "${path}/chatroom/chatdialog/" + roomNum,
-		      type: "post",
-		      data: JSON.stringify({"roomId" : roomNum, "chatContent" : message.value}),
-		      dataType: "json",
-		      contentType: 'application/json',
-		      success: function(data) {
-//		         console.log(data);
-		        
-		        $('#msg_history').empty();
-		        msgContent.value = "";
-		        
-		        let userId = "${id}";
-		        
-		        addDialog(data, userId); // 채팅 추가     
-		        showChatList(); // 채팅 목록 새로고침
-		        scrollDialog(); // 스크롤 맨 아래로 이동
-		      
-		      },
-		      error: function(request, status, error) {
-		        
-		      }
-		    });
 			
 		}
 

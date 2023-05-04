@@ -29,4 +29,9 @@ public class ChatMessageServiceImpl implements ChatMessageService {
 		return cmdao.selectRecentChatDialog(id);
 	}
 
+	@Override
+	public int exitChat(String id, int room_id, String person) {
+		return 0;
+	}
+
 }

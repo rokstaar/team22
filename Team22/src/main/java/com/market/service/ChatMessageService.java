@@ -11,5 +11,7 @@ public interface ChatMessageService {
 	  public int registChatDialog(ChatMessageVO cmvo);
 	  
 	  public List<ChatMessageVO> searchRecentChatDialog(String id);
+	  
+	  public int exitChat(String id, int room_id, String person);
 
 }

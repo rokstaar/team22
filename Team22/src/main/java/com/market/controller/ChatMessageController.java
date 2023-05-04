@@ -80,6 +80,12 @@ public class ChatMessageController {
 		
 		return cmList;
 		
+	}
+	
+	// 채팅 나가기
+	public void exit(HttpSession session, @PathVariable int room_id, @RequestParam String person) {
+		
+		String id = (String) session.getAttribute("id");
 		
 	}
 	

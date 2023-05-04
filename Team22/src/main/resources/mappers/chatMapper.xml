@@ -74,6 +74,11 @@
 					group by cr.room_id)
   	order by chat_date desc
   </select>
-
+  
+  <!-- 채팅방 나가기 -->
+  <update id="updateExitChat">
+  update chat_message
+  set 
+  </update>
 
 </mapper>
