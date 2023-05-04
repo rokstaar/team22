@@ -15,4 +15,6 @@ public class RandomVO {
 	private int ran_maxPp;
 	private String ran_title;
 	private String ran_content;
+	private int ran_status;
+	private int count;
 }

@@ -1,6 +1,8 @@
 package com.market.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -39,6 +41,29 @@ public class RandomDAOImpl implements RandomDAO {
 	@Override
 	public Integer getMPay(String id) throws Exception {
 		return sqlSession.selectOne(NAMESPACE+".getMPay", id);
+	}
+
+	@Override
+	public void rBid(RandomVO vo) throws Exception {
+		sqlSession.insert(NAMESPACE+".rBid", vo);
+	}
+
+	@Override
+	public void minusPay(String id, int mPay) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("mPay", mPay);
+		sqlSession.update(NAMESPACE+".minusPay", map);
+	}
+
+	@Override
+	public List<String> selectBuyer(int ran_num) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".selectBuyer", ran_num);
+	}
+
+	@Override
+	public RandomVO nowBest() throws Exception {
+		return sqlSession.selectOne(NAMESPACE+".nowBest");
 	}
 	
 	

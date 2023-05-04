@@ -38,6 +38,26 @@ public class RandomServiceImpl implements RandomService {
 	public Integer getMPay(String id) throws Exception {
 		return rdao.getMPay(id);
 	}
+
+	@Override
+	public void rBid(RandomVO vo) throws Exception {
+		rdao.rBid(vo);
+	}
+
+	@Override
+	public void minusPay(String id, int mPay) throws Exception {
+		rdao.minusPay(id, mPay);
+	}
+
+	@Override
+	public List<String> selectBuyer(int ran_num) throws Exception {
+		return rdao.selectBuyer(ran_num);
+	}
+
+	@Override
+	public RandomVO nowBest() throws Exception {
+		return rdao.nowBest();
+	}
 	
 	
 	
