@@ -52,7 +52,7 @@
 			
 			<div>
                 <button type="button" class="btn btn-sm btn-primary" 
-                        id="btnList" onclick="location.href='/admin/notice';">목록</button>
+                        id="btnList" onclick="location.href='/admin/notice?num=1';">목록</button>
           <c:if test="${id != null && id ==('admin')}">     
                 <button type="button" class="btn btn-sm btn-primary" 
                         id="btnList" onclick="location.href='/admin/notimodify?noti_num=${resultVO.noti_num}';">수정</button>

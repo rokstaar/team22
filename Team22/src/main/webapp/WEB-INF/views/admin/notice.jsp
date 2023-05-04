@@ -13,9 +13,7 @@
 		<link rel="stylesheet" href="/resources/assets/css/main.css" />
 		<link rel="stylesheet" href="/resources/assets/css/myPage.css" />
 		<link rel="stylesheet" href="/resources/assets/css/styles.css" />
-		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-		<link href="/resources/assets/css/notice.css" rel="stylesheet"/>
+		<link href="/resources/assets/css/notice.css" rel="stylesheet"/>			
 </head>
 	<body>
 
@@ -38,13 +36,38 @@
 
 																	
    <div class="container managergrounp" id="container" name="container" >
-            <h3> 공지 사항 </h3>
+            <h2> 공지 사항 </h2>
             <hr>         		
-<!--             <div class="right">
-                <select class="select_btn">
-                    <option value="">10개씩 보기</option>    
-                </select>
-            </div> -->
+         
+   <br><br>
+     
+ <div style="margin-right: 1em; display: none;">
+    <select name="searchType" style="width: 200px;">
+      <option value="all" <c:if test="${ndto.searchType eq 'all'}">selected</c:if>>전체</option>
+    </select>
+  </div> 
+ 
+   <div style="float:left; margin-right: 0.1em; margin-left: 24em;" >
+      <input type="text" name="keyword" value="${ndto.keyword}" style="width: 600px;" placeholder="궁금한 것을 검색해보세요."/>
+   </div>  
+   <div style="float: left;" >
+      <button style="border-radius: 2em" type="button" id="searchBtn" >검색</button>
+   </div>  
+
+   <br><br><br><br>
+
+
+<script type="text/javascript">
+    document.getElementById("searchBtn").onclick = function() {
+    	  let searchType = document.getElementsByName("searchType")[0].value; 
+    	  let keyword =  document.getElementsByName("keyword")[0].value;
+    	  
+    	  console.log(searchType)
+    	  console.log(keyword)
+    	  
+    	  location.href = "/admin/notice?num=1" +  "&searchType=" + searchType + "&keyword=" + keyword;
+    };
+</script>
 
             <table class="bbsList">
                 <thead class="head">
@@ -69,28 +92,39 @@
                     </tr> 
                 </c:forEach>	                   
                 </tbody>
-                <tfoot class="foot">
-                    <tr>
-                        <td colspan="9">
-                            <span class="arrow radius-right">≪</span>
-                            <span class="arrow radius-left">＜</span>
-                            
-                            <a href="javascript:;" class="num_box txt_point">1</a>
-                            <a href="javascript:;" class="num_box ">2</a>
-                            <a href="javascript:;" class="num_box ">3</a>
-
-                            <span class="arrow radius-right">＞</span>
-                            <span class="arrow radius-left">≫</span>
-                        </td>
-                    </tr>    
-                </tfoot>
             </table>
-        </div>								
-											
+           
+       <div style="text-align: center; font-size: large;">	
+				
+				<c:if test="${ndto.prev}">
+					<span>[ <a href="/admin/notice?num=${ndto.startPageNum - 1}${ndto.searchTypeKeyword}">이전</a> ]  </span>
+				</c:if>
+
+				<c:forEach begin="${ndto.startPageNum}" end="${ndto.endPageNum}" var="num">
+					<span> 
+						<c:if test="${select != num}">
+						    <a href="/admin/notice?num=${num}${ndto.searchTypeKeyword}">${num}</a>
+						</c:if> 
+					    <c:if test="${select == num}">
+							<b>${num}</b>
+						</c:if>
+						
+                      </span>
+				</c:forEach>
+
+				<c:if test="${ndto.next}">
+						<span>[ <a href="/admin/notice?num=${ndto.endPageNum + 1}${ndto.searchTypeKeyword}">다음</a> ]</span>
+				</c:if>
+		</div>	
+    </div>	
+    
+    <br><br><br><br><br><br>    				
+		 
+		 <div style="text-align:right; font-size: larger;">
 			<c:if test="${id != null && id ==('admin')}">	
 					<a href="/admin/noticewrite">공지사항 등록</a>
 			</c:if>		
-											
+		</div>										
 									
 
 							</div>  

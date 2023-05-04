@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.market.domain.ACriteria;
+import com.market.domain.APageDTO;
+import com.market.domain.CPageDTO;
 import com.market.domain.CustomerserviceVO;
 import com.market.domain.NoticeVO;
 import com.market.service.CustomerserviceServiceImpl;
@@ -46,22 +49,34 @@ public class CustomerserviceController {
 	    
 	    rttr.addFlashAttribute("result","ok");
 	    
-	    return "redirect:/cs/cslist";
+	    return "redirect:/cs/cslist?num=1";
    }
    
    
    // http://localhost:8080/cs/boardlist
-   // 게시판 목록(리스트) 조회
+   // 게시판 목록(리스트) 조회 + 페이징 + 검색
    @RequestMapping(value = "/cslist",method = RequestMethod.GET)
-   public void cslistGET(Model model) throws Exception {
-	   	   
-	   List<CustomerserviceVO> boardList = service.boardList();
-	   logger.info("boardList :"+boardList.size());
+   public void cslistGET(Model model, @RequestParam("num") int num,
+		                 @RequestParam(value = "searchType",required = false, defaultValue = "title") String searchType,
+		                 @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword)throws Exception {
 	   
-	   // view 페이지 이동
+	   CPageDTO dto = new CPageDTO();
+	   dto.setNum(num);
+	   dto.setCount(service.searcountCs(searchType, keyword));
+	   dto.setSearchType(searchType);
+	   dto.setKeyword(keyword);
+	   
+	   List<CustomerserviceVO> boardList = service.boardList(dto.getDisplayPost(), dto.getPostNum(), searchType, keyword);
+	   
 	   model.addAttribute("boardList",boardList);
-	   
+	   model.addAttribute("dto",dto);
+	   model.addAttribute("select",num);
+	
    }
+   
+
+
+
    
    // 게시판 특정 글 읽기
    @RequestMapping(value = "csread", method = RequestMethod.GET)
@@ -92,13 +107,15 @@ public class CustomerserviceController {
    public String csupdatePOST(CustomerserviceVO vo,RedirectAttributes rttr) throws Exception {
 	   logger.info(vo.toString());
 	   
+	   
+	   
 	   int result = service.updateBoard(vo);
 	   
 	   if(result == 1) {
 		   rttr.addFlashAttribute("result","modOK");
 	   }
 	   
-	   return "redirect:/cs/cslist";
+	   return "redirect:/cs/cslist?num=1";
    }
    
    // 게시판 글 삭제하기
@@ -110,8 +127,34 @@ public class CustomerserviceController {
 		  rttr.addFlashAttribute("result","delOK");
 	  }
 	   
+	   return "redirect:/cs/cslist?num=1";
+   }
+   
+   // 게시판 답글 등록
+   @RequestMapping(value = "/csRewrite",method = RequestMethod.GET)
+   public void csRewriteGET(@RequestParam("cs_num") int cs_num, Model model) throws Exception{
+	   logger.info(" csRewriteGET 호출$$ ");
+	   
+      CustomerserviceVO cvo = service.getBoard(cs_num);
+	   
+	   model.addAttribute("cvo",cvo);
+	   
+   }
+   
+   // 게시판 답글 등록 - 처리
+  // @RequestMapping(value = "/csRewrite", method = RequestMethod.POST)
+/*   public String csRewritePOST(RedirectAttributes rttr,CustomerserviceVO vo) throws Exception {
+	   logger.info(" csRewrite() 호출$$ ");
+	   
+       service.re_board(vo);
+//	   logger.info(vo.toString());
+//	   
+//	   rttr.addFlashAttribute("result","ok");
+	   
+	   
+	   
 	   return "redirect:/cs/cslist";
+   }*/
+
    }
 
-
-}

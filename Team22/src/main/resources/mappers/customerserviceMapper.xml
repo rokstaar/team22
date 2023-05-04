@@ -13,11 +13,36 @@
 	 </insert>	
 	<!-- 문의사항 등록하기  -->
 	
+	
+	<!-- 문의사항 목록 + 페이징 + 검색  -->
+	 <select id="getBoardList" parameterType="hashMap" resultType="CustomerserviceVO" >
+	    select cs_num, cs_category, cs_sub, mem_id, cs_date
+        from customerservice     
+       <if test='searchType.equals("title")'>
+             where cs_sub LIKE concat('%', #{keyword}, '%')
+       </if>
+       <if test='searchType.equals("writer")'>
+            where mem_id LIKE concat('%', #{keyword}, '%')
+       </if>
+        order by cs_num desc
+	    limit #{displayPost}, #{postNum}
+	   </select>  
 	<!-- 문의사항 목록 조회  -->
-	 <select id="getBoardList" resultType="CustomerserviceVO">
-	   select * from customerservice
-	 </select>
-	<!-- 문의사항 목록 조회  -->
+	
+	
+	<!-- 문의사항 글 총 개수  -->
+	 <select id="searcountCs" parameterType="hashMap" resultType="int">
+	     select count(cs_num) from customerservice
+	     
+	   <if test='searchType.equals("title")'>
+            where cs_sub LIKE concat('%', #{keyword}, '%')
+       </if>
+       <if test='searchType.equals("writer")'>
+            where mem_id LIKE concat('%', #{keyword}, '%')
+       </if> 
+	  </select>
+	<!-- 문의사항 글 총 개수  -->
+	
 	
 	<!-- 문의사항 조회수 1증가  -->
 	  <update id="addcsCnt">
@@ -46,6 +71,23 @@
 	     where cs_num=#{cs_num} 
 	   </delete>
 	<!-- 문의사항 삭제 -->
+	
+	<!-- 문의사항 답변 등록  -->
+	  <insert id="re_insert">
+		<!-- 원글의 step보다 더 큰 step을 가진 글이 있다면 그 글들의 step을 먼저 +1 한다. -->
+		<![CDATA[
+			   UPDATE customerservice SET cs_seq = cs_seq + 1 
+			   WHERE cs_ref = #{cs_ref} AND cs_seq > #{cs_seq};
+				
+			   INSERT INTO `customerservice` (cs_ref, cs_seq, cs_lev, cs_sub, cs_content) 
+			   VALUES (#{cs_ref}, #{cs_seq}+1, #{cs_lev}+1, #{cs_sub}, #{cs_content});
+		]]>
+	</insert>
+	<!-- 문의사항 답변 등록  -->
+	
+	
+	
+	
 
 
 

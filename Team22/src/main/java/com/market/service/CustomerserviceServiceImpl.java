@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.market.domain.ACriteria;
 import com.market.domain.CustomerserviceVO;
 import com.market.persistence.CustomerserviceDAO;
 
@@ -21,12 +22,6 @@ public class CustomerserviceServiceImpl implements CustomerserviceService {
 	@Override
 	public void writeBoard(CustomerserviceVO vo) throws Exception {
 		 cdao.createBoard(vo);
-	}
-
-	@Override
-	public List<CustomerserviceVO> boardList() throws Exception {
-
-		return cdao.getBoardList();
 	}
 
 	@Override
@@ -51,6 +46,28 @@ public class CustomerserviceServiceImpl implements CustomerserviceService {
 
 		return cdao.deleteBoard(cs_num);
 	}
+
+	@Override
+	public void re_board(CustomerserviceVO vo) throws Exception {
+	                 cdao.re_board(vo);
+	}
+
+	
+	@Override
+	public List<CustomerserviceVO> boardList(int displayPost, int postNum,String searchType, String keyword) throws Exception {
+		
+		return cdao.getBoardList(displayPost, postNum, searchType, keyword);
+	}
+
+	@Override
+	public int searcountCs(String searchType, String keyword) throws Exception {
+
+		return cdao.searcountCs(searchType, keyword);
+	}
+
+	
+
+	
 
 	
 	
