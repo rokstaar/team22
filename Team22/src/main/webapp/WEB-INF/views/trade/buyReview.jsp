@@ -350,9 +350,19 @@ textarea{
 
 							<!-- Header -->
 					<%@ include file="../include/header.jsp" %>
-					<%@ include file="../include/mypageReview.jsp" %>
+					<%@ include file="../include/myPage.jsp" %>
 				
 						<div class="shippingStatusContainer">
+						<div class="infoContainer">
+									    <a href="/trade/buyReview" class="item">
+									      <div>구매후기</div>
+									    </a>    
+									  
+									   
+									    <a href="/trade/sellReview" class="item">
+									      <div>판매후기</div>
+									    </a>    
+									  </div>
 							<c:forEach var = "vo" items="${buyReview }">
 							<div class="infoContainer">
 							<c:if test="${vo.reviewer eq sessionScope.id }">
@@ -366,8 +376,14 @@ textarea{
 						        </div>						
 								<div class="item">
 						        <div>
-   		        				<a href="/product/prodInfo?product_num=${vo.product_num }&seller=${vo.reviewee}">
+   		        				<a href="/product/prodInfo?product_num=${vo.product_num }&reviewee=${vo.reviewee}">
 						          <div>${vo.rv_content}</div></a>
+						        </div>
+						        </div>								
+								<div class="item">
+						        <div>
+   		        				<a href="/trade/removeDelete?product_num=${vo.product_num }">
+						          <div>리뷰삭제</div></a>
 						        </div>
 						        </div>								
 							
@@ -375,7 +391,6 @@ textarea{
 							</c:if>
 							</div>
 							</c:forEach>
-							
 									
 						</div>
 									

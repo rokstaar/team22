@@ -350,9 +350,19 @@ textarea{
 
 							<!-- Header -->
 					<%@ include file="../include/header.jsp" %>
-					<%@ include file="../include/mypageReview.jsp" %>
+					<%@ include file="../include/myPage.jsp" %>
 				
 						<div class="shippingStatusContainer">
+						<div class="infoContainer">
+									    <a href="/trade/buyReview" class="item">
+									      <div>구매후기</div>
+									    </a>    
+									  
+									   
+									    <a href="/trade/sellReview" class="item">
+									      <div>판매후기</div>
+									    </a>    
+									  </div>		
 							<c:forEach var = "vo" items="${tSellReview }">
 							<div class="infoContainer">
 							<%-- <c:if test="${vo.reviewer eq sessionScope.id }"> --%>

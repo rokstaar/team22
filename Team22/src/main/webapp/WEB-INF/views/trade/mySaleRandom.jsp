@@ -245,10 +245,23 @@ div{
 
 							<!-- Header -->
 							<%@ include file="../include/header.jsp" %>
-								<%@ include file="../include/mypageProdList.jsp" %>
+								<%@ include file="../include/myPage.jsp" %>
 								
 										<div class="shippingStatusContainer">
 										<section>
+										<div class="infoContainer">
+									    <a href="/trade/mySaleProduct" class="item">
+									      <div>판매중</div>
+									    </a>    
+									    <a href="#" class="item">
+									      <div>판매완료</div>
+									    </a>    
+									   
+									  </div>
+									  					  
+				  <a href="/trade/mySaleProduct?product" class="button" style="display: inline-block; float: right;">일반</a>
+				  <a href="/trade/mySaleAuction" class="button" style="display: inline-block; float: right;">경매</a>
+				<a href="/trade/mySaleRandom" class="button" style="display: inline-block; float: right;">응모</a>
 										
 									<header class="major">
 									

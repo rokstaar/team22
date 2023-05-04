@@ -349,16 +349,22 @@ textarea{
 				<!-- Main -->
 					<div id="main">
 						<div class="inner">
-
 							<!-- Header -->
 								<%@ include file="../include/header.jsp" %>
-								<%@ include file="../include/mypageTrade.jsp" %>
+								<%@ include file="../include/myPage.jsp" %>
 							<div class="shippingStatusContainer">
-								
+								<div class="infoContainer">
+								    <a href="/trade/buyList" class="item">
+								      <div>구매내역</div>
+								    </a>    
+								   
+								    <a href="/trade/prodList" class="item">
+								      <div>판매내역</div>
+								    </a>    
+								  </div>	
 								<c:forEach var="vo" items="${buyList }">
 								<div class="infoContainer">
 								<c:if test="${vo.buy_mem_id eq sessionScope.id }">
-										
 										<div class="item">
 									        <div>
 									        <img src="/resources/images/${vo.product_pic.split(',')[0] }" 
@@ -387,12 +393,13 @@ textarea{
 									        </div>
 								<div class="script">
 							
- 	       
-						         <button name="asd" class="trigger">구매후기 작성</button>      
+ 	    
+						         <button class="trigger">구매후기 작성</button>      
 								     <div class="modal"> 
 								         <div class="modal-content"> 
 								             <span class="close-button">&times;</span> 
 								             <h1 class="title">구매후기</h1> 
+								          
 								             <form action="/trade/reviewInsert" method="POST">
 								               
 								               <label for="">${vo.member_nickname }님에게 구매후기 작성해주세요.</label> 
@@ -407,19 +414,21 @@ textarea{
 													<option value="1">1</option>
 													<option value="0">0</option>
 												</select>
-								               <input type="button" id="cancel" value="취소" onclick="location.href='/trade/buyList'" > 
-								               <input type="submit" id="submit" value="작성"> 
-								             	<input type="hidden" name="reviewee" value="${vo.sell_mem_id}">
+
+												<input type="hidden" name="reviewee" value="${vo.sell_mem_id}">
 												<input type="hidden" name="reviewer" value="${vo.buy_mem_id}">
 												<input type="hidden" name="prod_num" value="${vo.prod_num}">
-												
+								               <input type="button" id="cancel" value="취소" onclick="location.href='/trade/buyList'" > 
+								               <input type="submit" id="submit" value="작성"> 
+				
 								             </form> 	
 								         </div> 
 								     </div>
 						        </div>
 									        </c:if>
 									</div>
-										</c:forEach>
+									</c:forEach>
+										 								             ${buyList }
 								</div>
 									
 	
@@ -451,13 +460,35 @@ textarea{
 	</script> -->
 
   <script type="text/javascript"> 
-         var modal = document.querySelector(".modal"); 
-        // var trigger = document.querySelector(".trigger");  
-         var trigger = document.querySelectorAll(".trigger");  
-         var closeButton = document.querySelector(".close-button"); 
-         var cancelButton = document.querySelector("#cancel");
+  var modal = document.querySelector(".modal"); 
+  var trigger = document.querySelectorAll(".trigger");  
+  var closeButton = document.querySelector(".close-button"); 
+  var cancelButton = document.querySelector("#cancel");
 
-         console.log(trigger);
+  trigger.forEach(function(element) {
+    element.addEventListener("click", toggleModal);
+  });
+
+  function toggleModal() { 
+    modal.classList.toggle("show-modal"); 
+  }
+
+  function windowOnClick(event) { 
+    if (event.target === modal) { 
+      toggleModal(); 
+    } 
+  }
+
+  closeButton.addEventListener("click", toggleModal); 
+  cancelButton.addEventListener("click", toggleModal); 
+  window.addEventListener("click", windowOnClick); 
+         
+         
+         /*  var modal = document.querySelector(".modal"); 
+         var closeButton = document.querySelector(".close-button"); 
+         var cancelButton = document.querySelector("#cancel"); */
+        // var trigger = document.querySelector(".trigger");  
+       /*   console.log(trigger);
          for( var i = 0; i < trigger.length; i++ ){
         	 trigger[i].addEventListener("click", toggleModal); 
 			}
@@ -471,12 +502,14 @@ textarea{
              if (event.target === modal) { 
                  toggleModal(); 
              } 
-         }
+         }*/
 
-         /* trigger.addEventListener("click", toggleModal);  */
-         closeButton.addEventListener("click", toggleModal); 
+          trigger.addEventListener("click", toggleModal); 
+     closeButton.addEventListener("click", toggleModal); 
          cancel.addEventListener("click", toggleModal); 
-         window.addEventListener("click", windowOnClick); 
+         window.addEventListener("click", windowOnClick);  
+         
+
      </script>
 
 

@@ -36,5 +36,5 @@ public interface TradeService {
 	
 	public List<RandomVO> mySaleRandom(String id) throws Exception;
 	
-	
+	public Integer removeReview(Integer prod_num) throws Exception;
 }

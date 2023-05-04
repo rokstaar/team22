@@ -100,6 +100,11 @@ public class TradeDAOImpl implements TradeDAO{
 		return sqlSession.selectList(NAMESPACE+".myRandomList",id);
 	}
 
+	@Override
+	public Integer deleteReview(Integer prod_num) throws Exception {
+		return sqlSession.delete(NAMESPACE+".deleteReview",prod_num);
+	}
+
 	
 
 	

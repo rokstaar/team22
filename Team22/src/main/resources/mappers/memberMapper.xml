@@ -38,8 +38,8 @@
     
     <!-- 다른 회원 판매정보  -->
 	<select id="memProdList" resultType="com.market.domain.ProductVO">
-		select product_pic,product_title,product_price,product_date,product_status,product_num,product_seller
-		from product
+		select p.product_pic,p.product_title,p.product_price,p.product_date,p.product_status,p.product_num,p.product_seller
+		from product p
 		where product_seller = #{id}
 	
 	</select>

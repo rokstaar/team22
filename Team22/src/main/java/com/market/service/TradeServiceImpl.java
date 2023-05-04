@@ -93,7 +93,12 @@ public class TradeServiceImpl implements TradeService{
 		return tdao.myRandomList(id);
 	}
 
+	@Override
+	public Integer removeReview(Integer prod_num) throws Exception {
+		return tdao.deleteReview(prod_num);
+	}
 
+	
 	
 	
 	

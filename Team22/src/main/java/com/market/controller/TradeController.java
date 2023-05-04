@@ -45,6 +45,7 @@ public class TradeController {
 		String id = (String)session.getAttribute("id");
 		List<Map<String,Object>> buyReview = service.getBuyReview(id);
 		
+		logger.info("@@@@@@@@@@@@@@@@@@321"+buyReview);
 		model.addAttribute("buyReview",buyReview);
 		
 		
@@ -75,6 +76,7 @@ public class TradeController {
 		
 		model.addAttribute("buyList",buyList);
 		
+		
 	}
 	
 	// 판매 내역
@@ -85,7 +87,6 @@ public class TradeController {
 		
 		model.addAttribute("prodList",prodList);
 		
-		
 	}
 	
 	// 구매후기작성
@@ -93,7 +94,8 @@ public class TradeController {
 	public String reviewWritePOST(Model model, ReviewVO rvo,RedirectAttributes rttr ) throws Exception{
 //		List<Map<String,Object>> List = service.buyList();
 		
-		service.writeReview(rvo);
+		logger.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+rvo);
+		
 //		model.addAttribute("List",List);
 		rttr.addFlashAttribute("result","buy");
 		
@@ -163,5 +165,21 @@ public class TradeController {
 		
 		return "/trade/mySaleRandom";
 	} 
+	
+	// 리뷰삭제
+	@RequestMapping(value = "/removeDelete", method = RequestMethod.GET)
+	public String removeDelete(Model model,@RequestParam("product_num") int prod_num,
+								RedirectAttributes rttr)throws Exception {
+	
+		logger.info("@@@@@@@@@@@@@@@@@"+prod_num);
+		int result = service.removeReview(prod_num);
+		
+		if(result == 1) {
+			rttr.addFlashAttribute("result", "delOK");
+		}
+		// 페이지이동(listALL)
+		return "/trade/buyReview";
+	}
+	
 	
 }

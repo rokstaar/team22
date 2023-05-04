@@ -36,7 +36,8 @@ public interface TradeDAO {
 	public void delFavorite(Map<String, Object> map);
 	// 내 판매중인 랜덤상품
 	public List<RandomVO> myRandomList(String id) throws Exception;
-	
+	// 작성한 리뷰 삭제
+	public Integer deleteReview(Integer prod_num)throws Exception;
 	
 	
 }
