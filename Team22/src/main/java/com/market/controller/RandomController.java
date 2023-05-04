@@ -117,14 +117,20 @@ public class RandomController {
 	@RequestMapping(value = "/rList", method = RequestMethod.GET)
 	public void rListGET(Model model) throws Exception{
 		model.addAttribute("rList", service.rlist());
-		model.addAttribute("best", service.nowBest());
+		System.out.println(service.rlist());
+		RandomVO best = service.nowBest();
+		System.out.println(best);
+		System.out.println(service.countP(best.getRan_num())); // best null이라 오류뜸 수정필요
+		model.addAttribute("best", best);
+		model.addAttribute("bCount", service.countP(best.getRan_num()));
+		
 	}
 	
 	@RequestMapping(value = "rDetail", method = RequestMethod.GET)
 	public void rDetailGET(@RequestParam("ran_num") int ran_num, Model model, HttpSession session) throws Exception{
 		String id = (String) session.getAttribute("id");
 		model.addAttribute("vo", service.rDetail(ran_num));
-		model.addAttribute("countP", service.countP(ran_num)-1);
+		model.addAttribute("countP", service.countP(ran_num));
 		model.addAttribute("pay", service.getMPay(id));
 	}
 	
@@ -150,7 +156,7 @@ public class RandomController {
 		service.rBid(vo);
 		
 		map.put("pay", service.getMPay(id));
-		map.put("ran_num",service.countP(vo.getRan_num())-1);
+		map.put("ran_num",service.countP(vo.getRan_num()));
 		
 		return map;
 	}
@@ -160,7 +166,27 @@ public class RandomController {
 	public Integer uBidGET(@RequestParam("ran_num") String num) throws Exception {
 		int ran_num = Integer.parseInt(num);
 		
-		return service.countP(ran_num)-1;
+		return service.countP(ran_num);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/end", method = RequestMethod.GET, produces = "application/text; charset=utf8")
+	public String end(@RequestParam("ran_num") int ran_num, @RequestParam("seller") String seller) throws Exception{
+		String result = service.selectTrade(ran_num);
+		
+		if(result == null) {
+			service.updateRan(ran_num);
+			RandomVO vo = service.selectWinner(ran_num);
+			vo.setRan_sellerId(seller);
+			service.insertTrade(vo);
+			service.plusPay(vo);
+			
+			return "응모가 종료되었습니다. 당첨자는 " + vo.getRan_buyerId() + "님 입니다.";
+		}else {
+			
+			return "응모가 종료되었습니다. 당첨자는 " + result + "님 입니다.";
+		}
+		
 	}
 
 }

@@ -65,6 +65,35 @@ public class RandomDAOImpl implements RandomDAO {
 	public RandomVO nowBest() throws Exception {
 		return sqlSession.selectOne(NAMESPACE+".nowBest");
 	}
+
+	@Override
+	public String selectTrade(int ran_num) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+".selectTrade", ran_num);
+	}
+
+	@Override
+	public void updateRan(int ran_num) throws Exception {
+		sqlSession.update(NAMESPACE+".updateRan", ran_num);
+	}
+
+	@Override
+	public RandomVO selectWinner(int ran_num) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+".selectWinner", ran_num);
+	}
+
+	@Override
+	public void insertTrade(RandomVO vo) throws Exception {
+		sqlSession.insert(NAMESPACE+".insertTrade", vo);
+	}
+
+	@Override
+	public void plusPay(RandomVO vo) throws Exception {
+		sqlSession.update(NAMESPACE+".plusPay", vo);
+	}
+	
+	
+	
+	
 	
 	
 	

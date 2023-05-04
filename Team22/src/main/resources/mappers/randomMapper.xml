@@ -11,7 +11,7 @@
 	</insert>
 	
 	<select id="nowBest" resultType="com.market.domain.RandomVO">
-		select *, count(ran_num)-1 as count from random
+		select * from random
 		where ran_num = (select ran_num
 						from random
 						group by ran_num
@@ -36,7 +36,7 @@
 	</select>
 	
 	<select id="countP" resultType="int">
-		select count(ran_num) from random
+		select count(ran_num)-1 from random
 		where ran_num = #{ran_num}
 	</select>
 
@@ -45,8 +45,8 @@
 	</select>
 	
 	<insert id="rBid">
-		insert into random(ran_num, ran_buyerId, ran_bidPrice, ran_price)
-		values(#{ran_num}, #{ran_buyerId}, #{ran_bidPrice}, #{ran_price})
+		insert into random(ran_num, ran_buyerId, ran_bidPrice, ran_price, ran_title)
+		values(#{ran_num}, #{ran_buyerId}, #{ran_bidPrice}, #{ran_price}, #{ran_title})
 	</insert>
 	
 	<update id="minusPay">
@@ -58,5 +58,50 @@
 		select ran_buyerId
 		from random where ran_num = #{ran_num}
 	</select>
+	
+	<select id="selectTrade" resultType="String">
+		select buy_mem_id from trade
+		where type_div = "ran" and ran_num = #{ran_num}
+	</select>
+	
+	<update id="updateRan">
+		update random set ran_status = 1
+		where ran_num = #{ran_num}
+	</update>
+	
+	<select id="selectWinner" resultType="com.market.domain.RandomVO">
+		select * from random
+		where ran_num = #{ran_num} and ran_sellerId is null
+		order by rand()
+		limit 1;
+	</select>
+	
+	<insert id="insertTrade">
+		insert into trade(buy_mem_id, sell_mem_id, prod_sell_date, type_div, product_title, ran_num)
+		values(#{ran_buyerId}, #{ran_sellerId}, now(), 'ran', #{ran_title}, #{ran_num})
+	</insert>
+	
+	<update id="plusPay">
+		update member set member_pay = member_pay + #{ran_price}
+		where member_id = #{ran_sellerId}
+	</update>
+	
 
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

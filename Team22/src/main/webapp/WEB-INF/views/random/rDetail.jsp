@@ -23,6 +23,7 @@
 		<script type="text/javascript">
 			$(document).ready(function(){
 				
+				let ubidd = setInterval(ubid,1000);
 				function ubid(){
 					$.ajax({
 						url:"/random/uBid",
@@ -31,11 +32,36 @@
 						},
 						dataType:"JSON",
 						success:function(data){
-							$('#countP').html('응모현황 ' + data +  ' / ' + '${vo.ran_maxPp }');
+							$('#countP').html('응모 인원 ' + data +  ' / ' + '${vo.ran_maxPp }');
+							if(parseInt(data) == parseInt('${vo.ran_maxPp}')){
+								$('#rBid').attr('class', 'button disabled');
+								$("#time").html("종료");
+								clearInterval(timer);
+								clearInterval(ubidd);
+								end();
+							}else{
+								$('#rBid').attr('class', 'button');
+							}
 						}
 					});
 				} 
-				setInterval(ubid,1000);
+				
+				function end(){
+						 //status = 1, rand() 1 -> trade 저장, 판매자 금액전달
+					$.ajax({
+						url : '/random/end',
+						data : {
+							ran_num : '${vo.ran_num}',
+							seller : '${vo.ran_sellerId}'
+						},
+						success : function(data){
+							alert(data);
+						}
+					});
+						
+				}
+				
+			
 				
 				$('#rBid').click(function(){
 					if(${id == null}){
@@ -59,14 +85,14 @@
 						}
 					}
 					
-					
 					if(confirm('응모 하시겠습니까?')){
 						$.ajax({
 							url:"/random/rBid",
 							data:{
 								ran_num:'${vo.ran_num}',
 								ran_bidPrice:'${vo.ran_bidPrice}',
-								ran_price:'${vo.ran_price}'
+								ran_price:'${vo.ran_price}',
+								ran_title:'${vo.ran_title}'
 							},
 							success:function(data){
 								if(data.error == 1){
@@ -105,6 +131,7 @@
 			        
 			        if (distance < 0){
 						clearInterval(timer);
+						clearInterval(ubidd);
 						$("#time").html("경매 종료");
 					}
 			    }
@@ -144,8 +171,9 @@
 											판매자 : ${vo.ran_sellerId }<br>
 											금액 : ${Price }<br>
 											</p> 
-											<p class="button" id="time"></p>
+											<p class="button" id="time">종료</p>
 											<p class="button" id="nowBid">응모 금액 : ${bidPrice }</p><br>
+											<input type="button" value="test" id="test">
 											
 											<input type="hidden" id="myPay" value="${pay }">
 											

@@ -58,6 +58,32 @@ public class RandomServiceImpl implements RandomService {
 	public RandomVO nowBest() throws Exception {
 		return rdao.nowBest();
 	}
+
+	@Override
+	public String selectTrade(int ran_num) throws Exception {
+		return rdao.selectTrade(ran_num);
+	}
+
+	@Override
+	public void updateRan(int ran_num) throws Exception {
+		rdao.updateRan(ran_num);
+	}
+
+	@Override
+	public RandomVO selectWinner(int ran_num) throws Exception {
+		return rdao.selectWinner(ran_num);
+	}
+
+	@Override
+	public void insertTrade(RandomVO vo) throws Exception {
+		rdao.insertTrade(vo);
+	}
+
+	@Override
+	public void plusPay(RandomVO vo) throws Exception {
+		rdao.plusPay(vo);
+	}
+	
 	
 	
 	
