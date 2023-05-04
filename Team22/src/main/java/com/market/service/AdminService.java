@@ -39,12 +39,16 @@ public interface AdminService {
 	// 공지사항 쓰기
 	public void writeNotice(NoticeVO vo) throws Exception;
 	
-	// 공지사항 리스트 목록
-	public List<NoticeVO> noticeList() throws Exception;
+	// 공지사항 리스트 목록 + 페이징 + 검색
+	public List<NoticeVO> noticeList(int displayPost, int postNum,
+                                     String searchType, String keyword) throws Exception;
 	
-	// 공지사항 총 개수 
+	// 공지사항 총 개수 + 검색적용
+	public int searcountNotice(String searchType, String keyword) throws Exception;
+	
+	// 공지사항 글 수
 	public int countNotice() throws Exception;
-	
+
 	// 공지사항 조회수1증가
 	public void updateReadCnt(Integer noti_num) throws Exception;
 		

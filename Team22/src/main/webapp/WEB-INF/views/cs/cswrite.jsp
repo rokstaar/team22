@@ -82,13 +82,11 @@
 		
 	</table>
 
-	
 	<div style="text-align: center;">
 	   <input type="checkbox" name="cs_secret" id="cs_secret" >
 	   <label class="form-check-label" for="cs_secret">비밀글 설정</label>
 	</div>
 
-   
    <div class="btn_wrap">
          <button type="submit" class="button primary"> 등록하기 </button>
    </div>

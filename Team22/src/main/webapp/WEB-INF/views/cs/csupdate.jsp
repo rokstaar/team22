@@ -41,7 +41,7 @@
 								  <div class="wrap">
 								   <div class="shippingStatusContainer"> 
 		
-	<h2>문의사항 수정</h2>
+<h2>문의사항 수정</h2>
 
 <!-- 
 파일 첨부 시 form 태그의  필요 속성
@@ -52,18 +52,21 @@
    <input type="hidden" name="mem_id" value="${id }"> 
    <input type="hidden" name="cs_num" value="${cvo.cs_num }"> 
 	<table>
-	    <tr>
+	   
+	   <tr>
 		<th class="w-px160" style="font-size:large;">상담분류</th>
 			<td>
-			  <select name="cs_category" id="cs_category" style="width: 185px;" required>
-					<option value="" >상담유형선택 ▽</option>
-					<option value="회원정보" >회원정보</option>
-					<option value="중고거래" >중고거래</option>
-					<option value="있지페이">있지페이</option>
-					<option value="다른 문제가 있어요">다른 문제가 있어요</option>
+			 <select name="cs_category" id="cs_category" class="readonly" style="width: 185px;"
+			         onFocus="this.initialSelect = this.selectedIndex;" onChange="this.selectedIndex = this.initialSelect;">
+					<option ${cvo.cs_category eq '회원정보'? 'selected' : '' }>회원정보</option>
+					<option ${cvo.cs_category eq '중고거래'? 'selected' : '' }>중고거래</option>
+					<option ${cvo.cs_category eq '있지페이'? 'selected' : '' }>있지페이</option>
+					<option ${cvo.cs_category eq '다른 문제가 있어요'? 'selected' : '' }>다른 문제가 있어요</option>
+					<option ${cvo.cs_category eq '회원정보'? 'selected' : '' }>회원정보</option>
 			</select>
 		</td>
 	</tr>
+		
 		<tr>
 			<th class="w-px160" style="font-size:large;">제목</th>
 			<td><input type="text" name="cs_sub" class="need" placeholder="제목을 입력하세요." required value="${cvo.cs_sub}"/></td>
@@ -93,7 +96,7 @@
    <div class="btn_wrap">
          <button type="submit" class="button primary"> 수정하기 </button>
          <button type="submit" class="button primary" 
-                 onclick="location.href='/cs/cslist';"> 취소하기 </button>
+                 onclick="location.href='/cs/cslist?num=1';"> 취소하기 </button>
    </div>
 </form>	
 

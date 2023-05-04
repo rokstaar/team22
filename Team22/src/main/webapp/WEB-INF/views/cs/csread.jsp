@@ -52,16 +52,23 @@
 			
 			<div>
                 <button type="button" class="btn btn-sm btn-primary" 
-                        id="btnList" onclick="location.href='/cs/cslist';">목록</button>     
-           
-             <c:set var="sid" value="${sessionScope.id }"/>
-                <c:if test="${sid == csVO.mem_id }">
+                        id="btnList" onclick="location.href='/cs/cslist?num=1';">목록</button>     
+
+            <c:set var="sid" value="${sessionScope.id }"/>  
+              <c:if test="${sid == csVO.mem_id }">
                   <button type="button" class="btn btn-sm btn-primary" 
                           id="btnList" onclick="location.href='/cs/csupdate?cs_num=${csVO.cs_num}';">수정</button>               
                   <button type="button" class="btn btn-sm btn-primary" 
                           id="btnList" onclick="location.href='/cs/deletecs?cs_num=${csVO.cs_num}';">삭제</button>        
                </c:if>
+                 
+         <c:if test="${id != null && id ==('admin')}"> 
+           <button type="button" class="btn btn-sm btn-primary" id="btnList" 
+                   onclick="location.href='/cs/csRewrite?cs_num=${csVO.cs_num}&cs_ref=${csVO.cs_ref }&cs_lev=${csVO.cs_lev }&cs_seq=${csVO.cs_seq}';">답글 쓰기</button>
+         </c:if>
+           
            </div>
+           
         
         </div>
 	</article>

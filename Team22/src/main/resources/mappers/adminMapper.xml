@@ -72,18 +72,36 @@
 	  </insert>	
 	<!-- 공지사항 등록하기  -->
 	
-	<!-- 모든 공지사항 조회하기  -->
-	    <select id="getNoticeList" resultType="NoticeVO">
-	      select * from notice  
+	
+	<!-- 모든 공지사항 조회하기 + 페이징 + 검색  -->
+	    <select id="getNoticeList" parameterType="hashMap" resultType="NoticeVO">
+	       select * from notice  
+          <if test='searchType.equals("all")'>
+            where noti_title LIKE concat('%', #{keyword}, '%')
+            or noti_content LIKE concat('%', #{keyword}, '%')
+          </if>
+	       order by noti_num desc
+	       limit #{displayPost}, #{postNum}
 	    </select>
 	<!-- 모든 공지사항 조회하기  -->
 	
-	<!-- 공지사항 글 개수 조회 -->
-	    <select id="countNotice" resultType="int"> 
-	      select count(noti_num)
-          from notice;
+	
+	<!-- 공지사항 글 개수 조회 + 검색 적용 -->
+	    <select id="searcountNotice" parameterType="hashMap" resultType="int"> 
+	      select count(noti_num) from notice
+          <if test='searchType.equals("all")'>
+            where noti_title LIKE concat('%', #{keyword}, '%')
+            or noti_content LIKE concat('%', #{keyword}, '%')
+          </if>
 	    </select>
 	<!-- 공지사항 글 개수 조회 -->
+	
+	<!-- 공지사항 수  -->
+	  <select id="countNotice" resultType="int"> 
+	      select count(noti_num)
+          from notice;
+	  </select>
+	<!-- 공지사항 수  -->
 	
 	<!-- 공지사항 조회수 1증가  -->
 	   <update id="addReadcnt">

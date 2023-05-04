@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.market.domain.CPageDTO;
 import com.market.domain.NoticeVO;
 import com.market.domain.TradeVO;
 import com.market.service.AdminServiceImpl;
@@ -83,7 +84,7 @@ public class AdminController {
 		logger.info(" managenotiGET() 호출 (●'◡'●)(●'◡'●) ");
 		
 		List notiList = new ArrayList();
-		if(((String)request.getSession().getAttribute("id")).equals("admin")) notiList = service.noticeList();
+	//	if(((String)request.getSession().getAttribute("id")).equals("admin")) notiList = service.noticeList(displayPost, postNum, searchType, keyword);
 		int mcount = service.countMember();
 		int procount = service.countProduct();
 		int noticount = service.countNotice();
@@ -117,28 +118,40 @@ public class AdminController {
 		// 정보 저장
 		rttr.addFlashAttribute("result","ok");
 		
-		return "redirect:/admin/notice";
+		return "redirect:/admin/notice?num=1";
 	}
 
 	// http://localhost:8080/admin/notice
-	// 공지사항 목록
+	// 공지사항 목록 + 페이징 + 검색
 	@RequestMapping(value = "/notice",method = RequestMethod.GET)
-	public void noticeGET(HttpServletRequest request, Model model) throws Exception{
+	public void noticeGET(Model model, @RequestParam("num") int num, 
+			 @RequestParam(value = "searchType",required = false, defaultValue = "all") String searchType,
+			 @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword) throws Exception{
 		logger.info(" noticeGET() 호출 (●'◡'●)(●'◡'●) ");
 		
+		CPageDTO ndto = new CPageDTO();
+		ndto.setNum(num);
+		ndto.setCount(service.searcountNotice(searchType, keyword));
+		
+		// 검색
+		ndto.setKeyword(keyword);
+		ndto.setSearchType(searchType);
+		
 		// 서비스 - 상품정보 가져오기
-		List<NoticeVO> noticeList = service.noticeList();
-		logger.info("怨듭��궗�빆 媛쒖닔 :"+noticeList.size());
+		List<NoticeVO> noticeList = service.noticeList(ndto.getDisplayPost(), ndto.getPostNum(), searchType, keyword);
 		
 		//view 페이지 전달
 		model.addAttribute("noticeList",noticeList);
+		model.addAttribute("ndto",ndto);
+		model.addAttribute("select",num);
+		
+		
 	}
 	
 	// http://localhost:8080/admin/notiread
 	// 공지사항 특정 글 읽기
 	@RequestMapping(value = "/notiread",method = RequestMethod.GET)
 	public void notireadGET(@RequestParam("noti_num") int noti_num,Model model) throws Exception {
-		logger.info(" notireadGET() �샇異� (�뿈'�뿠'�뿈)(�뿈'�뿠'�뿈) ");
 		
 		// 서비스 - 조회수 1증가
 		service.updateReadCnt(noti_num);
@@ -177,7 +190,7 @@ public class AdminController {
 			rttr.addFlashAttribute("result","modOK");
 	 }
 		
-		return "redirect:/admin/notice";
+		return "redirect:/admin/notice?num=1";
 	}
 	
 	// 공지사항 글 삭제하기
@@ -193,7 +206,7 @@ public class AdminController {
 				rttr.addFlashAttribute("result","deleOK");
 		 }
 				
-			return "redirect:/admin/notice";
+			return "redirect:/admin/notice?num=1";
 		}
 		
 	   // 모든 구매내역 	

@@ -1,5 +1,6 @@
 package com.market.persistence;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,10 +49,36 @@ public class AdminDAOImpl implements AdminDAO {
 		sqlSession.insert(NAMESPACE+".writeNotice", vo);
 	}
 
+	
 	@Override
-	public List<NoticeVO> getNoticeList() throws Exception {
-         List<NoticeVO> noticeList = sqlSession.selectList(NAMESPACE+".getNoticeList");
-		return noticeList;
+	public List<NoticeVO> getNoticeList(int displayPost, int postNum, String searchType, String keyword)throws Exception {
+		
+		HashMap<String, Object> date = new HashMap<String, Object>();
+		
+		date.put("displayPost", displayPost);
+		date.put("postNum", postNum);
+		
+		date.put("searchType", searchType);
+		date.put("keyword", keyword);
+		
+		return sqlSession.selectList(NAMESPACE+".getNoticeList",date);
+	}
+
+	@Override
+	public int searcountNotice(String searchType, String keyword) throws Exception {
+		
+        HashMap<String, Object> sdate = new HashMap<String, Object>();
+		
+		sdate.put("keyword", keyword);
+		sdate.put("searchType", searchType);		
+		
+		return sqlSession.selectOne(NAMESPACE+".searcountNotice",sdate);
+	}
+	
+	@Override
+	public int countNotice() throws Exception {
+		
+		return sqlSession.selectOne(NAMESPACE+".countNotice");
 	}
 
 	@Override
@@ -88,11 +115,7 @@ public class AdminDAOImpl implements AdminDAO {
 		return sqlSession.selectOne(NAMESPACE+".countProduct");
 	}
 
-	@Override
-	public int countNotice() throws Exception {
 	
-		return sqlSession.selectOne(NAMESPACE+".countNotice");
-	}
 
 	@Override
 	public List<Map<String, Object>> getbuyprodList() throws Exception {

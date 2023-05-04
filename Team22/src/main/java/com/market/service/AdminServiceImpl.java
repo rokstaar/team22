@@ -39,8 +39,22 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<NoticeVO> noticeList() throws Exception {
-		return adao.getNoticeList();
+	public List<NoticeVO> noticeList(int displayPost, int postNum, String searchType, String keyword) throws Exception {
+		
+		return adao.getNoticeList(displayPost, postNum, searchType, keyword);
+	}
+
+	@Override
+	public int searcountNotice(String searchType, String keyword) throws Exception {
+		
+		return adao.searcountNotice(searchType, keyword);
+	}
+	
+	
+	@Override
+	public int countNotice() throws Exception {
+	
+		return adao.countNotice();
 	}
 
 	@Override
@@ -73,12 +87,6 @@ public class AdminServiceImpl implements AdminService {
 	public int countProduct() throws Exception {
 		
 		return adao.countProduct();
-	}
-
-	@Override
-	public int countNotice() throws Exception {
-
-		return adao.countNotice();
 	}
 
 	@Override
