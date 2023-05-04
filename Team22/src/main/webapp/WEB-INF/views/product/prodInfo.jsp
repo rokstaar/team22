@@ -13,9 +13,12 @@
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="/resources/assets/css/main.css" />
 		<link rel="stylesheet" href="/resources/assets/css/product.css" />
+
+		
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<link rel="preload" href="/resources/images/${info.product_pic.split(',')[0]}" as="image">
+		
 		
 		<style>
 			#sidebar.force-inactive{
@@ -143,20 +146,17 @@
 					평판 : <fmt:formatNumber value="${score }" pattern="#.##" />
 					</div>
 					
-				<!-- 채팅하기 -->
-				<c:if test="${info.product_seller ne id }">
-				<form action="/chatroom" method="post">
-					<input type="hidden" value="${product_num}" name="product_num" readonly >
-					<input type="hidden" value="${seller}" name="seller" readonly >
-					<input type="submit" value="판매자와 채팅하기">
-				 </form>
-				 </c:if>
-				 <!-- 채팅하기 -->
-				 
 				</div>
 			</div>
 		</section>			
-		</a>			
+		</a>		
+		
+		<!-- 게시물 부가탭 -->
+		<div class="div-subpost">
+			<img class="subpost-img" src="/resources/images/ellipsis-solid.svg">
+			<img class="subpost-img" src="/resources/images/flag-solid.svg">
+		</div>
+			
 		<hr>
 		<div id="subinfo">
 			<div>

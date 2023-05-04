@@ -72,6 +72,12 @@
 	        <if test="title != null">
 	            AND PRODUCT_TITLE LIKE CONCAT('%', #{title}, '%')
 	        </if>
+	        <if test="min != null">
+	        	and product_price <![CDATA[ >= ]]> #{min}
+	        </if>
+	        <if test="max != null">
+	        	and product_price <![CDATA[ <= ]]> #{max}
+	        </if>
 	    </where>
 		<choose>
 	        <when test="sortBy == 'price_asc'">

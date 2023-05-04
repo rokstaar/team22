@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -48,13 +50,15 @@ public class ProductController {
 								@RequestParam(value = "category", required = false) String category,
 								@RequestParam(value = "title", required = false) String title,
 								@RequestParam(value = "pageNum", required = false) Integer pageNum,
+								@RequestParam(value = "minPrice", required = false) Integer min,
+								@RequestParam(value = "maxPrice", required = false) Integer max,
 								Model model){
-		logger.info("상품 리스트 페이지 Paginationed 호출 {}", sort);
+		logger.info("상품 리스트 페이지 Paginationed 호출 {}", min);
 		PCriteria cri = new PCriteria();
 		
 		if(pageNum == null) pageNum = 1;
 		cri.setPageNum(pageNum);
-		List<ProductVO> list = service.getProdListPage(grade, category, title, sort, cri);
+		List<ProductVO> list = service.getProdListPage(grade, category, title, sort,min,max, cri);
 		logger.info(list.toString());
 		model.addAttribute("prodList", list);
 		model.addAttribute("totalPage", (int)Math.ceil(service.getTotalCount()/(double)cri.getPageBlock()));
@@ -126,23 +130,14 @@ public class ProductController {
 	// 같은 종류의 추천 상품 가져오기
 	
 	// 상품 등록 페이지
-	@PostMapping(value = "/prodReg")
-	public void prodReg(@RequestParam(value = "id") String id, Model model) {
-		model.addAttribute("id",id);
+	@GetMapping(value = "/prodReg")
+	public String prodReg(HttpSession session, Model model) {
+		model.addAttribute("product_seller",session.getAttribute("id"));
+		return "/product/prodReg";
 	}
 	// 상품 등록 페이지
 	
 	// 상품 등록 후 해당 페이지
-//	@PostMapping(value = "/regProduct")
-//	public String regProduct(@ModelAttribute ProductVO productVO 
-//							,@RequestParam("product_pics") MultipartFile[] file
-//							,HttpServletRequest request) throws Exception {
-//		logger.info("Controller - 상품 등록 실행!");
-//		logger.info(productVO.toString());
-//		service.regProduct(productVO, file, request);
-//		
-//		return "redirect:/product/prodInfo";
-//	}
 	@PostMapping(value = "/regProduct")
 	public String regProduct(@ModelAttribute ProductVO vo
 							,@RequestParam("product_pics") MultipartFile[] files

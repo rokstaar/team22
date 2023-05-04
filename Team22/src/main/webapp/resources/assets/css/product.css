@@ -97,6 +97,52 @@ section div img{
 	display: inline-block;
 }
 
+.div-subpost{
+	display:flex;
+	justify-content:end;
+}
+
+#div-filter-show {
+  display: flex;
+  justify-content: space-between;
+  float: right;
+}
+
+.div-filter-part {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.div-filter-part > .select-container,
+.div-filter-part > input[type="number"],
+.div-filter-part > .div-search {
+  margin: 0 5px; /* Adjust the margin values for the desired gap */
+}
+
+/* Align the height of input text fields in the second div-filter-part */
+.div-filter-part:nth-child(2) > input[type="number"] {
+  height: 30px; /* Adjust the height value as needed */
+}
+
+.div-filter-part input{
+	width:120px;
+}
+
+
+#filter-range{
+	display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    margin-bottom: 100px;
+}
+
+.subpost-img{
+	width:20px;
+	margin: 0px 10px -10px;
+	cursor: pointer;
+}
+
 .search-input {
 	padding-right: 30px; 
 	margin: 0;
@@ -208,6 +254,7 @@ div.smalldiv{
 
 #filter-form{
 	display: flex;
+	flex-direction: column;
 	float: right;
 }
 
