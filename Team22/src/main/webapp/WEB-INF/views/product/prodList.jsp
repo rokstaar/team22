@@ -17,6 +17,9 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.4/nouislider.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.4/nouislider.min.js"></script>
 		
+		
+<link rel="preload" href="https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff" as="font" type="font/woff" crossorigin>
+		
 		<style>
 			#sidebar.force-inactive{
 				margin-left: -26em;
@@ -113,7 +116,7 @@
 									<div id="div-filter-show">
 	<form id="filter-form">
 		<div class="div-filter-part">
-		<button>검색조건 초기화</button>
+		<button type="button" onclick="resetForm();">검색조건 초기화</button>
 		<div class="select-container">
 			<select name="sort" id="sort-select" class="select_filter">
 				<option value="" hidden>===정렬===</option>
@@ -159,6 +162,7 @@
 			<div id="div-filter-submit">
 				<i class="fas fa-search"></i>
 			</div>
+			<input type="submit" style="display:none;">
 		</div>
 		</div>
 	</form>
@@ -174,7 +178,7 @@
 			
 			<a class="product-section" href="/product/prodInfo?product_num=${list.product_num }&seller=${list.product_seller}">
 				<div class="img-wrapper">
-					<img src="/resources/images/${list.product_pic.split(',')[0] }" 
+					<img src="/product/download?fileName=${list.product_pic.split(',')[0] }" 
 					onerror="imgerr(this)" draggable="false">
 				</div>
 			<div style="float:right;">
@@ -525,9 +529,6 @@
 		    this.value = maxValue;
 		  }
 
-		  if (this.value > maxPrice.value) {
-		    maxPrice.value = this.value;
-		  }
 		});
 
 		document.getElementById('max-price').addEventListener('input', function() {
@@ -548,39 +549,15 @@
 
 	
 
-	// 이중 레인지 슬라이더
-/* 	const priceRangeSlider = document.getElementById('filter-range');
 
-	noUiSlider.create(priceRangeSlider, {
-	    start: [0, 100000000],
-	    connect: true,
-	    range: {
-	        'min': 0,
-	        'max': 100000000
-	    }
-	});
-
-	priceRangeSlider.noUiSlider.on('update', function (values, handle) {
-	    const minPrice = parseInt(values[0]);
-	    const maxPrice = parseInt(values[1]);
-	    fetchFilteredProducts(minPrice, maxPrice);
-	});
-
-	function fetchFilteredProducts(minPrice, maxPrice) {
-		console.log("확인 중...");
-		  const xhttp = new XMLHttpRequest();
-		  xhttp.onreadystatechange = function () {
-		    if (this.readyState === 4 && this.status === 200) {
-		      document.getElementById("productList").innerHTML = this.responseText;
-		      console.log(this.responseText);
-		    }
-		  };
-
-		  xhttp.open("GET", "/product/priceShow?minPrice=" + minPrice + "&maxPrice=" + maxPrice, true);
-		  xhttp.send();
-		} */
-
-
+		function resetForm() {
+		    $('#sort-select').val('');
+		    $('#grade-select').val('');
+		    $('#category-select').val('');
+		    $('#min-price').val('');
+		    $('#max-price').val('');
+		    $('input[name="title"]').val('');
+		}
 	
 	</script>
 			<script src="/resources/assets/js/jquery.min.js"></script>

@@ -57,7 +57,7 @@
 								<section id="banner">
 									<div class="content">
 										<header>
-											<h1>있지마켓 상품수정</h1>
+											<h1>있지마켓 상품등록</h1>
 										</header>
 									</div>
 			
