@@ -1,33 +1,30 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script>
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-
 <html>
-
-
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
-    <link rel="stylesheet" type="text/css" href="/resources/assets/css/login.css" />
-   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-   
 
-
- 
-</script>
+<link rel="stylesheet" type="text/css" href="/resources/assets/css/login.css" />
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+<!-- ë„¤ì´ë²„ì•„ì´ë””ë¡œ ë¡œê·¸ì¸ -->
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     
 </head>
+
 <body>
 
   <!-- header -->
-    <header></header>
 
     <!-- sign-in -->
     <div class="sign-in">
+    
       <form
         class="sign-in__wrap"
         id="join"
@@ -35,11 +32,11 @@
         method="post"
         name="joinform"
       >
-        <h2 class="sign-in__title">·Î±×ÀÎ</h2>
+        <h2 class="sign-in__title">ë¡œê·¸ì¸</h2>
 
         <!-- id -->
         <div class="id-form__wrap">
-          <label for="id">¾ÆÀÌµğ</label>
+          <label for="id">ì•„ì´ë””</label>
           <br />
           <div class="id-form">
             <input
@@ -47,7 +44,7 @@
               id="id"
               name="member_id"
               class="id-form__input"
-              placeholder="¾ÆÀÌµğ"
+              placeholder="ì•„ì´ë””"
               value="${not empty param.member_id ? param.member_id : ''}"
               required=""
               minlength="4"
@@ -58,58 +55,60 @@
 
         <!-- password -->
         <div class="password-form__wrap form--margin">
-          <label for="pwd">ºñ¹Ğ¹øÈ£</label>
+          <label for="pwd">ë¹„ë°€ë²ˆí˜¸</label>
           <br />
           <input
             type="password"
             id="pwd"
             name="member_pass"
             class="ps-form__input form--margin-top"
-            placeholder="ºñ¹Ğ¹øÈ£"
+            placeholder="ë¹„ë°€ë²ˆí˜¸"
             required=""
           />
         </div>
 
         <!-- btn -->
         <button type="submit" class="btn__wrap btn-default">
-          <p class="sign-in__btn">·Î±×ÀÎ</p>
+          <p class="sign-in__btn">ë¡œê·¸ì¸</p>
         </button>
         
         <c:if test="${not empty errorMessage}">
-    <script>
-    	alert("${errorMessage}");
-    </script>
+   			<script>
+    			alert("${errorMessage}");
+    		</script>
 		</c:if>
         
-
+        
         <!-- sign-in-info__list -->
         <ul class="sign-in-info__list">
-          <div>
+
             <li>
-              <a href="/members/insert">È¸¿ø°¡ÀÔ</a>
+              <a href="/members/insert">íšŒì›ê°€ì…</a>
             </li>
-          </div>
+
+          
           <div class="forgot-id-ps__list">
             <li>
-              <a id="find_id_btn" href="/members/findIdView">¾ÆÀÌµğ Ã£±â</a>
+              <a href="/members/findIdView">ì•„ì´ë”” ì°¾ê¸°</a>
             </li>
+            <div class="forgot-id-ps__list-divider"></div>
             <li>
-              <a href="/members/findPassword">ºñ¹Ğ¹øÈ£ Ã£±â</a>
+              <a href="/members/findPassword">ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°</a>
             </li>
           </div>
+          
         </ul>
 
-      </form>
-  
-  <script type="text/javascript">
-	//alert("${result}");
-	var result = "${result}";
-	
-	if(result == "O"){
-		alert("È¸¿ø°¡ÀÔÀÌ µÇ¾ú½À´Ï´Ù.");		
-	}
-	
-</script>  
+		<!-- ë„¤ì´ë²„ ë¡œê·¸ì¸ ë²„íŠ¼ -->
+		<div id="naver_id_login" style="text-align:center">
+			<a href="${naverurl}">
+			<img width="200" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a>
+		</div>
 
+       </form>
+       
+       
+    </div>
+      
 </body>
 </html>

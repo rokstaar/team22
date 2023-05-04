@@ -42,4 +42,9 @@ public class ChatMessageDAOImpl implements ChatMessageDAO {
 		return sqlSession.selectList(NAMESPACE + ".selectRecentChatDialog", id);
 	}
 
+	@Override
+	public int updateExitChat(String id, int room_id, String person) {
+		return 0;
+	}
+
 }

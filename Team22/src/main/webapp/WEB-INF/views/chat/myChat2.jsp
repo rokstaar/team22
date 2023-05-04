@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -224,7 +225,6 @@ div{
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="/resources/assets/css/main.css" />
 	
-
 </head>
 
 	<body>
@@ -354,16 +354,17 @@ div{
 			</div>
 
 
-		<!-- Scripts -->
-		<script src="/resources/assets/js/jquery.min.js"></script>
-		<script src="/resources/assets/js/skel.min.js"></script>
-		<script src="/resources/assets/js/util.js"></script>
-		<script src="/resources/assets/js/main.js"></script>
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-		<script type="text/javascript"
+	<!-- Scripts -->
+	<script src="/resources/assets/js/jquery.min.js"></script>
+	<script src="/resources/assets/js/skel.min.js"></script>
+	<script src="/resources/assets/js/util.js"></script>
+	<script src="/resources/assets/js/main.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
 			
 	<script type="text/javascript">
+	
 	  let roomNum = 0;  // 채팅방 번호
 	  let cnt = 0;  // 방 호출 횟수 (처음만 스크롤 맨 아래로 두기)
 	  let maxHeight = 0; // 대화창의 최대 높이
@@ -376,34 +377,35 @@ div{
 	  }
 	  
 	  
-	  connect();
-		function connect() {
-			sock = new SockJS("<c:url value="/chat"/>");
-			sock.onopen = function() {
-				console.log('open');
-			};
-			sock.onmessage = function(evt) {
-				var data = evt.data;
-				console.log(data);
-				//var obj = JSON.parse(data);
+ 	  connect();
+ 		function connect() {
+ 			sock = new SockJS("<c:url value="/chat"/>");
+ 			sock.onopen = function() {
+ 				//console.log('open');
+ 	
+ 			};
+ 			sock.onmessage = function(evt) {
+ 				var data = evt.data;
+ 				console.log(data);
+				var obj = JSON.parse(data);
 				
-				//if(obj.buyer_id === ${data.seller_id })
-				//cosole.log(${data.seller_id });
-				//console.log(obj);
-				//console.log(obj.user_id);
-				//appendMessage(obj.message_content, obj.msg_sender);
-			};
-			sock.onclose = function() {
-				appendMessage("연결을 끊었습니다.");
-				console.log('close');
-			};
+				/* if(obj.buyer_id === ${data.seller_id })
+				cosole.log(${data.seller_id });
+				console.log(obj);
+				console.log(obj.user_id); */
+				appendMessage(obj.message_content, obj.msg_sender);
+ 			};
+ 			sock.onclose = function() {
+ 				appendMessage("연결을 끊었습니다.");
+ 				console.log('close');
+ 			};
 
-		}
+ 		}
 	  
 	  // 대화 내용 추가 (조회, 입력)
 	  const addDialog = function(data, userId) {
 	    for (let i=0; i<data.length; i++) {
-	       console.log(data[i].chat_date);
+	       //console.log(data[i].chat_date);
 	      
 	      if (userId == data[i].seller_id) {
 	        $('#msg_history')
@@ -672,7 +674,6 @@ div{
 	    chatBox.scrollTop = chatBox.scrollHeight; // 대화 시 스크롤 조정
 	    maxHeight = chatBox.scrollTop;
 	  }
-/* 
 	  // 반복해야 하는 함수
 	  const refreshMethod = function() {
 	    showDialog(roomNum);
@@ -687,8 +688,8 @@ div{
 	    return setInterval(callback, seconds * 1000);
 	  }
 	  
-	  startInterval(5, refreshMethod);	
-	   */
+	  startInterval(10, refreshMethod);	
+	  
 	</script>
 	
 </body>
