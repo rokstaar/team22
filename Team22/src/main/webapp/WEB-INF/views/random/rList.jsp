@@ -99,7 +99,7 @@
 											가격 : ${best.ran_price }<br>
 											응모금 : ${best.ran_bidPrice }<br>
 											판매자 : ${best.ran_sellerId } </p>
-											<p class="button">남은 응모 가능 인원 : ${best.ran_maxPp - best.count }</p>
+											<p class="button">남은 응모 가능 인원 : ${best.ran_maxPp - bCount }</p>
 											<ul class="actions" style="text-align: center;">
 												<li class="button" id="time" style="text-align: center; width:230px"></li>
 												<li><a href="/random/rDetail?ran_num=${best.ran_num }" class="button">응모하기</a></li>
@@ -139,6 +139,7 @@
 									<a href="/auction/myList" class="button" style="display: inline-block; float: left; margin-right:10px">경매 결과 확인	</a>
 									
 									<div class="features">
+									<c:if test="${rList != null }">
 									<c:forEach items="${rList }" var="rList">
 										<article style="text-align: center; border: solid 3px #769fcd; margin:20px">
 											<span id="subSpan"><img id="subPic" src="/random/download?fileName=${rList.ran_pic.replace('[','').replace(']','').split(',')[0]}" /></span>
@@ -153,6 +154,7 @@
 											</div>
 										</article>
 									</c:forEach>
+									</c:if>
 									</div>
 									
 									<ul class="pagination" style="text-align: center;">

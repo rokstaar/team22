@@ -22,5 +22,15 @@ public interface RandomService {
 	public List<String> selectBuyer(int ran_num) throws Exception;
 	
 	public RandomVO nowBest() throws Exception;
+	
+	public String selectTrade(int ran_num) throws Exception;
+	
+	public void updateRan(int ran_num) throws Exception;
+	
+	public RandomVO selectWinner(int ran_num) throws Exception;
+	
+	public void insertTrade(RandomVO vo) throws Exception;
+	
+	public void plusPay(RandomVO vo) throws Exception;
 
 }
