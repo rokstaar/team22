@@ -44,14 +44,13 @@ public class MembersController {
 	@Named("uploadPath")
 	private String uploadPath;
 	
-	/* NaverLoginBO */
 	private NaverLoginBO naverLoginBO;
 	private String apiResult = null;
 	
-	@Inject
-	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
-		this.naverLoginBO = naverLoginBO;
-	}
+	
+	  @Inject private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
+	  this.naverLoginBO = naverLoginBO; }
+	 
 	
 	private static final Logger logger = LoggerFactory.getLogger(MembersController.class);
 	
@@ -61,47 +60,63 @@ public class MembersController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginGET(Model model, HttpSession session) {
 		
-		 /* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
-        String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
-      
-        logger.info("네이버 : " + naverAuthUrl);
-        
-        model.addAttribute("naverurl", naverAuthUrl);
+//		  네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 
+			
+			  String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+			  
+			  logger.info("네이버 : " + naverAuthUrl);
+			  
+			  model.addAttribute("naverurl", naverAuthUrl);
+			 
  
         /* 생성한 인증 URL을 View로 전달 */
 		return "/members/loginForm";
 	}
-	
-	//네이버 로그인 성공시 callback호출 메소드
-	@RequestMapping(value = "callback", method = { RequestMethod.GET, RequestMethod.POST })
-	public String callbackNaver(Model model, HttpSession session, MemberVO vo,
-								@RequestParam String code, @RequestParam String state) throws Exception {
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String loginPOST(Model model, HttpSession session,
+				MemberVO vo ) {
+		  
+		if(service.loginMember(vo) != null) { 
+			session.setAttribute("id", vo.getMember_id()); 
+			} 
+		else { service.memberJoin(vo);
+			session.setAttribute("id", vo.getMember_id()); 
+		}
 		
-		logger.info("로그인 성공 callbackNaver");
-		JsonParser json = new JsonParser();
-		
-		OAuth2AccessToken oauthToken;
-        oauthToken = naverLoginBO.getAccessToken(session, code, state);
-        
-        //로그인 사용자 정보를 읽어온다.
-	    String apiResult = naverLoginBO.getUserProfile(oauthToken);
-	    
-	    vo = json.changeJson(apiResult);
-	    
-	    logger.info(apiResult);
-	    
-	    if(service.loginMember(vo) != null) {
-	    	session.setAttribute("id", vo.getMember_id());
-	    } else {
-	    	service.memberJoin(vo);
-	    	session.setAttribute("id", vo.getMember_id());
-	    }
-
-	    model.addAttribute("result", apiResult);
-	    
-	    return "redirect:/main";
-
+		return "redirect:/main";
 	}
+	
+	
+	  //네이버 로그인 성공시 callback호출 메소드
+	  
+	  @RequestMapping(value = "callback", method = { RequestMethod.GET,
+	  RequestMethod.POST }) public String callbackNaver(Model model, HttpSession
+	  session, MemberVO vo,
+	  
+	  @RequestParam String code, @RequestParam String state) throws Exception {
+	  
+	  logger.info("로그인 성공 callbackNaver"); JsonParser json = new JsonParser();
+	  
+	  OAuth2AccessToken oauthToken; oauthToken =
+	  naverLoginBO.getAccessToken(session, code, state);
+	  
+	  //로그인 사용자 정보를 읽어온다. String apiResult =
+	  naverLoginBO.getUserProfile(oauthToken);
+	  
+	  vo = json.changeJson(apiResult);
+	  
+	  logger.info(apiResult);
+	  
+	  if(service.loginMember(vo) != null) { session.setAttribute("id",
+	  vo.getMember_id()); } else { service.memberJoin(vo);
+	  session.setAttribute("id", vo.getMember_id()); }
+	  
+	  model.addAttribute("result", apiResult);
+	  
+	  return "redirect:/main";
+	  
+	  }
+	 
 	
 	//濡쒓렇�븘�썐
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
