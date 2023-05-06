@@ -352,16 +352,25 @@ textarea{
 
 							<!-- Header -->
 								<%@ include file="../include/header.jsp" %>
-								<%@ include file="../include/mypageTrade.jsp" %>
-							<div class="shippingStatusContainer">
-								
+								<%@ include file="../include/myPage.jsp" %>
+																	
+						<div class="shippingStatusContainer">
 								<div class="infoContainer">
-								<c:forEach var="vo" items="${prodList }">
-										
+								    <a href="/trade/buyList" class="item">
+								      <div>구매내역</div>
+								    </a>    
+								   
+								    <a href="/trade/prodList" class="item">
+								      <div>판매내역</div>
+								    </a>    
+								  </div>	
+								<c:forEach var="vo" items="${buyList }">
+								<div class="infoContainer">
 										<div class="item">
 									        <div>
 									        <img src="/resources/images/${vo.product_pic.split(',')[0] }" 
 									        onerror="this.src='/resources/images/default_product.jpg'" width="100px" height="80px">
+									          <%-- <div>${vo.product_pic }</div> --%>
 									        </div>
 									        </div>
 										<div class="item">
@@ -378,16 +387,15 @@ textarea{
 									        </div>
 										<div class="item">
 									        <div>
-							         	  <a href="/members/memberInfo?mem_id=${vo.buy_mem_id }"> 
+							         	  <a href="/members/memberInfo?mem_id=${vo.sell_mem_id }"> 
 							         	  <div>${vo.sell_mem_id }</div>
 							         	   </a>
 									        </div>
 									        </div>
-										</c:forEach>
 									</div>
-								</div>
+									</c:forEach>
+								</div>									
 									
-	
 						</div>
 					</div>
 
