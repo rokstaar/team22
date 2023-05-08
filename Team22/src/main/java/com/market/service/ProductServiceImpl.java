@@ -241,4 +241,14 @@ public class ProductServiceImpl implements ProductService{
 		public int getTotalCount() {
 			return pdao.getTotalCount();
 		}
+
+		@Override
+		public int updateProd(ProductVO vo) {
+			return pdao.updateProd(vo);
+		}
+
+		@Override
+		public int deleteProd(Integer pnum) {
+			return pdao.deleteProd(pnum);
+		}
 }
