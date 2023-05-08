@@ -34,11 +34,11 @@ public class ChatMessageController {
 	private ChatMessageService cmservice;
 
     // 채팅 기록 가져오기
-    @RequestMapping(value="/chatdialog", method=RequestMethod.POST)
+    @RequestMapping(value="/chatdialog", method=RequestMethod.GET)
     @ResponseBody
     public List<ChatMessageVO> chatdialog(@RequestParam int room_id, HttpSession session) {
     	
-    	logger.info(" chatdialogPost() 실행 ");
+    	logger.info(" chatdialogGet() 실행 ");
     	
     	String id = (String) session.getAttribute("id");
     	

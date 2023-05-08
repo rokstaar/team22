@@ -2,6 +2,7 @@ package com.market.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -32,6 +33,7 @@ public class ChatRoomController {
 	
 	@Autowired
 	private ChatMessageService cmservice;
+
 	
 	// 채팅 테스트 ------------------------------------------------------
     @RequestMapping("/test/{id}")
@@ -40,71 +42,86 @@ public class ChatRoomController {
         return "chat/test";
     }
     
-	// 채팅하기 클릭시 채팅 페이지 조회
-	@RequestMapping(value = "/chatroom", method = RequestMethod.POST)
-	public String createChatroom(HttpSession session, Model model, ChatRoomVO crvo, 
-				@RequestParam(value = "product_num") int pnum, @RequestParam(value = "seller") String seller) {
-		
-		logger.info(" createChatroom() 실행 ");
-		
-		// 세션 제어
-		String id = (String) session.getAttribute("id");
-		if(id == null) {
-			return "redirect:/members/login";
-		}
-
-		logger.info(" 상품 번호 >>>> " + pnum + " 판매자 >>>> " + seller);
-		crvo.setBuyer(id);		
-		
-        if (crservice.searchChatRoom(crvo) == 0) {
-        	logger.info(" 채팅방 없음 @@@@@@@@@@@ ");
-            crservice.registChatRoom(crvo);
-            logger.info(" 채팅방 만듬 @@@@@@@@@@@ ");
-        }
-        
-        model.addAttribute("seller", seller);
-        model.addAttribute("pnum", pnum);
-        model.addAttribute("currRoomId", crservice.searchRoomId(crvo));
-        model.addAttribute("ptitle", crservice.searchTitle(crvo.getRoom_id()));
-        
-             
-        return "/chat/myChat2";
-
-	}
-	
-	
-    @RequestMapping(value="/chatroom", method=RequestMethod.GET)
-    public String chatroomGet(HttpSession session) {
+    
+    // 채팅 홈 화면
+    @RequestMapping(value = "/chatroom", method = RequestMethod.GET)
+    public String selectChatHome(HttpSession session, Model model, ChatRoomVO crvo) {
     	
-    	logger.info(" chatroomGet() 실행 ");
+    	logger.info(" selectChatHome() 실행 ");
     	
     	String id = (String) session.getAttribute("id");
-		if(id == null) {
-			return "redirect:/members/login";
-		}
-        
-        return "/chat/myChat2";
-
+    	
+    	// 채팅방 리스트 출력
+    	model.addAttribute("chatRoomList", crservice.chatList(id)); 
+    	
+    	List<ChatMessageVO> chatList = cmservice.searchRecentChatDialog(id);
+    	model.addAttribute("chatList", chatList);
+    	
+    	
+    	return "/chat/chat";
+    	
     }
     
     
-    // 채팅방 조회
-    @RequestMapping(value="/chatroom-info", method=RequestMethod.POST)
-    @ResponseBody
-    public List<ChatMessageVO> chatroomPost(HttpSession session, Model model) {
+    // 상품 페이지에서 채팅하기 클릭시 채팅방 조회
+    @RequestMapping(value = "/chatroom-select", method = RequestMethod.GET)
+    public String createChatroom(HttpSession session, Model model, ChatRoomVO crvo,
+    		@RequestParam(value = "product_num") int pnum, 
+    		@RequestParam(value = "seller") String seller) {
     	
-    	logger.info(" chatroomPost() 실행 ");
+    	logger.info(" createChatroom() 실행 ");
     	
+    	// 세션 제어
     	String id = (String) session.getAttribute("id");
-    	
-    	List<ChatMessageVO> cmvoList = cmservice.searchRecentChatDialog(id);
-    			
-    	for(ChatMessageVO cmvo : cmvoList) {
-    		cmvo.setChat_profile(crservice.searchTitle(cmvo.getRoom_id()));
+    	if(id == null) {
+    		return "redirect:/members/login";
     	}
+    	    	
+    	logger.info(" 상품 번호 >>>> " + pnum + " 판매자 >>>> " + seller);
+    	crvo.setBuyer(id);		
     	
-		return cmvoList;
+    	
+    	if (crservice.searchChatRoom(crvo) == 0) {
+    		logger.info(" 채팅방 없음 @@@@@@@@@@@ ");
+    		crservice.registChatRoom(crvo);
+    		logger.info(" 채팅방 만듬 @@@@@@@@@@@ ");
+    	}
+
+    	// 채팅 내역 출력
+    	List<ChatMessageVO> chatList = cmservice.searchRecentChatDialog(id);
+    	model.addAttribute("chatList", chatList);
+    	
+    	model.addAttribute("seller", seller);
+    	model.addAttribute("pnum", pnum);
+		model.addAttribute("room_id", crservice.searchRoomId(crvo));
+    	model.addAttribute("ptitle", crservice.searchTitle(crvo.getRoom_id()));
+    	
+    	return "/chat/chat"; 
     }
-        
+
+    
+    // 채팅방 목록에서 방 클릭시 채팅창 조회
+    @RequestMapping(value = "/selectroom", method = RequestMethod.GET)
+    public String selectRoom(HttpSession session, Model model, ChatRoomVO crvo, 
+    						@RequestParam(value = "room_id") int room_id) {
+    	
+    	logger.info(" selectRoom() 실행 ");
+    	
+    	String id = (String) session.getAttribute("id");
+    	
+    	ChatRoomVO result = crservice.searchChatRoomInfo(room_id);
+    	model.addAttribute("readRoom", result);
+    	
+    	crvo.setRoom_id(room_id);
+    	crvo.setBuyer(id);
+
+    	List<ChatMessageVO> cmList = cmservice.searchChatDialog(room_id, id);
+    	model.addAttribute("selectChatting", cmList); 
+    	model.addAttribute("ptitle", crservice.searchTitle(crvo.getRoom_id()));
+    	model.addAttribute("room_id", room_id);
+
+		return "/chat/selectroom";
+    }
+    
 
 }

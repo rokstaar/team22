@@ -1,5 +1,7 @@
 package com.market.persistence;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -38,6 +40,12 @@ public class ChatRoomDAOImpl implements ChatRoomDAO {
 	public String selectTitle(int room_id) {
 		return sqlSession.selectOne(NAMESPACE + ".selectTitle", room_id); 
 	}
+
+	@Override
+	public List<ChatRoomVO> selectChatList(String id) {
+		return sqlSession.selectList(NAMESPACE + ".selectChatList", id);
+	}
+
 	
 
 	

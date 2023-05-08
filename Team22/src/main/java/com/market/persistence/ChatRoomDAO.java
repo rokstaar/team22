@@ -1,5 +1,7 @@
 package com.market.persistence;
 
+import java.util.List;
+
 import com.market.domain.ChatRoomVO;
 
 public interface ChatRoomDAO {
@@ -13,6 +15,11 @@ public interface ChatRoomDAO {
 	public ChatRoomVO selectChatRoomInfo(int room_id);
 	
 	public String selectTitle(int room_id);
+	
+	
+	
+	public List<ChatRoomVO> selectChatList (String id);
+	
 
 	
 }

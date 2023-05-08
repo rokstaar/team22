@@ -23,6 +23,7 @@
 			<c:if test="${id != null && id !=('admin')}">
 				<li><a href="/members/logout"><span class="label">로그아웃</span></a></li>
 				<li><a href="/members/myPage"><span class="label">마이페이지</span></a></li>
+				<li><a href="/chatroom"><span class="label">내채팅</span></a></li>
 			</c:if>
 
 			<c:if test="${id != null && id ==('admin')}">
@@ -30,9 +31,6 @@
 				<li><a href="/admin/adminPage"><span class="label">관리자</span></a></li>
 			</c:if>
 
-			<li><a href="/chatroom" class="icon fa-instagram"> 내채팅<span
-					class="label"></span></a></li>
-			<li><a href="#" class="icon fa-medium"><span class="label">Medium</span></a></li>
 		</ul>
 	</header>
 </body>
