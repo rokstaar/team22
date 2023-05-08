@@ -58,30 +58,39 @@
 								<section style="padding-top:20px">
 								
 									<header class="major">
-										<h2 style="margin-bottom:10px">${id }님의 경매결과</h2>
-										<a href='/auction/aRegist'>경매 등록하기</a>
-										<a href='/auction/list' style="float:right">경매 목록으로</a>
+										<h2 style="margin-bottom:10px">${id }님의 응모결과</h2>
+										<a href='/random/rRegist'>응모 등록하기</a>
+										<a href='/random/rList' style="float:right">응모 목록으로</a>
 									</header>
 									
+									<a href="/random/myRan" class="button" style="display: inline-block; float: left; margin-right:10px">당첨 결과 확인</a>
+									<a href="/auction/list" class="button" style="display: inline-block; float: left; margin-right:10px">응모금 </a>
 									
 									<div class="features">
 									
-									<c:if test="${not empty aList and aList != '[null]' }">
-										<c:forEach items="${aList }" var="aList">
-										<c:if test="${id ne aList.au_sellerId }">
-											<article style="text-align: center; border: solid 3px #769fcd; margin:20px;">
-												<span id="subSpan"><img id="subPic" src="/auction/download?fileName=${aList.au_pic.replace('[','').replace(']','').split(',')[0]}" /></span>
-												<div class="content">
-													<h3>${aList.au_title }</h3>
-													<p>
-													최종 입찰가 : ${aList.au_bidPrice }<br>
-													판매자 : ${aList.au_sellerId }<br>
-													<a href="/auction/Aconfirmed?au_num=${aList.au_num }&au_sellerId=${aList.au_sellerId}&au_title=${aList.au_title}&au_bidPrice=${aList.au_bidPrice}" class="button">구매 확정하기</a></p>
-												</div>
-											</article>
+										<c:if test="${not empty rList and rList != '[null]' }">
+										
+											<c:forEach items="${rList }" var="rList">
+											<c:if test="${id ne rList.ran_sellerId }">
+												<article style="text-align: center; border: solid 3px #769fcd; margin:20px;">
+													<span id="subSpan"><img id="subPic" src="/random/download?fileName=${rList.ran_pic.replace('[','').replace(']','').split(',')[0]}" /></span>
+													<div class="content">
+														<h3>${rList.ran_title }</h3>
+														<p>
+														판매자 : ${rList.ran_sellerId }<br>
+														<c:if test="${rList.ran_buyerId eq id }">
+															<p class="button">당첨되셨습니다</p>
+														</c:if>
+														<c:if test="${rList.ran_buyerId ne id }">
+															<p class="button">당첨되지 못하셨습니다</p>
+														</c:if>
+														
+														</div>
+												</article>
+											</c:if>
+											</c:forEach>
 										</c:if>
-										</c:forEach>
-									</c:if>
+									
 									</div>
 									
 									<ul class="pagination" style="text-align: center;">

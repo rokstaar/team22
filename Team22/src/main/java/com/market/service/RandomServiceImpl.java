@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.market.domain.ACriteria;
 import com.market.domain.RandomVO;
 import com.market.persistence.RandomDAO;
 
@@ -20,8 +21,8 @@ public class RandomServiceImpl implements RandomService {
 	}
 
 	@Override
-	public List<RandomVO> rlist() throws Exception {
-		return rdao.rList();
+	public List<RandomVO> rlist(ACriteria cri) throws Exception {
+		return rdao.rList(cri);
 	}
 
 	@Override
@@ -83,6 +84,27 @@ public class RandomServiceImpl implements RandomService {
 	public void plusPay(RandomVO vo) throws Exception {
 		rdao.plusPay(vo);
 	}
+
+	@Override
+	public List<RandomVO> myRan(String id) throws Exception {
+		return rdao.myRan(id);
+	}
+
+	@Override
+	public Integer countRan() throws Exception {
+		return rdao.countRan();
+	}
+
+	@Override
+	public List<RandomVO> searchList(ACriteria cri, String type, String search) throws Exception {
+		return rdao.searchList(cri, type, search);
+	}
+
+	@Override
+	public Integer countSearch(String type, String search) throws Exception {
+		return rdao.countSearch(type, search);
+	}
+
 	
 	
 	

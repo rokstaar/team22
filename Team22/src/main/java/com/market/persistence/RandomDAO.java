@@ -2,12 +2,13 @@ package com.market.persistence;
 
 import java.util.List;
 
+import com.market.domain.ACriteria;
 import com.market.domain.RandomVO;
 
 public interface RandomDAO {
 	public void rRegist(RandomVO vo) throws Exception;
 	
-	public List<RandomVO> rList() throws Exception;
+	public List<RandomVO> rList(ACriteria cri) throws Exception;
 	
 	public RandomVO rDetail(int ran_num) throws Exception;
 	
@@ -32,6 +33,16 @@ public interface RandomDAO {
 	public void insertTrade(RandomVO vo) throws Exception;
 	
 	public void plusPay(RandomVO vo) throws Exception;
+	
+	public List<RandomVO> myRan(String id) throws Exception;
+	
+	public Integer countRan() throws Exception;
+	
+	public Integer countSearch(String type, String search) throws Exception;
+	
+	public List<RandomVO> searchList(ACriteria cri, String type, String search) throws Exception;
+	
+	
 	
 
 }

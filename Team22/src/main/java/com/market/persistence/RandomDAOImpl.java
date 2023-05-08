@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.market.domain.ACriteria;
 import com.market.domain.RandomVO;
 
 @Repository
@@ -24,8 +25,8 @@ public class RandomDAOImpl implements RandomDAO {
 	}
 
 	@Override
-	public List<RandomVO> rList() throws Exception {
-		return sqlSession.selectList(NAMESPACE+".rList");
+	public List<RandomVO> rList(ACriteria cri) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".rList", cri);
 	}
 
 	@Override
@@ -90,6 +91,39 @@ public class RandomDAOImpl implements RandomDAO {
 	public void plusPay(RandomVO vo) throws Exception {
 		sqlSession.update(NAMESPACE+".plusPay", vo);
 	}
+
+	@Override
+	public List<RandomVO> myRan(String id) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".myRan", id);
+	}
+
+	@Override
+	public Integer countRan() throws Exception {
+		return sqlSession.selectOne(NAMESPACE+".countRan");
+	}
+
+	@Override
+	public List<RandomVO> searchList(ACriteria cri, String type, String search) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("pageStart", cri.getPageStart());
+		map.put("pageSize", cri.getPageSize());
+		map.put("type", type);
+		map.put("search", search);
+		return sqlSession.selectList(NAMESPACE+".searchList", map);
+	}
+
+	@Override
+	public Integer countSearch(String type, String search) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("type", type);
+		map.put("search", search);
+		return sqlSession.selectOne(NAMESPACE+".countSearch", map);
+	}
+
+	
+	
+	
+	
 	
 	
 	

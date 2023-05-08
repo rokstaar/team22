@@ -88,76 +88,44 @@
 
 							<%@ include file="../include/header.jsp" %>
 
-							<!-- Banner -->
-							<c:if test="${best != null }">
-								<section id="banner">
-									<div class="content">
-										<header style="text-align: center;">
-											<h1>HOT<br/>
-											${best.au_title }</h1>
-											<p>기간 : ${best.au_endTime }<br>
-											시작가 : ${best.au_startPrice }<br>
-											현재 입찰금 : ${best.au_bidPrice }<br>
-											즉시 구매가 : ${best.au_endPrice }<br>
-											판매자 : ${best.au_sellerId } </p>
-											
-											<ul class="actions" style="text-align: center;">
-												<li class="button" id="time" style="text-align: center; width:230px"></li>
-												<li><a href="/auction/aDetail?au_num=${best.au_num }" class="button">입찰하기</a></li>
-											</ul>
-											
-											<input type="hidden" value="${best.au_endTime }" id="endDate">
-											
-										</header>
-										
-									</div>
-									<span class="image object">
-										<img src="/auction/download?fileName=${best.au_pic.replace('[','').replace(']','').split(',')[0]} " style="width:644.7px; height:438.4px" />
-									</span>
-								</section>
-
-							</c:if>
+							
 							<!-- Section -->
 								<section style="padding-top:20px">
 								
 									<header class="major">
-										<h2 style="margin-bottom:10px">경매 물품</h2>
-										<a href='/auction/aRegist'>상품 등록하기</a>
+										<h2 style="margin-bottom:10px">상품 목록</h2>
+										<a href='/random/rRegist'>응모 등록하기</a>
 									</header>
 									<section id="search" class="alt" style="display: inline-block; float: right;">
-										<form method="get" action="/auction/list" style="display: flex">
+										<form method="get" action="/random/searchList" style="display: flex">
 											<select name="type" class="button" style="margin-right: 10px">
-												<option value="au_title">제목</option>
-												<option value="au_sellerId">판매자</option>
+												<option value="ran_title">제목</option>
+												<option value="ran_sellerId">판매자</option>
 											</select>
 											<input type="text" name="search" placeholder="검색할 단어입력" style="width: 300px;"/>
 										</form>
 									</section>
-									
-									<a href="/auction/list?order=au_bidPrice&met=asc" class="button" style="display: inline-block; float: left; margin-right:10px">가격순</a>
-									<a href="/auction/list?order=best" class="button" style="display: inline-block; float: left; margin-right:10px">인기순</a>
-									<a href="/auction/list" class="button" style="display: inline-block; float: left; margin-right:10px">최신순</a>
-									<a href="/auction/myList" class="button" style="display: inline-block; float: left; margin-right:10px">경매 결과 확인	</a>
+									<c:if test="${id ne null }">
+										<a href="/random/myRan" class="button" style="display: inline-block; float: left; margin-right:10px">응모 결과 확인	</a>
+									</c:if>
 									
 									<div class="features">
-									<c:forEach items="${aList }" var="aList">
+									<c:if test="${rList != null }">
+									<c:forEach items="${rList }" var="rList">
 										<article style="text-align: center; border: solid 3px #769fcd; margin:20px">
-											<span id="subSpan"><img id="subPic" src="/auction/download?fileName=${aList.au_pic.replace('[','').replace(']','').split(',')[0]}" /></span>
+											<span id="subSpan"><img id="subPic" src="/random/download?fileName=${rList.ran_pic.replace('[','').replace(']','').split(',')[0]}" /></span>
 											<div class="content">
-												<h3>${aList.au_title }</h3>
+												<h3>${rList.ran_title }</h3>
 												<p>
-												<c:if test="${aList.au_bidPrice == 0 }">
-													현재 입찰가 : ${aList.au_startPrice }<br>
-												</c:if>
-												<c:if test="${aList.au_bidPrice != 0 }">
-													현재 입찰가 : ${aList.au_bidPrice }<br>
-												</c:if>
-												판매자 : ${aList.au_sellerId }<br>
-												종료시간 : ${aList.au_endTime }<br>
-												<a href="/auction/aDetail?au_num=${aList.au_num }" class="button">입찰하기</a></p>
+												응모금액 : ${rList.ran_bidPrice }<br>
+												응모가능 인원 : ${rList.ran_maxPp - rList.count }<br>
+												판매자 : ${rList.ran_sellerId }<br>
+												종료시간 : ${rList.ran_endTime }<br>
+												<a href="/random/rDetail?ran_num=${rList.ran_num }" class="button">응모하기</a></p>
 											</div>
 										</article>
 									</c:forEach>
+									</c:if>
 									</div>
 									<ul class="pagination" style="text-align: center;">
 										<c:if test="${pageDTO.prev == true }">
