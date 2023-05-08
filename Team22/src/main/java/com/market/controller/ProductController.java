@@ -116,7 +116,6 @@ public class ProductController {
 		
 		Map<String,Object> map = service.getProdInfo(pnum);
 		model.addAttribute("info", map);
-		model.addAttribute("infoStr", new ObjectMapper().writeValueAsString(map));
 		model.addAttribute("score", service.getScore(name));
 		
 		return new ModelAndView("product/prodInfo");

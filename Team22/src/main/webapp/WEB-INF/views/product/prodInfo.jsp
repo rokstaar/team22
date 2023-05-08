@@ -161,8 +161,9 @@ console.log(${infoStr });
 </script>
 
 <div id="updataForm" style="display:none;">
+<div>
 <section style="display:flex; justify-content:center;">
-	<form id="regProd" action="/product/regProduct" method="post" enctype="multipart/form-data">
+	<form id="updateProd" action="/product/updateProd" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="product_seller" value="${product_seller }">
 		<div class="regProd">
 		<div id="regTitle">
@@ -207,31 +208,15 @@ console.log(${infoStr });
 		</div>
 		</div>
 		
-		<div id="file-inputs-container">
-		제품사진
-			<div class="file-input-wrapper">
-				<!-- 제품사진<input type="file" name="product_pics">
-				<button type="button" class="add-button">+</button> -->
-				
-				<div id="div-file">
-				<div class="div-file-insert">
-					<input type="file" name="product_pics" onchange="validateForm()">
-				</div>
-				<div class="div-button">
-					<button type="button" class="add-button">+</button>
-				</div>
-				</div>
-			</div>
-		</div>
 		
-		<input id="submitButton" type="submit" value="등록하기">
+		<input id="submitButton" type="submit" value="수정하기">
 	</form>
 	</section>
+	</div>
 </div>
 		<!-- 게시물 부가탭 -->
 		<div class="div-subpost">
 			<c:if test="${id eq info.member_id }">
-<%-- 				<a href="prodMod?info="${infoStr } id="a-modify"> --%>
 				<a onclick="formToggle()" id="a-modify">
 					<i class="fas fa-eraser fa-2x"></i>
 				</a>
