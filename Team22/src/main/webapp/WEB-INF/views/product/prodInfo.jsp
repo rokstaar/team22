@@ -36,7 +36,7 @@
 			function changeMainImage(thumbnail) {
 				const mainImage = document.getElementById('main-image');
 				  
-				mainImage.src = thumbnail.src;
+				mainImage.src = thumbnail.src.replace('/product/thumb','/product/download');
 			}
 		</script>
 						<link
@@ -91,7 +91,7 @@
 		<div class="prodInfo">
 		<div class="image-gallery">
 		  <div class="main-image">
-		    <%-- <img id="main-image" src="/resources/images/${info.product_pic.split(',')[0]}" onerror="imgerr(this)"> --%>
+		    
 		    <img id="main-image" src="/product/download?fileName=${info.product_pic.split(',')[0]}" onerror="imgerr(this)">
 		  </div>
 		  <div class="thumbnail-container">
@@ -99,7 +99,7 @@
 		      <c:forEach var="i" begin="0" end="2">
 		        <c:if test="${not empty info.product_pic.split(',')[i]}">
 		          <li>
-		            <%-- <img class="thumbnail" src="/resources/images/${info.product_pic.split(',')[i]}" onerror="imgerr(this)" onclick="changeMainImage(this)"> --%>
+		            
 		            <img class="thumbnail" src="/product/thumb?fileName=${info.product_pic.split(',')[i]}" onerror="imgerr(this)" onclick="changeMainImage(this)">
 		          </li>
 		        </c:if>
