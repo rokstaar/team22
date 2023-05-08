@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.market.domain.ChatMessageVO;
 import com.market.domain.ChatRoomVO;
-import com.market.domain.ProductVO;
 import com.market.service.ChatMessageService;
 import com.market.service.ChatRoomService;
 
@@ -33,19 +32,10 @@ public class ChatRoomController {
 	
 	@Autowired
 	private ChatMessageService cmservice;
-
-	
-	// 채팅 테스트 ------------------------------------------------------
-    @RequestMapping("/test/{id}")
-    public String test(HttpSession session, @PathVariable String id) {
-        session.setAttribute("id", id);
-        return "chat/test";
-    }
-    
     
     // 채팅 홈 화면
     @RequestMapping(value = "/chatroom", method = RequestMethod.GET)
-    public String selectChatHome(HttpSession session, Model model, ChatRoomVO crvo) {
+    public String selectChatHome(HttpSession session, Model model) {
     	
     	logger.info(" selectChatHome() 실행 ");
     	
@@ -56,7 +46,6 @@ public class ChatRoomController {
     	
     	List<ChatMessageVO> chatList = cmservice.searchRecentChatDialog(id);
     	model.addAttribute("chatList", chatList);
-    	
     	
     	return "/chat/chat";
     	
