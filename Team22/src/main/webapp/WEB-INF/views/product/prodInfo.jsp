@@ -13,11 +13,12 @@
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="/resources/assets/css/main.css" />
 		<link rel="stylesheet" href="/resources/assets/css/product.css" />
-
+		<link rel="preload" href="https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff" as="font" type="font/woff" crossorigin>
+		<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
 		
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-		<link rel="preload" href="/resources/images/${info.product_pic.split(',')[0]}" as="image">
+		<!-- <link rel="preload" href="/resources/images/${info.product_pic.split(',')[0]}" as="image"> -->
 		
 		
 		<style>
@@ -35,9 +36,13 @@
 			function changeMainImage(thumbnail) {
 				const mainImage = document.getElementById('main-image');
 				  
-				mainImage.src = thumbnail.src;
+				mainImage.src = thumbnail.src.replace('/product/thumb','/product/download');
 			}
 		</script>
+						<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+  />
 	</head>
 	<body>
 
@@ -86,7 +91,7 @@
 		<div class="prodInfo">
 		<div class="image-gallery">
 		  <div class="main-image">
-		    <%-- <img id="main-image" src="/resources/images/${info.product_pic.split(',')[0]}" onerror="imgerr(this)"> --%>
+		    
 		    <img id="main-image" src="/product/download?fileName=${info.product_pic.split(',')[0]}" onerror="imgerr(this)">
 		  </div>
 		  <div class="thumbnail-container">
@@ -94,7 +99,7 @@
 		      <c:forEach var="i" begin="0" end="2">
 		        <c:if test="${not empty info.product_pic.split(',')[i]}">
 		          <li>
-		            <%-- <img class="thumbnail" src="/resources/images/${info.product_pic.split(',')[i]}" onerror="imgerr(this)" onclick="changeMainImage(this)"> --%>
+		            
 		            <img class="thumbnail" src="/product/thumb?fileName=${info.product_pic.split(',')[i]}" onerror="imgerr(this)" onclick="changeMainImage(this)">
 		          </li>
 		        </c:if>
@@ -105,7 +110,7 @@
 
 		<hr style="margin: 1em 0;">
 			
-		<a class="a-section">
+		<a href="/members/memberInfo?id=${info.member_id }" class="a-section">
 		<section class="member">
 			<div class="space-between">
 				<div>
@@ -150,13 +155,87 @@
 			</div>
 		</section>			
 		</a>		
+
+<script type="text/javascript">
+console.log(${infoStr });
+</script>
+
+<div id="updataForm" style="display:none;">
+<div>
+<section style="display:flex; justify-content:center;">
+	<form id="updateProd" action="/product/updateProd" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="product_seller" value="${product_seller }">
+		<div class="regProd">
+		<div id="regTitle">
+			제목 <input type="text" name="product_title" 
+			 onchange="validateForm()" onkeyup="return checkByte(this, 50, document.getElementById('inputAlert1'));">
+			<span id="inputAlert1" style="color: red;"></span>
+		</div>
+		<div id="regCategory" class="select-container">
+			<select name="product_cate" onchange="validateForm()">
+				<option value="" hidden>분류</option>
+				<option value="의류">의류</option>
+				<option value="가전제품">가전제품</option>
+				<option value="식기,가구">식기,가구</option>
+				<option value="디지털,전자기기">디지털,전자기기</option>
+				<option value="식품,생필품">식품,생필품</option>
+				<option value="스포츠,건강">스포츠,건강</option>
+				<option value="기기,공구">기기,공구</option>
+				<option value="도서,쿠폰">도서,쿠폰</option>
+				<option value="유아">유아</option>
+				<option value="애완동물">애완동물</option>
+				<option value="기타">기타</option>
+			</select>
+		</div>
+		</div>
 		
+		내용
+		<textarea rows="5" cols="" name="product_content" 
+		 onchange="validateForm()" onkeyup="return checkByte(this, 1000, document.getElementById('inputAlert2'));"></textarea>
+		<span id="inputAlert2" style="color: red;"></span>
+		<div class="regProd">
+		<div id="regPrice">
+			가격 <input type="number" name="product_price" min='0' max='100000000' step='10' onchange="validateForm()">
+			<span id="priceAlert" style="color: red;"></span>
+		</div>
+		<div id="regGrade" class="select-container">
+			<select name="product_grade" onchange="validateForm()">
+				<option value="" hidden>상품상태</option>
+				<option value="상">상</option>
+				<option value="중">중</option>
+				<option value="하">하</option>
+			</select>
+		</div>
+		</div>
+		
+		
+		<input id="submitButton" type="submit" value="수정하기">
+	</form>
+	</section>
+	</div>
+</div>
 		<!-- 게시물 부가탭 -->
 		<div class="div-subpost">
-			<img class="subpost-img" src="/resources/images/ellipsis-solid.svg">
-			<img class="subpost-img" src="/resources/images/flag-solid.svg">
+			<c:if test="${id eq info.member_id }">
+				<a onclick="formToggle()" id="a-modify">
+					<i class="fas fa-eraser fa-2x"></i>
+				</a>
+				<a id="a-delete" onclick="chkDelete();">
+					<i class="fas fa-trash-alt fa-2x"></i>
+				</a>
+			</c:if>
+			<a id="el" onclick="clipBoard();">
+				<i class="fas fa-ellipsis-h fa-2x"></i>
+			</a>
+			<a id="flag" onclick="report(this);">
+				<i class="fas fa-flag fa-2x"></i>
+			</a>
 		</div>
-			
+			<script type="text/javascript">
+			function formToggle(){
+				document.getElementById('updataForm').style = 'display:block';
+			}
+			</script>
 		<hr>
 		<div id="subinfo">
 			<div>
@@ -445,9 +524,33 @@
 	$("#goto-list").on('click', function(){
 		location.href="/product/prodList";
 	});
+
 	
+	function report(element) {
+		  let rep = element.getAttribute("data-reported") === "true";
 
+		  if (rep) {
+		    alert("이미 신고한 게시물입니다");
+		  } else {
+		    rep = confirm("게시물을 신고하시겠습니까?");
+		    if (rep) {
+		      element.setAttribute("data-reported", "true");
+		      alert("신고가 완료되었습니다");
+		    }
+		  }
+		}
 
+	function clipBoard() {
+		  const el = document.createElement("textarea");
+		  el.value = window.location.href;
+		  document.body.appendChild(el);
+		  el.select();
+		  document.execCommand("copy");
+		  document.body.removeChild(el);
+		  showToast("URL이 클립보드에 복사되었습니다.",3000);
+	}
+
+	
 	</script>
 			<script src="/resources/assets/js/jquery.min.js"></script>
 			<script src="/resources/assets/js/skel.min.js"></script>

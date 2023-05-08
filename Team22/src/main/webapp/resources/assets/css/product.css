@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+a{
+	cursor: pointer;
+}
+
 select.select_filter{
 	width:min-content;
 }
@@ -100,6 +104,21 @@ section div img{
 .div-subpost{
 	display:flex;
 	justify-content:end;
+	margin-bottom: -20px;
+}
+
+.div-subpost a i {
+  color: gray;
+  transition: color 0.3s ease;
+  margin-right: 18px;
+}
+
+.div-subpost a:hover i {
+  color: lightgray;
+}
+
+.div-subpost a:last-child i {
+  margin-right: 10px;
 }
 
 #div-filter-show {
@@ -127,6 +146,59 @@ section div img{
 
 .div-filter-part input{
 	width:120px;
+}
+
+#el, #flag, #a-modify, #a-delete{
+  position: relative;
+  display: inline-block;
+}
+
+#a-modify::after{
+	content: "글 수정하기";
+    position: absolute;
+    width: 120px;
+    bottom: -30px;
+    left: -30px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+#a-delete::after{
+	content: "글 삭제하기";
+    position: absolute;
+    width: 120px;
+    bottom: -30px;
+    left: -30px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+#el::after {
+	content: "URL 복사하기";
+    position: absolute;
+    width: 120px;
+    bottom: -30px;
+    left: -30px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+#flag::after {
+	content: "신고하기";
+    position: absolute;
+    width: 100px;
+    bottom: -30px;
+    left: -10px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+#el:hover::after, #flag:hover::after, #a-modify:hover::after, #a-delete:hover::after {
+  opacity: 1;
 }
 
 
@@ -438,4 +510,13 @@ textarea{
   pointer-events: auto;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
+
+.svg-2:hover {
+	
+}

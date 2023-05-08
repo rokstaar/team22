@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.itwillbs.util.ProductRegException;
 import com.market.domain.ProductVO;
 
 @Repository
@@ -80,7 +81,11 @@ public class ProductDAOImpl implements ProductDAO{
 	@Override
 	public void regProduct(ProductVO vo) {
 		logger.info("DAO - 상품 등록 실행");
-		session.insert(NAMESPACE + ".regProd", vo);
+		try {
+			session.insert(NAMESPACE + ".regProd", vo);
+		} catch (Exception e) {
+			throw new ProductRegException("등록 과정에서 오류가 발생했습니다", e, vo.getProduct_seller());
+		}
 	}
 
 	@Override
