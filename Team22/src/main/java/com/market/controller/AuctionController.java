@@ -49,9 +49,6 @@ public class AuctionController {
 									  ,@RequestParam(value= "type", required = false) String type
 									  ,ACriteria cri) throws Exception {
 		
-		service.setEnd(); // 스케줄러 사용시 삭제
-		
-
 		if(order == null) {
 			order = "au_num";
 		}
@@ -225,9 +222,11 @@ public class AuctionController {
 		vo.setAu_buyerId(id);
 		vo.setAu_bidPrice(aPrice);
 		
-		int pPay = lastBid + service.getMpay(lBuyer);
+		if(!vo.getAu_sellerId().equals(lBuyer)) {
+			int pPay = lastBid + service.getMpay(lBuyer);
+			service.plusPay(lBuyer, pPay);
+		}
 		
-		service.plusPay(lBuyer, pPay);
 		service.insertBid(vo);
 		service.minusPay(id, service.getMpay(id)-aPrice);
 		

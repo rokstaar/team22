@@ -71,7 +71,7 @@
 																<input type="text" name="au_startPrice" id="au_startPrice" value="" placeholder="시작가격">
 															</div>
 															<div class="col-6 col-12-xsmall">
-																<input type="datetime-local" name="au_endTime" id="au_endTime" value="" placeholder="종료시간">
+																<input type="date" name="au_endTime" id="au_endTime" value="" placeholder="종료시간">
 															</div>
 															<!-- Break -->
 															

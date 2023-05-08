@@ -39,15 +39,12 @@
 								clearInterval(timer);
 								clearInterval(ubidd);
 								end();
-							}else{
-								$('#rBid').attr('class', 'button');
 							}
 						}
 					});
 				} 
 				
 				function end(){
-						 //status = 1, rand() 1 -> trade 저장, 판매자 금액전달
 					$.ajax({
 						url : '/random/end',
 						data : {
@@ -132,7 +129,8 @@
 			        if (distance < 0){
 						clearInterval(timer);
 						clearInterval(ubidd);
-						$("#time").html("경매 종료");
+						$("#time").html("응모 종료");
+						$('#rBid').attr('class', 'button disabled');
 					}
 			    }
 				timer = setInterval(setTimer, 1000);
@@ -173,8 +171,7 @@
 											</p> 
 											<p class="button" id="time">종료</p>
 											<p class="button" id="nowBid">응모 금액 : ${bidPrice }</p><br>
-											<input type="button" value="test" id="test">
-											
+ 												
 											<input type="hidden" id="myPay" value="${pay }">
 											
 											
