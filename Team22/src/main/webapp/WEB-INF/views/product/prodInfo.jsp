@@ -524,8 +524,7 @@ console.log(${infoStr });
 	$("#goto-list").on('click', function(){
 		location.href="/product/prodList";
 	});
-	
-<<<<<<< HEAD
+
 	
 	function report(element) {
 		  let rep = element.getAttribute("data-reported") === "true";
@@ -552,12 +551,6 @@ console.log(${infoStr });
 	}
 
 	
-	
-	
-=======
-
-
->>>>>>> branch 'master' of https://github.com/llocaluser/team22.git
 	</script>
 			<script src="/resources/assets/js/jquery.min.js"></script>
 			<script src="/resources/assets/js/skel.min.js"></script>
