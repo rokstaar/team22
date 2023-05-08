@@ -316,7 +316,7 @@
 		  const priceInput = document.getElementById('product_price');
 		  const contentInput = document.getElementById('product_content');
 
-		  if (!checkRule(priceInput) || !checkByte(contentInput, 1000)) {
+		  if (!checkByte(contentInput, 1000)) {
 		    event.preventDefault();
 		  }
 	});
