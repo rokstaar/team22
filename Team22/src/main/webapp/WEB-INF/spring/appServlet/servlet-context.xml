@@ -29,7 +29,16 @@
 		<websocket:sockjs/>
 	</websocket:handlers>
 	
+	<websocket:handlers>
+    	<websocket:mapping handler="EchoHandler" path="/echo"/>
+    	<websocket:handshake-interceptors>
+        	<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+   	 	</websocket:handshake-interceptors>	
+    	<websocket:sockjs />
+	</websocket:handlers>
+	
 	<beans:bean id="ChatHandler" class="com.market.controller.ChatHandler"  />
+	<beans:bean id="EchoHandler" class="com.market.controller.EchoHandler"  />
 	
 	<!-- 파일 등록 객체 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
