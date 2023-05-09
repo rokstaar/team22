@@ -19,7 +19,7 @@ public class HomeController {
 		return "main";
 	}
 	
-	@GetMapping
+	@GetMapping(value = "/")
 	public String home() {
 		return "main";
 	}
