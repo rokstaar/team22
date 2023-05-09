@@ -2076,7 +2076,7 @@
 /* Type */
 
 	body, input, select, textarea {
-		color: #3d4449;
+		color: #7f888f;
 		font-family: "Open Sans", sans-serif;
 		font-size: 13pt;
 		font-weight: 400;
@@ -3814,8 +3814,7 @@
 			border-bottom: 0;
 			color: inherit;
 			font-family: "Roboto Slab", serif;
-			font-size: 2em;
-			position:absolute; bottom:10px; 
+			font-size: 1.125em;
 		}
 
 		#header .icons {

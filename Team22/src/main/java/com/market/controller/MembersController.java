@@ -48,29 +48,30 @@ public class MembersController {
 	private String apiResult = null;
 	
 	
-	@Inject 
-	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
-		this.naverLoginBO = naverLoginBO; 
-	}
+	  @Inject private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
+	  this.naverLoginBO = naverLoginBO; }
 	 
+	
 	private static final Logger logger = LoggerFactory.getLogger(MembersController.class);
 	
 	//http://localhost:8080/main
 	
-	// 로그인  + 간편 로그인
+	// 濡쒓렇�씤 - �젙蹂댁엯�젰
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginGET(Model model, HttpSession session) {
 		
-		// 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 
-		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
-		logger.info("네이버 : " + naverAuthUrl);
-		
-		model.addAttribute("naverurl", naverAuthUrl);
+//		  네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 
+			
+			  String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+			  
+			  logger.info("네이버 : " + naverAuthUrl);
+			  
+			  model.addAttribute("naverurl", naverAuthUrl);
+			 
  
         /* 생성한 인증 URL을 View로 전달 */
 		return "/members/loginForm";
 	}
-	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginPOST(Model model, HttpSession session,
 				MemberVO vo ) {
@@ -85,44 +86,46 @@ public class MembersController {
 		return "redirect:/main";
 	}
 	
-	// 네이버 로그인 성공시 callback 호출 
-	@RequestMapping(value = "callback", method = { RequestMethod.GET,RequestMethod.POST })
-	public String callbackNaver(Model model, HttpSession session, MemberVO vo, 
-								@RequestParam String code, @RequestParam String state) throws Exception {
-	  
-		logger.info("로그인 성공 callbackNaver");
-		JsonParser json = new JsonParser();
-		  
-		OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
-		  
-		// 로그인 사용자 정보를 읽어옴
-		String apiResult = naverLoginBO.getUserProfile(oauthToken);
-		  
-		vo = json.changeJson(apiResult);
-		  
-		logger.info("apiResult {}",apiResult);
-		  
-		if(service.loginMember(vo) != null) { 
-			session.setAttribute("id", vo.getMember_id());
-		} else{ 
-			service.memberJoin(vo);
-			session.setAttribute("id", vo.getMember_id());
-		}
 	
-		model.addAttribute("result", apiResult);
-		  
-		return "redirect:/main";
-		 
-	}
+	  //네이버 로그인 성공시 callback호출 메소드
+	  
+	  @RequestMapping(value = "callback", method = { RequestMethod.GET,
+	  RequestMethod.POST }) public String callbackNaver(Model model, HttpSession
+	  session, MemberVO vo,
+	  
+	  @RequestParam String code, @RequestParam String state) throws Exception {
+	  
+	  logger.info("로그인 성공 callbackNaver"); JsonParser json = new JsonParser();
+	  
+	  OAuth2AccessToken oauthToken; oauthToken =
+	  naverLoginBO.getAccessToken(session, code, state);
+	  
+	  //로그인 사용자 정보를 읽어온다. String apiResult =
+	  naverLoginBO.getUserProfile(oauthToken);
+	  
+	  vo = json.changeJson(apiResult);
+	  
+	  logger.info(apiResult);
+	  
+	  if(service.loginMember(vo) != null) { session.setAttribute("id",
+	  vo.getMember_id()); } else { service.memberJoin(vo);
+	  session.setAttribute("id", vo.getMember_id()); }
+	  
+	  model.addAttribute("result", apiResult);
+	  
+	  return "redirect:/main";
+	  
+	  }
 	 
-	// 로그아웃
+	
+	//濡쒓렇�븘�썐
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logoutGET(HttpSession session) {
 		session.invalidate();
 		
 		return "redirect:/main";
 	}
-	// 마이페이지
+	// 留덉씠�럹�씠吏�
 	@RequestMapping(value = "/myPage", method = RequestMethod.GET)
 	public String myPageGET(Model model, HttpSession session)throws Exception{
 		String id = (String)session.getAttribute("id");
@@ -131,13 +134,13 @@ public class MembersController {
 		return "/members/myPage";
 	}
 	
+
 	// �쉶�썝媛��엯-�젙蹂댁엯�젰
 	@RequestMapping(value = "/insert", method=RequestMethod.GET)
 	public String insertGET() {
 		logger.info("insertGET() �샇異�");
 		return "/members/insertForm";
 	}
-	
 	// �쉶�썝媛��엯-�젙蹂댁쿂由�
 	@RequestMapping(value="/insert", method = RequestMethod.POST)
 	public String insertPOST(MemberVO vo,MultipartFile file,RedirectAttributes rttr)throws Exception {
@@ -184,7 +187,6 @@ public class MembersController {
 		model.addAttribute("memProdList",memProdList);
     	return "/members/memberInfo";
     }
-    
     // �떎瑜� �쉶�썝 由щ럭 紐⑸줉
     @RequestMapping(value = "/review", method = RequestMethod.GET)
     public String memberReviewGET(Model model,HttpServletRequest request) throws Exception {
@@ -243,7 +245,6 @@ public class MembersController {
     	return "redirect:/members/myPage";
     		
     }
-    
     // 占쎈툡占쎌뵠占쎈탵 筌≪뼐由�
     @RequestMapping(value="/findIdView", method=RequestMethod.GET)
 	public String findIdView() throws Exception{
@@ -263,7 +264,6 @@ public class MembersController {
 				
 		}
 	}
-	
 	@RequestMapping(value="/pay", method=RequestMethod.GET)
 	public String payGET(HttpSession session,Model model,MemberVO vo) throws Exception{
 		String id = (String)session.getAttribute("id");
@@ -291,7 +291,6 @@ public class MembersController {
     public String updatePwCkGET() {
     	return "/members/updatePwCk";
     }
-	
 	@RequestMapping(value = "/updatePwCk", method = RequestMethod.POST)
 	public String updatePwCkPOST(Model model,@RequestParam("member_pass") String member_pass,
 					@RequestParam("member_id")String id,RedirectAttributes rttr)throws Exception {
@@ -311,7 +310,6 @@ public class MembersController {
 		
     	return "/members/deletePwCk";
     }
-	
 	@RequestMapping(value = "/deletePwCk", method = RequestMethod.POST)
 	public String deletePwCkPOST(Model model,@RequestParam("member_pass") String member_pass,
 					@RequestParam("member_id")String id,RedirectAttributes rttr)throws Exception {
@@ -324,7 +322,6 @@ public class MembersController {
 			}
 			
 	}
-	
 	@RequestMapping(value = "/remove", method = RequestMethod.GET)
 	public String removeGET(HttpSession session,Model model) throws Exception{
 		

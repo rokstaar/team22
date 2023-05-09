@@ -52,7 +52,11 @@
   	WHERE cr.seller = #{id} OR cr.buyer = #{id}
   	GROUP BY cr.room_id, cr.product_num, p.product_seller, p.product_title, m.member_nickname;
   </select>
-
+  
+  
+  
+  
+  
 
 <!-- chat_messsage -->
 
@@ -83,4 +87,10 @@
   	order by chat_date desc
   </select>
   
+  <!-- 채팅방 나가기 -->
+  <update id="updateExitChat">
+  update chat_message
+  set 
+  </update>
+
 </mapper>

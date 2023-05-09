@@ -102,18 +102,12 @@
 		<!-- 네이버 로그인 버튼 -->
 		<div id="naver_id_login" style="text-align:center">
 			<a href="${naverurl}">
-			<img width="150" src="/resources/images/btnG_완성형.png"/></a>
+			<img width="200" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a>
 		</div>
-		
-		<!-- 카카오 로그인 버튼 -->
-		<div id="kakao_id_login" style="text-align:center; margin-top: 10px">
-			<a href="https://kauth.kakao.com/oauth/authorize?client_id=e1f73c27b520c573d748c096ffaa40dd&
-							redirect_uri=http://localhost:8080/members/callbackKakao">
-			<img width="150" height="40px" src="/resources/images/kakao_login_medium_narrow.png"></a>
-		</div> 
-		
-       </form>
 
+       </form>
+       
+       
     </div>
       
 </body>

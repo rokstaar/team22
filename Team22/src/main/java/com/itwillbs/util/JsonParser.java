@@ -27,9 +27,9 @@ public class JsonParser {
 		map.put("member_name", jsonObject.get("name"));
 		map.put("member_phone", jsonObject.get("mobile"));
 		
-		// N_로 구분 하고 이메일 주소 @앞 아이디만 가져와서 naverId에 저장
+		// 이메일 주소 @앞 아이디만 가져와서 naverId에 저장
 		// 임시 비밀번호 지정
-		String naverId = "N_" + (String) map.get("member_email").toString().split("@")[0];
+		String naverId = (String) map.get("member_email").toString().split("@")[0];
 		String naverPw = "1234";
 
 		// vo에 넣기
