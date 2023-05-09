@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE HTML>
 <!--
 	Editorial by HTML5 UP
@@ -9,18 +10,17 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <html>
-<head>
-<title>My Page</title>
-	
-<style type="text/css">
-body{
+	<head>
+		<title>My Page</title>
+		<style type="text/css">
+		body{
   padding: 0;
   margin: 0;
 }
-
 div{
   box-sizing: border-box;
 }
+
 
 /* alert badge */
 .circle{
@@ -122,7 +122,7 @@ div{
   text-align: center;
 }
 .shippingStatusContainer .memberUpdate{
-  font-size: 30px;
+  font-size: 14px;
   font-weight: normal;
   color: #769fcd;
   font-weight : bold;
@@ -186,7 +186,8 @@ div{
   background-color: white; 
   display: flex;
   height: 100px;
-  margin-bottom: 10px;    
+  margin-bottom: 10px;  
+  text-decoration: none;
 }
 
 /* .infoContainer .item{
@@ -209,10 +210,12 @@ div{
   text-decoration: none;
   color: 769fcd;
   font-weight: bold;
-}
-.infoContainer .item > div:first-child{
+  border-bottom: solid 5px #769fcd;
+} 
+
+/* .infoContainer .item > div:first-child{
   margin-bottom: 2px;
-}
+} */
 
 
 
@@ -224,19 +227,18 @@ div{
 /*   background-color: #f8f8f8; */
 }
 		
-</style>
-
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-	<link rel="stylesheet" href="/resources/assets/css/main.css" />
-	<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-	<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-</head>
-
+		</style>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="/resources/assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+	</head>
 	<body>
+
 		<!-- Wrapper -->
-		<div id="wrapper">
+			<div id="wrapper">
 
 				<!-- Main -->
 					<div id="main">
@@ -244,83 +246,63 @@ div{
 
 							<!-- Header -->
 								<%@ include file="../include/header.jsp" %>
-
-							<!-- Banner -->
-								<section id="banner">
-									<div class="content">
-									<div class="wrap">
-									  <div class="shippingStatusContainer">
-									    <div class="status">
-									      
-									      <div class="item">
+								<%@ include file="../include/myPage.jsp" %>
+								
+									 <div class="infoContainer">
+									   
+									  </div>	
+										<div class="shippingStatusContainer">
+										<section>
+									<header class="major">
+									</header>
+									<div class="posts">
+										<article>
+										
+										
+																
+										
+										
+										
+									 <div class="item">
 									        <div>
-									        <img alt="프로필사진" src="${memberInfo.member_pic }" width="150px" height="100px" >
+									        <a class="product-section" href="/auction/aDetail?au_num=${buyAuctionList[i].au_num }">
+										
+										</a>		
+										<img src="${memberInfo.member_pic }  " width="511px" height="306px" alt="프로필사진"
+										onerror="this.src='/resources/images/default_product.jpg'">
 									       </div>
 									      	
-									        <div style="margin-left: 10px;">
-									          <div style="font-size: 20px;" >${sessionScope.id }</div>
+									          <div style="font-size: 20px;" >${memberInfo.member_nickname }님</div>
 									       	   <div style="font-size: 20px;">페이 : ${memberInfo.member_pay }원</div>
 									         <a href="/members/updatePwCk"><div style="font-size: 20px;">회원정보수정</div></a>
-									         <a href="/members/deletePwCk"><div style="font-size: 20px;">회원탈퇴</div></a>
+										<div class="item">
+									        <div>
+									        <a href="/members/deletePwCk"><div style="font-size: 20px;">회원탈퇴</div></a>
 									        </div>
+									      </div>   
 									      </div>
-									      
-									      <div class="item">
-									       <div>
-									      <a href="/trade/buyList" > <div class="text">거래내역</div>
-									      <!-- <a onclick="buyList()" > <div class="text">거래내역</div> -->
-									          </a>
-									        </div>
-									      </div>      
-									      <div class="item">
-									        <div>
-									        <a href="/trade/mySaleProduct" > <div class="text">판매상품</div>
-									          </a>
-									        </div>
-									      </div>     
-									      <div class="item">
-									        <div>
-									         <a href="/trade/myAuctionList" > <div class="text">경매내역</div>
-									          </a>
-									        </div>
-									      </div>     
-									      <div class="item">
-									        <div>
-									          <a href="/trade/favorite" > <div class="text">찜한상품</div>
-									          </a>
-									        </div>
-									      </div>     
-									      <div class="item">
-									     <a href="/trade/buyReview">  <div>
-									          <div class="text">거래후기</div>
-									          </a>
-									        </div>
-									      </div>     
-									      
-									    </div>
-
-													    
-									  </div>  
-									</div>	
-									 
+										         
 									
+									      
+									      
+										</article>
 									</div>
-							</section>
+								</section>
+									</div>
+									
+	
 						</div>
 					</div>
 
 					<%@ include file="../include/sidebar.jsp" %>
+			</div>
 
-<script type="text/javascript">
-//alert("${result}");
-var result = "${update}";
+		<!-- Scripts -->
+			<script src="/resources/assets/js/jquery.min.js"></script>
+			<script src="/resources/assets/js/skel.min.js"></script>
+			<script src="/resources/assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="/resources/assets/js/main.js"></script>
 
-if(result == "update"){
-	alert("회원수정완료!");		
-}
-
-</script>
-
-		
 	</body>
 </html>

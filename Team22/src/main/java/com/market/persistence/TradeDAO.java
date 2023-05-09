@@ -29,7 +29,7 @@ public interface TradeDAO {
 	// 내가 신청한 응모 리스트
 	public List<RandomVO> myBuyRandomList(String id) throws Exception;
 	// 내가 신청한 경매 상품들의 현재 정보
-	public List<AuctionVO> getAList()throws Exception;
+	public List<AuctionVO> getAList(String id)throws Exception;
 	// 내가 판매중인 경매상품
 	public List<AuctionVO> getAuctList(String id) throws Exception;
 	// 내 관심상품 리스트
@@ -50,6 +50,12 @@ public interface TradeDAO {
 	public List<Map<String,Object>> myBuyAuction(String id) throws Exception;
 	// 내가 구매한 응모 상품리스트
 	public List<Map<String,Object>> myBuyRandom(String id) throws Exception;
+	// 내가 판매한 상품리스트
+	public List<Map<String,Object>> getSoldProduct(String id) throws Exception;
+	// 내가 판매한 경매리스트
+	public List<Map<String,Object>> getSoldAuction(String id) throws Exception;
+	// 내가 판매한 응모리스트
+	public List<Map<String,Object>> getSoldRandom(String id) throws Exception;
 	
 	
 }

@@ -259,19 +259,19 @@ div{
 									       </div>
 									      	
 									        <div>
-									          <div class="text">${memReview[0].member_nickname } 님의 정보</div>
+									          <div class="text">${userInfo[0].member_nickname } 님의 정보</div>
 									        </div>
 									      </div>
 									      
 									       <div class="item">
 									        <div>
-									         <a href="/members/memberInfo?mem_id=${memReview[0].reviewee }"> <div class="text">판매상품</div>
+									         <a href="/members/memberInfo?mem_id=${userInfo[0].product_seller }"> <div class="text">판매상품</div>
 									          </a>
 									        </div>
 									      </div>      
 									      
 								      <div class="item">		
-									      <a href="/members/review?mem_id=${memReview[0].reviewee }">  <div>
+									      <a href="/members/review?mem_id=${userInfo[0].product_seller }">  <div>
 									          <div class="text">거래후기</div>
 									          </a>
 									        </div>
@@ -285,7 +285,7 @@ div{
 									 
 									 <div class="infoContainer">
 									    <a href="#" class="item">
-									      <div>${memReview[0].member_nickname }님의 판매후기</div>
+									      <div>${userInfo[0].member_nickname }님의 판매후기</div>
 									    </a>    
 									  </div>	
 									<div class="shippingStatusContainer">

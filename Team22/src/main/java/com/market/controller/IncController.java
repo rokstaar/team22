@@ -23,6 +23,7 @@ public class IncController {
 			String id = (String)session.getAttribute("id");
 			
 			model.addAttribute("memberInfo",service.memberInfo(id));
+			session.setAttribute("memberInfo",service.memberInfo(id));
 			return "/include/myPage";
 		}
 	

@@ -73,8 +73,8 @@ public class TradeServiceImpl implements TradeService{
 	}
 
 	@Override
-	public List<AuctionVO> getAuctionList() throws Exception {
-		return tdao.getAList();
+	public List<AuctionVO> getAuctionList(String id) throws Exception {
+		return tdao.getAList(id);
 	}
 
 	@Override
@@ -126,6 +126,21 @@ public class TradeServiceImpl implements TradeService{
 	@Override
 	public List<RandomVO> myBuyRandomList(String id) throws Exception {
 		return tdao.myBuyRandomList(id);
+	}
+
+	@Override
+	public List<Map<String, Object>> getSoldProduct(String id) throws Exception {
+		return tdao.getSoldProduct(id);
+	}
+
+	@Override
+	public List<Map<String, Object>> getSoldAuction(String id) throws Exception {
+		return tdao.getSoldAuction(id);
+	}
+
+	@Override
+	public List<Map<String, Object>> getSoldRandom(String id) throws Exception {
+		return tdao.getSoldRandom(id);
 	}
 
 

@@ -75,9 +75,9 @@ public class TradeDAOImpl implements TradeDAO{
 	}
 
 	@Override
-	public List<AuctionVO> getAList() throws Exception {
+	public List<AuctionVO> getAList(String id) throws Exception {
 
-		return sqlSession.selectList(NAMESPACE+".getAList");
+		return sqlSession.selectList(NAMESPACE+".getAList",id);
 	}
 
 	@Override
@@ -135,6 +135,21 @@ public class TradeDAOImpl implements TradeDAO{
 	@Override
 	public List<RandomVO> myBuyRandomList(String id) throws Exception {
 		return sqlSession.selectList(NAMESPACE+".myBuyRandomList",id);
+	}
+
+	@Override
+	public List<Map<String, Object>> getSoldProduct(String id) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".getSoldProduct",id);
+	}
+
+	@Override
+	public List<Map<String, Object>> getSoldAuction(String id) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".getSoldAuction",id);
+	}
+
+	@Override
+	public List<Map<String, Object>> getSoldRandom(String id) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".getSoldRandom",id);
 	}
 
 	

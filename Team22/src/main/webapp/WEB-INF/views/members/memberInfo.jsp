@@ -284,7 +284,7 @@ div{
 									 
 									 <div class="infoContainer">
 									    <a href="#" class="item">
-									      <div>${userInfo[0].member_nickname }님이 판매중인 상품</div>
+									      <div>${userInfo[0].member_nickname }님의 판매중인 상품</div>
 									    </a>    
 									  </div>	
 									<div class="shippingStatusContainer">

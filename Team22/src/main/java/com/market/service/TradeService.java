@@ -30,7 +30,7 @@ public interface TradeService {
 	
 	public List<RandomVO> myBuyRandomList(String id) throws Exception;
 	
-	public List<AuctionVO> getAuctionList() throws Exception;
+	public List<AuctionVO> getAuctionList(String id) throws Exception;
 	
 	public List<AuctionVO> mySaleAuction(String id) throws Exception;
 	
@@ -49,6 +49,13 @@ public interface TradeService {
 	public List<Map<String,Object>> myBuyAuction(String id) throws Exception;
 	
 	public List<Map<String,Object>> myBuyRandom(String id) throws Exception;
+	
+	public List<Map<String,Object>> getSoldProduct(String id) throws Exception;
+	
+	public List<Map<String,Object>> getSoldAuction(String id) throws Exception;
+	
+	public List<Map<String,Object>> getSoldRandom(String id) throws Exception;
+	
 	
 	
 	

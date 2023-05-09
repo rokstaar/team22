@@ -395,7 +395,7 @@ textarea{
    		        				<a href="/trade/removeDelete?product_num=${vo.product_num }">
 						          <div>리뷰삭제</div></a>
 						        </div>
-						        </div>								
+						        </div>		
 							
 									
 							</c:if>
@@ -424,6 +424,11 @@ textarea{
 	if(result == "buy"){
 		alert("구매후기 작성 완료!");		
 	}
+
+	if(result == "delOk"){
+		alert("구매후기 삭제 완료!");		
+	}
+	
 	
 	 var modal = document.querySelector(".modal"); 
      // var trigger = document.querySelector(".trigger");  

@@ -272,11 +272,11 @@ div{
 										${buyAuctionList[i].au_title }</div>
 										
 										<div style="float:left;">
-											현재 금액<fmt:formatNumber value="${getAList[i].au_bidPrice }" pattern="#,###" />원
+											최고 금액 : <fmt:formatNumber value="${getAList[i].au_bidPrice }" pattern="#,###" />원
 										</div><br>
 										
 										<div style="float:left;">
-											입찰 금액<fmt:formatNumber value="${buyAuctionList[i].au_bidPrice }" pattern="#,###" />원
+											입찰 금액 : <fmt:formatNumber value="${buyAuctionList[i].au_bidPrice }" pattern="#,###" />원
 										</div><br>
 											
 										<div style="float:left;">

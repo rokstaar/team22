@@ -409,7 +409,6 @@ textarea{
 			                            <button class="trigger" disabled>이미 작성한 리뷰</button>
 			                        </c:when>
 			                        	<c:otherwise> --%>
- 	    
 						         <button class="trigger">구매후기 작성</button>      
 								     <div class="modal"> 
 								         <div class="modal-content"> 
@@ -430,10 +429,11 @@ textarea{
 													<option value="1">1</option>
 													<option value="0">0</option>
 												</select>
-
+			
 												<input type="hidden" name="reviewee" value="${vo.sell_mem_id}">
 												<input type="hidden" name="reviewer" value="${vo.buy_mem_id}">
-												<input type="hidden" name="prod_num" value="${vo.prod_num[varStatus.index]}">
+												<input type="hidden" name="prod_num" value="${vo.prod_num}">
+												  <input type="hidden" name="buyListSize" value="${fn:length(buyList)}">
 								               <input type="button" id="cancel" value="취소" onclick="location.href='/trade/buyList'" > 
 								               <input type="submit" id="submit" value="작성"> 
 				
@@ -480,17 +480,62 @@ textarea{
 	</script> -->
 
   <script type="text/javascript"> 
-         var modal = document.querySelector(".modal"); 
+  var modal = document.querySelectorAll(".modal");
+  var buttons = document.querySelectorAll("button");
+  var closeButton = document.querySelectorAll(".close-button");
+  var cancelButton = document.querySelectorAll("#cancel");
+
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener("click", toggleModal);
+  }
+
+  for (var i = 0; i < closeButton.length; i++) {
+    closeButton[i].addEventListener("click", toggleModal);
+  }
+
+  for (var i = 0; i < cancelButton.length; i++) {
+    cancelButton[i].addEventListener("click", toggleModal);
+  }
+
+  /* function toggleModal() {
+    for (var i = 0; i < modal.length; i++) {
+      modal[i].classList.toggle("show-modal");
+    }
+  } */
+  function toggleModal(event) {
+	  var modal = event.target.nextElementSibling;
+	  modal.classList.toggle("show-modal");
+	}
+
+  function windowOnClick(event) {
+    for (var i = 0; i < modal.length; i++) {
+      if (event.target === modal[i]) {
+        toggleModal();
+        break;
+      }
+    }
+  }
+
+  window.addEventListener("click", windowOnClick);
+
+  
+  
+  
+  
+  
+  
+  
+  /*   var modal = document.querySelectorAll(".modal"); 
          var trigger = document.querySelectorAll(".trigger"); 
          var closeButton = document.querySelector(".close-button"); 
-         var cancelButton = document.querySelector("#cancel");
+         var cancelButton = document.querySelector("#cancel"); */
 
-         var triggers = document.querySelectorAll(".trigger");
+         /* var triggers = document.querySelectorAll(".trigger");
          for (var i = 0; i < triggers.length; i++) {
            triggers[i].addEventListener("click", toggleModal);
-         }
+         } */
          
-         for(var i=0; i< trigger.length; i++){
+         /* for(var i=0; i< trigger.length; i++){
          	trigger[i].addEventListener("click", toggleModal); 
          }
          //console.log(modal);
@@ -503,12 +548,12 @@ textarea{
              if (event.target === modal) { 
                  toggleModal(); 
              } 
-         }
+         } */
 
          /* trigger.addEventListener("click", toggleModal);  */
-         closeButton.addEventListener("click", toggleModal); 
+      /*    closeButton.addEventListener("click", toggleModal); 
          cancel.addEventListener("click", toggleModal); 
-         window.addEventListener("click", windowOnClick); 
+         window.addEventListener("click", windowOnClick);  */
          
 
          

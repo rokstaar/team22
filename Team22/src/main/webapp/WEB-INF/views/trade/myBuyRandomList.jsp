@@ -265,7 +265,7 @@ div{
 										<c:forEach var="vo" items="${myBuyRandomList }">
 											<article>
 										
-										<a class="product-section" href="/product/prodInfo?product_num=${vo.ran_num }">
+										<a class="product-section" href="/random/rDetail?ran_num=${vo.ran_num }">
 									<img src="/resources/images/${vo.ran_pic.split(',')[0] } " width="511px" height="306px" 
 									onerror="this.src='/resources/images/default_product.jpg'">
 								<div>상품명 : ${vo.ran_title }</div>

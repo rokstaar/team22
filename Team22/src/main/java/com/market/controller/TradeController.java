@@ -159,7 +159,7 @@ public class TradeController {
 		logger.info("@@@@@@@@@@@@@@@"+id);
 		
 		List<AuctionVO> buyAuctionList = service.buyAuctionList(id);
-		List<AuctionVO> getAList = service.getAuctionList();
+		List<AuctionVO> getAList = service.getAuctionList(id);
 		
 		model.addAttribute("buyAuctionList", buyAuctionList);
 		model.addAttribute("getAList", getAList);
@@ -211,14 +211,16 @@ public class TradeController {
 	public String removeDelete(Model model,@RequestParam("product_num") int prod_num,
 								RedirectAttributes rttr)throws Exception {
 	
-		logger.info("@@@@@@@@@@@@@@@@@"+prod_num);
+		logger.info("@@@@@@@@@@@@@@@@@@remove@"+prod_num);
 		int result = service.removeReview(prod_num);
 		
 		if(result == 1) {
 			rttr.addFlashAttribute("result", "delOK");
+			return "redirect:/trade/buyReview";
+		}else {
+			return "redirect:/trade/buyReview";
 		}
 		// 페이지이동(listALL)
-		return "/trade/buyReview";
 	}
 	
 	// 내가 등록한 상품 삭제
@@ -233,7 +235,7 @@ public class TradeController {
 			rttr.addFlashAttribute("result", "delOK");
 		}
 		// 페이지이동(listALL)
-		return "/trade/mySaleProduct";
+		return "redirect:/trade/mySaleProduct";
 	}
 	// 내가 등록한 경매상품 삭제
 	@RequestMapping(value = "/removeAuction", method = RequestMethod.GET)
@@ -246,7 +248,7 @@ public class TradeController {
 			rttr.addFlashAttribute("result", "delOK");
 		}
 		// 페이지이동(listALL)
-		return "/trade/mySaleAuction";
+		return "redirect:/trade/mySaleAuction";
 	}
 	
 	// 내가 등록한 랜덤상품 삭제
@@ -261,7 +263,35 @@ public class TradeController {
 			rttr.addFlashAttribute("result", "delOK");
 		}
 		// 페이지이동(listALL)
-		return "/trade/mySaleRandom";
+		return "redirect:/trade/mySaleRandom";
+	}
+	// 나의 판매완료된 상품 목록
+	@RequestMapping(value = "/soldProduct", method = RequestMethod.GET)
+	public String soldProduct(HttpSession session,Model model)throws Exception{
+		String id = (String)session.getAttribute("id");
+		List<Map<String,Object>> soldProdList = service.getSoldProduct(id);
+		model.addAttribute("soldProdList",soldProdList);
+		
+		return "/trade/soldProduct";
+	}
+	// 나의 판매완료된 경매 목록
+	@RequestMapping(value = "/soldAuction", method = RequestMethod.GET)
+	public String soldAuction(HttpSession session,Model model)throws Exception{
+		String id = (String)session.getAttribute("id");
+		List<Map<String,Object>> soldAuction = service.getSoldAuction(id);
+		model.addAttribute("soldAuction",soldAuction);
+		
+		return "/trade/soldAuction";
+	}
+	// 나의 판매완료된 응모 목록
+	@RequestMapping(value = "/soldRandom", method = RequestMethod.GET)
+	public String soldRandom(HttpSession session,Model model)throws Exception{
+		String id = (String)session.getAttribute("id");
+		List<Map<String,Object>> soldRandom = service.getSoldRandom(id);
+		model.addAttribute("soldRandom",soldRandom);
+		logger.info("soldRandom@@@@@@@@@@@@@@@@"+soldRandom);
+		
+		return "/trade/soldRandom";
 	}
 	
 	
