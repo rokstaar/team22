@@ -44,13 +44,10 @@ public class MembersController {
 	@Named("uploadPath")
 	private String uploadPath;
 	
+	/* NaverLoginBO */
 	private NaverLoginBO naverLoginBO;
 	private String apiResult = null;
 	
-	
-	  @Inject private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
-	  this.naverLoginBO = naverLoginBO; }
-	 
 	
 	private static final Logger logger = LoggerFactory.getLogger(MembersController.class);
 	
@@ -59,15 +56,7 @@ public class MembersController {
 	// 濡쒓렇�씤 - �젙蹂댁엯�젰
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginGET(Model model, HttpSession session) {
-		
-//		  네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 
-			
-			  String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
-			  
-			  logger.info("네이버 : " + naverAuthUrl);
-			  
-			  model.addAttribute("naverurl", naverAuthUrl);
-			 
+
  
         /* 생성한 인증 URL을 View로 전달 */
 		return "/members/loginForm";
@@ -86,38 +75,7 @@ public class MembersController {
 		return "redirect:/main";
 	}
 	
-	
-	  //네이버 로그인 성공시 callback호출 메소드
-	  
-	  @RequestMapping(value = "callback", method = { RequestMethod.GET,
-	  RequestMethod.POST }) public String callbackNaver(Model model, HttpSession
-	  session, MemberVO vo,
-	  
-	  @RequestParam String code, @RequestParam String state) throws Exception {
-	  
-	  logger.info("로그인 성공 callbackNaver"); JsonParser json = new JsonParser();
-	  
-	  OAuth2AccessToken oauthToken; oauthToken =
-	  naverLoginBO.getAccessToken(session, code, state);
-	  
-	  //로그인 사용자 정보를 읽어온다. String apiResult =
-	  naverLoginBO.getUserProfile(oauthToken);
-	  
-	  vo = json.changeJson(apiResult);
-	  
-	  logger.info(apiResult);
-	  
-	  if(service.loginMember(vo) != null) { session.setAttribute("id",
-	  vo.getMember_id()); } else { service.memberJoin(vo);
-	  session.setAttribute("id", vo.getMember_id()); }
-	  
-	  model.addAttribute("result", apiResult);
-	  
-	  return "redirect:/main";
-	  
-	  }
-	 
-	
+
 	//濡쒓렇�븘�썐
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logoutGET(HttpSession session) {
@@ -131,7 +89,16 @@ public class MembersController {
 		String id = (String)session.getAttribute("id");
 	
 		model.addAttribute("memberInfo",service.memberInfo(id));
+		session.setAttribute("memberInfo",service.memberInfo(id));
 		return "/members/myPage";
+	}
+	// 留덉씠�럹�씠吏�
+	@RequestMapping(value = "/myPage2", method = RequestMethod.GET)
+	public String incMyPage(Model model, HttpSession session)throws Exception{
+		String id = (String)session.getAttribute("id");
+		
+		model.addAttribute("memberInfo",service.memberInfo(id));
+		return "/members/myPage2";
 	}
 	
 
@@ -184,7 +151,9 @@ public class MembersController {
     public String memberInfoGET(Model model, HttpServletRequest request) throws Exception {
     	String id =  request.getParameter("mem_id");
     	List<ProductVO> memProdList = service.memProdList(id);
+    	List<Map<String,Object>> userInfo = service.userInfo(id);
 		model.addAttribute("memProdList",memProdList);
+		model.addAttribute("userInfo",userInfo);
     	return "/members/memberInfo";
     }
     // �떎瑜� �쉶�썝 由щ럭 紐⑸줉
@@ -192,7 +161,12 @@ public class MembersController {
     public String memberReviewGET(Model model,HttpServletRequest request) throws Exception {
     	String id =  request.getParameter("mem_id");
     	List<Map<String,Object>> memReview = service.memSellReview(id);
+    	List<Map<String,Object>> userInfo = service.userInfo(id);
+    	
+    	logger.info("@@@@@@@@@@@@@@@memReivew"+memReview);
+    	logger.info("@@@@@@@@@@@@@@@muserInfow"+userInfo);
     	model.addAttribute("memReview",memReview);
+    	model.addAttribute("userInfo",userInfo);
     	return "/members/memReview";
     }
     

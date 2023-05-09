@@ -15,16 +15,11 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -272,43 +267,17 @@ public class ProductController {
 	
 	
 	// 상품 수정 페이지
-	@PostMapping(value = "/updateProd")
-	public ResponseEntity<Void> modProd(@RequestBody Map<String, Object> map) {
-		logger.info("상품 수정 처리 호출");
+	@GetMapping(value = "/prodMod")
+	public void modProd(@RequestParam("info") Object map) {
+		logger.info("상품 수정 페이지 호출");
 		logger.info("{}", map);
-		
-		ResponseEntity<Void> resp = null;
-		
-		ProductVO vo = new ProductVO();
-		vo.setProduct_num((Integer)map.get("product_num"));
-		vo.setProduct_title((String)map.get("title"));
-		vo.setProduct_content((String)map.get("content"));
-		vo.setProduct_price(Integer.parseInt((String)map.get("price")));
-		vo.setProduct_grade((String)map.get("grade"));
-		
-		int result = service.updateProd(vo);
-		
-		if(result == 1) resp = new ResponseEntity<Void>(HttpStatus.OK);
-		else resp = new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-		
-		return resp;
 	}
 	// 상품 수정 페이지
 	
 	// 상품 삭제
-	@PostMapping(value = "/deleteProd")
-	public ResponseEntity<Void> delProd(@RequestParam("pnum") Integer pnum) {
-		logger.info("상품 삭제 처리 호출");
-		logger.info("{}", pnum);
+	
+	public void delProd() {
 		
-		ResponseEntity<Void> resp = null;
-		
-		int result = service.deleteProd(pnum);
-		
-		if(result == 1) resp = new ResponseEntity<Void>(HttpStatus.OK);
-		else resp = new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-		
-		return resp;
 	}
 	// 상품 삭제
 }

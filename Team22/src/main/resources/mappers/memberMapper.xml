@@ -47,22 +47,30 @@
    
     <!-- 다른 회원 판매 후기 -->
     <select id="memProdReview" resultType="map">
-		select r.reviewer, r.reviewee, r.rv_content, m.member_pic, p.product_title, r.rv_score, p.product_num,
-		p.product_pic, t.t_div, t.type_div,m.member_nickname
-		from trade t
-		join product p on t.sell_mem_id = p.product_seller
-		join member m on t.buy_mem_id = m.member_id
-		join review r on r.reviewer = m.member_id
-		and r.rv_num = p.product_num
-		where reviewee = #{id};
+		SELECT r.reviewer, r.reviewee, r.rv_content, m.member_pic, p.product_title, r.rv_score, p.product_num,
+		p.product_pic, t.type_div, m.member_nickname
+		FROM review r
+		JOIN member m ON r.reviewee = m.member_id
+		JOIN trade t ON r.prod_num = t.prod_num
+		JOIN product p ON r.prod_num = p.product_num AND p.product_seller = t.sell_mem_id
+		WHERE r.reviewee = #{id};
 	</select>
     <!-- 다른 회원 판매 후기 -->
     
+    <!-- 로그인한 회원 정보 -->
     <select id="memberInfo" resultType="com.market.domain.MemberVO">
     	select *
     	from member
-    	where member_id = #{member_id}
+    	where member_id = #{id}
     
+    </select>
+    
+    <select id="userInfo" resultType="map">
+   	 select p.product_pic,p.product_title,p.product_price,p.product_date,p.product_status,p.product_num,
+   	 p.product_seller,m.member_pic,m.member_nickname
+	from product p join member m
+	on p.product_seller = m.member_id
+	where product_seller = #{id} 
     </select>
     
     <update id="memberInfoUpdate" parameterType="com.market.domain.MemberVO"> 

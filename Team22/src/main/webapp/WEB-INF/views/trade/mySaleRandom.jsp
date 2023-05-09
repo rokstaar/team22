@@ -258,11 +258,11 @@ div{
 									    </a>    
 									   
 									  </div>
-									  					  
+							<div class="infoContainer">
 				  <a href="/trade/mySaleProduct?product" class="button" style="display: inline-block; float: right;">일반</a>
 				  <a href="/trade/mySaleAuction" class="button" style="display: inline-block; float: right;">경매</a>
 				<a href="/trade/mySaleRandom" class="button" style="display: inline-block; float: right;">응모</a>
-										
+									  		</div>			
 									<header class="major">
 									
 									</header>
@@ -291,6 +291,9 @@ div{
 										</div><br>
 										</div>
 										</a>
+										
+										<a href="/trade/removeRandom?ran_num=${vo.ran_num }" style="float:right;">
+						        	  <div>랜덤삭제</div></a> 
 										
 											</article>
 										</c:forEach>

@@ -19,7 +19,7 @@
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<style>
 			#sidebar.force-inactive{
-				margin-left: -26em;
+				margin-left: -24em;
 			}
 		</style>
 	</head>

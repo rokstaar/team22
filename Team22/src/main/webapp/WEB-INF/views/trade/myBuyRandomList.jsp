@@ -262,28 +262,25 @@ div{
 									<header class="major">
 									</header>
 									<div class="posts">
-										<c:forEach begin="0" var="i" end="${buyAuctionList.size() }">
+										<c:forEach var="vo" items="${myBuyRandomList }">
 											<article>
 										
-										<a class="product-section" href="/auction/aDetail?au_num=${buyAuctionList[i].au_num }">
-											<img src="/resources/images/${buyAuctionList[i].au_pic.split(',')[0] } " width="511px" height="306px" 
-											onerror="this.src='/resources/images/default_product.jpg'">
-										<div>
-										${buyAuctionList[i].au_title }</div>
-										
-										<div style="float:left;">
-											현재 금액<fmt:formatNumber value="${getAList[i].au_bidPrice }" pattern="#,###" />원
-										</div><br>
-										
-										<div style="float:left;">
-											입찰 금액<fmt:formatNumber value="${buyAuctionList[i].au_bidPrice }" pattern="#,###" />원
-										</div><br>
-											
-										<div style="float:left;">
-											<div>경매 종료시간</div>
-											${buyAuctionList[i].au_endTime }
-										</div>									
-											</a>
+										<a class="product-section" href="/product/prodInfo?product_num=${vo.ran_num }">
+									<img src="/resources/images/${vo.ran_pic.split(',')[0] } " width="511px" height="306px" 
+									onerror="this.src='/resources/images/default_product.jpg'">
+								<div>상품명 : ${vo.ran_title }</div>
+								<div style="float:left;">
+								<div>판매자 : ${vo.ran_sellerId }</div>
+									총 가격 : <fmt:formatNumber value="${vo.ran_price }" pattern="#,###" />원<br>
+									내 가격 : <fmt:formatNumber value="${vo.ran_bidPrice }" pattern="#,###" />원
+								</div>
+								<div style="float:right;">
+									<div>응모 인원 : ${vo.ran_maxPp }명</div>
+								</div>
+								
+								</a>	
+									
+									
 											</article>
 										</c:forEach>
 									</div>

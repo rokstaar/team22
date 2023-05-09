@@ -379,7 +379,17 @@ textarea{
    		        				<a href="/product/prodInfo?product_num=${vo.product_num }&reviewee=${vo.reviewee}">
 						          <div>${vo.rv_content}</div></a>
 						        </div>
-						        </div>								
+						        </div>		
+						        			
+			        			<div class="item">
+						        <div>
+				         	  <a href="/members/memberInfo?mem_id=${vo.reviewee }"> 
+				         	  <div>${vo.reviewee }</div>
+				         	   </a>
+						        </div>
+						        </div>
+						        			
+						        						
 								<div class="item">
 						        <div>
    		        				<a href="/trade/removeDelete?product_num=${vo.product_num }">

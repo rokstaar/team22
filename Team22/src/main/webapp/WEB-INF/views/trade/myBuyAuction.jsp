@@ -350,13 +350,14 @@ textarea{
 					<div id="main">
 						<div class="inner">
 							<!-- Header -->
-								<%@ include file="../include/header.jsp"%>
-								<%@ include file="../include/myPage.jsp"%>
+								<%@ include file="../include/header.jsp" %>
+								<%@ include file="../include/myPage.jsp" %>
 							<div class="shippingStatusContainer">
 								<div class="infoContainer">
 								    <a href="/trade/buyList" class="item">
 								      <div>구매내역</div>
 								    </a>    
+								   
 								    <a href="/trade/prodList" class="item">
 								      <div>판매내역</div>
 								    </a>    
@@ -371,44 +372,37 @@ textarea{
 									</header>
 								  
 								  <section>
-								<%-- <c:forEach var="vo" items="${buyList }"> --%>
-								<c:forEach var="vo" items="${buyList }">
+								<c:forEach var="vo" items="${myBuyAuction }">
 								<article>
 								<div class="infoContainer">
 								<c:if test="${vo.buy_mem_id eq sessionScope.id }">
 										<div class="item">
 									        <div>
-									        <img src="/resources/images/${vo.product_pic.split(',')[0] }" 
+									        <img src="/resources/images/${vo.au_pic.split(',')[0] }" 
 									        onerror="this.src='/resources/images/default_product.jpg'" width="100px" height="80px">
-									          <%-- <div>${vo.product_pic }</div> --%>
 									        </div>
 									        </div>
 										<div class="item">
 									        <div>
-									          <div>${vo.product_cate }</div>
+									          <div>${vo.au_category }</div>
 									        </div>
 									        </div>
 										<div class="item">
 									        <div>
-		        				<a href="/product/prodInfo?product_num=${vo.prod_num }&seller=${vo.sell_mem_id}">
-									          <div>${vo.product_title }</div>
-									          <fmt:formatNumber value="${vo.product_price }" pattern="#,###" />원</a>
+		        				<a href="/auction/aDetail?au_num=${vo.au_num }">
+									          <div>${vo.au_title }</div>
+									          <fmt:formatNumber value="${vo.au_bidPrice }" pattern="#,###" />원</a>
 									        </div>
 									        </div>
 										<div class="item">
 									        <div>
-							         	  <a href="/members/memberInfo?mem_id=${vo.sell_mem_id }"> 
-							         	  <div>${vo.sell_mem_id }</div>
+							         	  <a href="/members/memberInfo?mem_id=${vo.au_sellerId }"> 
+							         	  <div>${vo.au_sellerId }</div>
 							         	   </a>
 									        </div>
 									        </div>
 								<div class="script">
-								<%-- 
-								<c:choose>
-			                        <c:when test="${not empty vo.prod_num}">
-			                            <button class="trigger" disabled>이미 작성한 리뷰</button>
-			                        </c:when>
-			                        	<c:otherwise> --%>
+							
  	    
 						         <button class="trigger">구매후기 작성</button>      
 								     <div class="modal"> 
@@ -431,19 +425,17 @@ textarea{
 													<option value="0">0</option>
 												</select>
 
-												<input type="hidden" name="reviewee" value="${vo.sell_mem_id}">
-												<input type="hidden" name="reviewer" value="${vo.buy_mem_id}">
-												<input type="hidden" name="prod_num" value="${vo.prod_num[varStatus.index]}">
+												<input type="hidden" name="reviewee" value="${vo.buy_mem_id}">
+												<input type="hidden" name="reviewer" value="${vo.au_sellerId}">
+												<input type="hidden" name="au_num" value="${vo.au_num}">
 								               <input type="button" id="cancel" value="취소" onclick="location.href='/trade/buyList'" > 
 								               <input type="submit" id="submit" value="작성"> 
 				
 								             </form> 	
 								         </div> 
 								     </div>
-								   <%--   </c:otherwise>
-								    </c:choose>  --%>
 						        </div>
-					        </c:if>
+									        </c:if>
 									</div>
 									</article>
 									</c:forEach>
@@ -480,39 +472,56 @@ textarea{
 	</script> -->
 
   <script type="text/javascript"> 
-         var modal = document.querySelector(".modal"); 
-         var trigger = document.querySelectorAll(".trigger"); 
-         var closeButton = document.querySelector(".close-button"); 
-         var cancelButton = document.querySelector("#cancel");
+  var modal = document.querySelector(".modal"); 
+  var trigger = document.querySelectorAll(".trigger");  
+  var closeButton = document.querySelector(".close-button"); 
+  var cancelButton = document.querySelector("#cancel");
 
-         var triggers = document.querySelectorAll(".trigger");
-         for (var i = 0; i < triggers.length; i++) {
-           triggers[i].addEventListener("click", toggleModal);
-         }
+  trigger.forEach(function(element) {
+    element.addEventListener("click", toggleModal);
+  });
+
+  function toggleModal() { 
+    modal.classList.toggle("show-modal"); 
+  }
+
+  function windowOnClick(event) { 
+    if (event.target === modal) { 
+      toggleModal(); 
+    } 
+  }
+
+ /*  closeButton.addEventListener("click", toggleModal); */ 
+  /* cancelButton.addEventListener("click", toggleModal);  */
+  window.addEventListener("click", windowOnClick); 
          
-         for(var i=0; i< trigger.length; i++){
-         	trigger[i].addEventListener("click", toggleModal); 
-         }
-         //console.log(modal);
+         
+         /*  var modal = document.querySelector(".modal"); 
+         var closeButton = document.querySelector(".close-button"); 
+         var cancelButton = document.querySelector("#cancel"); */
+        // var trigger = document.querySelector(".trigger");  
+       /*   console.log(trigger);
+         for( var i = 0; i < trigger.length; i++ ){
+        	 trigger[i].addEventListener("click", toggleModal); 
+			}
+        //console.log(modal);
 
-         function toggleModal() { 
+        function toggleModal() { 
              modal.classList.toggle("show-modal"); 
          }
 
-         function windowOnClick(event) { 
+        function windowOnClick(event) { 
              if (event.target === modal) { 
                  toggleModal(); 
              } 
-         }
+         }*/
 
-         /* trigger.addEventListener("click", toggleModal);  */
-         closeButton.addEventListener("click", toggleModal); 
+        trigger.addEventListener("click", toggleModal); 
+  closeButton.addEventListener("click", toggleModal);  
          cancel.addEventListener("click", toggleModal); 
-         window.addEventListener("click", windowOnClick); 
+         window.addEventListener("click", windowOnClick);  
          
 
-         
-         
      </script>
 
 

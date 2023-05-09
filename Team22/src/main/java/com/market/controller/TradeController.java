@@ -10,12 +10,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.market.domain.AuctionVO;
@@ -78,6 +76,34 @@ public class TradeController {
 		
 		
 	}
+	// 경매 구매 내역
+	@RequestMapping(value = "/myBuyAuction", method = RequestMethod.GET)
+	public void myBuyAuction(Model model,HttpSession session) throws Exception {
+		
+		String id = (String)session.getAttribute("id");
+		List<Map<String,Object>> myBuyAuction = service.myBuyAuction(id);
+		
+		logger.info("@@@@@@@@@@@@@@@"+id);
+		
+		logger.info("@@@@@@@@@@@@@@"+myBuyAuction);
+		
+		model.addAttribute("myBuyAuction",myBuyAuction);
+		
+	}
+	// 응모 구매 내역
+	@RequestMapping(value = "/myBuyRandom", method = RequestMethod.GET)
+	public void myBuyRandom(Model model,HttpSession session) throws Exception {
+		
+		String id = (String)session.getAttribute("id");
+		List<Map<String,Object>> myBuyRandom = service.myBuyRandom(id);
+		
+		logger.info("@@@@@@@@@@@@@@@"+id);
+		
+		logger.info("@@@@@@@@@@@@@@"+myBuyRandom);
+		
+		model.addAttribute("myBuyRandom",myBuyRandom);
+		
+	}
 	
 	// 판매 내역
 	@RequestMapping(value = "/prodList", method = RequestMethod.GET)
@@ -93,8 +119,9 @@ public class TradeController {
 	@RequestMapping(value = "/reviewInsert", method = RequestMethod.POST)
 	public String reviewWritePOST(Model model, ReviewVO rvo,RedirectAttributes rttr ) throws Exception{
 //		List<Map<String,Object>> List = service.buyList();
-		
 		logger.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+rvo);
+		
+		service.writeReview(rvo);
 		
 //		model.addAttribute("List",List);
 		rttr.addFlashAttribute("result","buy");
@@ -140,6 +167,19 @@ public class TradeController {
 		
 		return "/trade/myAuctionList";
 	}
+	// 나의 응모정보
+	@RequestMapping(value = "/myBuyRandomList", method = RequestMethod.GET)
+	public String myRandomList(Model model,HttpSession session) throws Exception {
+		String id = (String)session.getAttribute("id");
+		logger.info("@@@@@@@@@@@@@@@"+id);
+		
+		List<RandomVO> myBuyRandomList = service.myBuyRandomList(id);
+		
+		model.addAttribute("myBuyRandomList", myBuyRandomList);
+		
+		
+		return "/trade/myBuyRandomList";
+	}
 	
 	// 내 경매 판매 목록
 	@RequestMapping(value = "/mySaleAuction", method = RequestMethod.GET)
@@ -180,6 +220,50 @@ public class TradeController {
 		// 페이지이동(listALL)
 		return "/trade/buyReview";
 	}
+	
+	// 내가 등록한 상품 삭제
+	@RequestMapping(value = "/removeProduct", method = RequestMethod.GET)
+	public String removeProduct(Model model,@RequestParam("product_num") int product_num,
+			RedirectAttributes rttr)throws Exception {
+		
+		logger.info("@@@@@@@@@@@@@@@@@"+product_num);
+		int result = service.removeProduct(product_num);
+		
+		if(result == 1) {
+			rttr.addFlashAttribute("result", "delOK");
+		}
+		// 페이지이동(listALL)
+		return "/trade/mySaleProduct";
+	}
+	// 내가 등록한 경매상품 삭제
+	@RequestMapping(value = "/removeAuction", method = RequestMethod.GET)
+	public String removeAuction(Model model,@RequestParam("au_num") int au_num,
+			RedirectAttributes rttr)throws Exception {
+		
+		logger.info("@@@@@@@@@@@@@@@@@"+au_num);
+		int result = service.removeAuction(au_num);
+		if(result == 1) {
+			rttr.addFlashAttribute("result", "delOK");
+		}
+		// 페이지이동(listALL)
+		return "/trade/mySaleAuction";
+	}
+	
+	// 내가 등록한 랜덤상품 삭제
+	@RequestMapping(value = "/removeRandom", method = RequestMethod.GET)
+	public String removeRandom(Model model,@RequestParam("ran_num") int ran_num,
+			RedirectAttributes rttr)throws Exception {
+		
+		logger.info("removeRandom@@@@@@@@@@@"+ran_num);
+		int result = service.removeRandom(ran_num);
+		
+		if(result == 1) {
+			rttr.addFlashAttribute("result", "delOK");
+		}
+		// 페이지이동(listALL)
+		return "/trade/mySaleRandom";
+	}
+	
 	
 	
 }
