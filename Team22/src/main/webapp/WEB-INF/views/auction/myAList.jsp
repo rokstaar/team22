@@ -68,7 +68,6 @@
 									
 									<c:if test="${not empty aList and aList != '[null]' }">
 										<c:forEach items="${aList }" var="aList">
-										<c:if test="${id ne aList.au_sellerId }">
 											<article style="text-align: center; border: solid 3px #769fcd; margin:20px;">
 												<span id="subSpan"><img id="subPic" src="/auction/download?fileName=${aList.au_pic.replace('[','').replace(']','').split(',')[0]}" /></span>
 												<div class="content">
@@ -79,7 +78,6 @@
 													<a href="/auction/Aconfirmed?au_num=${aList.au_num }&au_sellerId=${aList.au_sellerId}&au_title=${aList.au_title}&au_bidPrice=${aList.au_bidPrice}" class="button">구매 확정하기</a></p>
 												</div>
 											</article>
-										</c:if>
 										</c:forEach>
 									</c:if>
 									</div>

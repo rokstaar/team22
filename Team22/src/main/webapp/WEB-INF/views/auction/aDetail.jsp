@@ -79,7 +79,6 @@
 						$("#time").html("경매 종료");
 						alert('경매종료');
 						// 경매시간 만료시 최종 입찰자한테 알림 보내기
-						
 					}
 			    }
 				timer = setInterval(setTimer, 1000);

@@ -14,8 +14,8 @@
 		select * from random
 		where ran_num = (select ran_num
 						from random
-						where ran_status = 0
 						group by ran_num
+                		having ran_status = 0
 						order by count(ran_num) desc
                 		limit 1)
 		order by ran_maxPp desc
@@ -24,28 +24,8 @@
 
 	<select id="rList" resultType="com.market.domain.RandomVO">
 		select A.*, count(ran_num)-1 as count
-		from (select * from random order by ran_maxPp desc limit #{pageStart},#{pageSize}) A
+		from (select * from random order by ran_maxPp desc limit 0, 10) A
 		where A.ran_status = 0
-		group by A.ran_num
-		order by A.ran_num desc;
-	</select>
-	
-	<select id="countRan" resultType="int">
-		select count(distinct ran_num)
-		from random
-		where ran_status = 0
-	</select>
-	
-	<select id="countSearch" resultType="int">
-		select count(distinct ran_num)
-		from random
-		where ran_status = 0 and ${type} like CONCAT('%',#{search},'%')
-	</select>
-	
-	<select id="searchList" resultType="com.market.domain.RandomVO">
-		select A.*, count(ran_num)-1 as count
-		from (select * from random order by ran_maxPp desc limit #{pageStart},#{pageSize}) A
-		where A.ran_status = 0 and ${type} like CONCAT('%',#{search},'%')
 		group by A.ran_num
 		order by A.ran_num desc;
 	</select>
@@ -106,38 +86,6 @@
 		where member_id = #{ran_sellerId}
 	</update>
 	
-	<select id="myRan" resultType="com.market.domain.RandomVO">
-		select r2.ran_num, r2.ran_sellerId, r2.ran_pic, r2.ran_title, t.buy_mem_id as ran_buyerId, r2.ran_status
-		from random r1 join random r2
-		on r1.ran_num = r2.ran_num
-		join trade t
-		on t.ran_num = r1.ran_num
-		where r1.ran_buyerId = #{id} and r2.ran_sellerId is not null and r2.ran_status = 1
-		order by r2.ran_num desc;
-	</select>
-	
-	<update id="schedule" useGeneratedKeys="true" keyProperty="ran_num">
-		update random set ran_status = 2
-		<![CDATA[where ran_status = 0 and ran_num in (select distinct ran_num from (select ran_num
-									from random
-                                    where ran_endTime < now()) as tmp )]]>
-	</update>
-	
-	<select id="endNum" resultType="int">
-		select distinct ran_num from random
-		where ran_status = 2
-	</select>
-	
-	<update id="endPlusPay">
-		update member set member_pay = member_pay + (select distinct ran_bidPrice from random
-													 where ran_num = #{num})
-		where member_id in (select ran_buyerId from random where ran_num = #{num} and ran_sellerId is null);
-	</update>
-	
-	<update id="confirmRan">
-		update random set ran_status = 3
-		where ran_status = 2
-	</update>
 
 </mapper>
 

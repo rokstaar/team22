@@ -120,11 +120,6 @@
 		insert into trade(buy_mem_id, sell_mem_id, prod_sell_date, type_div, au_num, product_title)
 		values(#{au_buyerId}, #{au_sellerId}, now(), 'au', #{au_num}, #{au_title})
 	</insert>
-	
-	<update id="endATime">
-		update auction set au_status = 1
-		<![CDATA[where au_status = 0 and au_endTime < now()]]>
-	</update>
 
 </mapper>
 

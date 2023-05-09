@@ -13,7 +13,6 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,8 +22,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.market.domain.ACriteria;
-import com.market.domain.APageDTO;
 import com.market.domain.RandomVO;
 import com.market.service.RandomService;
 
@@ -118,13 +115,12 @@ public class RandomController {
 	}
 	
 	@RequestMapping(value = "/rList", method = RequestMethod.GET)
-	public void rListGET(Model model, ACriteria cri) throws Exception{
-		APageDTO pageDTO = new APageDTO();
-		pageDTO.setCri(cri);
-		pageDTO.setTotalCount(service.countRan());
-		model.addAttribute("rList", service.rlist(cri));
-		model.addAttribute("pageDTO", pageDTO);
+	public void rListGET(Model model) throws Exception{
+		model.addAttribute("rList", service.rlist());
+		System.out.println(service.rlist());
 		RandomVO best = service.nowBest();
+		System.out.println(best);
+		System.out.println(service.countP(best.getRan_num())); // best null이라 오류뜸 수정필요
 		model.addAttribute("best", best);
 		model.addAttribute("bCount", service.countP(best.getRan_num()));
 		
@@ -192,29 +188,6 @@ public class RandomController {
 		}
 		
 	}
-	
-	@RequestMapping(value = "/myRan", method = RequestMethod.GET)
-	public String myRanGET(HttpSession session, Model model, ACriteria cri) throws Exception {
-		String id = (String) session.getAttribute("id");
-		if(id == null) {
-			return "redirect:/members/login";
-		}
-		
-		model.addAttribute("rList", service.myRan(id));
-		return "/random/myRan";
-	}
-	
-	@RequestMapping(value = "/searchList", method = RequestMethod.GET)
-	public void searchListGET(@RequestParam("type") String type,
-							  @RequestParam(value = "search", required = false) String search, Model model, ACriteria cri) throws Exception {
-		APageDTO pageDTO = new APageDTO();
-		pageDTO.setCri(cri);
-		pageDTO.setTotalCount(service.countSearch(type, search));
-		model.addAttribute("rList", service.searchList(cri, type, search));
-		model.addAttribute("pageDTO", pageDTO);
-	}
-	
-	
 
 }
 

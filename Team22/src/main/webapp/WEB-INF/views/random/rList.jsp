@@ -124,17 +124,19 @@
 										<a href='/random/rRegist'>응모 등록하기</a>
 									</header>
 									<section id="search" class="alt" style="display: inline-block; float: right;">
-										<form method="get" action="/random/searchList" style="display: flex">
+										<form method="get" action="/auction/list" style="display: flex">
 											<select name="type" class="button" style="margin-right: 10px">
-												<option value="ran_title">제목</option>
-												<option value="ran_sellerId">판매자</option>
+												<option value="au_title">제목</option>
+												<option value="au_sellerId">판매자</option>
 											</select>
 											<input type="text" name="search" placeholder="검색할 단어입력" style="width: 300px;"/>
 										</form>
 									</section>
-									<c:if test="${id ne null }">
-										<a href="/random/myRan" class="button" style="display: inline-block; float: left; margin-right:10px">당첨 결과 확인	</a>
-									</c:if>
+									
+									<a href="/auction/list?order=au_bidPrice&met=asc" class="button" style="display: inline-block; float: left; margin-right:10px">가격순</a>
+									<a href="/auction/list?order=best" class="button" style="display: inline-block; float: left; margin-right:10px">인기순</a>
+									<a href="/auction/list" class="button" style="display: inline-block; float: left; margin-right:10px">최신순</a>
+									<a href="/auction/myList" class="button" style="display: inline-block; float: left; margin-right:10px">경매 결과 확인	</a>
 									
 									<div class="features">
 									<c:if test="${rList != null }">
@@ -154,6 +156,7 @@
 									</c:forEach>
 									</c:if>
 									</div>
+									
 									<ul class="pagination" style="text-align: center;">
 										<c:if test="${pageDTO.prev == true }">
 											<li><a href="/auction/list?page=${pageDTO.cri.page - 1}" class="button">Prev</a></li>

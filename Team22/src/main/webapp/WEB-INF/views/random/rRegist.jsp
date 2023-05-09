@@ -78,7 +78,7 @@
 																<input type="text" name="ran_maxPp" id="ran_maxPp" value="" placeholder="모집 인원">
 															</div>
 															<div class="col-6 col-12-xsmall">
-																<input type="date" name="ran_endTime" id="ran_endTime" value="" placeholder="종료시간">
+																<input type="datetime-local" name="ran_endTime" id="ran_endTime" value="" placeholder="종료시간">
 															</div>
 															<!-- Break -->
 															

@@ -159,6 +159,7 @@
 										</article>
 									</c:forEach>
 									</div>
+									
 									<ul class="pagination" style="text-align: center;">
 										<c:if test="${pageDTO.prev == true }">
 											<li><a href="/auction/list?page=${pageDTO.cri.page - 1}" class="button">Prev</a></li>
