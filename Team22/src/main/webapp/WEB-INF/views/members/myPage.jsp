@@ -259,7 +259,7 @@ div{
 									      	
 									        <div style="margin-left: 10px;">
 									          <div style="font-size: 20px;" >${sessionScope.id }</div>
-									       	   <div style="font-size: 20px;">페이 : 50,000원</div>
+									       	   <div style="font-size: 20px;">페이 : ${memberInfo.member_pay }원</div>
 									         <a href="/members/updatePwCk"><div style="font-size: 20px;">회원정보수정</div></a>
 									         <a href="/members/deletePwCk"><div style="font-size: 20px;">회원탈퇴</div></a>
 									        </div>
@@ -268,6 +268,7 @@ div{
 									      <div class="item">
 									       <div>
 									      <a href="/trade/buyList" > <div class="text">거래내역</div>
+									      <!-- <a onclick="buyList()" > <div class="text">거래내역</div> -->
 									          </a>
 									        </div>
 									      </div>      
@@ -317,6 +318,7 @@ var result = "${update}";
 if(result == "update"){
 	alert("회원수정완료!");		
 }
+
 </script>
 
 		

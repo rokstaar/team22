@@ -52,8 +52,8 @@ public class TradeServiceImpl implements TradeService{
 	}
 
 	@Override
-	public void writeReview(ReviewVO rvo) throws Exception {
-		tdao.insertReview(rvo);
+	public Integer writeReview(ReviewVO rvo) throws Exception {
+		return tdao.insertReview(rvo);
 	}
 
 	@Override
@@ -97,6 +97,38 @@ public class TradeServiceImpl implements TradeService{
 	public Integer removeReview(Integer prod_num) throws Exception {
 		return tdao.deleteReview(prod_num);
 	}
+
+	@Override
+	public Integer removeProduct(Integer product_num) throws Exception {
+		return tdao.deleteProduct(product_num);
+	}
+
+	@Override
+	public Integer removeAuction(Integer au_num) throws Exception {
+		return tdao.deleteAuction(au_num);
+	}
+
+	@Override
+	public Integer removeRandom(Integer ran_num) throws Exception {
+		return tdao.deleteRandom(ran_num);
+	}
+
+	@Override
+	public List<Map<String, Object>> myBuyAuction(String id) throws Exception {
+		return tdao.myBuyAuction(id);
+	}
+
+	@Override
+	public List<Map<String, Object>> myBuyRandom(String id) throws Exception {
+		return tdao.myBuyRandom(id);
+	}
+
+	@Override
+	public List<RandomVO> myBuyRandomList(String id) throws Exception {
+		return tdao.myBuyRandomList(id);
+	}
+
+
 
 	
 	

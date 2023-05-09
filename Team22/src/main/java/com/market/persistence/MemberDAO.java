@@ -42,5 +42,6 @@ public interface MemberDAO {
 	
  	// 회원 탈퇴
  	public void memberDelete(MemberVO vo)throws Exception;
- 	
+ 	// 판매자 프로필
+ 	public List<Map<String,Object>> userInfo(String id)throws Exception;
 }

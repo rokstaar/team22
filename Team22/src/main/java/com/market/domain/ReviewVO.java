@@ -15,4 +15,6 @@ public class ReviewVO {
 	private int au_num;
 	private int ran_num;
 	
+	
+	
 }

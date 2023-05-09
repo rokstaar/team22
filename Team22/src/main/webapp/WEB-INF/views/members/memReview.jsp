@@ -115,7 +115,7 @@ div{
   text-align: center;
 }
 .shippingStatusContainer .text{
-  font-size: 14px;
+  font-size: 25px;
   font-weight: normal;
   color: black;
   font-weight : bold;
@@ -209,6 +209,7 @@ div{
   text-decoration: none;
   color: 769fcd;
   font-weight: bold;
+  border-bottom: solid 5px #769fcd;
 }
 .infoContainer .item > div:first-child{
   margin-bottom: 2px;
@@ -244,7 +245,7 @@ div{
 
 							<!-- Header -->
 								<%@ include file="../include/header.jsp" %>
-
+								
 							<!-- Banner -->
 								<section id="banner">
 									<div class="content">
@@ -254,16 +255,17 @@ div{
 									      
 									      <div class="item">
 									        <div>
-									        <img alt="프로필사진" src="/resources/img/soul.jpg" width="150px" height="100px" >
+									        <img alt="프로필사진" src="${userInfo[0].member_pic }" width="150px" height="100px" >
 									       </div>
 									      	
 									        <div>
-									          <div class="text">닉네임</div>
+									          <div class="text">${memReview[0].member_nickname } 님의 정보</div>
 									        </div>
 									      </div>
+									      
 									       <div class="item">
 									        <div>
-									        <a href="/members/memberInfo?mem_id=${memReview[0].reviewee} " > <div class="text">판매상품</div>
+									         <a href="/members/memberInfo?mem_id=${memReview[0].reviewee }"> <div class="text">판매상품</div>
 									          </a>
 									        </div>
 									      </div>      
@@ -273,6 +275,7 @@ div{
 									          <div class="text">거래후기</div>
 									          </a>
 									        </div>
+									     
 									      </div>        
 									      
 									    </div>

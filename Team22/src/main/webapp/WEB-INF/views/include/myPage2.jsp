@@ -1,27 +1,20 @@
-<%@page import="com.market.domain.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- Banner -->
-
-<%
-
-// MemberVO memberInfo = (MemberVO) request.getattribute("memberinfo");
-
-// session.setattribute("memberinfo", memberinfo);
-%>
-
 								<section id="banner">
 									<div class="content">
 									<div class="wrap">
 									  <div class="shippingStatusContainer">
 									    <div class="status">
+									      
 									      <div class="item">
 									        <div>
-									        <img alt="프로필사진" src="${sessionScope.memberInfo.member_pic}" width="150px" height="100px" >
+									        <img alt="프로필사진" src="${memberInfo.member_pic}" width="150px" height="100px" >
 									       </div>
+									      	
 									        <div style="margin-left: 10px;">
 									          <div style="font-size: 20px;" >${sessionScope.id }</div>
-									       	   <div style="font-size: 20px;">페이 : ${sessionScope.memberInfo.member_pay}원</div>
+									       	   <div style="font-size: 20px;">페이 : ${memberInfo.member_pay } 원</div>
 									         <a href="/members/updatePwCk"><div style="font-size: 20px;">회원정보수정</div></a>
 									         <a href="/members/deletePwCk"><div style="font-size: 20px;">회원탈퇴</div></a>
 									        </div>
@@ -75,3 +68,5 @@ if(result == "update"){
 </script>
 
 		
+	</body>
+</html>

@@ -258,10 +258,11 @@ div{
 									    </a>    
 									   
 									  </div>
-									  					  
+									  		<div class="infoContainer">
 				  <a href="/trade/mySaleProduct?product" class="button" style="display: inline-block; float: right;">일반</a>
 				  <a href="/trade/mySaleAuction" class="button" style="display: inline-block; float: right;">경매</a>
 				<a href="/trade/mySaleRandom" class="button" style="display: inline-block; float: right;">응모</a>
+									  		</div>			  
 									<header class="major">
 									
 									</header>
@@ -273,20 +274,21 @@ div{
 								<a class="product-section" href="/product/prodInfo?product_num=${vo.product_num }&seller=${vo.product_seller}">
 									<img src="/resources/images/${vo.product_pic.split(',')[0] } " width="511px" height="306px" 
 									onerror="this.src='/resources/images/default_product.jpg'">
-									
+								<div>판매자 : ${vo.product_seller }</div>
+								<div style="float:left;">
+								<div>상품명 : ${vo.product_title }</div>
+									가격 : <fmt:formatNumber value="${vo.product_price }" pattern="#,###" />원
+								</div>
+								</a>	
 									
 									
 								<div style="float:right;">
 									조회수 ${vo.product_readcount }
-								</div>
-								<div>${vo.product_title }</div>
+								</div><br>
 								
 								
-								<div>${vo.product_seller }</div>
-								<div style="float:left;">
-									<fmt:formatNumber value="${vo.product_price }" pattern="#,###" />원
-								</div>
-								</a>
+								
+								
 								<c:if test="${not empty id}">
 <div style="float:right;" class="div-likeit" data-product-num="${vo.product_num}" data-seller="${vo.product_seller}" data-svg-visible="false">
 	
@@ -296,7 +298,11 @@ div{
 
 </div>
 			</c:if>
+						<a href="/trade/removeProduct?product_num=${vo.product_num }" style="float:right;">
+						          <div>상품삭제</div></a> 
+			
 				</article>
+				
 			</c:forEach>
 									</div>
 								</section>

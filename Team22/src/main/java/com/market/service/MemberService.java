@@ -32,5 +32,6 @@ public interface MemberService {
 	public int findIdCheck(String memberEmail)throws Exception;
 	// 회원탈퇴
 	public void removeMember(MemberVO vo)throws Exception;
-	
+	// 유저 프로필정보
+	public List<Map<String,Object>> userInfo(String id)throws Exception;
 }

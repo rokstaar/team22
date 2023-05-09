@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.market.domain.MemberVO;
@@ -16,6 +18,10 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Inject
 	private MemberDAO mvo;
+	
+	
+	private static final Logger logger = LoggerFactory.getLogger(MemberServiceImpl.class);
+
 	
 	@Override
 	public MemberVO loginMember(MemberVO vo) {
@@ -49,7 +55,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public List<Map<String, Object>> memSellReview(String id) throws Exception {
-
+		logger.info("@@@@@@@@@@memberSERVICE@@@@@@@@@@@@"+id);
 		return mvo.memProdReview(id);
 	}
 
@@ -82,7 +88,10 @@ public class MemberServiceImpl implements MemberService {
 	public void removeMember(MemberVO vo) throws Exception {
 		mvo.memberDelete(vo);
 	}
-	
+	@Override
+	public List<Map<String, Object>> userInfo(String id) throws Exception {
+		return mvo.userInfo(id);
+	}
 	
 	
 }

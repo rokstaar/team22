@@ -53,7 +53,7 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 	@Override
 	public List<Map<String, Object>> memProdReview(String id) throws Exception {
-
+		
 		return sqlSession.selectList(NAMESPACE+".memProdReview", id);
 	}
 	@Override
@@ -93,5 +93,9 @@ public class MemberDAOImpl implements MemberDAO {
 		sqlSession.delete(NAMESPACE+".memberDelete",vo);
 	}
 
+	@Override
+	public List<Map<String, Object>> userInfo(String id) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".userInfo",id);
+	}
 	
 }

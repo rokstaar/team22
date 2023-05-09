@@ -53,9 +53,9 @@ public class TradeDAOImpl implements TradeDAO{
 	}
 
 	@Override
-	public void insertReview(ReviewVO rvo) throws Exception {
+	public Integer insertReview(ReviewVO rvo) throws Exception {
 		
-		 sqlSession.insert(NAMESPACE+".insertReview",rvo);
+		 return sqlSession.insert(NAMESPACE+".insertReview",rvo);
 	}
 
 	@Override
@@ -105,8 +105,42 @@ public class TradeDAOImpl implements TradeDAO{
 		return sqlSession.delete(NAMESPACE+".deleteReview",prod_num);
 	}
 
+	@Override
+	public Integer deleteProduct(Integer product_num) throws Exception {
+		// TODO Auto-generated method stub
+		
+		return sqlSession.delete(NAMESPACE+".deleteProduct",product_num);
+	}
+
+	@Override
+	public Integer deleteAuction(Integer au_num) throws Exception {
+		return sqlSession.delete(NAMESPACE+".deleteAuction",au_num);
+	}
+
+	@Override
+	public Integer deleteRandom(Integer ran_num) throws Exception {
+		return sqlSession.delete(NAMESPACE+".deleteRandom",ran_num);
+	}
+
+	@Override
+	public List<Map<String, Object>> myBuyAuction(String id) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".myBuyAuction",id);
+	}
+
+	@Override
+	public List<Map<String, Object>> myBuyRandom(String id) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".myBuyRandom",id);
+	}
+
+	@Override
+	public List<RandomVO> myBuyRandomList(String id) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".myBuyRandomList",id);
+	}
+
 	
 
+	
+	
 	
 		
 	
