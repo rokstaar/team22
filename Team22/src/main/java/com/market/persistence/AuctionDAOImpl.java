@@ -123,6 +123,16 @@ public class AuctionDAOImpl implements AuctionDAO{
 	public void Aconfirmed(AuctionVO vo) throws Exception {
 		sqlSession.insert(NAMESPACE+".Aconfirmed", vo);
 	}
+
+	@Override
+	public void endConfirm(AuctionVO vo) throws Exception {
+		sqlSession.update(NAMESPACE+".endConfirm", vo);
+	}
+
+	@Override
+	public Integer countA(AuctionVO vo) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+".countA", vo);
+	}
 	
 	
 	

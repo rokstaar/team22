@@ -23,6 +23,7 @@
 		<script type="text/javascript">
 			$(document).ready(function(){
 				
+				var rebuyer;
 				function ubid(){
 					$.ajax({
 						url:"/auction/uBid",
@@ -31,11 +32,18 @@
 						},
 						dataType:"JSON",
 						success:function(data){
+							if(data.buyer != '${vo.au_sellerId}'){
+								rebuyer = data.buyer.replace(data.buyer.substring(2,4), '***');
+							}else{
+								rebuyer = 'X';
+							}
+							
 							$('#uBid').attr("value", data.bid);
-							$('#nowBid').html('현재 입찰금 : ' + data.bid.toLocaleString("ko-KR"));
+							$('#nowBid').html('현재 입찰금(입찰자 : '+ rebuyer + ' ) : ' + data.bid.toLocaleString("ko-KR"));
 							$('#myPay').attr("value", data.pay);
 							$('#rPay').html('${id }' + '님의 보유금액 : '+data.pay.toLocaleString("ko-KR"));
 							$('#lastBuyer').attr("value", data.buyer);
+							$('#countA').html(data.countA);
 							
 						}
 					});
@@ -185,6 +193,7 @@
 											판매자 : ${vo.au_sellerId }<br>
 											시작가 : ${startPrice }<br>
 											</p> 
+											입찰수 : <p id="countA">${countA }</p>
 											<p class="button" id="time"></p>
 											<c:if test="${vo.au_bidPrice == 0}">
 												<p class="button" id="nowBid">현재 입찰금 : ${startPrice }</p><br>

@@ -93,13 +93,14 @@
 								<section id="banner">
 									<div class="content">
 										<header style="text-align: center;">
-											<h1>HOT<br/>
+											<h1>인기 상품<br/>
 											${best.au_title }</h1>
 											<p>기간 : ${best.au_endTime }<br>
 											시작가 : ${best.au_startPrice }<br>
 											현재 입찰금 : ${best.au_bidPrice }<br>
 											즉시 구매가 : ${best.au_endPrice }<br>
-											판매자 : ${best.au_sellerId } </p>
+											판매자 : ${best.au_sellerId }<br>
+											입찰수 : ${best.countA}<br> </p>
 											
 											<ul class="actions" style="text-align: center;">
 												<li class="button" id="time" style="text-align: center; width:230px"></li>
@@ -153,6 +154,7 @@
 													현재 입찰가 : ${aList.au_bidPrice }<br>
 												</c:if>
 												판매자 : ${aList.au_sellerId }<br>
+												입찰수 : ${aList.countA}<br>
 												종료시간 : ${aList.au_endTime }<br>
 												<a href="/auction/aDetail?au_num=${aList.au_num }" class="button">입찰하기</a></p>
 											</div>

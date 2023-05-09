@@ -16,4 +16,6 @@ public class AuctionVO {
 	private String au_title;
 	private String au_content;
 	private String au_category;
+	
+	private int countA;
 }
