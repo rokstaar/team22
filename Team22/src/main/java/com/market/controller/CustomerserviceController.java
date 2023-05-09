@@ -18,8 +18,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.market.domain.ACriteria;
 import com.market.domain.APageDTO;
 import com.market.domain.CPageDTO;
+import com.market.domain.Cs_replyVO;
 import com.market.domain.CustomerserviceVO;
 import com.market.domain.NoticeVO;
+import com.market.service.Cs_replyService;
+import com.market.service.CustomerserviceService;
 import com.market.service.CustomerserviceServiceImpl;
 
 @Controller
@@ -27,7 +30,10 @@ import com.market.service.CustomerserviceServiceImpl;
 public class CustomerserviceController {
 	
 	@Inject
-	private CustomerserviceServiceImpl service;
+	private CustomerserviceService service;
+	
+	@Inject
+	private Cs_replyService reservice;
 	
    private static final Logger logger  = LoggerFactory.getLogger(CustomerserviceController.class);
    
@@ -63,6 +69,8 @@ public class CustomerserviceController {
 	   CPageDTO dto = new CPageDTO();
 	   dto.setNum(num);
 	   dto.setCount(service.searcountCs(searchType, keyword));
+	  
+	   // 검색
 	   dto.setSearchType(searchType);
 	   dto.setKeyword(keyword);
 	   
@@ -75,9 +83,6 @@ public class CustomerserviceController {
    }
    
 
-
-
-   
    // 게시판 특정 글 읽기
    @RequestMapping(value = "csread", method = RequestMethod.GET)
    public void csreadGET(@RequestParam("cs_num") int cs_num,Model model) throws Exception{
@@ -89,6 +94,12 @@ public class CustomerserviceController {
 	   logger.info(csVO.toString());
 	   
 	   model.addAttribute("csVO",csVO);
+	   
+	   // 답글 조회
+	   List<Cs_replyVO> reList = reservice.relist(cs_num);
+	   model.addAttribute("reList",reList);
+	   
+	   
 	   
    }
    
@@ -130,31 +141,9 @@ public class CustomerserviceController {
 	   return "redirect:/cs/cslist?num=1";
    }
    
-   // 게시판 답글 등록
-   @RequestMapping(value = "/csRewrite",method = RequestMethod.GET)
-   public void csRewriteGET(@RequestParam("cs_num") int cs_num, Model model) throws Exception{
-	   logger.info(" csRewriteGET 호출$$ ");
-	   
-      CustomerserviceVO cvo = service.getBoard(cs_num);
-	   
-	   model.addAttribute("cvo",cvo);
-	   
-   }
-   
-   // 게시판 답글 등록 - 처리
-  // @RequestMapping(value = "/csRewrite", method = RequestMethod.POST)
-/*   public String csRewritePOST(RedirectAttributes rttr,CustomerserviceVO vo) throws Exception {
-	   logger.info(" csRewrite() 호출$$ ");
-	   
-       service.re_board(vo);
-//	   logger.info(vo.toString());
-//	   
-//	   rttr.addFlashAttribute("result","ok");
-	   
-	   
-	   
-	   return "redirect:/cs/cslist";
-   }*/
+  
 
-   }
+
+
+}
 

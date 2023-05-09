@@ -261,24 +261,34 @@ div{
 							<table>
 									<tr>
 										<th>글번호</th>
+										<th>아이디</th>
 										<th>제목</th>
-										<th>조회수</th>
+										<th>답글여부</th>
 										<th>등록일</th>
 									</tr>
 
-                               <c:forEach var="nolist" items="${notiList}">
+                               <c:forEach var="clist" items="${csList}">
 									<tr>
-										<td>${nolist.noti_num} </td>
+										<td>${clist.cs_num} </td>
+										<td>${clist.mem_id} </td>
 										<td>
-										  <a href="/admin/notiread?noti_num=${nolist.noti_num}">${nolist.noti_title} </a>
+										  <a href="/cs/csread?cs_num=${clist.cs_num}">${clist.cs_sub} </a>
 										</td>										
-										<td>${nolist.noti_readcount} </td>	
-										<td>${nolist.noti_date} </td>										
+										<td>${clist.cs_process} </td>	
+										<td>${clist.cs_date} </td>										
 									</tr>	
 							</c:forEach>										
 					</table>
 				</div> 
 				
+			<c:if test="${id != null && id ==('admin')}">	
+				<div style="text-align: right;">	
+					<button onclick="location.href='/admin/noticewrite';">공지사항 등록</button>				
+			   </div> 
+			</c:if>		
+								 
+						 	   
+									
 									  </div>  
 									</div>	   
                                  </div>

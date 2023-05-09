@@ -19,10 +19,5 @@ public class CustomerserviceVO {
 	private boolean cs_secret;
 	private int cs_readcount;
 	private Date cs_date;
-	
-	private int cs_ref;   // 답글 
-	private int cs_lev;   // 답글
-	private int cs_seq;   // 답글
-	
 
 }

@@ -60,6 +60,18 @@
 	<!-- 모든 거래내역 수 조회  -->
 	
 	
+	<!-- 모든 문의사항 조회  -->
+	<select id="getCsList" resultType="CustomerserviceVO">
+	  select * from customerservice
+	  order by cs_num desc
+	</select>
+	
+	<!-- 모든 공지사항 조회   -->
+	<select id="getNotiList" resultType="NoticeVO">
+	  select * from notice
+	  order by noti_num desc
+	</select>
+	
 	
 	
 	

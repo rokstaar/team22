@@ -35,6 +35,7 @@
 
 	<form role="form" method="post">
 			<input type="hidden" name="cs_num" value="${csVO.cs_num }"> 
+			<input type="hidden" name="cs_process" value="${csVO.cs_process}"> 
 	</form>						
 
 	<article>
@@ -50,24 +51,54 @@
 				
 				<hr>
 			
-			<div>
-                <button type="button" class="btn btn-sm btn-primary" 
+       
+       <c:forEach var="relist" items="${reList }" >
+           <li>
+             <div>
+                <h4> <pre> ${relist.re_content }</pre> </h4> 
+                <h4>${relist.re_date }</h4> 
+        <c:if test="${id != null && id ==('admin')}">         
+                <p>
+                  <a href="/reply/remodify?cs_num=${csVO.cs_num }&re_rno=${relist.re_rno}">수정</a> 
+                 /<a href="/reply/redelete?cs_num=${relist.cs_num}&re_rno=${relist.re_rno}">삭제</a>
+                </p>  
+         </c:if>        
+             </div>          
+           </li>
+       </c:forEach>
+       
+     <div>
+         <button type="button" class="btn btn-sm btn-primary" 
                         id="btnList" onclick="location.href='/cs/cslist?num=1';">목록</button>     
 
-            <c:set var="sid" value="${sessionScope.id }"/>  
+          <c:set var="sid" value="${sessionScope.id }"/>  
               <c:if test="${sid == csVO.mem_id }">
                   <button type="button" class="btn btn-sm btn-primary" 
                           id="btnList" onclick="location.href='/cs/csupdate?cs_num=${csVO.cs_num}';">수정</button>               
                   <button type="button" class="btn btn-sm btn-primary" 
                           id="btnList" onclick="location.href='/cs/deletecs?cs_num=${csVO.cs_num}';">삭제</button>        
-               </c:if>
+            </c:if>              
+    </div>     
                  
-         <c:if test="${id != null && id ==('admin')}"> 
-           <button type="button" class="btn btn-sm btn-primary" id="btnList" 
-                   onclick="location.href='/cs/csRewrite?cs_num=${csVO.cs_num}&cs_ref=${csVO.cs_ref }&cs_lev=${csVO.cs_lev }&cs_seq=${csVO.cs_seq}';">답글 쓰기</button>
-         </c:if>
-           
-           </div>
+         <hr>  
+       
+    <c:if test="${id != null && id ==('admin')}"> 
+         <form method="post" action="/reply/rewrite" class="reform">
+              <div>
+                <textarea name="re_content" rows="5" cols="50" ></textarea> <br>
+               
+               <input type="hidden" name="cs_num" value="${csVO.cs_num}">
+               <input type="hidden" name="cs_process" value="${csVO.cs_process }" >
+               <button type="submit" class="reyes_btn">답글 작성하기</button>
+              </div>
+          </form>      
+    </c:if>
+    
+
+    
+    
+    
+        
            
         
         </div>

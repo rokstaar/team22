@@ -48,20 +48,21 @@
         <h3>무엇을 도와드릴까요?(●'◡'●)</h3>       
       </div>
 
-  <div style="float: left; margin-right: 1em;">
-    <select name="searchType" style="width: 200px;">
+ <div style="margin-left: 20em;"> 
+  <div style="float: left; margin-right: 0.3em;">
+    <select name="searchType" style="width: 120px;">
       <option value="title" <c:if test="${dto.searchType eq 'title'}">selected</c:if>>제목</option>
       <option value="writer" <c:if test="${dto.searchType eq 'writer'}">selected</c:if>>작성자</option>
     </select>
   </div> 
  
-   <div  style="float: left; margin-right: 1em;">
-      <input type="text" name="keyword" value="${dto.keyword}" style="width: 600px;" placeholder="내용을 입력하세요."/>
+   <div  style="float: left; margin-right: 0.1em;">
+      <input type="text" name="keyword" value="${dto.keyword}" style="width: 600px;" placeholder="무엇을 도와드릴까요?"/>
    </div>  
-   <div style="float: left;" >
-      <button type="button" id="searchBtn" >검색</button>
+   <div style="float: left; margin-left: 0.03em;" >
+      <button style="border-radius: 2em" type="button" id="searchBtn" >검색</button>
    </div> 
-
+</div>
    
    <br><br><br>
 
@@ -87,6 +88,7 @@
                     <tr>
                         <th>글번호</th>
                         <th>구분</th>
+                        <th>답변여부</th>
                         <th>제목</th>
                         <th>작성자</th>   
                         <th>등록일</th>    
@@ -99,6 +101,7 @@
                     <tr>
                        <td class="">${blist.cs_num }</td>                       
                         <td class="">${blist.cs_category}</td>
+                        <td class="">${blist.cs_process}</td>
                                 
                         <td class="">
                           <a href="/cs/csread?cs_num=${blist.cs_num}"> ${blist.cs_sub } </a>
@@ -116,12 +119,12 @@
 
 		<div style="text-align: center; font-size: large;">	
 				<c:if test="${dto.prev}">
-					<span>[ <a href="/cs/cslist?num=${dto.startPageNum - 1}">이전</a> ]  </span>
+					<span>[ <a href="/cs/cslist?num=${dto.startPageNum - 1}${dto.searchTypeKeyword}">이전</a> ]  </span>
 				</c:if>
 
 				<c:forEach begin="${dto.startPageNum}" end="${dto.endPageNum}" var="num">
 						<span> <c:if test="${select != num}">
-								<a href="/cs/cslist?num=${num}">${num}</a>
+								<a href="/cs/cslist?num=${num}${dto.searchTypeKeyword}">${num}</a>
 						</c:if> 
 					<c:if test="${select == num}">
 								<b>${num}</b>
@@ -130,7 +133,7 @@
 				</c:forEach>
 
 				<c:if test="${dto.next}">
-						<span>[ <a href="/cs/cslist?num=${dto.endPageNum + 1}">다음</a> ]</span>
+						<span>[ <a href="/cs/cslist?num=${dto.endPageNum + 1}${dto.searchTypeKeyword}">다음</a> ]</span>
 				</c:if>
 		</div>								
 

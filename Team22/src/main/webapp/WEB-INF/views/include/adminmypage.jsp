@@ -42,7 +42,7 @@
 									      </div>     
 									      <div class="item">
 									        <div>
-									          <div class="rightBlue number"> <a href="#">문의사항 관리</a> </div>
+									          <div class="rightBlue number"> <a href="/admin/managecs">문의사항 관리</a> </div>
 									        </div>
 									      </div>     
 									      <div class="item">
