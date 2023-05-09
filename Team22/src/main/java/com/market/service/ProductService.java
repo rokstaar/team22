@@ -53,10 +53,4 @@ public interface ProductService {
 	
 	// 상품 전체 개수 가져오기
 	public int getTotalCount();
-	
-	// 상품 업데이트
-	public int updateProd(ProductVO vo);
-	
-	// 상품 삭제
-	public int deleteProd(Integer pnum);
 }

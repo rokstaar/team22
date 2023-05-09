@@ -195,19 +195,6 @@
 	<select id="getTotalCount" resultType="int">
 		select count(product_num) from product
 	</select>
-	
-	<!-- 상품 정보 수정 -->
-	<update id="updateProd">
-		update product set product_title = #{product_title}, product_content = #{product_content},
-		product_price = #{product_price}, product_grade = #{product_grade} where product_num = #{product_num}
-	</update>
-	<!-- 상품 정보 수정 -->
-	
-	<!-- 상품 정보 삭제 -->
-	<delete id="deleteProd">
-		delete from product where product_num = #{pnum}
-	</delete>
-	<!-- 상품 정보 삭제 -->
 </mapper>
 
 

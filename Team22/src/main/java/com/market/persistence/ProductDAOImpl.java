@@ -103,16 +103,6 @@ public class ProductDAOImpl implements ProductDAO{
 		return session.selectOne(NAMESPACE + ".getTotalCount");
 	}
 
-	@Override
-	public int updateProd(ProductVO vo) {
-		return session.update(NAMESPACE + ".updateProd", vo);
-	}
-
-	@Override
-	public int deleteProd(Integer pnum) {
-		return session.delete(NAMESPACE + ".deleteProd", pnum);
-	}
-
 
 
 	

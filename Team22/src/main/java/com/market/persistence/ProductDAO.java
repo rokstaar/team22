@@ -51,10 +51,4 @@ public interface ProductDAO {
 	
 	// 상품 숫자 세기
 	public int getTotalCount();
-	
-	// 상품 정보 수정
-	public int updateProd(ProductVO vo);
-	
-	// 상품 정보 삭제
-	public int deleteProd(Integer pnum);
 }
