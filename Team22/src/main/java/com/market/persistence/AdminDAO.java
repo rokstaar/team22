@@ -3,6 +3,7 @@ package com.market.persistence;
 import java.util.List;
 import java.util.Map;
 
+import com.market.domain.CustomerserviceVO;
 import com.market.domain.MemberVO;
 import com.market.domain.NoticeVO;
 import com.market.domain.ProductVO;
@@ -31,6 +32,13 @@ public interface AdminDAO {
 	
 	// 총 거래내역 수
 	public int countTrade() throws Exception;
+	
+	
+	// 모든 문의사항 정보
+	public List<CustomerserviceVO> getCsList() throws Exception;
+	
+	// 모든 공지사항 정보
+	public List<NoticeVO> getNotiList() throws Exception;
 	
 	
 	

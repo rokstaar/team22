@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.market.domain.CustomerserviceVO;
 import com.market.domain.MemberVO;
 import com.market.domain.NoticeVO;
 import com.market.domain.ProductVO;
@@ -105,6 +106,18 @@ public class AdminServiceImpl implements AdminService {
 	public int countTrade() throws Exception {
 		
 		return adao.countTrade();
+	}
+
+	@Override
+	public List<CustomerserviceVO> getCsList() throws Exception {
+
+		return adao.getCsList();
+	}
+
+	@Override
+	public List<NoticeVO> getNotiList() throws Exception {
+	
+		return adao.getNotiList();
 	}
 
 	

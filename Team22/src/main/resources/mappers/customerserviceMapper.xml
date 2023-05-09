@@ -16,7 +16,7 @@
 	
 	<!-- 문의사항 목록 + 페이징 + 검색  -->
 	 <select id="getBoardList" parameterType="hashMap" resultType="CustomerserviceVO" >
-	    select cs_num, cs_category, cs_sub, mem_id, cs_date
+	    select cs_num, cs_category, cs_process, cs_sub, mem_id, cs_date
         from customerservice     
        <if test='searchType.equals("title")'>
              where cs_sub LIKE concat('%', #{keyword}, '%')

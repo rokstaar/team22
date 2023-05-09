@@ -136,6 +136,25 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 
 	
+	@Override
+	public List<CustomerserviceVO> getCsList() throws Exception {
+		
+		List<CustomerserviceVO> CstList = sqlSession.selectList(NAMESPACE+".getCsList");
+		return CstList;
+	}
+
+	@Override
+	public List<NoticeVO> getNotiList() throws Exception {
+		
+		List<NoticeVO> NotitList = sqlSession.selectList(NAMESPACE+".getNotiList");
+		return NotitList;
+	}
+	
+	
+	
+	
+
+	
 	
 	
 	
