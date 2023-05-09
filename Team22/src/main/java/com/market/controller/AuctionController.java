@@ -112,6 +112,7 @@ public class AuctionController {
 		vo.setAu_buyerId((String)session.getAttribute("id"));
 		service.Aconfirmed(vo);
 		service.endBid(vo);
+		service.endConfirm(vo);
 		
 		return "redirect:/auction/myList";
 	}
@@ -203,6 +204,7 @@ public class AuctionController {
 	public void auctionDetailGET(AuctionVO vo, Model model, HttpSession session) throws Exception {
 		String id = (String) session.getAttribute("id");
 		model.addAttribute("pay", service.getMpay(id));
+		model.addAttribute("countA", service.countA(vo));
 		model.addAttribute("vo", service.getADetail(vo));
 	}
 	
@@ -247,7 +249,7 @@ public class AuctionController {
 		}else {
 			map.put("bid", service.getADetail(vo).getAu_bidPrice());
 		}
-		
+		map.put("countA",service.countA(vo));
 		map.put("pay", service.getMpay(id));
 		map.put("buyer", service.getADetail(vo).getAu_buyerId());
 		

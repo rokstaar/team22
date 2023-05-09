@@ -103,6 +103,16 @@ public class AcutionServiceImpl implements AuctionService {
 	public void Aconfirmed(AuctionVO vo) throws Exception {
 		adao.Aconfirmed(vo);
 	}
+
+	@Override
+	public void endConfirm(AuctionVO vo) throws Exception {
+		adao.endConfirm(vo);
+	}
+
+	@Override
+	public Integer countA(AuctionVO vo) throws Exception {
+		return adao.countA(vo);
+	}
 	
 	
 	

@@ -41,4 +41,9 @@ public interface AuctionService {
 	public List<AuctionVO> myList(String id) throws Exception;
 	
 	public void Aconfirmed(AuctionVO vo) throws Exception;
+	
+	public void endConfirm(AuctionVO vo) throws Exception;
+	
+	public Integer countA(AuctionVO vo) throws Exception;
+	
 }

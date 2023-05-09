@@ -45,6 +45,8 @@
 										<p>Aenean ornare velit lacus, ac varius enim ullamcorper eu. Proin aliquam facilisis ante interdum congue. Integer mollis, nisl amet convallis, porttitor magna ullamcorper, amet egestas mauris. Ut magna finibus nisi nec lacinia. Nam maximus erat id euismod egestas. Pellentesque sapien ac quam. Lorem ipsum dolor sit nullam.</p>
 										<ul class="actions">
 											<li><a href="/product/prodList" class="button big">상품 리스트가기</a></li>
+											<li><a href="/auction/list" class="button big">경매 리스트가기</a></li>
+											<li><a href="/random/rList" class="button big">응모 리스트가기</a></li>
 										</ul>
 									</div>
 									<span class="image object">

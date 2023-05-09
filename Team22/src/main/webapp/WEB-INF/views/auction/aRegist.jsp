@@ -63,33 +63,39 @@
 							<!-- Banner -->
 								<section id="banner">
 									<form method="post" enctype="multipart/form-data">
-														<div class="row gtr-uniform">
-															<div class="col-6 col-12-xsmall">
-																<input type="text" name="au_title" id="au_title" style="width:1000px" value="" placeholder="제목">
+														<div class="row gtr-uniform" style="text-align: center">
+															<div class="col-6 col-12-xsmall" style="margin:20px; width:100%">
+																<input type="text" name="au_title" id="au_title" value="" placeholder="제목">
 															</div>
-															<div class="col-6 col-12-xsmall">
+															
+															<br>
+															
+															<div class="col-6 col-12-xsmall" style="margin:20px">
 																<input type="text" name="au_startPrice" id="au_startPrice" value="" placeholder="시작가격">
 															</div>
-															<div class="col-6 col-12-xsmall">
-																<input type="date" name="au_endTime" id="au_endTime" value="" placeholder="종료시간">
-															</div>
+															
 															<!-- Break -->
 															
-															<div class="col-6 col-12-xsmall">
+															<div class="col-6 col-12-xsmall" style="margin:20px">
 																<!-- <input type="button" id="au_pic" class="button" value="" > -->
 																<input type="file" name="file1" value="" placeholder="사진등록">
-																<input type="file" name="file2" value="" placeholder="사진등록">
-																<input type="file" name="file3" value="" placeholder="사진등록">
+													<!-- 			<input type="file" name="file2" value="" placeholder="사진등록">
+																<input type="file" name="file3" value="" placeholder="사진등록"> -->
 																<!-- <div onchange="dropfile();">Drap and Drop here.</div> -->
 															</div>
+															
+															<div class="col-6 col-12-xsmall" style="margin:20px">
+																마감 시간 : <input type="date" name="au_endTime" id="au_endTime">
+															</div>
+															
 															<!-- Break -->
 															<br>
 															<!-- Break -->
-															<div class="col-12">
-																<textarea name="au_content" id="au_content" placeholder="경매 상품 설명" rows="6" style="width:1000px"></textarea>
+															<div class="col-12" style="margin:20px; width:100%">
+																<textarea name="au_content" id="au_content" placeholder="경매 상품 설명" rows="6"></textarea>
 															</div>
 															<!-- Break -->
-															<div class="col-12">
+															<div class="col-6 col-12-xsmall" style="margin:20px; float:right">
 																<ul class="actions">
 																	<li><input id="submit" type="submit" value="경매 등록" class="primary"></li>
 																	<li><input type="reset" value="초기화"></li>
