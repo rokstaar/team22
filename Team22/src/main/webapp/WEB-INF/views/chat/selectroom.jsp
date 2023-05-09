@@ -32,7 +32,6 @@
 		margin-left: 20px;
 		word-break: break-all;
 		font-family: "Noto Sans KR", sans-serif;
-		color: #3d4449;
 	}
 	
 	.s_receive_chat:after {
@@ -49,7 +48,7 @@
 	.s_sender_chat {
 		float: right;
 		margin-left: 67%;
-		background-color: lightsalmon;
+		background-color: antiquewhite;
 		margin-bottom: 5px;
 		border-radius: 10px;
 	/* 	width: 300px; */
@@ -60,11 +59,10 @@
 		margin-right: 20px;
 		word-break: break-all;
 		font-family: "Noto Sans KR", sans-serif;
-		color: #3d4449;
 	}
 	
 	.s_sender_chat:after {
-		border-top: 15px solid lightsalmon;
+		border-top: 15px solid antiquewhite;
 		border-left: 0px solid transparent;
 		border-right: 15px solid transparent;
 		border-bottom: 0px solid transparent;
@@ -104,7 +102,6 @@
 	    font-family: "Noto Sans KR", sans-serif;
 	    font-weight:bold;
 	    font-size: 1.2em;
-	    color: #3d4449;
 	}
 	
 	/* 스크롤바 디자인 */
@@ -180,7 +177,7 @@
 	  						<c:if test="${selectChatting[status.index-1].buyer_id eq selectChatting[status.index].buyer_id}">
 	  							<!-- 채팅 내용만 띄우기 -->
 	  							<div class="s_sender_chat">${i.chat_content }</div>
-	  							<div class="s_chat_date">${i.chat_date.toString().split("\\.")[0] }</div>
+	  							<div class="s_chat_date">${i.chat_date }</div>
 	  						</c:if>
 	  						<!-- 이전 index의 이름이랑 현재 index의 이름이랑 비교해서 다르면 -->
 	  						<c:if test="${selectChatting[status.index-1].buyer_id ne selectChatting[status.index].buyer_id}">
@@ -195,7 +192,7 @@
 		      				<!-- 이름이랑 채팅 내용 띄우기 -->
 		      				<div class="s_sender">${i.buyer_id }</div>
 		      				<div class="s_sender_chat">${i.chat_content }</div>
-		      				<div class="s_chat_date">${i.chat_date.toString().split("\\.")[0] }</div>
+		      				<div class="s_chat_date">${i.chat_date }</div>
 	
 		      			</c:if>
    					</c:when>
@@ -208,7 +205,7 @@
 	  						<c:if test="${selectChatting[status.index-1].buyer_id eq selectChatting[status.index].buyer_id}">
 	  							<!-- 채팅 내용만 띄우기 -->
 	  							<div class="s_receive_chat">${i.chat_content }</div>
-	  							<div class="s_sender_chat_date">${i.chat_date.toString().split("\\.")[0] }</div>
+	  							<div class="s_sender_chat_date">${i.chat_date }</div>
 	  						</c:if>
 	  						<!-- 이전 index의 이름이랑 현재 index의 이름이랑 비교해서 다르면 -->
 	  						<c:if test="${selectChatting[status.index-1].buyer_id ne selectChatting[status.index].buyer_id}">
@@ -222,7 +219,7 @@
 		      				<!-- 이름이랑 채팅 내용 띄우기 -->
 		      				<div class="s_receive">${i.buyer_id }</div>
 	       					<div class="s_receive_chat">${i.chat_content }</div>
-	       					<div class="s_sender_chat_date">${i.chat_date.toString().split("\\.")[0] }</div>
+	       					<div class="s_sender_chat_date">${i.chat_date }</div>
 		      			</c:if>
    					</c:otherwise>
   				</c:choose>

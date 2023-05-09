@@ -17,7 +17,7 @@
 <style>	
 
 	*{
-		font-style: #3d4449;
+		font-family: "Noto Sans KR","yg-jalnan",sans-serif;
 	}
 	
 	#s_chat_btn {
@@ -196,7 +196,6 @@
 		font-size: 1em;
 	    font-family: "Noto Sans KR", sans-serif;
 	    font-weight: bold;
-
 	}
 	
 </style>
@@ -221,7 +220,7 @@
 				<div id="s_sub_menu">
 	               <div id="s_chat_list" class="btn btn-light s_chat_menu">내 채팅</div> 
                 </div>
-                
+		           <!--  <div style="border: 1px solid lightgray; margin-bottom: 10px;"></div> -->
                 <!-- 채팅 리스트 클릭 시 띄울 내용 -->
                 <div id="s_menu_box2" class="s_menu_box s_scroll">
                 	<!-- 채팅방 리스트만큼 반복문 실행 -->
@@ -256,7 +255,7 @@
         <article style="float: left;">
         	<!-- 채팅방 클릭 시 해당 채팅방 띄울 div -->
             <div id="s_chat_content_box">
-            	<!-- <img width="100px" style="display: block; margin: 450px;"src="/resources/images/free-icon-bubble-chat-2821941.png"> -->
+            	<img width="100px" style="display: block; margin: 450px;"src="/resources/images/free-icon-bubble-chat-2821941.png">
             </div>
         </article>    
         
@@ -273,44 +272,29 @@
 
 <!-- 서브메뉴 눌렀을 때 -->
 <script>
+	// 채팅 리스트 클릭했을 때
+		$("#s_menu_box2").css('display', 'block');
+		$("#s_menu_box1").css('display', 'none');
+		$("#s_chat_list").attr('class', 'btn btn-primary');
+		$("#s_emp_list").attr('class', 'btn btn-light');
+		$("#s_emp_list").css('border', '1px solid');
 
-	$("#s_menu_box2").css('display', 'block');
-	$("#s_menu_box1").css('display', 'none');
-	$("#s_chat_list").attr('class', 'btn btn-primary');
-	$("#s_emp_list").attr('class', 'btn btn-light');
-	$("#s_emp_list").css('border', '1px solid');
-
+	
 	// 채팅 리스트에 있는 채팅방 리스트 클릭했을 때
 	$(".s_chat_box").click(function() {
-		$(".s_chat_box").css('color', '#3d4449');
+		$(".s_chat_box").css('color', '#7f888f');
 		$(this).css('color', '#769fcd');
 
 	});
 	
-</script>
+	</script>
 
+<!-- 채팅 리스트에서 방 눌렀을 때 -->
 <script>
-	// 내 채팅 눌렀을때 로드되는 화면
-	// ${room_id}가 빈 문자열인 경우 채팅 메인 이미지 출력
-	var rno = "";
-	if ('${room_id}' === "") {
-		  $(document).ready(function() {
-		    $("#s_chat_content_box").html('<img width="100px" style="display: block; margin: 450px;" src="/resources/images/free-icon-bubble-chat-2821941.png">');
-		  });
-	} 
-	// ${room_id}가 존재하는 경우
-	else { 
-		rno = '${room_id}';
-		  $(document).ready(function() {
-		    $("#s_chat_content_box").load('/selectroom?room_id=' + rno);
-		  });
-	}
-
-	// 채팅 리스트에서 방 눌렀을 때
 	$(".s_chat_box").click(function() {
 		// hidden으로 넣어준 방 번호 value roomNo 변수에 담아주어 전달
 		var roomNo = $(this).children().val();
-		$("#s_chat_content_box").load('/selectroom?room_id=' + roomNo);
+		$("#s_chat_content_box").load("<%=request.getContextPath()%>/selectroom?room_id=" + roomNo);
 	});
 </script>
 
