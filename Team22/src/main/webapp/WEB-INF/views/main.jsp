@@ -19,7 +19,7 @@
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<style>
 			#sidebar.force-inactive{
-				margin-left: -24em;
+				margin-left: -26em;
 			}
 		</style>
 	</head>
@@ -45,8 +45,6 @@
 										<p>Aenean ornare velit lacus, ac varius enim ullamcorper eu. Proin aliquam facilisis ante interdum congue. Integer mollis, nisl amet convallis, porttitor magna ullamcorper, amet egestas mauris. Ut magna finibus nisi nec lacinia. Nam maximus erat id euismod egestas. Pellentesque sapien ac quam. Lorem ipsum dolor sit nullam.</p>
 										<ul class="actions">
 											<li><a href="/product/prodList" class="button big">상품 리스트가기</a></li>
-											<li><a href="/auction/list" class="button big">경매 리스트가기</a></li>
-											<li><a href="/random/rList" class="button big">응모 리스트가기</a></li>
 										</ul>
 									</div>
 									<span class="image object">
@@ -58,7 +56,10 @@
 							<!-- Section -->
 								<section>
 									<header class="major">
-										<h2>Erat lacinia</h2>
+										<h2>최근 본 글 제목들</h2>
+										<c:forEach var="list" items="${viewlist }">
+											${list.product_title }
+										</c:forEach>
 									</header>
 									<div class="features">
 										<article>
@@ -154,6 +155,8 @@
 				<%@ include file="include/sidebar.jsp" %>
 			
 			</div>
+<script src="https://code.jquery.com/jquery-3.6.4.js" 
+integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 	var result = "${result}";
 	
@@ -161,6 +164,11 @@
 		alert("회원탈퇴가 되었습니다.");		
 	}
 	
+	
+	
+	$(document).ready(function(){
+		
+	});
 </script>
 
 	</body>

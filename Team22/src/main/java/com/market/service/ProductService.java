@@ -51,6 +51,15 @@ public interface ProductService {
 	// 조회했는지 확인하며 조회수 증가시키기
 	public void incView(HttpServletRequest request, HttpServletResponse response, Integer product_num);
 	
+	// 조회한 상품 목록
+	public List<ProductVO> viewedList(HttpServletRequest request);
+	
 	// 상품 전체 개수 가져오기
 	public int getTotalCount();
+	
+	// 상품 업데이트
+	public int updateProd(ProductVO vo);
+	
+	// 상품 삭제
+	public int deleteProd(Integer pnum);
 }
