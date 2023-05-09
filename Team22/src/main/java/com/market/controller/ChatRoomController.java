@@ -33,7 +33,6 @@ public class ChatRoomController {
 	
 	@Autowired
 	private ChatMessageService cmservice;
-
 	
 	// 채팅 테스트 ------------------------------------------------------
     @RequestMapping("/test/{id}")

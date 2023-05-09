@@ -46,8 +46,4 @@ public class ChatRoomDAOImpl implements ChatRoomDAO {
 		return sqlSession.selectList(NAMESPACE + ".selectChatList", id);
 	}
 
-	
-
-	
-
 }
