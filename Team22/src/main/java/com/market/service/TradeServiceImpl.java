@@ -57,8 +57,8 @@ public class TradeServiceImpl implements TradeService{
 	}
 
 	@Override
-	public void memberScore(double score) throws Exception {
-		tdao.avgScore(score);
+	public Double memberScore(String id) throws Exception {
+		return tdao.avgScore(id);
 	}
 
 	@Override

@@ -44,4 +44,8 @@ public interface MemberDAO {
  	public void memberDelete(MemberVO vo)throws Exception;
  	// 판매자 프로필
  	public List<Map<String,Object>> userInfo(String id)throws Exception;
+ 	
+ 	// 평점
+ 	public Double avgScore(String id)throws Exception;
+ 	
 }

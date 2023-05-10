@@ -59,8 +59,9 @@ public class TradeDAOImpl implements TradeDAO{
 	}
 
 	@Override
-	public void avgScore(double score) throws Exception {
+	public Double avgScore(String id) throws Exception {
 		
+		return sqlSession.selectOne(NAMESPACE+".avgScore",id);
 	}
 
 	@Override

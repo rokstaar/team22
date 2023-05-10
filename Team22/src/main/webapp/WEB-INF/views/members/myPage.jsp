@@ -115,9 +115,9 @@ div{
   text-align: center;
 }
 .shippingStatusContainer .text{
-  font-size: 25px;
+  font-size: 31px;
   font-weight: normal;
-  color: black;
+  color: #769fcd;
   font-weight : bold;
   text-align: center;
 }
@@ -226,6 +226,18 @@ div{
 .infoContainer .item:hover{
 /*   background-color: #f8f8f8; */
 }
+.my-page-profile__image {
+    width: 250px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 45px;
+    float: right;
+}
+.my-page__edit-buttons{
+	margin-top: 10px;
+}
+
+
 		
 		</style>
 		<meta charset="utf-8" />
@@ -248,44 +260,58 @@ div{
 								<%@ include file="../include/header.jsp" %>
 								<%@ include file="../include/myPage.jsp" %>
 								
-									 <div class="infoContainer">
-									   
-									  </div>	
-										<div class="shippingStatusContainer">
+									 	<div class="shippingStatusContainer">
 										<section>
 									<header class="major">
+									
 									</header>
 									<div class="posts">
-										<article>
-										
-										
-																
-										
-										
-										
-									 <div class="item">
-									        <div>
-									        <a class="product-section" href="/auction/aDetail?au_num=${buyAuctionList[i].au_num }">
-										
-										</a>		
-										<img src="${memberInfo.member_pic }  " width="511px" height="306px" alt="프로필사진"
-										onerror="this.src='/resources/images/default_product.jpg'">
-									       </div>
-									      	
-									          <div style="font-size: 20px;" >${memberInfo.member_nickname }님</div>
-									       	   <div style="font-size: 20px;">페이 : ${memberInfo.member_pay }원</div>
-									         <a href="/members/updatePwCk"><div style="font-size: 20px;">회원정보수정</div></a>
-										<div class="item">
-									        <div>
-									        <a href="/members/deletePwCk"><div style="font-size: 20px;">회원탈퇴</div></a>
-									        </div>
-									      </div>   
-									      </div>
-										         
+							
+							<article>
+								
+									
+          
+									
+								<div class="image-container">
+									<div class="my-page-profile">
+								<img  src="${memberInfo.member_pic } " class="my-page-profile__image"
+									alt = "프로필 사진 " onerror="this.src='/resources/images/default_my_profile.png'">
+							   		 </div>   
+							     
+							     </div>
+							
+								</article>
+								
+								
+								
+								<article>
+								<div style="margin-left: 10px;">	
+									
+					          <div style="font-size: 27px; color : #769fcd;">${memberInfo.member_nickname } 님 
+					          	 <span style="font-size: 27px;">${score}</span> 
+				          	  </div>
+						       	   <div style="font-size: 27px; color : #769fcd;">페이 : ${memberInfo.member_pay }원</div>
+						    			
+						    
+						         <div class="my-page__edit-buttons">
+					              <button type="button" class="my-info-edit">
+					                <i class="fas fa-cog my-info-edit__icon"></i>
+					                <span class="my-info-edit__text">회원 정보 변경</span>
+					              </button>
+					            </div>
+						        
+						        <div class="my-page__edit-buttons">
+					              <button type="button" class="my-info-delete">
+					                <i class="fas fa-cog my-info-edit__icon"></i>
+					                <span class="my-info-edit__text">회원 탈퇴</span>
+					              </button>
+					            </div>
+						       
+						        </div>	         
+								</article>
 									
 									      
 									      
-										</article>
 									</div>
 								</section>
 									</div>
@@ -303,6 +329,20 @@ div{
 			<script src="/resources/assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="/resources/assets/js/main.js"></script>
+
+<script type="text/javascript">
+$('.my-info-edit').on('click', function() {
+	  window.location.href = '/members/updatePwCk';
+	});
+
+$('.my-info-delete').on('click', function() {
+	  window.location.href = '/members/deletePwCk';
+	});
+
+
+
+</script>
+
 
 	</body>
 </html>

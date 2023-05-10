@@ -93,5 +93,8 @@ public class MemberServiceImpl implements MemberService {
 		return mvo.userInfo(id);
 	}
 	
-	
+	@Override
+	public Double memberScore(String id) throws Exception {
+		return mvo.avgScore(id);
+	}
 }

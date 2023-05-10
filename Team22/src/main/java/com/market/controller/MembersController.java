@@ -1,6 +1,7 @@
 package com.market.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +24,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.itwillbs.util.GeoLocation;
+import com.itwillbs.util.Ip;
 import com.itwillbs.util.JsonParser;
 import com.itwillbs.util.NaverLoginBO;
 import com.itwillbs.util.UploadFileUtils;
@@ -73,11 +75,18 @@ public class MembersController {
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String loginPOST(Model model, HttpSession session,
-				MemberVO vo ) {
-		  
-		if(service.loginMember(vo) != null) { 
-			session.setAttribute("id", vo.getMember_id()); 
+	public String loginPOST(Model model, HttpSession session,HttpServletRequest request,
+				MemberVO vo )throws Exception {
+		Ip ip = new Ip();
+		// 아이피주소
+		String ipAddress = ip.getIp(request);
+		// 현재위치
+		String location = new GeoLocationController().getLocationFromIp(ipAddress);
+
+		
+		 if(service.loginMember(vo) != null) { 
+			 session.setAttribute("id", vo.getMember_id()); 
+			    logger.info("@@@@@@아이피주소: "+ipAddress+", 현재위치: "+location);
 			} 
 		else { service.memberJoin(vo);
 			session.setAttribute("id", vo.getMember_id()); 
@@ -131,6 +140,8 @@ public class MembersController {
 	
 		model.addAttribute("memberInfo",service.memberInfo(id));
 		session.setAttribute("memberInfo",service.memberInfo(id));
+		model.addAttribute("score",service.memberScore(id));
+		
 		return "/members/myPage";
 	}
 	// 留덉씠�럹�씠吏�
@@ -373,6 +384,34 @@ public class MembersController {
     	 
     	
 	}
+	
+	@RequestMapping(value = "/main", method = RequestMethod.GET)
+	public String getMemberLocation(Model model, HttpServletRequest request) throws Exception{
+	    try {
+	        // 현재 위치 정보 가져오기
+	        GeoLocationController geoLocationController = new GeoLocationController();
+	        String ip = new Ip().getIp(request);
+	        String location = geoLocationController.getLocationFromIp(ip);
+
+	        // 위도, 경도 정보 추출
+	        String[] latlng = location.split(",");
+	        double lat = Double.parseDouble(latlng[0]);
+	        double lng = Double.parseDouble(latlng[1]);
+
+	        logger.info("@@@@@@@@@@@@@@"+lat);
+	        logger.info("@@@@@@@@@@@@@@"+lng);
+	        // 위도, 경도를 이용하여 주소 추출
+	        String address = GeoLocation.getAddress(lat, lng);
+	        logger.info("@@@@@@@@@@@@@@address"+address);
+	        // 모델에 주소 정보 추가
+	        model.addAttribute("address", address);
+	    } catch (IOException e) {
+	        // 예외 처리
+	    }
+
+	    return "/main";
+	}
+
 	
 	
 }

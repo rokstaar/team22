@@ -22,7 +22,7 @@ public interface TradeService {
 	
 	public Integer writeReview(ReviewVO rvo) throws Exception;
 	
-	public void memberScore(double score) throws Exception;
+	public Double memberScore(String id) throws Exception;
 	
 	public List<ProductVO> myProdList(String id) throws Exception;
 	

@@ -121,5 +121,13 @@
     
     </delete>
     <!-- 회원탈퇴 -->
+    <!-- 평점 -->
+    <select id="avgScore" resultType="double">
+		select avg(rv_score)
+		from review
+		group by reviewee
+		having reviewee = #{id}
+	</select>
+    <!-- 평점 -->
     
 </mapper>

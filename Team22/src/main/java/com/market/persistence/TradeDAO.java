@@ -21,7 +21,7 @@ public interface TradeDAO {
 	// 리뷰 작성
 	public Integer insertReview(ReviewVO rvo) throws Exception;
 	// 평점
-	public void avgScore(double score)throws Exception;
+	public Double avgScore(String id)throws Exception;
 	// 내가 판매중인 상품
 	public List<ProductVO> getProdList(String id) throws Exception;
 	// 내가 신청한 경매 리스트

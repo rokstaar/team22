@@ -29,8 +29,7 @@ public class HomeController {
 		return "main";
 	}
 
-	@GetMapping(value = "/")
-	public String home() {
-		return "redirect:/main";
-	}
+	/*
+	 * @GetMapping(value = "/") public String home() { return "redirect:/main"; }
+	 */
 }

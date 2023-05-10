@@ -34,4 +34,7 @@ public interface MemberService {
 	public void removeMember(MemberVO vo)throws Exception;
 	// 유저 프로필정보
 	public List<Map<String,Object>> userInfo(String id)throws Exception;
+	//평점
+	public Double memberScore(String id) throws Exception;
+	
 }

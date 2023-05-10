@@ -96,14 +96,14 @@
 	</insert>
 	<!-- 구매 리뷰  -->
 		
-	<!-- 판매자 온도  -->
+	<!-- 평점  -->
 	<select id="avgScore" resultType="double">
 		select avg(rv_score)
 		from review
 		group by reviewee
-		having reviewee = #{reviewee}
+		having reviewee = #{id}
 	</select>
-	<!-- 판매자 온도  -->
+	<!-- 평점  -->
 	
 	<!-- 내 판매 상품  -->
 	<select id="myProdList" resultType="com.market.domain.ProductVO">

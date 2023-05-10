@@ -98,4 +98,11 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.selectList(NAMESPACE+".userInfo",id);
 	}
 	
+	
+	@Override
+	public Double avgScore(String id) throws Exception {
+		
+		return sqlSession.selectOne(NAMESPACE+".avgScore",id);
+	}
+	
 }
