@@ -153,6 +153,21 @@ public class TradeDAOImpl implements TradeDAO{
 		return sqlSession.selectList(NAMESPACE+".getSoldRandom",id);
 	}
 
+	@Override
+	public Integer soldProdDelete(Integer prod_num) throws Exception {
+		return sqlSession.delete(NAMESPACE+".soldProdDelete",prod_num);
+	}
+
+	@Override
+	public Integer soldAuDelete(Integer au_num) throws Exception {
+		return sqlSession.delete(NAMESPACE+".soldAuDelete",au_num);
+	}
+
+	@Override
+	public Integer soldRanDelete(Integer ran_num) throws Exception {
+		return sqlSession.delete(NAMESPACE+".soldRanDelete",ran_num);
+	}
+
 	
 
 	

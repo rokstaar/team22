@@ -283,9 +283,14 @@ div{
 									   
 									  </div>
 									  		<div class="infoContainer">
-				  <a href="/trade/soldProduct" class="button" style="display: inline-block; float: right;">일반</a>
-				  <a href="/trade/soldAuction" class="button" style="display: inline-block; float: right;">경매</a>
-				<a href="/trade/soldRandom" class="button" style="display: inline-block; float: right;">응모</a>
+						  <div class="info">
+						<button class="button" 
+								onclick="location.href='/trade/soldProduct'">일반</button>
+						<button class="button" 
+								onclick="location.href='/trade/soldAuction'">경매</button>
+						<button class="button" 
+								onclick="location.href='/trade/soldRandom'">응모</button>
+					</div>
 									  		</div>			  
 									<header class="major">
 									
@@ -316,10 +321,17 @@ div{
 									
 								
 								
+		
+			<form role="form" method="post">
+			<input type="hidden" name="au_num" value="${vo.au_num }">
+			</form>	
 								
-								
-						<a href="#" style="float:right;">
-						          <div>상품삭제</div></a> 
+						<button type="button" class="sold-au-delete" style="float: right;">
+					                <i class="fas fa-cog my-info-edit__icon"></i>
+					                <span class="my-info-edit__text">경매 삭제</span>
+					              </button>
+		
+			
 			
 				</article>
 				
@@ -343,78 +355,22 @@ div{
 			<script src="/resources/assets/js/main.js"></script>
 
 <script type="text/javascript">
+	
+	var formObj = $("form[role='form']");
+	console.log(formObj);
+	
+	$(".sold-au-delete").click(function(){
+		// 폼태그 이동 주소 설정 /boards/modify
+		formObj.attr("action","/trade/soldAuctionRemove")
+		// 폼태그 정보 저장해서 페이지이동
+		formObj.submit();	
+	});
+	
+	var result = "${result}";
 
-$(document).ready(function() {
-
-    
-    function heartChange($svg1, $svg2, pnum, seller) {
-        $svg1.on('click', function(event) {
-            $.ajax({
-                type: 'GET',
-                url: '/product/likeProdCancel',
-                data: {product_num: pnum, seller: seller},
-                success: function() {
-                    console.log('success Del');
-                    $svg1.hide();
-                    $svg2.show();
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log('Failed to cancel like');
-                    console.log(jqXHR.responseText);
-                    console.log(textStatus);
-                    console.log(errorThrown);
-                }
-            });
-        });
-
-        $svg2.on('click', function(event) {
-            $.ajax({
-                type: 'GET',
-                url: '/product/likeProd',
-                data: {product_num: pnum, seller: seller},
-                success: function() {
-                	console.log('success Reg');
-                	$svg2.hide();
-                    $svg1.show();
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log("Save Failed");
-                    console.log(jqXHR.responseText);
-                    console.log(textStatus);
-                    console.log(errorThrown);
-                }
-            });
-        });
-    }
-    
-    $(".div-likeit").each(function() {
-    	
-    	var $div = $(this);
-        var pnum = $div.data('product-num');
-        var seller = "${id}";
-        var $svg1 = $div.find('.svg-1');
-        var $svg2 = $div.find('.svg-2');
-
-        $.ajax({
-        	type: 'GET',
-        	url: '/product/memlikeCheck',
-        	data: {product_num: pnum, seller: seller},
-        	success: function(response){
-        		if(response){
-        			$svg2.hide();
-        			$svg1.show();
-        		}else{
-        			$svg1.hide();
-        			$svg2.show();
-        		}
-        		heartChange($svg1, $svg2, pnum, seller)
-    		},
-    		error: function(response){
-    			console.log(pnum + '번 상품 찜 확인 실패');
-        	}
-        });
-    });
-});
+	if(result == "delOK"){
+		alert("경매완료 상품 삭제!");		
+	}
 
 </script>
 

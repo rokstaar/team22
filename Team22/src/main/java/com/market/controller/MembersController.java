@@ -33,6 +33,7 @@ import com.itwillbs.util.KakaoLoginBO;
 import com.itwillbs.util.NaverLoginBO;
 import com.itwillbs.util.UploadFileUtils;
 import com.market.domain.MemberVO;
+import com.market.domain.Pay_chargeVO;
 import com.market.domain.ProductVO;
 import com.market.service.MemberService;
 
@@ -178,22 +179,20 @@ private String apiResult = null;
 	}
 	// 留덉씠�럹�씠吏�
 	@RequestMapping(value = "/myPage", method = RequestMethod.GET)
-	public String myPageGET(Model model, HttpSession session)throws Exception{
+	public String myPageGET(Model model, HttpSession session,Integer amount)throws Exception{
 		String id = (String)session.getAttribute("id");
-	
 		model.addAttribute("memberInfo",service.memberInfo(id));
 		session.setAttribute("memberInfo",service.memberInfo(id));
-		model.addAttribute("score",service.memberScore(id));
+		logger.info("@@@@@@@@@@@@@@@@@@@@@id"+id);
+		
+		  logger.info("@@@@@@@@@@@@"+amount); 
+		  Pay_chargeVO vo = new Pay_chargeVO();
+		  vo.setMember_id(id); vo.setCharge_amount(amount); 
+		  service.savePayCharge(vo);
+		
+	 	  model.addAttribute("score",service.memberScore(id));
 		
 		return "/members/myPage";
-	}
-	// 留덉씠�럹�씠吏�
-	@RequestMapping(value = "/myPage2", method = RequestMethod.GET)
-	public String incMyPage(Model model, HttpSession session)throws Exception{
-		String id = (String)session.getAttribute("id");
-		
-		model.addAttribute("memberInfo",service.memberInfo(id));
-		return "/members/myPage2";
 	}
 	
 
@@ -333,6 +332,17 @@ private String apiResult = null;
 				
 		}
 	}
+	
+	
+	@RequestMapping(value="/payCharge", method=RequestMethod.GET)
+	public String payCharges(HttpSession session,Model model) throws Exception{
+		String id = (String)session.getAttribute("id");
+		
+		model.addAttribute("memberInfo",service.memberInfo(id));
+		
+		return "/members/payCharge";
+	}
+	
 	@RequestMapping(value="/pay", method=RequestMethod.GET)
 	public String payGET(HttpSession session,Model model,MemberVO vo) throws Exception{
 		String id = (String)session.getAttribute("id");
@@ -340,9 +350,7 @@ private String apiResult = null;
 		model.addAttribute("memberInfo",service.memberInfo(id));
 		
 //		MemberVO result = service.loginMember(vo);
-		model.addAttribute("id",id);
 //		model.addAttribute("result",result);
-		
 //		model.addAttribute("memberInfo", service.memberInfo(id));
 		
 			return "/members/pay";

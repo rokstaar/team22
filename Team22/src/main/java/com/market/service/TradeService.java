@@ -8,7 +8,6 @@ import com.market.domain.AuctionVO;
 import com.market.domain.ProductVO;
 import com.market.domain.RandomVO;
 import com.market.domain.ReviewVO;
-import com.market.domain.TradeVO;
 
 public interface TradeService {
 
@@ -56,8 +55,11 @@ public interface TradeService {
 	
 	public List<Map<String,Object>> getSoldRandom(String id) throws Exception;
 	
+	public Integer soldProdRemove(Integer prod_num) throws Exception;
 	
+	public Integer soldAuRemove(Integer au_num) throws Exception;
 	
+	public Integer soldRanRemove(Integer ran_num) throws Exception;
 	
 	
 	

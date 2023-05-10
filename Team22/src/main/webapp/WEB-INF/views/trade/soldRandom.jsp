@@ -246,8 +246,13 @@ div{
   text-align: center;
   font-size: 18px;
   font-weight: bold;
-  padding: 20px 0;
+  padding: 32px 0;
+  pointer-events: none;
 }
+
+
+
+
 
 		
 		</style>
@@ -282,9 +287,14 @@ div{
 									    </a>    
 									  </div>
 									  		<div class="infoContainer">
-				  <a href="/trade/soldProduct" class="button" style="display: inline-block; float: right;">일반</a>
-				  <a href="/trade/soldAuction" class="button" style="display: inline-block; float: right;">경매</a>
-				<a href="/trade/soldRandom" class="button" style="display: inline-block; float: right;">응모</a>
+									  		<div class="info">
+						<button class="button" 
+								onclick="location.href='/trade/soldProduct'">일반</button>
+						<button class="button" 
+								onclick="location.href='/trade/soldAuction'">경매</button>
+						<button class="button" 
+								onclick="location.href='/trade/soldRandom'">응모</button>
+					</div>		
 									  		</div>			  
 									<header class="major">
 									
@@ -296,13 +306,13 @@ div{
 								<a class="product-section" href="/random/rDetail?ran_num=${vo.ran_num }">
 									
 									
+							<div class="img-wrapper">
 								<div class="image-container">
 								<img class="sold-out" src="/resources/images/${vo.ran_pic.split(',')[0] } " width="511px" height="306px" 
 									onerror="this.src='/resources/images/default_product.jpg'">
 							    <div class="sold-out-text">판매 완료</div>
 							    </div>
-								
-								
+							</div>    
 								<div>구매자 : ${vo.buy_mem_id }</div>
 								
 								<div style="float:left;">
@@ -314,8 +324,15 @@ div{
 								
 								
 								
-						<a href="#" style="float:right;">
-						          <div>상품삭제</div></a> 
+						<button type="button" class="sold-ran-delete" style="float: right;">
+					                <i class="fas fa-cog my-info-edit__icon"></i>
+					                <span class="my-info-edit__text">응모 삭제</span>
+					              </button>
+		
+			<form role="form" method="post">
+					<input type="hidden" name="ran_num" value="${vo.ran_num }">
+								
+				</form>		
 			
 				</article>
 				
@@ -339,80 +356,23 @@ div{
 			<script src="/resources/assets/js/main.js"></script>
 
 <script type="text/javascript">
+	
+	var formObj = $("form[role='form']");
+	console.log(formObj);
+	
+	$(".sold-ran-delete").click(function(){
+		// 폼태그 이동 주소 설정 /boards/modify
+		formObj.attr("action","/trade/soldRanRemove")
+		// 폼태그 정보 저장해서 페이지이동
+		formObj.submit();	
+	}); 
+	
+	var result = "${result}";
 
-$(document).ready(function() {
-
-    
-    function heartChange($svg1, $svg2, pnum, seller) {
-        $svg1.on('click', function(event) {
-            $.ajax({
-                type: 'GET',
-                url: '/product/likeProdCancel',
-                data: {product_num: pnum, seller: seller},
-                success: function() {
-                    console.log('success Del');
-                    $svg1.hide();
-                    $svg2.show();
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log('Failed to cancel like');
-                    console.log(jqXHR.responseText);
-                    console.log(textStatus);
-                    console.log(errorThrown);
-                }
-            });
-        });
-
-        $svg2.on('click', function(event) {
-            $.ajax({
-                type: 'GET',
-                url: '/product/likeProd',
-                data: {product_num: pnum, seller: seller},
-                success: function() {
-                	console.log('success Reg');
-                	$svg2.hide();
-                    $svg1.show();
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log("Save Failed");
-                    console.log(jqXHR.responseText);
-                    console.log(textStatus);
-                    console.log(errorThrown);
-                }
-            });
-        });
-    }
-    
-    $(".div-likeit").each(function() {
-    	
-    	var $div = $(this);
-        var pnum = $div.data('product-num');
-        var seller = "${id}";
-        var $svg1 = $div.find('.svg-1');
-        var $svg2 = $div.find('.svg-2');
-
-        $.ajax({
-        	type: 'GET',
-        	url: '/product/memlikeCheck',
-        	data: {product_num: pnum, seller: seller},
-        	success: function(response){
-        		if(response){
-        			$svg2.hide();
-        			$svg1.show();
-        		}else{
-        			$svg1.hide();
-        			$svg2.show();
-        		}
-        		heartChange($svg1, $svg2, pnum, seller)
-    		},
-    		error: function(response){
-    			console.log(pnum + '번 상품 찜 확인 실패');
-        	}
-        });
-    });
-});
+	if(result == "delOK"){
+		alert("응모완료 상품 삭제!");		
+	}
 
 </script>
-
 	</body>
 </html>

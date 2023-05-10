@@ -21,10 +21,6 @@
     <script>
 $(document).ready(function(){
 		
-		var yDiscount = $('input:hidden[name=yDiscount]').val();
-		var gDiscount = $('input:hidden[name=gDiscount]').val();
-		var totalPrice = '${tPrice}' - (yDiscount - gDiscount);
-		
 		var IMP = window.IMP;   // 생략 가능
 		IMP.init("imp55844548"); // 예: imp00000000 
 		

@@ -224,8 +224,8 @@ public class TradeController {
 	}
 	
 	// 내가 등록한 상품 삭제
-	@RequestMapping(value = "/removeProduct", method = RequestMethod.GET)
-	public String removeProduct(Model model,@RequestParam("product_num") int product_num,
+	@RequestMapping(value = "/soldProdRemove", method = RequestMethod.GET)
+	public String removeProduct(@ModelAttribute("product_num") int product_num,
 			RedirectAttributes rttr)throws Exception {
 		
 		logger.info("@@@@@@@@@@@@@@@@@"+product_num);
@@ -239,7 +239,7 @@ public class TradeController {
 	}
 	// 내가 등록한 경매상품 삭제
 	@RequestMapping(value = "/removeAuction", method = RequestMethod.GET)
-	public String removeAuction(Model model,@RequestParam("au_num") int au_num,
+	public String removeAuction(Model model,@RequestParam("au_num") Integer au_num,
 			RedirectAttributes rttr)throws Exception {
 		
 		logger.info("@@@@@@@@@@@@@@@@@"+au_num);
@@ -261,9 +261,10 @@ public class TradeController {
 		
 		if(result == 1) {
 			rttr.addFlashAttribute("result", "delOK");
+			return "redirect:/trade/mySaleRandom";
 		}
+		return "/trade/mySaleRandom";
 		// 페이지이동(listALL)
-		return "redirect:/trade/mySaleRandom";
 	}
 	// 나의 판매완료된 상품 목록
 	@RequestMapping(value = "/soldProduct", method = RequestMethod.GET)
@@ -293,7 +294,43 @@ public class TradeController {
 		
 		return "/trade/soldRandom";
 	}
+	// 판매 완료된 상품 삭제
+	@RequestMapping(value = "/soldProdRemove", method = RequestMethod.POST)
+	public String soldProductPOST(@ModelAttribute("prod_num") int prod_num,
+			RedirectAttributes rttr)throws Exception{
+		logger.info("@@@@@@@@soldPRODREMOVE_num"+prod_num);
+		
+		int result = service.soldProdRemove(prod_num);
+		if(result == 1) {
+			rttr.addFlashAttribute("result", "delOK");
+		}
+		return "redirect:/trade/soldProduct";
+	}
 	
+	// 경매 완료된 상품 삭제
+	@RequestMapping(value = "/soldAuctionRemove", method = RequestMethod.POST)
+	public String soldAuctionPOST(@ModelAttribute("au_num") int au_num,
+			RedirectAttributes rttr)throws Exception{
+		logger.info("@@@@@@@@soldAuction"+au_num);
+		
+		int result = service.soldAuRemove(au_num);
+		if(result == 1) {
+			rttr.addFlashAttribute("result", "delOK");
+		}
+		return "redirect:/trade/soldAuction";
+	}
+	// 경매 완료된 상품 삭제
+	@RequestMapping(value = "/soldRanRemove", method = RequestMethod.POST)
+	public String soldRanRemovePOST(@ModelAttribute("ran_num") int ran_num,
+			RedirectAttributes rttr)throws Exception{
+		logger.info("@@@@@@@@soldAuction"+ran_num);
+		
+		int result = service.soldRanRemove(ran_num);
+		if(result == 1) {
+			rttr.addFlashAttribute("result", "delOK");
+		}
+		return "redirect:/trade/soldAuction";
+	}
 	
 	
 }

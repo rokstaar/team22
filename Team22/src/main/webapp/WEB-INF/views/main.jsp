@@ -171,9 +171,9 @@ integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="ano
 		
 	});
 	
-	 /*  var useLocation = confirm("현재 위치 정보를 사용하시겠습니까?"); */
+	   /* var useLocation = confirm("현재 위치 정보를 사용하시겠습니까?"); 
 
-	    if (useLocation) {
+	    if (useLocation) { */
 	        // 위치 정보 사용에 동의한 경우, 위치 정보를 가져와서 사용하는 코드를 작성합니다.
 	        if (navigator.geolocation) {
 	            navigator.geolocation.getCurrentPosition(function(position) {
@@ -182,8 +182,8 @@ integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="ano
 	                var longitude = position.coords.longitude;
 
 	                // 가져온 위치 정보를 서버로 전송하거나 다른 작업을 수행할 수 있습니다.
-	                // ...
-
+					
+	                
 	                // 예시로 가져온 위치 정보를 화면에 출력합니다.
 	                var locationText = "현재 위치: " + latitude + ", " + longitude;
 	                document.getElementById("location").innerText = locationText;
@@ -191,7 +191,7 @@ integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="ano
 	        } else {
 	            alert("브라우저가 위치 정보를 지원하지 않습니다.");
 	        }
-	    }
+	    /* } */
 	
 </script>
 

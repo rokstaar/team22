@@ -143,6 +143,21 @@ public class TradeServiceImpl implements TradeService{
 		return tdao.getSoldRandom(id);
 	}
 
+	@Override
+	public Integer soldProdRemove(Integer prod_num) throws Exception {
+		return tdao.soldProdDelete(prod_num);
+	}
+
+	@Override
+	public Integer soldAuRemove(Integer au_num) throws Exception {
+		return tdao.soldAuDelete(au_num);
+	}
+
+	@Override
+	public Integer soldRanRemove(Integer ran_num) throws Exception {
+		return tdao.soldRanDelete(ran_num);
+	}
+
 
 
 	

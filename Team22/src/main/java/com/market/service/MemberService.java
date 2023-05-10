@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.market.domain.MemberVO;
+import com.market.domain.Pay_chargeVO;
 import com.market.domain.ProductVO;
 
 public interface MemberService {
@@ -36,5 +37,6 @@ public interface MemberService {
 	public List<Map<String,Object>> userInfo(String id)throws Exception;
 	//평점
 	public Double memberScore(String id) throws Exception;
-	
+	// 충전
+	void savePayCharge(Pay_chargeVO vo);
 }

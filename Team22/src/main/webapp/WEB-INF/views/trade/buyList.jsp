@@ -357,14 +357,18 @@ textarea{
 								    <a href="/trade/buyList" class="item">
 								      <div>구매내역</div>
 								    </a>    
-								    <a href="/trade/prodList" class="item">
-								      <div>판매내역</div>
-								    </a>    
 								  </div>	 
-									<div class="infoContainer" >		
-								  <a href="/trade/buyList" class="button" style="display: inline-block;">일반</a>
-				  <a href="/trade/myBuyAuction" class="button" style="display: inline-block;">경매</a>
-				<a href="/trade/myBuyRandom" class="button" style="display: inline-block;">응모</a>
+									
+									<div class="infoContainer" >	
+									  <div class="info">
+										<button class="button" 
+												onclick="location.href='/trade/buyList'">일반</button>
+										<button class="button" 
+												onclick="location.href='/trade/myBuyAuction'">경매</button>
+										<button class="button" 
+												onclick="location.href='/trade/myBuyRandom'">응모</button>
+									</div>	
+													
 									</div>
 									<header class="major">
 									

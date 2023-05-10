@@ -121,6 +121,7 @@
     
     </delete>
     <!-- 회원탈퇴 -->
+    
     <!-- 평점 -->
     <select id="avgScore" resultType="double">
 		select avg(rv_score)
@@ -129,5 +130,13 @@
 		having reviewee = #{id}
 	</select>
     <!-- 평점 -->
+    
+    <!-- 페이충전 -->
+    <insert id="payCharge">
+		insert into (charge_num,charge_amount,charge_date_time,member_id)
+		values(#{charge_num},#{charge_amount},now(),#{id})
+	
+	</insert>
+    <!-- 페이충전 -->
     
 </mapper>

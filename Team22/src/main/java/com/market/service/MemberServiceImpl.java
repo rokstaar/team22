@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.market.domain.MemberVO;
+import com.market.domain.Pay_chargeVO;
 import com.market.domain.ProductVO;
 import com.market.persistence.MemberDAO;
 
@@ -97,4 +98,10 @@ public class MemberServiceImpl implements MemberService {
 	public Double memberScore(String id) throws Exception {
 		return mvo.avgScore(id);
 	}
+	
+	@Override
+	public void savePayCharge(Pay_chargeVO vo) {
+		mvo.insertPayCharge(vo);
+	}
+	
 }

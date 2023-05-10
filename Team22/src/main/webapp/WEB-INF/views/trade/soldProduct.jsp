@@ -28,7 +28,9 @@
   font-size: 18px;
   font-weight: bold;
   padding: 32px 0;
+  pointer-events: none;
 }
+
 </style>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -54,11 +56,11 @@
 			
 			<div class="info">
 				<button class="button" 
-						onclick="location.href='/trade/mySaleProduct?product'">일반</button>
+						onclick="location.href='/trade/soldProduct'">일반</button>
 				<button class="button" 
-						onclick="location.href='/trade/mySaleAuction'">경매</button>
+						onclick="location.href='/trade/soldAuction'">경매</button>
 				<button class="button" 
-						onclick="location.href='/trade/mySaleRandom'">응모</button>
+						onclick="location.href='/trade/soldRandom'">응모</button>
 			</div>			  
 									
 			<div class="posts">
@@ -82,9 +84,15 @@
 					</div>
 				</div>	
 									
-			<a href="/trade/removeProduct?product_num=${vo.product_num }" style="float:right;">
-			상품삭제
-			</a> 
+			<button type="button" class="sold-prod-delete" style="float: right; opacity: 1;">
+					                <i class="fas fa-cog my-info-edit__icon"></i>
+					                <span class="my-info-edit__text">상품 삭제</span>
+					              </button>
+		
+			<form role="form" method="post">
+					<input type="hidden" name="prod_num" value="${vo.prod_num }">
+								
+				</form>	
 			
 			</article>
 				
@@ -103,77 +111,22 @@
 <script src="/resources/assets/js/main.js"></script>
 <script type="text/javascript">
 
-$(document).ready(function() {
 
-    
-    function heartChange($svg1, $svg2, pnum, seller) {
-        $svg1.on('click', function(event) {
-            $.ajax({
-                type: 'GET',
-                url: '/product/likeProdCancel',
-                data: {product_num: pnum, seller: seller},
-                success: function() {
-                    console.log('success Del');
-                    $svg1.hide();
-                    $svg2.show();
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log('Failed to cancel like');
-                    console.log(jqXHR.responseText);
-                    console.log(textStatus);
-                    console.log(errorThrown);
-                }
-            });
-        });
-
-        $svg2.on('click', function(event) {
-            $.ajax({
-                type: 'GET',
-                url: '/product/likeProd',
-                data: {product_num: pnum, seller: seller},
-                success: function() {
-                	console.log('success Reg');
-                	$svg2.hide();
-                    $svg1.show();
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log("Save Failed");
-                    console.log(jqXHR.responseText);
-                    console.log(textStatus);
-                    console.log(errorThrown);
-                }
-            });
-        });
-    }
-    
-    $(".div-likeit").each(function() {
-    	
-    	var $div = $(this);
-        var pnum = $div.data('product-num');
-        var seller = "${id}";
-        var $svg1 = $div.find('.svg-1');
-        var $svg2 = $div.find('.svg-2');
-
-        $.ajax({
-        	type: 'GET',
-        	url: '/product/memlikeCheck',
-        	data: {product_num: pnum, seller: seller},
-        	success: function(response){
-        		if(response){
-        			$svg2.hide();
-        			$svg1.show();
-        		}else{
-        			$svg1.hide();
-        			$svg2.show();
-        		}
-        		heartChange($svg1, $svg2, pnum, seller)
-    		},
-    		error: function(response){
-    			console.log(pnum + '번 상품 찜 확인 실패');
-        	}
-        });
-    });
-});
+	var formObj = $("form[role='form']");
+	console.log(formObj);
+	
+	$(".sold-prod-delete").click(function(){
+		// 폼태그 이동 주소 설정 /boards/modify
+		formObj.attr("action","/trade/soldProdRemove")
+		// 폼태그 정보 저장해서 페이지이동
+		formObj.submit();	
+	});
+	
+	var result = "${result}";
+	
+	if(result == "delOK"){
+		alert("판매완료 상품 삭제 !");		
+	}	
 
 </script>
 

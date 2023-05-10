@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.market.domain.MemberVO;
+import com.market.domain.Pay_chargeVO;
 import com.market.domain.ProductVO;
 
 @Repository
@@ -105,4 +106,8 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.selectOne(NAMESPACE+".avgScore",id);
 	}
 	
+	@Override
+	public void insertPayCharge(Pay_chargeVO vo) {
+		sqlSession.insert(NAMESPACE+".payCharge",vo);
+	}
 }

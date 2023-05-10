@@ -56,6 +56,12 @@ public interface TradeDAO {
 	public List<Map<String,Object>> getSoldAuction(String id) throws Exception;
 	// 내가 판매한 응모리스트
 	public List<Map<String,Object>> getSoldRandom(String id) throws Exception;
+	// 판매 완료 상품 삭제
+	public Integer soldProdDelete(Integer prod_num) throws Exception;
+	// 경매 완료 상품 삭제
+	public Integer soldAuDelete(Integer au_num) throws Exception;
+	// 응모 완료 상품 삭제
+	public Integer soldRanDelete(Integer ran_num) throws Exception;
 	
 	
 }

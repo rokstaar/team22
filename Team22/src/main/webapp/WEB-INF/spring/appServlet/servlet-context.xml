@@ -59,6 +59,8 @@
 	<!-- NaverLoginBO Class에 대한 Bean설정 추가 -->
 	<beans:bean id="naverLoginBO" class="com.itwillbs.util.NaverLoginBO" />
 	
+	<!-- KakaoLoginBO Class에 대한 Bean설정 추가 -->
+	<beans:bean id="kakaoLoginBO" class="com.itwillbs.util.KakaoLoginBO" />
 	
 	<context:component-scan base-package="com.market.controller" />
 	

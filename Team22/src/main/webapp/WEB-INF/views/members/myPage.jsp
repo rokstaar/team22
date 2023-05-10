@@ -294,6 +294,13 @@ div{
 						    			
 						    
 						         <div class="my-page__edit-buttons">
+					              <button type="button" class="my-pay-charge">
+					                <i class="fas fa-cog my-info-edit__icon"></i>
+					                <span class="my-info-edit__text">페이 충전</span>
+					              </button>
+					            </div>
+					            
+						         <div class="my-page__edit-buttons">
 					              <button type="button" class="my-info-edit">
 					                <i class="fas fa-cog my-info-edit__icon"></i>
 					                <span class="my-info-edit__text">회원 정보 변경</span>
@@ -337,6 +344,10 @@ $('.my-info-edit').on('click', function() {
 
 $('.my-info-delete').on('click', function() {
 	  window.location.href = '/members/deletePwCk';
+	});
+	
+$('.my-pay-charge').on('click', function() {
+	  window.location.href = '/members/payCharge';
 	});
 
 
