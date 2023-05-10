@@ -1,7 +1,5 @@
 package com.market.service;
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,13 +7,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,8 +24,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.market.domain.PCriteria;
 import com.market.domain.ProductVO;
 import com.market.persistence.ProductDAO;
-
-import net.coobird.thumbnailator.Thumbnails;
 
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -173,7 +168,11 @@ public class ProductServiceImpl implements ProductService{
 	
 	@Override
 	public void incView(HttpServletRequest request, HttpServletResponse response, Integer product_num) {
-		String viewedCookieName = "vc" + product_num;
+		
+		HttpSession session = request.getSession();
+		String id = session.getId();
+		
+		String viewedCookieName = "viewed_" + product_num + "_" + id;
 		Cookie[] cookies = request.getCookies();
 		boolean viewCheck = true;
 		
@@ -189,11 +188,56 @@ public class ProductServiceImpl implements ProductService{
 		if(viewCheck) {
 			pdao.incView(product_num);
 			
-			Cookie viewedCookie = new Cookie(viewedCookieName, "true");
-			viewedCookie.setMaxAge(24*60*60);
+			long timestamp = System.currentTimeMillis();
+			Cookie viewedCookie = new Cookie(viewedCookieName, String.valueOf(timestamp));
+			viewedCookie.setMaxAge(3*24*60*60);
 			viewedCookie.setPath("/");
 			response.addCookie(viewedCookie);
 		}
+	}
+
+	@Override
+	public List<ProductVO> viewedList(HttpServletRequest request) {
+		List<ProductVO> viewedList = new ArrayList<>();
+		Cookie[] cookies = request.getCookies();
+		Map<Integer, Long> time = new HashMap<>();
+		
+		if(cookies != null) {
+			for(Cookie cookie : cookies) {
+				if(cookie.getName().startsWith("viewed")) {
+					Integer pnum = Integer.parseInt(cookie.getName().split("_")[1]);
+					long timestamp = Long.parseLong(cookie.getValue());
+					time.put(pnum, timestamp);
+				}
+			}
+		}
+		
+		List<Integer> sortedPnum = time.entrySet().stream()
+					            .sorted(Map.Entry.<Integer, Long>comparingByValue()
+					            		.reversed())
+					            .map(Map.Entry::getKey)
+					            .collect(Collectors.toList());
+		
+		for(Integer pnum : sortedPnum) {
+			Map<String, Object> map = pdao.getProdInfo(pnum);
+			
+			ProductVO vo = new ProductVO();
+			vo.setProduct_num((Integer)map.get("product_num"));
+			vo.setProduct_title((String)map.get("product_title"));
+			vo.setProduct_pic((String)map.get("product_pic"));
+			
+			if(vo != null) {
+				viewedList.add(vo);
+			}
+		}
+		
+		// 최대 나타낼 갯수
+		final int MAX_VIEW_SIZE = 5;
+		if(viewedList.size() > MAX_VIEW_SIZE) {
+			viewedList = viewedList.subList(0, MAX_VIEW_SIZE);
+		}
+		
+		return viewedList;
 	}
 
 
@@ -241,4 +285,15 @@ public class ProductServiceImpl implements ProductService{
 		public int getTotalCount() {
 			return pdao.getTotalCount();
 		}
+
+		@Override
+		public int updateProd(ProductVO vo) {
+			return pdao.updateProd(vo);
+		}
+
+		@Override
+		public int deleteProd(Integer pnum) {
+			return pdao.deleteProd(pnum);
+		}
+
 }

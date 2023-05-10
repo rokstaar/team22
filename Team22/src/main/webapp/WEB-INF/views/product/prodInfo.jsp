@@ -154,60 +154,129 @@
 				</div>
 			</div>
 		</section>			
-		</a>		
+		</a>
 
-<script type="text/javascript">
-console.log(${infoStr });
-</script>
-
-<div id="updataForm" style="display:none;">
-<div>
+<div class="modal_back" id="updataForm">
+<div class="modal">
 <section style="display:flex; justify-content:center;">
-	<form id="updateProd" action="/product/updateProd" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="product_seller" value="${product_seller }">
+	<form id="updateProd" action="/product/updateProd" method="post" onsubmit="return false;">
+		<div style="float:right;">
+		<?xml version="1.0" ?><svg class="feather feather-x" id="btn-close" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+		</div>
+		<h2>상품 수정</h2>
+		<input type="hidden" name="product_seller" value="${info.product_seller }">
 		<div class="regProd">
 		<div id="regTitle">
 			제목 <input type="text" name="product_title" 
-			 onchange="validateForm()" onkeyup="return checkByte(this, 50, document.getElementById('inputAlert1'));">
+			 onchange="validateForm()" value="${info.product_title }">
 			<span id="inputAlert1" style="color: red;"></span>
 		</div>
 		<div id="regCategory" class="select-container">
-			<select name="product_cate" onchange="validateForm()">
+			<select name="product_cate" disabled>
 				<option value="" hidden>분류</option>
-				<option value="의류">의류</option>
-				<option value="가전제품">가전제품</option>
-				<option value="식기,가구">식기,가구</option>
-				<option value="디지털,전자기기">디지털,전자기기</option>
-				<option value="식품,생필품">식품,생필품</option>
-				<option value="스포츠,건강">스포츠,건강</option>
-				<option value="기기,공구">기기,공구</option>
-				<option value="도서,쿠폰">도서,쿠폰</option>
-				<option value="유아">유아</option>
-				<option value="애완동물">애완동물</option>
-				<option value="기타">기타</option>
+				<option value="의류"
+				<c:if test="${info.product_cate eq '의류'}">
+				selected="selected"
+				</c:if>
+				>의류</option>
+				<option value="가전제품"
+				<c:if test="${info.product_cate eq '가전제품' }">
+				selected="selected"
+				</c:if>
+				>가전제품</option>
+				<option value="식기,가구"
+				<c:if test="${info.product_cate eq '식기,가구' }">
+				selected="selected"
+				</c:if>
+				>식기,가구</option>
+				<option value="디지털,전자기기"
+				<c:if test="${info.product_cate eq '디지털,전자기기' }">
+				selected="selected"
+				</c:if>
+				>디지털,전자기기</option>
+				<option value="식품,생필품"
+				<c:if test="${info.product_cate eq '식품,생필품' }">
+				selected="selected"
+				</c:if>
+				>식품,생필품</option>
+				<option value="스포츠,건강"
+				<c:if test="${info.product_cate eq '스포츠,건강' }">
+				selected="selected"
+				</c:if>
+				>스포츠,건강</option>
+				<option value="기기,공구"
+				<c:if test="${info.product_cate eq '기기,공구' }">
+				selected="selected"
+				</c:if>
+				>기기,공구</option>
+				<option value="도서,쿠폰"
+				<c:if test="${info.product_cate eq '도서,쿠폰' }">
+				selected="selected"
+				</c:if>
+				>도서,쿠폰</option>
+				<option value="유아"
+				<c:if test="${info.product_cate eq '유아' }">
+				selected="selected"
+				</c:if>
+				>유아</option>
+				<option value="애완동물"
+				<c:if test="${info.product_cate eq '애완동물' }">
+				selected="selected"
+				</c:if>
+				>애완동물</option>
+				<option value="기타"
+				<c:if test="${info.product_cate eq '기타' }">
+				selected="selected"
+				</c:if>
+				>기타</option>
 			</select>
+			
 		</div>
 		</div>
 		
 		내용
 		<textarea rows="5" cols="" name="product_content" 
-		 onchange="validateForm()" onkeyup="return checkByte(this, 1000, document.getElementById('inputAlert2'));"></textarea>
+		 onchange="validateForm()">${info.product_content }</textarea>
 		<span id="inputAlert2" style="color: red;"></span>
 		<div class="regProd">
 		<div id="regPrice">
-			가격 <input type="number" name="product_price" min='0' max='100000000' step='10' onchange="validateForm()">
+			가격 <input type="number" name="product_price" min='0' max='100000000' step='10' value="${info.product_price }" onchange="validateForm()">
 			<span id="priceAlert" style="color: red;"></span>
 		</div>
 		<div id="regGrade" class="select-container">
 			<select name="product_grade" onchange="validateForm()">
 				<option value="" hidden>상품상태</option>
-				<option value="상">상</option>
-				<option value="중">중</option>
-				<option value="하">하</option>
+				<option value="상"
+				<c:if test="${info.product_grade eq '상' }">
+				selected="selected"
+				</c:if>
+				>상</option>
+				<option value="중"
+				<c:if test="${info.product_grade eq '중' }">
+				selected="selected"
+				</c:if>
+				>중</option>
+				<option value="하"
+				<c:if test="${info.product_grade eq '하' }">
+				selected="selected"
+				</c:if>
+				>하</option>
 			</select>
 		</div>
 		</div>
 		
+		<div class="thumbnail-container">
+		    <ul class="thumbnails">
+		      <c:forEach var="i" begin="0" end="2">
+		        <c:if test="${not empty info.product_pic.split(',')[i]}">
+		          <li>
+		            
+		            <img class="thumbnail" src="/product/thumb?fileName=${info.product_pic.split(',')[i]}" onerror="imgerr(this)">
+		          </li>
+		        </c:if>
+		      </c:forEach>
+		    </ul>
+		  </div>
 		
 		<input id="submitButton" type="submit" value="수정하기">
 	</form>
@@ -217,7 +286,7 @@ console.log(${infoStr });
 		<!-- 게시물 부가탭 -->
 		<div class="div-subpost">
 			<c:if test="${id eq info.member_id }">
-				<a onclick="formToggle()" id="a-modify">
+				<a id="a-modify">
 					<i class="fas fa-eraser fa-2x"></i>
 				</a>
 				<a id="a-delete" onclick="chkDelete();">
@@ -231,11 +300,8 @@ console.log(${infoStr });
 				<i class="fas fa-flag fa-2x"></i>
 			</a>
 		</div>
-			<script type="text/javascript">
-			function formToggle(){
-				document.getElementById('updataForm').style = 'display:block';
-			}
-			</script>
+		
+		
 		<hr>
 		<div id="subinfo">
 			<div>
@@ -410,7 +476,69 @@ console.log(${infoStr });
 		}, duration);
 	}
 	
+	
+	
+	function sharePost(){
+		document.getElementById('div-back').style.display = 'flex';
+	}
+	
+	
+	
+	
+	function chkDelete(){
+		let RUS = confirm("게시글을 정말 삭제하시겠습니까?");
+		let pnum = ${info.product_num};
+		
+		if(RUS){
+			$.ajax({
+				url: '/product/deleteProd',
+				type: 'post',
+				data: {pnum: pnum},
+				success: function(){
+					alert("삭제되었습니다");
+					location.href='/product/prodList';
+				},error: function(){
+					alert("삭제 절차에 문제가 생겼습니다");
+				}
+			});
+		}
+	}
+	
+	
+	
 	$(document).ready(function() {
+		
+		function BR(str){
+			return str.replace(/\n/g, '<br>');
+		}
+		
+		
+		$('#submitButton').on('click', function(){
+			
+			var productInfo = {
+					product_num: ${info.product_num},
+					title: $('input[name="product_title"]').val(),
+					content: BR($('textarea[name="product_content"]').val()),
+					price: $('input[name="product_price"]').val(),
+					grade: $('select[name="product_grade"]').val()
+			};
+			
+			
+			$.ajax({
+				url: '/product/updateProd',
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify(productInfo),
+				success: function(data){
+					location.reload();
+				},error: function(data){
+					console.log(data);
+				}
+			});
+		});
+		
+		
+		
         
         function heartChange($svg1, $svg2, pnum, seller) {
 	        $svg1.on('click', function(event) {
@@ -419,7 +547,6 @@ console.log(${infoStr });
 	                url: '/product/likeProdCancel',
 	                data: {product_num: pnum, seller: seller},
 	                success: function() {
-	                    //console.log('success Del');
 	                    $svg1.hide();
 	                    $svg2.show();
 	                },
@@ -438,7 +565,6 @@ console.log(${infoStr });
 	                url: '/product/likeProd',
 	                data: {product_num: pnum, seller: seller},
 	                success: function() {
-	                	//console.log('success Reg');
 	                	showToast('찜 완료!', 3000);
 	                	$svg2.hide();
 	                    $svg1.show();
@@ -497,7 +623,6 @@ console.log(${infoStr });
             	  if (response[i].product_num != ${info.product_num}) {
             	    productHtml += '<div class="grid-item">';
             	    productHtml += '<a class="product-section" href="/product/prodInfo?product_num=' + response[i].product_num + '&seller=' + response[i].product_seller + '">';
-            	    //productHtml += '<img src="/resources/images/thumb/thumb_' + response[i].product_pic.split(',')[0] + '" onerror="this.src=\'/resources/images/default_product.jpg\'" />';
             	    productHtml += '<img src="/product/thumb?fileName=' + response[i].product_pic.split(',')[0] + '" onerror="this.src=\'/resources/images/default_product.jpg\'" />';
             	    productHtml += '<div>' + response[i].product_title + '</div>';
             	    productHtml += '<div class="product-content">' + response[i].product_content + '</div>';
@@ -515,6 +640,59 @@ console.log(${infoStr });
                 console.log(req + " - 에러발생 - " + error);
             }
         });
+        
+        
+        function checkByte(inputElement, maxBytes, alertS) {
+    		let text;
+    		  
+    		  if (inputElement.name == 'product_title') {
+    		    text = inputElement.value;
+    		  } else if (inputElement.name == 'product_content') {
+    		    text = inputElement.textContent;
+    		  } else {
+    		    console.error('지원하지 않는 유형입니다');
+    		    return;
+    		  }
+    		  
+    		  let currentBytes = 0;
+
+    		  for (let i = 0; i < text.length; i++) {
+    		    const charCode = text.charCodeAt(i);
+    		    if (charCode <= 0x7F) {
+    		      currentBytes += 1;
+    		    } else if (charCode <= 0x7FF) {
+    		      currentBytes += 2;
+    		    } else {
+    		      currentBytes += 3;
+    		    }
+
+    		    if (currentBytes > maxBytes) {
+    		      inputElement.value = text.substring(0, i);
+    		      alertS.innerHTML = '글자 최대 바이트 수는 ' + maxBytes + '입니다';
+    		      return false;
+    		    }else{
+    		    	alertS.innerHTML = '';
+    		    }
+    		  }
+    		  return true;
+    		}
+        
+        
+        
+        function formToggle(){
+    		document.getElementById('updataForm').style = 'display:flex';
+    		scroll_on();
+    		document.querySelector('input[name="product_title"]').addEventListener('keyup', function() {
+    		    return checkByte(this, 50, document.getElementById('inputAlert1'));
+    		  });
+
+    		  document.querySelector('textarea[name="product_content"]').addEventListener('keyup', function() {
+    		    return checkByte(this, 1000, document.getElementById('inputAlert2'));
+    		  });
+    	}
+        
+        
+        $('#a-modify').on('click', formToggle);
     });
 	
 	$("#svg-chat").on('click', function(){
@@ -550,6 +728,62 @@ console.log(${infoStr });
 		  showToast("URL이 클립보드에 복사되었습니다.",3000);
 	}
 
+	
+	
+	function validateForm() {
+	    const productTitle = document.getElementsByName("product_title")[0];
+	    const productCate = document.getElementsByName("product_cate")[0];
+	    const productContent = document.getElementsByName("product_content")[0];
+	    const productPrice = document.getElementsByName("product_price")[0];
+	    const productGrade = document.getElementsByName("product_grade")[0];
+	    const productPics = document.getElementsByName("product_pics")[0];
+	    const submitButton = document.getElementById("submitButton");
+
+	    if (productTitle.value.trim() !== "" &&
+	        productCate.value !== "" &&
+	        productContent.value.trim() !== "" &&
+	        productPrice.value.trim() !== "" &&
+	        productGrade.value !== "") {
+	        submitButton.disabled = false;
+	    } else {
+	        submitButton.disabled = true;
+	    }
+	}
+
+	validateForm();
+	
+	
+	
+
+	
+	$('.modal').on('click', function(event) {
+	    event.stopPropagation();
+	});
+	
+	$('.modal_back').on('click', function(){
+		this.style.display = 'none';
+		scroll_off();
+	});
+	
+	$('#btn-close').on('click', function(){
+		$('.modal_back').style.display = 'none';
+		scroll_off();
+	});
+	
+	
+	function scroll_on() {
+        $('#wrapper').on('scroll touchmove mousewheel', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        });
+    }
+
+    function scroll_off() {
+        $('#wrapper').off('scroll touchmove mousewheel');
+    }
+    
+    
 	
 	</script>
 			<script src="/resources/assets/js/jquery.min.js"></script>
