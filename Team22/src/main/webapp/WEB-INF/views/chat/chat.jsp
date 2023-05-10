@@ -46,8 +46,8 @@
 	
 	.s_menu_box {
 		width: 242px;
-		height: 910px;
-		/* border: 1px solid lightgray; */
+		height: 800px;
+		border: 1px solid lightgray;
 		border-radius: 10px;
 		padding: 20px;
 		overflow: auto;
@@ -149,9 +149,9 @@
 	}
 	
 	#s_chat_content_box {
-		/* border: 1px solid lightgray; */
-		height: 1012px;
-		width: 1050px;
+		border: 1px solid lightgray;
+		height: 865px;
+		width: 865px;
 		margin-top: 20px;
 		margin-left: 10px;
 		border-radius: 10px;
@@ -208,12 +208,12 @@
 
 <!-- Main -->
 <div id="main">
-	<div class="inner" style="max-width:100em;">
+	<div class="inner" style="max-width:95em;">
 	
 	<%@ include file="../include/header.jsp" %>
 	
 	<section>
-        <article style="float: left; margin-left: 130px;">
+        <article style="float: left; margin-left: 120px;">
         
             <div id="s_sub_menu_box">
 
@@ -295,7 +295,7 @@
 	var rno = "";
 	if ('${room_id}' === "") {
 		  $(document).ready(function() {
-		    $("#s_chat_content_box").html('<img width="100px" style="display: block; margin: 450px;" src="/resources/images/free-icon-bubble-chat-2821941.png">');
+		    $("#s_chat_content_box").html('<img width="100px" style="display: block; margin: 350px;" src="/resources/images/free-icon-bubble-chat-2821941.png">');
 		  });
 	} 
 	// ${room_id}가 존재하는 경우

@@ -16,9 +16,9 @@ import com.github.scribejava.core.oauth.OAuth20Service;
 public class KakaoLoginBO {
 	
 	// 카카오 로그인 정보
-	private final static String KAKAO_CLIENT_ID = "클라이언트 ID, REST API키";
-	private final static String KAKAO_CLIENT_SECRET = "클라이언트 시크릿";
-	private final static String KAKAO_REDIRECT_URI = "http://localhost:8080/members/callbackKakao"; //Redirect URL
+	private final static String KAKAO_CLIENT_ID = "e1f73c27b520c573d748c096ffaa40dd";
+	private final static String KAKAO_CLIENT_SECRET = "AXIOZxlViZ4fZWX8p3iEj5lmn5JeZt65";
+	private final static String KAKAO_REDIRECT_URI = "http://localhost:8080/members/callbackKakao"; 
 	private final static String SESSION_STATE = "kakao_oauth_state";
 	private final static String PROFILE_API_URL = "https://kapi.kakao.com/v2/user/me";
 

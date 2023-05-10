@@ -10,6 +10,8 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -27,6 +29,7 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.itwillbs.util.GeoLocation;
 import com.itwillbs.util.Ip;
 import com.itwillbs.util.JsonParser;
+import com.itwillbs.util.KakaoLoginBO;
 import com.itwillbs.util.NaverLoginBO;
 import com.itwillbs.util.UploadFileUtils;
 import com.market.domain.MemberVO;
@@ -46,47 +49,45 @@ public class MembersController {
 	@Named("uploadPath")
 	private String uploadPath;
 	
-	/* NaverLoginBO */
-	private NaverLoginBO naverLoginBO;
-	private String apiResult = null;
+private String apiResult = null;
 	
+	// NaverLoginBO
 	@Inject
-	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
-		this.naverLoginBO = naverLoginBO;
-	}
+	private NaverLoginBO naverLoginBO;
+	
+	// KakaoLoginBO
+	@Inject
+	private KakaoLoginBO kakaoLoginBO;
 	
 	private static final Logger logger = LoggerFactory.getLogger(MembersController.class);
 	
 	//http://localhost:8080/main
 	
-	// 濡쒓렇�씤 - �젙蹂댁엯�젰
+	// 로그인  + 간편 로그인
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginGET(Model model, HttpSession session) {
 		
-		 /* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
-        String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
-      
-        logger.info("네이버 : " + naverAuthUrl);
-        
-        model.addAttribute("naverurl", naverAuthUrl);
+		// 네이버 아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 
+		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+		logger.info("네이버 : " + naverAuthUrl);
+
+		model.addAttribute("naverurl", naverAuthUrl);
+		
+		// 카카오
+		String kakaoAuthUrl = kakaoLoginBO.getAuthorizationUrl(session);
+		logger.info("카카오 : " + kakaoAuthUrl);
+		
+		model.addAttribute("kakaourl", kakaoAuthUrl);		
  
-        /* 생성한 인증 URL을 View로 전달 */
 		return "/members/loginForm";
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String loginPOST(Model model, HttpSession session,HttpServletRequest request,
-				MemberVO vo )throws Exception {
-		Ip ip = new Ip();
-		// 아이피주소
-		String ipAddress = ip.getIp(request);
-		// 현재위치
-		String location = new GeoLocationController().getLocationFromIp(ipAddress);
-
-		
-		 if(service.loginMember(vo) != null) { 
-			 session.setAttribute("id", vo.getMember_id()); 
-			    logger.info("@@@@@@아이피주소: "+ipAddress+", 현재위치: "+location);
+	public String loginPOST(Model model, HttpSession session,
+				MemberVO vo ) {
+		  
+		if(service.loginMember(vo) != null) { 
+			session.setAttribute("id", vo.getMember_id()); 
 			} 
 		else { service.memberJoin(vo);
 			session.setAttribute("id", vo.getMember_id()); 
@@ -95,36 +96,78 @@ public class MembersController {
 		return "redirect:/main";
 	}
 	
-	//네이버 로그인 성공시 callback호출 메소드
-		@RequestMapping(value = "callback", method = { RequestMethod.GET, RequestMethod.POST })
-		public String callbackNaver(Model model, HttpSession session, MemberVO vo,
-									@RequestParam String code, @RequestParam String state) throws Exception {
-			
-			logger.info("로그인 성공 callbackNaver");
-			JsonParser json = new JsonParser();
-			
-			OAuth2AccessToken oauthToken;
-	        oauthToken = naverLoginBO.getAccessToken(session, code, state);
-	        
-	        //로그인 사용자 정보를 읽어온다.
-		    String apiResult = naverLoginBO.getUserProfile(oauthToken);
-		    
-		    vo = json.changeJson(apiResult);
-		    
-		    logger.info(apiResult);
-		    
-		    if(service.loginMember(vo) != null) {
-		    	session.setAttribute("id", vo.getMember_id());
-		    } else {
-		    	service.memberJoin(vo);
-		    	session.setAttribute("id", vo.getMember_id());
-		    }
-
-		    model.addAttribute("result", apiResult);
-		    
-		    return "redirect:/main";
-
+	// 네이버 로그인 성공시 callback 호출 
+	@RequestMapping(value = "callback", method = { RequestMethod.GET,RequestMethod.POST })
+	public String callbackNaver(Model model, HttpSession session, MemberVO vo, 
+								@RequestParam String code, @RequestParam String state) throws Exception {
+	  
+		logger.info(" 네이버 로그인 성공 callbackNaver ");
+		JsonParser json = new JsonParser();
+		  
+		OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
+		  
+		// 로그인 사용자 정보를 읽어옴
+		String apiResult = naverLoginBO.getUserProfile(oauthToken);
+		  
+		vo = json.changeJson(apiResult);
+		  
+		logger.info("apiResult {}",apiResult);
+		  
+		if(service.loginMember(vo) != null) { 
+			session.setAttribute("id", vo.getMember_id());
+		} else{ 
+			service.memberJoin(vo);
+			session.setAttribute("id", vo.getMember_id());
 		}
+	
+		model.addAttribute("result", apiResult);
+		  
+		return "redirect:/main"; 
+	}
+	
+	// 카카오 로그인 성공시 callback 호출 
+	@RequestMapping(value = "callbackKakao", method = { RequestMethod.GET,RequestMethod.POST })
+	public String callbackKakao(Model model, HttpSession session, MemberVO vo, 
+								@RequestParam String code, @RequestParam String state) throws Exception {
+		
+		logger.info(" 카카오 로그인 성공 callbackKakao ");
+				
+		OAuth2AccessToken oauthToken;
+		oauthToken = kakaoLoginBO.getAccessToken(session, code, state);	
+		
+		apiResult = kakaoLoginBO.getUserProfile(oauthToken);
+
+		JSONParser jsonParser = new JSONParser();
+		JSONObject jsonObject = (JSONObject) jsonParser.parse(apiResult);
+		
+		logger.info("jsonObjcet : " + jsonObject);
+		
+		JSONObject responseObj = (JSONObject) jsonObject.get("kakao_account");
+		JSONObject responseObj2 = (JSONObject) responseObj.get("profile");
+		
+		String kakaoId = "K_" + (String) responseObj.get("email").toString().split("@")[0];
+		String kakaoPw = "5678";
+		String email = (String) responseObj.get("email");
+		String name = (String) responseObj2.get("nickname");
+		
+		vo.setMember_id(kakaoId);
+		
+		if (service.loginMember(vo) != null) {
+		    session.setAttribute("id", vo.getMember_id());
+		} else {
+		    vo.setMember_pass(kakaoPw);
+		    vo.setMember_email(email);
+		    vo.setMember_name(name);
+		    vo.setMember_nickname(name);
+			    if (!service.isDuplicated(vo.getMember_id())) { // 등록된 아이디가 없을 경우
+			        service.memberJoin(vo); // DB에 정보 등록
+			    }
+		    session.setAttribute("id", vo.getMember_id());
+		}
+		
+		return "redirect:/main"; 
+	}
+
 	
 	//濡쒓렇�븘�썐
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
