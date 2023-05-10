@@ -106,8 +106,9 @@
 		
 		<!-- 카카오 로그인 버튼 -->
 		<div id="kakao_id_login" style="text-align:center; margin-top: 10px">
-			<a href="https://kauth.kakao.com/oauth/authorize?client_id=e1f73c27b520c573d748c096ffaa40dd&
-							redirect_uri=http://localhost:8080/members/callbackKakao">
+			<a href="${kakaourl}">
+			<!-- <a href="https://kauth.kakao.com/oauth/authorize?client_id=e1f73c27b520c573d748c096ffaa40dd&
+							redirect_uri=http://localhost:8080/members/callbackKakao"> -->
 			<img width="150" height="40px" src="/resources/images/kakao_login_medium_narrow.png"></a>
 		</div> 
 		
