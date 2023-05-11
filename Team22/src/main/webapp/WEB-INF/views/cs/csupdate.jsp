@@ -43,12 +43,8 @@
 		
 <h2>문의사항 수정</h2>
 
-<!-- 
-파일 첨부 시 form 태그의  필요 속성
-1. 반드시 method가 post
-2. enctype을 지정 ▶ enctype='multipart/form-data'
- -->
-<form method="post"> <!-- enctype="multipart/form-data" -->
+
+<form method="post" enctype="multipart/form-data">
    <input type="hidden" name="mem_id" value="${id }"> 
    <input type="hidden" name="cs_num" value="${cvo.cs_num }"> 
 	<table>
@@ -77,12 +73,19 @@
 			<td><textarea name="cs_content" class="need" rows="6" placeholder="내용을 입력하세요." required >${cvo.cs_content}</textarea></td>
 		</tr>
 		
-		<!-- <tr>
+		 <tr>
 			<th style="font-size:large;">파일 첨부</th>
 			<td class="left">
-                <input type="file" name="cs_file0 " name="cs_file0" multiple="multiple"/>
+                <input type="file" name="file" id="image" value="${cvo.cs_file0 }">
+                <img alt="" src="${cvo.cs_file0 }"> <br>
+           
+                <input type="file" name="file2" id="image1" value="${cvo.cs_file1 }">
+				<img alt="" src="${cvo.cs_file1 }"><br>
+			
+				<input type="file" name="file3" id="image2" value="${cvo.cs_file2 }">
+				<img alt="" src="${cvo.cs_file2 }"> <br>
  			</td>		
-		</tr> -->
+		</tr> 
 		
 	</table>
 

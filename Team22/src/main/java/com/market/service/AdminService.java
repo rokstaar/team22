@@ -3,24 +3,44 @@ package com.market.service;
 import java.util.List;
 import java.util.Map;
 
+import com.market.domain.AuctionVO;
 import com.market.domain.CustomerserviceVO;
 import com.market.domain.MemberVO;
 import com.market.domain.NoticeVO;
 import com.market.domain.ProductVO;
+import com.market.domain.RandomVO;
 import com.market.domain.TradeVO;
 
 public interface AdminService {
 	
-	// 모든회원 정보
-	public List<MemberVO> memberList() throws Exception;
+	// 모든회원 정보 + 페이징 + 검색
+	public List<MemberVO> getMemebrList(int displayPost, int postNum,
+	                                        String searchType, String keyword) throws Exception;
+		
+	// 모든 회원 수 + 검색
+	public int searMemlist(String searchType, String keyword) throws Exception;
+	
+	// 회원 개인 조회
+	public MemberVO getmem(Integer member_num) throws Exception;
 	
 	// 총 회원 수(명)
 	public int countMember() throws Exception;
 	
 	
 	
-	// 모든 제품 정보
+	// 모든 판매 제품 정보
 	public List<ProductVO> productList() throws Exception;
+	
+	// 모든 경매제품 정보
+	public List<AuctionVO> auctionList() throws Exception;
+		
+	// 모든 랜덤제품 정보
+	public List<RandomVO> randomList() throws Exception;
+	
+	
+	
+	
+	
 	
 	// 모든 제품 갯수
 	public int countProduct() throws Exception;
@@ -36,11 +56,24 @@ public interface AdminService {
 	
 	
 	
-	// 모든 문의사항 정보
-	public List<CustomerserviceVO> getCsList() throws Exception;
+	// 모든 문의사항 정보 + 페이징 + 검색
+	public List<CustomerserviceVO> getCsList(int displayPost, int postNum,
+	                                             String searchType, String keyword) throws Exception;
 		
-	// 모든 공지사항 정보
-	public List<NoticeVO> getNotiList() throws Exception;
+	// 모든 문의사항 + 검색
+	public int searCslist(String searchType, String keyword) throws Exception;
+	
+	// 문의사항 총 글 개수
+	public int countCs() throws Exception;
+		
+	
+		
+	// 모든 공지사항 정보 + 페이징 + 검색 (관리자 페이지)
+	public List<NoticeVO> getNotiList(int displayPost, int postNum,
+                                      String searchType, String keyword) throws Exception;
+	
+	// 모든 공지사항 + 검색(관리자 페이지)
+	public int searNotilist(String searchType, String keyword) throws Exception;
 	
 	
 	

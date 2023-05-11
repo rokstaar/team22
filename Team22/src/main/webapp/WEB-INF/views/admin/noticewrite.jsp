@@ -48,24 +48,36 @@ body {
 							<!-- Banner -->
 							<section id="banner">
 								 <div class="content">
-								 <div class="wrap">
+							       <div class="wrap">
 								  <div class="shippingStatusContainer"> </div>    
 						   
 	 <article>
-		<div class="container" role="main">
+		<div class="container" role="main" enctype="multipart/form-data">
 			<h2>공지사항 등록</h2> 
 			    <hr>
 			
-			  <form name="form" id="form" role="form" method="post">
+			  <form name="form" id="form" role="form" method="post" enctype="multipart/form-data">
 				<div class="mb-3">
 					<label for="title">제목</label>
 					<input type="text" class="form-control" name="noti_title" id="title" placeholder="제목을 입력해 주세요">
 				</div>
+				<br>
 
 				<div class="mb-3">
 					<label for="content">내용</label>
 					<textarea class="form-control" rows="5" name="noti_content" id="content" placeholder="내용을 입력해 주세요" ></textarea>
 				</div>
+				<br>
+				
+				<div class="mb-3">
+					<label for="image">사진</label>
+					<input type="file" class="form-control" name=file id="image">
+					<input type="file" class="form-control" name="file2" id="image1">
+					<input type="file" class="form-control" name="file3" id="image2">
+				</div>
+				<%-- <%=request.getRealPath("/") %> --%>
+				
+				<br><br>
 			
                <div class="btn_wrap">
                     <button type="submit" class="button primary"> 저장 </button>

@@ -8,10 +8,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.market.domain.AuctionVO;
 import com.market.domain.CustomerserviceVO;
 import com.market.domain.MemberVO;
 import com.market.domain.NoticeVO;
 import com.market.domain.ProductVO;
+import com.market.domain.RandomVO;
 import com.market.domain.TradeVO;
 import com.market.persistence.AdminDAO;
 
@@ -24,14 +26,35 @@ public class AdminServiceImpl implements AdminService {
 	private static final Logger logger 
 	        = LoggerFactory.getLogger(AdminServiceImpl.class);
 
+	
 	@Override
-	public List<MemberVO> memberList() throws Exception {
-		return adao.getMemebrList();
+	public List<MemberVO> getMemebrList(int displayPost, int postNum, String searchType, String keyword)
+			throws Exception {
+	
+		return adao.getMemebrList(displayPost, postNum, searchType, keyword);
+	}
+
+	@Override
+	public int searMemlist(String searchType, String keyword) throws Exception {
+		
+		return adao.searMemlist(searchType, keyword);
 	}
 
 	@Override
 	public List<ProductVO> productList() throws Exception {
 		return adao.getProductList();
+	}
+	
+	@Override
+	public List<AuctionVO> auctionList() throws Exception {
+	
+		return adao.getAuctionList();
+	}
+
+	@Override
+	public List<RandomVO> randomList() throws Exception {
+		
+		return adao.getRandomList();
 	}
 
 	@Override
@@ -108,17 +131,47 @@ public class AdminServiceImpl implements AdminService {
 		return adao.countTrade();
 	}
 
-	@Override
-	public List<CustomerserviceVO> getCsList() throws Exception {
-
-		return adao.getCsList();
-	}
-
-	@Override
-	public List<NoticeVO> getNotiList() throws Exception {
 	
-		return adao.getNotiList();
+	@Override
+	public List<CustomerserviceVO> getCsList(int displayPost, int postNum, String searchType, String keyword)
+			throws Exception {
+	
+		return adao.getCsList(displayPost, postNum, searchType, keyword);
 	}
+
+	@Override
+	public int searCslist(String searchType, String keyword) throws Exception {
+	
+		return adao.searCslist(searchType, keyword);
+	}
+
+	
+	@Override
+	public List<NoticeVO> getNotiList(int displayPost, int postNum, String searchType, String keyword) throws Exception {
+	
+		return adao.getNoticeList(displayPost, postNum, searchType, keyword);
+	}
+
+	@Override
+	public int searNotilist(String searchType, String keyword) throws Exception {
+		
+		return adao.searNotilist(searchType, keyword);
+	}
+
+	@Override
+	public int countCs() throws Exception {
+		
+		return adao.countCs();
+	}
+
+	@Override
+	public MemberVO getmem(Integer member_num) throws Exception {
+
+		return adao.getmem(member_num);
+	}
+	
+	
+	
 
 	
 	

@@ -40,10 +40,12 @@
 									<!-- board seach area -->
 				<article>
 		<div class="container" role="main">
-			
+		
 			<h2>${resultVO.noti_title }</h2>
 			 <hr>
-			 
+			 <img alt="" src="${resultVO.noti_image }">
+			 <img alt="" src="${resultVO.noti_image1 }">
+			 <img alt="" src="${resultVO.noti_image2 }">
 				<div class="mb-3">
 					<h3> <pre>${resultVO.noti_content }</pre> </h3>	
 				</div>

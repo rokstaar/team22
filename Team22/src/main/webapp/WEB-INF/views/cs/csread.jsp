@@ -47,6 +47,9 @@
 			 
 				<div class="mb-3">
 					<h3> <pre>${csVO.cs_content }</pre> </h3>	
+					<img alt="" src="${csVO.cs_file0 }">
+					<img alt="" src="${csVO.cs_file1 }">
+					<img alt="" src="${csVO.cs_file2 }">
 				</div>
 				
 				<hr>

@@ -80,9 +80,6 @@
 </script>
 
 
-
-
-
 		<table class="bbsList">
                 <thead class="head">
                     <tr>
@@ -102,10 +99,37 @@
                        <td class="">${blist.cs_num }</td>                       
                         <td class="">${blist.cs_category}</td>
                         <td class="">${blist.cs_process}</td>
+                        
+                  <%--       ${blist.cs_secret}     --%>                    
                                 
-                        <td class="">
+                <td>
+                   <c:choose>
+                      <c:when test="${blist.cs_secret == true && (id != 'admin')}">
+                      <span>비밀글입니다.</span>
+                      </c:when>
+                   <c:otherwise>
+                       <a href="/cs/csread?cs_num=${blist.cs_num}">${blist.cs_sub }</a>
+                   </c:otherwise>
+               </c:choose>
+             </td> 
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       <%--  <td>
+                          <c:choose>
+                            <c:when test="${blist.cs_secret == 1 && (blist.mem_id != loginUser || loginUserType != 'admin')}">
+                             <span>비밀글입니다.</span>
+                            </c:when>
+                        <c:otherwise></c:otherwise>
+                        
                           <a href="/cs/csread?cs_num=${blist.cs_num}"> ${blist.cs_sub } </a>
-                        </td>
+                     </c:choose>
+                        </td> --%>
                        
                         <td class="">${blist.mem_id}</td>
                         <td class="">${blist.cs_date }</td>                                                                                                                             
