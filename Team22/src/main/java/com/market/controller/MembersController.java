@@ -185,14 +185,22 @@ private String apiResult = null;
 		session.setAttribute("memberInfo",service.memberInfo(id));
 		logger.info("@@@@@@@@@@@@@@@@@@@@@id"+id);
 		
-		  logger.info("@@@@@@@@@@@@"+amount); 
-		  Pay_chargeVO vo = new Pay_chargeVO();
-		  vo.setMember_id(id); vo.setCharge_amount(amount); 
-		  service.savePayCharge(vo);
 		
 	 	  model.addAttribute("score",service.memberScore(id));
 		
 		return "/members/myPage";
+	}
+	// 페이충전 확인페이지
+	@RequestMapping(value = "/payInfo",method = RequestMethod.GET)
+	public String payInfo(Model model, HttpSession session,Integer amount)throws Exception{
+		String id = (String)session.getAttribute("id");
+		logger.info("@@@@@@@@@@@@@@@@@@@@@id"+id);
+		logger.info("@@@@@@@@@@@@"+amount); 
+		  Pay_chargeVO vo = new Pay_chargeVO();
+		  vo.setMember_id(id); vo.setCharge_amount(amount); 
+		  service.savePayCharge(vo);
+	
+		  return "/members/payInfo";
 	}
 	
 
