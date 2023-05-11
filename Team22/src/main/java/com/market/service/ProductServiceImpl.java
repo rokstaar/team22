@@ -320,25 +320,27 @@ public class ProductServiceImpl implements ProductService{
 		// 메인화면 추천 목록 가져오기
 		@Override
 		public PDTO getFavProd(String mid) {
+			logger.info("service - 추천 목록");
 			List<ProductVO> list = new ArrayList<>();
 			PDTO dto = new PDTO();
 			
-			int p = (int) (Math.random() * 5);
-			int token;
+			int token = 0;
 			
-			if(p <= 2) {
-				list = pdao.getRecProdList(pdao.getFavCate(mid));
-				token = 0;
+			while(list.size() == 0) {
+				int p = (int) (Math.random() * 5);
+				if(p <= 2) {
+					list = pdao.getRecProdList(pdao.getFavCate(mid));
+					token = 0;
+				}
+				else if(p <= 3) {
+					list = pdao.getFavLike();
+					token = 1;
+				}
+				else {
+					list = pdao.getFavInterest();
+					token = 2;
+				}
 			}
-			else if(p <= 3) {
-				list = pdao.getFavLike();
-				token = 1;
-			}
-			else {
-				list = pdao.getFavInterest();
-				token = 2;
-			}
-			
 			dto.setList(list);
 			dto.setToken(token);
 			

@@ -28,11 +28,13 @@ public class HomeController {
 		
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("id");
-		id = id == null ? "ANONYMOUS" : id;
 		
-		
-		model.addAttribute("viewlist", pserv.viewedList(request, id));
-		model.addAttribute("reclist", pserv.getFavProd(id));
+		if(id != null) {
+			logger.info("본 상품 목록 가져오기!");
+			model.addAttribute("viewlist", pserv.viewedList(request, id));
+			logger.info("추천 상품 목록 가져오기!");
+			model.addAttribute("reclist", pserv.getFavProd(id));
+		}
 		
 		return "main";
 	}
