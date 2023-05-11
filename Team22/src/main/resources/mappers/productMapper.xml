@@ -209,11 +209,44 @@
 	</delete>
 	<!-- 상품 정보 삭제 -->
 	
-	<!-- 찜 목록 가져오기 -->
-	<select id="getFavProd" resultType="ProductVO">
-		select * from product order by product_favorite desc limit 20;
+	<!-- 찜 - 상위 카테고리 가져오기 -->
+	<select id="getFavProdCate" resultType="string">
+		WITH c AS (
+		  SELECT product_cate, COUNT(product_cate) AS count
+		  FROM product 
+		  WHERE product_num IN (SELECT product_num FROM favorite WHERE member_id = #{member_id}) 
+		  GROUP BY product_cate
+		)
+		SELECT product_cate
+		FROM c
+		WHERE count = (SELECT MAX(count) FROM c)
+		ORDER BY RAND()
+		LIMIT 1
 	</select>
-	<!-- 찜 목록 가져오기 -->
+	<!-- 찜 - 상위 카테고리 가져오기 -->
+	
+	<!-- 찜 - 좋아요 기반 추천 목록 가져오기  -->
+	<select id="getFavProdLike" resultType="productVO">
+		SELECT * FROM (
+				    	SELECT * FROM product ORDER BY product_favorite DESC LIMIT 20
+		) p ORDER BY RAND() LIMIT 8
+	</select>
+	<!-- 찜 - 좋아요 기반 추천 목록 가져오기  -->
+	
+	<!-- 찜 - 등록일자 대비 조회수 기반 추천 목록 가져오기 -->
+	<select id="getFavProdInterest" resultType="productVO">
+		SELECT *
+		FROM (
+			SELECT *
+			FROM product
+			ORDER BY (product_readcount / CASE WHEN TIMESTAMPDIFF(DAY, product_date, NOW()) = 0 THEN 1 ELSE TIMESTAMPDIFF(DAY, product_date, NOW()) END) DESC
+			LIMIT 20
+		) AS sub
+		ORDER BY RAND()
+		LIMIT 8
+	</select>
+	<!-- 찜 - 등록일자 대비 조회수 기반 추천 목록 가져오기 -->
+	
 </mapper>
 
 

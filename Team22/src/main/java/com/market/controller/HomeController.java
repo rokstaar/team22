@@ -1,6 +1,7 @@
 package com.market.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,12 +25,20 @@ public class HomeController {
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String main(HttpServletRequest request
 					,Model model) {
-		model.addAttribute("viewlist", pserv.viewedList(request));
+		
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("id");
+		id = id == null ? "ANONYMOUS" : id;
+		
+		
+		model.addAttribute("viewlist", pserv.viewedList(request, id));
+		model.addAttribute("reclist", pserv.getFavProd(id));
 		
 		return "main";
 	}
 
-	/*
-	 * @GetMapping(value = "/") public String home() { return "redirect:/main"; }
-	 */
+	@GetMapping(value = "/")
+	public String home() {
+		return "redirect:/main";
+	}
 }

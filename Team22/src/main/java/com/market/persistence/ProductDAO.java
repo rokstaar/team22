@@ -57,4 +57,14 @@ public interface ProductDAO {
 	
 	// 상품 정보 삭제
 	public int deleteProd(Integer pnum);
+	
+	
+	// 카테고리
+	public String getFavCate(String member_id);
+	
+	// 좋아요
+	public List<ProductVO> getFavLike();
+	
+	// 관심
+	public List<ProductVO> getFavInterest();
 }

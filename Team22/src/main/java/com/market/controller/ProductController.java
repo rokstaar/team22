@@ -117,7 +117,10 @@ public class ProductController {
 							, HttpServletResponse response) throws JsonProcessingException {
 		logger.info("상품 정보 가져오기! {}", service.getProdInfo(pnum));
 		
-		service.incView(request, response, pnum);
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("id");
+		
+		service.incView(request, response, pnum, id);
 		
 		Map<String,Object> map = service.getProdInfo(pnum);
 		model.addAttribute("info", map);

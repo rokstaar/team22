@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.market.domain.PCriteria;
+import com.market.domain.PDTO;
 import com.market.domain.ProductVO;
 
 public interface ProductService {
@@ -49,10 +50,11 @@ public interface ProductService {
 	public void regProduct(ProductVO vo, MultipartHttpServletRequest request) throws Exception;
 	
 	// 조회했는지 확인하며 조회수 증가시키기
-	public void incView(HttpServletRequest request, HttpServletResponse response, Integer product_num);
+	public void incView(HttpServletRequest request, HttpServletResponse response
+			, Integer product_num, String id);
 	
 	// 조회한 상품 목록
-	public List<ProductVO> viewedList(HttpServletRequest request);
+	public List<ProductVO> viewedList(HttpServletRequest request, String id);
 	
 	// 상품 전체 개수 가져오기
 	public int getTotalCount();
@@ -62,4 +64,8 @@ public interface ProductService {
 	
 	// 상품 삭제
 	public int deleteProd(Integer pnum);
+	
+	
+	// 메인 화면 추천 목록
+	public PDTO getFavProd(String mid);
 }

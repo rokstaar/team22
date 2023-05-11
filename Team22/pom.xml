@@ -256,6 +256,12 @@
 			<version>1.1.1</version>
 		</dependency>
 		
+		<dependency> <!-- 구글맵스 -->
+		  <groupId>com.google.maps</groupId>
+		  <artifactId>google-maps-services</artifactId>
+		  <version>0.18.0</version>
+		</dependency>
+		
 		
 		<!-- 외부 라이브러리 추가 -->  
 		

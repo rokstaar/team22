@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.market.domain.MemberVO;
+import com.market.domain.Pay_chargeVO;
 import com.market.domain.ProductVO;
 
 public interface MemberDAO {
@@ -47,5 +48,7 @@ public interface MemberDAO {
  	
  	// 평점
  	public Double avgScore(String id)throws Exception;
+ 	
+ 	public void insertPayCharge(Pay_chargeVO vo);
  	
 }
