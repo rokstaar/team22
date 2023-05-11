@@ -100,8 +100,19 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public void savePayCharge(Pay_chargeVO vo) {
-		mvo.insertPayCharge(vo);
+	public Integer savePayCharge(Pay_chargeVO vo)throws Exception {
+		return mvo.insertPayCharge(vo);
 	}
+
+	@Override
+	public Integer memberPayCharge(Pay_chargeVO vo)throws Exception{
+		return mvo.memberPayCharge(vo);
+	}
+
+	@Override
+	public Integer payWithdraw(Map<String,Object> vo) throws Exception {
+		return mvo.payWithdraw(vo);
+	}
+
 	
 }

@@ -35,7 +35,20 @@ width: 100%;
 color: #000;
 font-family: "Noto Sans KR", sans-serif
 }
-
+.my-page-profile__image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 45px;
+    float: right;
+}
+.select_img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 45px;
+    float: right;
+}
 
 </style>
 
@@ -334,12 +347,24 @@ function exePost() {
 				
 				<div class="form-label-group">
 					<label for="member_pic">이미지</label>
-					<input type="file"  id="name" name="file" class="form-control form-margin-top" value="${memberInfo.member_name }" required> 
-					<img alt="" width="150px" height="100px" src="${memberInfo.member_pic }">
+					<input type="file"  id="pImg" name="file" class="form-control form-margin-top" required> 
+					<div class="select_img"><img src="" /></div>
+					<img  src="${memberInfo.member_pic } " class="my-page-profile__image"
+									alt = "프로필 사진 " onerror="this.src='/resources/images/default_my_profile.png'">
+					<script>
+					  $("#pImg").change(function(){
+					   if(this.files && this.files[0]) {
+					    var reader = new FileReader;
+					    reader.onload = function(data) {
+					     $(".select_img img").attr("src", data.target.result).width(150);        
+					    }
+					    reader.readAsDataURL(this.files[0]);
+					   }
+					  });
+					 </script>
 					<input type="hidden" name="member_pic" value="${memberInfo.member_pic }">
 				</div>
 				<%=request.getRealPath("/") %>
-				
 				
 				
 				<div class="form-label-group">

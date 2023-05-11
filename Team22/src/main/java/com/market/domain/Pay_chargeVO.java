@@ -8,6 +8,6 @@ public class Pay_chargeVO {
 	private int charge_amount;
 	private String charge_date_time;
 	private String member_id;
-	
+	private int withdraw_amount;
 }
 

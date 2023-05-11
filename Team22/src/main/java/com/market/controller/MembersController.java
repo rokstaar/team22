@@ -179,7 +179,7 @@ private String apiResult = null;
 	}
 	// 留덉씠�럹�씠吏�
 	@RequestMapping(value = "/myPage", method = RequestMethod.GET)
-	public String myPageGET(Model model, HttpSession session,Integer amount)throws Exception{
+	public String myPageGET(Model model, HttpSession session)throws Exception{
 		String id = (String)session.getAttribute("id");
 		model.addAttribute("memberInfo",service.memberInfo(id));
 		session.setAttribute("memberInfo",service.memberInfo(id));
@@ -190,17 +190,27 @@ private String apiResult = null;
 		
 		return "/members/myPage";
 	}
-	// 페이충전 확인페이지
-	@RequestMapping(value = "/payInfo",method = RequestMethod.GET)
-	public String payInfo(Model model, HttpSession session,Integer amount)throws Exception{
+	// 페이충전 
+	@RequestMapping(value = "/payInfo",method = RequestMethod.POST)
+	@ResponseBody
+	public void payInfo(Model model, HttpSession session,Integer amount)throws Exception{
 		String id = (String)session.getAttribute("id");
 		logger.info("@@@@@@@@@@@@@@@@@@@@@id"+id);
 		logger.info("@@@@@@@@@@@@"+amount); 
 		  Pay_chargeVO vo = new Pay_chargeVO();
 		  vo.setMember_id(id); vo.setCharge_amount(amount); 
-		  service.savePayCharge(vo);
-	
-		  return "/members/payInfo";
+		  
+		  if(service.savePayCharge(vo) > 0) service.memberPayCharge(vo);
+		  
+		  service.memberInfo(id);
+		  
+	}
+	// 페이충전 확인페이지
+	@RequestMapping(value = "/payInfo",method = RequestMethod.GET)
+	public void payInfoGET(Model model, HttpSession session,@RequestParam("money") Integer amount)throws Exception{
+		String id = (String)session.getAttribute("id");
+		model.addAttribute("memberInfo",service.memberInfo(id));
+		model.addAttribute("amount",amount);
 	}
 	
 
@@ -351,26 +361,30 @@ private String apiResult = null;
 		return "/members/payCharge";
 	}
 	
-	@RequestMapping(value="/pay", method=RequestMethod.GET)
-	public String payGET(HttpSession session,Model model,MemberVO vo) throws Exception{
+	@RequestMapping(value="/payWithdraw", method=RequestMethod.GET)
+	public String payWithdraw(HttpSession session,Model model,MemberVO vo) throws Exception{
 		String id = (String)session.getAttribute("id");
-		
 		model.addAttribute("memberInfo",service.memberInfo(id));
 		
-//		MemberVO result = service.loginMember(vo);
-//		model.addAttribute("result",result);
-//		model.addAttribute("memberInfo", service.memberInfo(id));
-		
-			return "/members/pay";
+		return "/members/payWithdraw";
 	}
 	
-	@RequestMapping(value="/pay", method=RequestMethod.POST)
-	public String payPOST(@ModelAttribute("memberInfo") MemberVO vo) throws Exception{
-		logger.info("@@@@@@@@@@@@@@@@@@@"+vo);
-//		model.addAttribute("memberInfo", service.memberInfo(id));
-		
-		return "/members/pay";
-	}
+	  @RequestMapping(value="/payWithdraw", method=RequestMethod.POST) 
+	  public String payWithdrawPOST(HttpSession session,Model model,@RequestParam Map<String,Object> vo) throws Exception{ 
+	  String id = (String)session.getAttribute("id");
+	  
+	  logger.info("@@@@@@@@@@@@@@@@"+vo);
+	  vo.put("member_id", id);
+	  service.payWithdraw(vo);
+	  model.addAttribute("payWithdraw",vo.get("withdraw_amount")); 
+	  model.addAttribute("memberInfo",service.memberInfo(id));
+	  
+	  logger.info("@@@@@@@@@@@@@@@@@@@@@@@@@@vo"+vo);
+	  return "/members/payWithdrawInfo";
+	  
+	  }
+	 
+	
     
 	@RequestMapping(value = "/updatePwCk", method = RequestMethod.GET)
     public String updatePwCkGET() {
@@ -451,14 +465,15 @@ private String apiResult = null;
 	        GeoLocationController geoLocationController = new GeoLocationController();
 	        String ip = new Ip().getIp(request);
 	        String location = geoLocationController.getLocationFromIp(ip);
-
+	        		
+	        logger.info("@@@@@@@@@@@@@@location: " + location);
 	        // 위도, 경도 정보 추출
 	        String[] latlng = location.split(",");
 	        double lat = Double.parseDouble(latlng[0]);
 	        double lng = Double.parseDouble(latlng[1]);
 
-	        logger.info("@@@@@@@@@@@@@@"+lat);
-	        logger.info("@@@@@@@@@@@@@@"+lng);
+	        logger.info("@@@@@@@@@@@@@@lat"+lat);
+	        logger.info("@@@@@@@@@@@@@@lng"+lng);
 	        // 위도, 경도를 이용하여 주소 추출
 	        String address = GeoLocation.getAddress(lat, lng);
 	        logger.info("@@@@@@@@@@@@@@address"+address);

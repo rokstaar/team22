@@ -49,6 +49,13 @@ public interface MemberDAO {
  	// 평점
  	public Double avgScore(String id)throws Exception;
  	
- 	public void insertPayCharge(Pay_chargeVO vo);
- 	
+ // 페이충전
+  	public Integer insertPayCharge(Pay_chargeVO vo)throws Exception;
+
+  	// 회원금액과 충전금액 합산 
+  	public Integer memberPayCharge(Pay_chargeVO vo)throws Exception;
+  	//
+  	public Integer payWithdraw(Map<String,Object> vo)throws Exception;
+  	
+  	
 }

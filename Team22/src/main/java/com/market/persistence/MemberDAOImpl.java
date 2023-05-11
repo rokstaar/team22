@@ -107,7 +107,17 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 	
 	@Override
-	public void insertPayCharge(Pay_chargeVO vo) {
-		sqlSession.insert(NAMESPACE+".payCharge",vo);
+	public Integer insertPayCharge(Pay_chargeVO vo) {
+		return sqlSession.insert(NAMESPACE+".payCharge",vo);
 	}
+	@Override
+	public Integer memberPayCharge(Pay_chargeVO vo) {
+		return sqlSession.update(NAMESPACE+".memberPayCharge",vo);
+	}
+	@Override
+	public Integer payWithdraw(Map<String,Object> vo) throws Exception {
+		return sqlSession.update(NAMESPACE+".payWithdraw",vo);
+	}
+	
+	
 }

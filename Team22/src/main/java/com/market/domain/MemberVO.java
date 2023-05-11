@@ -16,5 +16,7 @@ public class MemberVO {
 	private String member_pic;
 	private String member_address2;
 	private String member_address3;
+	private String bank;
+	private String account_number;
 
 }

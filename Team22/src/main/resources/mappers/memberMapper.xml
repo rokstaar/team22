@@ -73,13 +73,17 @@
 	where product_seller = #{id} 
     </select>
     
+    <!-- 회원수정 -->
     <update id="memberInfoUpdate" parameterType="com.market.domain.MemberVO"> 
     	update member
-    	set member_pass = #{member_pass}, member_phone = #{member_phone}, member_nickname = #{member_nickname}, member_email = #{member_email},
-    	member_address = #{member_address},member_address2 =#{member_address2},member_address3 =#{member_address3}, member_pic = #{member_pic},member_pay = #{member_pay}
+    	<set> member_pass = #{member_pass}, member_phone = #{member_phone}, member_nickname = #{member_nickname}, member_email = #{member_email},
+    	member_address = #{member_address},member_address2 =#{member_address2},member_address3 =#{member_address3}, 
+    	<if test="member_pic != null">member_pic = #{member_pic}</if>
+    	</set>
     	where member_id = #{member_id} and member_num = #{member_num}
     
     </update>
+    <!-- 회원수정 -->
     
     <delete id="deleteMemPic" parameterType="String">
         DELETE FROM member WHERE member_id = #{id}
@@ -131,12 +135,28 @@
 	</select>
     <!-- 평점 -->
     
-    <!-- 페이충전 -->
+    <!-- 페이 충전 -->
     <insert id="payCharge">
-		insert into (charge_num,charge_amount,charge_date_time,member_id)
+		insert into pay_charge (charge_num,charge_amount,charge_date_time,member_id)
 		values(#{charge_num},#{charge_amount},now(),#{id})
 	
 	</insert>
-    <!-- 페이충전 -->
+    <!-- 페이 충전 -->
+    
+   <!-- 회원 잔액과 충전한 금액 합산 -->
+    <update id="memberPayCharge">
+		update member
+		set member_pay = member_pay + #{charge_amount}
+		where member_id = #{member_id}
+	</update>
+   <!-- 회원 잔액과 충전한 금액 합산 -->
+	
+	<update id="payWithdraw">
+		update member set
+		member_pay = member_pay - #{withdraw_amount},
+	    bank = #{bank},
+		account_number = #{account_number}
+		where member_id = #{member_id}
+	</update>    
     
 </mapper>

@@ -35,8 +35,13 @@ public interface MemberService {
 	public void removeMember(MemberVO vo)throws Exception;
 	// 유저 프로필정보
 	public List<Map<String,Object>> userInfo(String id)throws Exception;
-	//평점
+	// 평점
 	public Double memberScore(String id) throws Exception;
 	// 충전
-	void savePayCharge(Pay_chargeVO vo);
+	public Integer savePayCharge(Pay_chargeVO vo)throws Exception;
+	// 회원 잔액과 충전금액 합산
+	public Integer memberPayCharge(Pay_chargeVO vo)throws Exception;
+	
+	public Integer payWithdraw(Map<String,Object> vo)throws Exception;
+	
 }

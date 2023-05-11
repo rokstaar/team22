@@ -49,8 +49,8 @@ $(document).ready(function(){
 		                msg += '결제 금액 : ' + rsp.paid_amount;
 		                msg += '카드 승인번호 : ' + rsp.apply_num;
 		                $.ajax({
-		                    type: "GET", 
-		                    url: "/members/myPage", //충전 금액값을 보낼 url 설정
+		                    type: "POST", 
+		                    url: "/members/payInfo", //충전 금액값을 보낼 url 설정
 		                    data: {
 		                        "amount" : money
 		                    },
@@ -64,8 +64,8 @@ $(document).ready(function(){
 		                msg += '에러내용 : ' + rsp.error_msg;
 		            }
 		          //alert창 확인 후 이동할 url 설정
-		            /* alert(msg);
-		            document.location.href="/members/myPage";  */
+		             alert(msg);
+		            document.location.href="/members/payInfo?money="+money; 
 		        });
 		    });
 		
