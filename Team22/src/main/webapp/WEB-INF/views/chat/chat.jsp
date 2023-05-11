@@ -213,7 +213,7 @@
 	<%@ include file="../include/header.jsp" %>
 	
 	<section>
-        <article style="float: left; margin-left: 120px;">
+        <article style="float: left; margin-left: 90px;">
         
             <div id="s_sub_menu_box">
 

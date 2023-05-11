@@ -376,7 +376,7 @@ div.smalldiv{
 .div-likeit{
 	display: flex;
     justify-content: flex-end;
-    width: 420px;
+  /*   width: 420px; */
 }
 
 #filter-form{
@@ -453,7 +453,7 @@ textarea{
 }
 
 .img-wrapper {
-  width: 420px; /* Set the desired fixed width */
+/*   width: 420px; */ /* Set the desired fixed width */
   height: 250px; /* Set the desired fixed height */
   overflow: hidden;
   display: flex;
