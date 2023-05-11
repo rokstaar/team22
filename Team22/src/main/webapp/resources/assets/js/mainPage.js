@@ -11,13 +11,15 @@ let slides, totalSlides, slideWidth;
 
 
 window.onload = function () {
+	setTimeout(function(){
     var isRecViewHidden = localStorage.getItem('recViewHidden');
     if (isRecViewHidden === 'true') {
         document.querySelector('.rec-view').style.display = 'none';
+    }else{
+    	document.querySelector('.rec-view').style.display = 'flex';    	
     }
     
-    //setTimeout(function(){
-    	updateSlides();
+    	
     	var leftBtn = document.getElementById("left-btn");
     	var rightBtn = document.getElementById("right-btn");
     	
@@ -42,8 +44,9 @@ window.onload = function () {
     	    document.querySelector('.rec-view').style.display = 'none';
     	    localStorage.setItem('recViewHidden', 'true');
     	});
-    //}, 3000);
-}
+    	updateSlides();
+    }, 1000);
+};
 
 function updateSlides() {
     slides = document.getElementsByClassName("rec-product");
