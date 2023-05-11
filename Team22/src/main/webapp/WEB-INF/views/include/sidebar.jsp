@@ -314,14 +314,15 @@ div{
 							<!-- Section -->
 								<section>
 									<header class="major">
-										<h2>Get in touch</h2>
+										<h2>있지마켓</h2>
 									</header>
-									<p>Sed varius enim lorem ullamcorper dolore aliquam aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin sed aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+									<h4>있지마켓은 
+									<br>이웃간의 합리적인 중고거래를 지원합니다.</h4><br>
 									<ul class="contact">
-										<li class="fa-envelope-o"><a href="#">information@untitled.tld</a></li>
-										<li class="fa-phone">(000) 000-0000</li>
-										<li class="fa-home">1234 Somewhere Road #8254<br />
-										Nashville, TN 00000-0000</li>
+										<li class="fa-envelope-o"><a href="#">market02@itwill.com</a></li>
+										<li class="fa-phone">(051) 803 - 0909</li>
+										<li class="fa-home">부산광역시 부산진구 부전동 동천로 109 <br>
+										삼한골든게이트 아이티윌 7층</li>
 									</ul>
 								</section>
 
