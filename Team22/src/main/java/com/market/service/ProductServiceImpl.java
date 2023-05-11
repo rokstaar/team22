@@ -21,8 +21,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.itwillbs.util.Crypt;
 import com.market.domain.PCriteria;
+import com.market.domain.PDTO;
 import com.market.domain.ProductVO;
+import com.market.persistence.MemberDAO;
 import com.market.persistence.ProductDAO;
 
 @Service
@@ -31,6 +34,8 @@ public class ProductServiceImpl implements ProductService{
 	private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 	@Autowired
 	private ProductDAO pdao;
+	@Autowired
+	private MemberDAO mdao;
 	
 	@Override
 	public List<ProductVO> getProdList(String grade, String category, String title, String sort) {
@@ -167,10 +172,16 @@ public class ProductServiceImpl implements ProductService{
 	}
 	
 	@Override
-	public void incView(HttpServletRequest request, HttpServletResponse response, Integer product_num) {
+	public void incView(HttpServletRequest request, HttpServletResponse response, Integer product_num, String id) {
 		
 		HttpSession session = request.getSession();
-		String id = session.getId();
+		try {
+			id = id == null ? session.getId() : 
+				Crypt.encrypt(mdao.memberInfo(id).getMember_name()).replaceAll("=", "");
+		} catch (Exception e) {
+			e.printStackTrace();
+			id = session.getId();
+		}
 		
 		String viewedCookieName = "viewed_" + product_num + "_" + id;
 		Cookie[] cookies = request.getCookies();
@@ -197,14 +208,23 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public List<ProductVO> viewedList(HttpServletRequest request) {
+	public List<ProductVO> viewedList(HttpServletRequest request, String id) {
 		List<ProductVO> viewedList = new ArrayList<>();
 		Cookie[] cookies = request.getCookies();
 		Map<Integer, Long> time = new HashMap<>();
 		
+		HttpSession session = request.getSession();
+		try {
+			id = id == null ? session.getId() : 
+				Crypt.encrypt(mdao.memberInfo(id).getMember_name()).replaceAll("=", "");
+		} catch (Exception e) {
+			e.printStackTrace();
+			id = session.getId();
+		}
+		
 		if(cookies != null) {
 			for(Cookie cookie : cookies) {
-				if(cookie.getName().startsWith("viewed")) {
+				if(cookie.getName().startsWith("viewed") && cookie.getName().endsWith(id)) {
 					Integer pnum = Integer.parseInt(cookie.getName().split("_")[1]);
 					long timestamp = Long.parseLong(cookie.getValue());
 					time.put(pnum, timestamp);
@@ -296,4 +316,32 @@ public class ProductServiceImpl implements ProductService{
 			return pdao.deleteProd(pnum);
 		}
 
+		
+		// 메인화면 추천 목록 가져오기
+		@Override
+		public PDTO getFavProd(String mid) {
+			List<ProductVO> list = new ArrayList<>();
+			PDTO dto = new PDTO();
+			
+			int p = (int) (Math.random() * 5);
+			int token;
+			
+			if(p <= 2) {
+				list = pdao.getRecProdList(pdao.getFavCate(mid));
+				token = 0;
+			}
+			else if(p <= 3) {
+				list = pdao.getFavLike();
+				token = 1;
+			}
+			else {
+				list = pdao.getFavInterest();
+				token = 2;
+			}
+			
+			dto.setList(list);
+			dto.setToken(token);
+			
+			return dto;
+		}
 }

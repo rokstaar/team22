@@ -113,6 +113,21 @@ public class ProductDAOImpl implements ProductDAO{
 		return session.delete(NAMESPACE + ".deleteProd", pnum);
 	}
 
+	@Override
+	public String getFavCate(String member_id) {
+		return session.selectOne(NAMESPACE + ".getFavProdCate", member_id);
+	}
+
+	@Override
+	public List<ProductVO> getFavLike() {
+		return session.selectList(NAMESPACE + ".getFavProdLike");
+	}
+
+	@Override
+	public List<ProductVO> getFavInterest() {
+		return session.selectList(NAMESPACE + ".getFavProdInterest");
+	}
+
 
 
 	
