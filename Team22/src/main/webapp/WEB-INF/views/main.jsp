@@ -321,6 +321,6 @@ integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="ano
 	    /* } */
 	
 </script>
-<script type="text/javascript" src="resources/assets/js/mainPage.js"></script>
+<script defer type="text/javascript" src="resources/assets/js/mainPage.js"></script>
 	</body>
 </html>
