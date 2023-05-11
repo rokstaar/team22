@@ -51,20 +51,24 @@
 						</div>
 						<div>${vo.ran_title }</div>
 
-						<div style="float:left;">
+						<div style="float:left; clear:left;">
 							총 금액 <fmt:formatNumber value="${vo.ran_price }" pattern="#,###" />원<br>
 							응모 금액 <fmt:formatNumber value="${vo.ran_bidPrice }" pattern="#,###" />원
 							<div>경매 종료시간</div>
 							${vo.ran_endTime }
-							<div style="margin-left:150px;float:right;">
-								최대 응모 인원<fmt:formatNumber value="${vo.ran_maxPp }"/>명
-							</div><br>
 						</div>
 					</div>
 										
-					<a href="/trade/removeRandom?ran_num=${vo.ran_num }" style="float:right;">
+					<div style="float: right; clear: right;">
+						최대 응모 인원 <fmt:formatNumber value="${vo.ran_maxPp }"/>명
+					</div>
+					
+					<div style="float: right; clear: right; margin-top: 30px;">
+					<button style="clear: right;" onclick="location.href='/trade/removeRandom?ran_num=${vo.ran_num }'">
 						랜덤삭제
-					</a> 
+					</button>
+					</div>
+					
 					</article>
 				</c:forEach>
 			</div>
