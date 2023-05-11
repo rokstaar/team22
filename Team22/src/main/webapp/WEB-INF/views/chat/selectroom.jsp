@@ -130,7 +130,7 @@
 		margin-bottom: 5px;
 		border-radius: 10px;
 	/* 	width: 300px; */
-		font-size: 1em;
+		font-size: 0.8em;
 		height: auto;
 /* 		padding: 10px; */
 		position: relative;
@@ -143,7 +143,7 @@
 		margin-bottom: 5px;
 		border-radius: 10px;
 		/* width: 300px; */
-		font-size: 1em;
+		font-size: 0.8em;
 		margin-right: 67%;
 		float: left;
 		height: auto;
@@ -168,7 +168,7 @@
        		${ptitle }
        	</div>
        	<div style="border: 1px solid lightgray; margin-bottom: 10px;"></div>
-       	<div id="messageArea" class="s_scroll" style="height: 830px; overflow: auto; ">
+       	<div id="messageArea" class="s_scroll" style="height: 680px; overflow: auto; ">
        		<!-- 채팅 DB 저장한 것 뿌리기(로그인한 사람 이름과 채팅한 사람 이름이 다르면 수신/같으면 발신 -->
 			<c:forEach items="${selectChatting }" var="i" varStatus="status">
   				<c:choose>

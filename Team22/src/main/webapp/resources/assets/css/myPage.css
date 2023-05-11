@@ -1,9 +1,11 @@
-		body{
+body{
   padding: 0;
   margin: 0;
+  
 }
 div{
   box-sizing: border-box;
+  
 }
 
 
@@ -207,7 +209,7 @@ div{
 /*   background-color: #f8f8f8; */
 }
 .infoContainer .item:hover{
-/*   background-color: #f8f8f8; */
+   color: lightgray; 
 }
 		
 .img-wrapper {
@@ -217,7 +219,7 @@ div{
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 8px;
+  margin-bottom: 15px;
 }
 
 .product-section {

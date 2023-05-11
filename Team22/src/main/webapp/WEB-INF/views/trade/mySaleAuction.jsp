@@ -59,10 +59,12 @@
 								${vo.au_endTime }
 							</div>
 					</div>
-										
-					<a href="/trade/removeAuction?au_num=${vo.au_num }" style="float:right;">
+					
+					<div style="float: right; clear: right;">		
+					<button onclick="location.href='/trade/removeAuction?au_num=${vo.au_num }'">
 						경매삭제
-					</a> 
+					</button></div>
+							
 					</article>
 				</c:forEach>
 			</div>
