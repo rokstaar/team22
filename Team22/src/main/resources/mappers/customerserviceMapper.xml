@@ -8,8 +8,8 @@
 
    <!-- 문의사항 등록하기  -->
 	 <insert id="writeBoard">
-	    insert into customerservice (mem_id,cs_category,cs_sub,cs_content,cs_secret)
-	    values(#{mem_id},#{cs_category},#{cs_sub},#{cs_content},#{cs_secret})
+	    insert into customerservice (mem_id,cs_category,cs_sub,cs_content,cs_secret,cs_file0,cs_file1,cs_file2)
+	    values(#{mem_id},#{cs_category},#{cs_sub},#{cs_content},#{cs_secret},#{cs_file0},#{cs_file1},#{cs_file2})
 	 </insert>	
 	<!-- 문의사항 등록하기  -->
 	
@@ -59,37 +59,24 @@
 	<!-- 문의사항 특정글 조회  -->
 	
 	<!-- 문의사항 수정  -->
-	  <update id="updateBoard">
-	   update customerservice set cs_category=#{cs_category},cs_sub=#{cs_sub},cs_content=#{cs_content},cs_secret=${cs_secret}
-	   where cs_num=#{cs_num} 
-	  </update>
-	<!-- 문의사항 수정  -->
+	 <update id="updateBoard">
+	   update customerservice 
+	   <set>
+          <if test="cs_sub != null">cs_sub = #{cs_sub},</if>
+          <if test="cs_content != null">cs_content = #{cs_content},</if>
+          <if test="cs_secret != null">cs_secret = #{cs_secret},</if>
+          <if test="cs_file0 != null">cs_file0 = #{cs_file0},</if>
+          <if test="cs_file1 != null">cs_file1 = #{cs_file1},</if>
+          <if test="cs_file2 != null">cs_file2 = #{cs_file2},</if>
+	    </set>
+	  where cs_num=#{cs_num} 
+   </update>
+
 	
 	<!-- 문의사항 삭제 -->
 	   <delete id="deleteBoard">
 	     delete from customerservice
 	     where cs_num=#{cs_num} 
 	   </delete>
-	<!-- 문의사항 삭제 -->
-	
-	<!-- 문의사항 답변 등록  -->
-	  <insert id="re_insert">
-		<!-- 원글의 step보다 더 큰 step을 가진 글이 있다면 그 글들의 step을 먼저 +1 한다. -->
-		<![CDATA[
-			   UPDATE customerservice SET cs_seq = cs_seq + 1 
-			   WHERE cs_ref = #{cs_ref} AND cs_seq > #{cs_seq};
-				
-			   INSERT INTO `customerservice` (cs_ref, cs_seq, cs_lev, cs_sub, cs_content) 
-			   VALUES (#{cs_ref}, #{cs_seq}+1, #{cs_lev}+1, #{cs_sub}, #{cs_content});
-		]]>
-	</insert>
-	<!-- 문의사항 답변 등록  -->
-	
-	
-	
-	
-
-
-
 
 </mapper>

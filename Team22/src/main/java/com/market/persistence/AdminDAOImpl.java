@@ -11,10 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.market.domain.AuctionVO;
 import com.market.domain.CustomerserviceVO;
 import com.market.domain.MemberVO;
 import com.market.domain.NoticeVO;
 import com.market.domain.ProductVO;
+import com.market.domain.RandomVO;
 import com.market.domain.TradeVO;
 
 @Repository
@@ -30,11 +32,28 @@ public class AdminDAOImpl implements AdminDAO {
 	private static final String NAMESPACE 
 	     = "com.itwillbs.mapper.adminMapper";
 
+	
 	@Override
-	public List<MemberVO> getMemebrList() throws Exception {
-		List<MemberVO> memberList = sqlSession.selectList(NAMESPACE+".getMemberList");
+	public List<MemberVO> getMemebrList(int displayPost, int postNum, String searchType, String keyword)throws Exception {
+		   HashMap<String, Object> mldate = new HashMap<String, Object>();
+		   
+		   mldate.put("displayPost", displayPost);
+		   mldate.put("postNum", postNum);
+		   
+		   mldate.put("searchType", searchType);
+		   mldate.put("keyword", keyword);
+		   
+		return sqlSession.selectList(NAMESPACE+".getMemberList",mldate);
+	}
+
+	@Override
+	public int searMemlist(String searchType, String keyword) throws Exception {
+		 HashMap<String, Object> smdate = new HashMap<String, Object>();
+		 
+		 smdate.put("keyword", keyword);
+		 smdate.put("searchType", searchType);	
 		
-		return memberList;
+		return sqlSession.selectOne(NAMESPACE+".searMemlist",smdate);
 	}
 
 	@Override
@@ -42,6 +61,20 @@ public class AdminDAOImpl implements AdminDAO {
         List<ProductVO> productList = sqlSession.selectList(NAMESPACE+".getProductList");
 		
         return productList;
+	}
+	
+	@Override
+	public List<AuctionVO> getAuctionList() throws Exception {
+		List<AuctionVO> auctionList = sqlSession.selectList(NAMESPACE+".getAuctionList");
+		
+		return auctionList;
+	}
+
+	@Override
+	public List<RandomVO> getRandomList() throws Exception {
+		List<RandomVO> randomList = sqlSession.selectList(NAMESPACE+".getRandomList");
+		
+		return randomList;
 	}
 
 	@Override
@@ -114,8 +147,12 @@ public class AdminDAOImpl implements AdminDAO {
 	
 		return sqlSession.selectOne(NAMESPACE+".countProduct");
 	}
-
 	
+	@Override
+	public int countCs() throws Exception {
+		
+		return sqlSession.selectOne(NAMESPACE+".countCs");
+	}
 
 	@Override
 	public List<Map<String, Object>> getbuyprodList() throws Exception {
@@ -137,17 +174,57 @@ public class AdminDAOImpl implements AdminDAO {
 
 	
 	@Override
-	public List<CustomerserviceVO> getCsList() throws Exception {
+	public List<CustomerserviceVO> getCsList(int displayPost, int postNum, String searchType, String keyword)throws Exception {
+           HashMap<String, Object> cldate = new HashMap<String, Object>();
 		
-		List<CustomerserviceVO> CstList = sqlSession.selectList(NAMESPACE+".getCsList");
-		return CstList;
+		   cldate.put("displayPost", displayPost);
+		   cldate.put("postNum", postNum);
+		
+		   cldate.put("searchType", searchType);
+		   cldate.put("keyword", keyword);
+		
+		  return sqlSession.selectList(NAMESPACE+".getCsList", cldate);
 	}
 
 	@Override
-	public List<NoticeVO> getNotiList() throws Exception {
+	public int searCslist(String searchType, String keyword) throws Exception {
+          HashMap<String, Object> scdate = new HashMap<String, Object>();
 		
-		List<NoticeVO> NotitList = sqlSession.selectList(NAMESPACE+".getNotiList");
-		return NotitList;
+		  scdate.put("keyword", keyword);
+		  scdate.put("searchType", searchType);	
+		
+		  return sqlSession.selectOne(NAMESPACE+".searCslist",scdate);
+	}
+
+	
+
+	@Override
+	public List<NoticeVO> getNotiList(int displayPost, int postNum, String searchType, String keyword) throws Exception {
+		  HashMap<String, Object> nldate = new HashMap<String, Object>();
+		
+		   nldate.put("displayPost", displayPost);
+		   nldate.put("postNum", postNum);
+		
+		   nldate.put("searchType", searchType);
+		   nldate.put("keyword", keyword);
+		
+		   return sqlSession.selectList(NAMESPACE+".getNotiList",nldate);
+	}
+
+	@Override
+	public int searNotilist(String searchType, String keyword) throws Exception {
+		  HashMap<String, Object> sndate = new HashMap<String, Object>();
+		
+		  sndate.put("keyword", keyword);
+		  sndate.put("searchType", searchType);
+		
+		  return sqlSession.selectOne(NAMESPACE+".searNotilist",sndate);
+	}
+
+	@Override
+	public MemberVO getmem(Integer member_num) throws Exception {
+	
+		return sqlSession.selectOne(NAMESPACE+".getmem",member_num);
 	}
 	
 	

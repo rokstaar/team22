@@ -13,219 +13,31 @@
 		<title>admin Page</title>
 		
 <style type="text/css">
-		body{
-  padding: 0;
-  margin: 0;
-}
-div{
-  box-sizing: border-box;
-}
 
-/* alert badge */
-.circle{
-  display: inline-block;
-  width: 5px;
-  height: 5px;
-  border-radius: 2.5px;
-  background-color: #ff0000;
-  position: absolute;
-  top: -5px;
-  left: 110%;
-}
+ul,li{list-style:none}
 
-/* 파랑색 테스트 */
-.rightBlue{
-  color: #3F72AF;
-}
+.container{margin-top:45px;
+           text-align:center;}
 
-.wrap{
-  background-color: #F8F8F8;  
-}
-/* 녹색배경 */
-.greenContainer{  
-  height: 132px;
-  background-color: #24855b;    
-  
-  display: flex;
-  align-items: flex-end;
-  padding: 16px;
-}
-
-.greenContainer .name{
-   font-size: 20px;
-  font-weight: bold;
-  color: #ffffff;
-} 
-.greenContainer .modify{
-  margin-left: auto;
-}
-
-/* 단골상점 , 상품후기 , 적립금 박스 */
-.summaryContainer{
-  background-color: white;  
-  display: flex;  
-  padding: 21px 16px;  
-  height: 90px;
-  margin-bottom: 10px;
-}
-/* 단골상점 , 상품후기 , 적립금 */
-.summaryContainer .item{
-  flex-grow: 1
-}
-/* 파란 숫자 */
-.summaryContainer .rightBlue{
-  font-size: 19px;
-  font-weight: bold;
-  color: #3F72AF;
-}
-/* 텍스트 */
-.summaryContainer .item > div:nth-child(2){
-  font-size: 13px;
-}
-
-/* ================== 주문/배송조회 박스 시작 ==================== */
-.shippingStatusContainer{
-  padding: 21px 16px;
-  background-color: white;
-  margin-bottom: 10px;
-}
-
-/* 주문/배송조회 타이틀 */
-.shippingStatusContainer .title{
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 15px;
-}
-
-/* 장바구니 결제완료 배송중 구매확정 [로우] */
-.shippingStatusContainer .status{
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 21px;
-}
-/* 장바구니 결제완료 배송중 구매확정 [아이템]  */
-.shippingStatusContainer .item{
-  display: flex;
-}
-
-.shippingStatusContainer .number{
-  font-size: 31px;
-  font-weight: 500;
-  text-align: center;
-}
-.shippingStatusContainer .text{
-  font-size: 14px;
-  font-weight: normal;
-  color: black;
-  font-weight : bold;
-  text-align: center;
-}
-.shippingStatusContainer .memberUpdate{
-  font-size: 14px;
-  font-weight: normal;
-  color: #769fcd;
-  font-weight : bold;
-  text-align: center;
-}
-.shippingStatusContainer .icon{
-  display: flex;
-  align-items: center;
-  padding: 20px;
-  width: 16px;
-  height: 16px;
-}
-
-
-/*=================== 주문목록 ~ 찜한상품 리스트 ==================*/
-.listContainer{  
-  padding: 0;
-  background-color: #ffffff;
-  margin-bottom: 10px;
-}
-.listContainer .item{  
-  display: flex;
-  align-items: center;
-  padding: 16px;
-  color: black;
-  text-decoration: none;  
-  height: 56px;
-  box-sizing: border-box;
-}
-.listContainer .icon{  
-  margin-right: 14px;
-}
-.listContainer .text{
-  font-size: 16px;
-  position: relative;
-}
-.listContainer .right{
-  margin-left: auto;
-}
-
-
-/*=================== 내지갑의 보유 적립금 들어가는 부분 ================*/
-.listContainer .smallLight{
-  font-size: 14px;
-  color: #c2c2c2;  
-}
-.listContainer .smallLight > span{
-  margin-left: 10px;
-}
-
-.listContainer .right .blct{
-  font-size: 14px;
-  font-weight: bold;
-  margin-right: 5px;
-}
-
-
-
-/* 공지사항 이용안내 고객센터 */
-.infoContainer{
-  background-color: white; 
-  display: flex;
-  height: 100px;
-  margin-bottom: 10px;    
-}
-
-/* .infoContainer .item{
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  font-size: 13px;
-  text-decoration: none;
-  color: black;
+/* 탭메뉴 공통 */
+.tab_menu, .tab_content{width:800px;margin:30px auto 0}
+/* .tab_menu li, .tab_content li{
+border:1px solid #000
 } */
-.infoContainer .item{
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  font-size: 23px;
-  text-decoration: none;
-  color: 769fcd;
-  font-weight: bold;
-}
-.infoContainer .item > div:first-child{
-  margin-bottom: 2px;
-}
 
+/* 탭메뉴 버튼 */
+.tab_menu {display:table;table-layout:fixed}
+.tab_menu li{display:table-cell;padding:20px 0;cursor:pointer}
+.tab_menu li img{vertical-align:middle}
+.tab_menu li.on{background:#B9D7EA}
+.tab_menu li+li{border-left:none}
 
-
-/*  */
-.listContainer .item:hover{
-/*   background-color: #f8f8f8; */
-}
-.infoContainer .item:hover{
-/*   background-color: #f8f8f8; */
-}
+/* 탭메뉴 컨텐츠 */
+.tab_content li{display:none;min-height:300px}
+.tab_content li.on{display:block}
+	
 		
-		</style>
-
-		
+</style>
 
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -245,7 +57,7 @@ div{
 					<div id="main">
 						<div class="inner">
 
-		               <%@ include file="../include/header.jsp" %>			
+								<%@ include file="../include/header.jsp" %>			
 																
 							<!-- Banner -->
 							<section id="banner">
@@ -253,59 +65,138 @@ div{
 								 <div class="wrap">
 									  <div class="shippingStatusContainer">
 									   
-									    <%@ include file="../include/adminmypage.jsp" %> 
-									    
+							
+									     <%@ include file="../include/adminmypage.jsp" %>  
 						 <hr>
-						 
-					<div class="table-wrapper">
-						
-						
-							<table>
-									<tr>
-										<th>판매 회원 아이디</th>
-										<th>상품 카테고리</th>
-										<th>상품 이름</th>
-										<th>상품 상세설명</th>
-										<th>상품 가격</th>
-									</tr>
 
-                               <c:forEach var="plist" items="${productList}">
-									<tr>
-										<td>${plist.product_seller} </td>
-										<td>${plist.product_cate}</td>
-										
-										<td>
-										<a href="/product/prodInfo?product_num=${plist.product_num }">${plist.product_title}</a>
-										</td>
-										
-										<td>${plist.product_content}</td>
-										<td>${plist.product_price}</td>
+			 				  
+ <main class="container">
+        <ul class="tab_menu" style="width: 100%;">
+            <li data-tab="tab-1" class="on">판매</li>
+            <li data-tab="tab-2">경매</li>
+            <li data-tab="tab-3">랜덤(이벤트)</li>
+        </ul>
+       
+       
+  <ul class="tab_content" style="width: 100%;">    
+     <li id="tab-1" class="on">
+       <table>
+           <tr>
+             <th>판매자</th>
+             <th>카테고리</th>
+             <th>제목</th>       
+             <th>가격</th>       
+             <th>등록일</th>       
+           </tr>
+       
+       <c:forEach var="plist" items="${productList }">  
+           <tr>
+             <td>${plist.product_seller }</td>
+             <td>${plist.product_cate }</td>
+             <td>
+              <a href="/product/prodInfo?product_num=${plist.product_num}">${plist.product_title }</a>   
+             </td>
+             <td>${plist.product_price }</td>
+             <td>${plist.product_date }</td>
+           </tr>
+       </c:forEach>   
+      </table>
+     </li>
+  </ul>
+        
+        
+    <ul class="tab_content" style="width: 100%;">    
+      <li id="tab-2">
+         <table>
+            <tr>
+              <th>경매자</th>
+              <th>입찰자</th>
+              <th>상품이름</th>
+              <th>입찰가격</th>
+              <th>종료시간</th>
+            </tr>
+       
+      <c:forEach var="alist" items="${aucionList }">  
+           <tr>
+             <td>${alist.au_sellerId }</td>
+             <td>${alist.au_buyerId }</td>
+             <td>
+               <a href="/auction/aDetail?au_num=${alist.au_num }">${alist.au_title }</a> 
+             </td>
+             <td>${alist.au_endPrice }</td>
+             <td>${alist.au_endTime }</td>
+           </tr>
+       </c:forEach> 
+     </table>
+   </li>
+ </ul>   
+ 
+ 
+    <ul class="tab_content" style="width: 100%;">    
+      <li id="tab-3">
+         <table>
+            <tr>
+              <th>랜덤판매자</th>
+              <th>당첨자</th>
+              <th>상품이름</th>
+              <th>당첨가격</th>
+              <th>종료시간</th>
+            </tr>
+       
+          <c:forEach var="rlist" items="${randomList }">  
+           <tr>
+             <td>${rlist.ran_sellerId }</td>
+             <td>${rlist.ran_buyerId }</td>
+             <td>
+               <a href="/random/rDetail?ran_num=${rlist.ran_num }">${rlist.ran_title }</a>
+             </td>
+             <td>${rlist.ran_bidPrice }</td>
+             <td>${rlist.ran_endTime }</td>
+           </tr>
+       </c:forEach>  
+    </table>
+   </li>
+ </ul> 
+</main>
 
-									</tr>	
-							</c:forEach>										
-					</table>
-				</div> 
-						 
-						 	   
-									
-									  </div>  
-									</div>	   
-                                 </div>
-			                 </div>
-					</section>
-                   
-                
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="./tab.js"></script>									  
+							  
+	<script type="text/javascript">
+	$(document).ready(function () {
+	    $(".tab_menu li").click(function () {
+	        var $this = $(this),
+	            tabId = $this.data("tab"),
+	            tabIndex = $this.index();
+
+	        $(".tab_menu li, .tab_content li").removeClass("on");
+
+	        $this.addClass("on");
+	        $("#"+tabId).addClass("on");
+
+	        $(".tab_menu li").each(function (content) {
+	            $(this).find("img").attr("src", $(this).find("img").attr("src").replace("_off","_on"));
+	            
+	            if (tabIndex != content) {
+	                $(this).find("img").attr("src", $(this).find("img").attr("src").replace("_on","_off"));
+	            }
+	        });
+	    });
+	})
+		
+</script>	
+  
+					</div>  
+				</div>	   
+           </div>
+		</div>
+	</section>
+                   							         
                    
                    </div>
-		   <%@ include file="../include/sidebar.jsp" %>		 
+			    <%@ include file="../include/sidebar.jsp" %>		
 			
 			 </div>
-		
-	
-
-
-   
-
 
 		<!-- Scripts -->
 			<script src="/resources/assets/js/jquery.min.js"></script>

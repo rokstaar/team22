@@ -43,15 +43,10 @@
 		
 	<h2>문의사항 등록</h2>
 
-<!-- 
-파일 첨부 시 form 태그의  필요 속성
-1. 반드시 method가 post
-2. enctype을 지정 ▶ enctype='multipart/form-data'
- -->
-<form method="post"> <!-- enctype="multipart/form-data" -->
+<form method="post" enctype="multipart/form-data">
    <input type="hidden" name="mem_id" value="${id }"> 
 	<table>
-	    <tr>
+	   <tr>
 		<th class="w-px160" style="font-size:large;">상담분류</th>
 			<td>
 			  <select name="cs_category" id="cs_category" style="width: 185px;" required>
@@ -63,6 +58,7 @@
 			</select>
 		</td>
 	</tr>
+		
 		<tr>
 			<th class="w-px160" style="font-size:large;">제목</th>
 			<td><input type="text" name="cs_sub" class="need" placeholder="제목을 입력하세요." required/></td>
@@ -73,12 +69,16 @@
 			<td><textarea name="cs_content" class="need" rows="7" placeholder="내용을 입력하세요." required></textarea></td>
 		</tr>
 		
-		<!-- <tr>
-			<th style="font-size:large;">파일 첨부</th>
-			<td class="left">
-                <input type="file" name="cs_file0 " name="cs_file0" multiple="multiple"/>
- 			</td>		
-		</tr> -->
+	   <tr>
+			<th class="w-px160" style="font-size:large;">파일첨부</th>
+			<td><input type="file" name=file id="image"  />
+	            <input type="file" name=file2 id="image1" />
+			    <input type="file" name=file3 id="image2" /></td> 
+	  </tr>  
+		
+		 <%=request.getRealPath("/") %> 
+		
+		
 		
 	</table>
 

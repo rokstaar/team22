@@ -22,7 +22,7 @@
 									      </div>
 									      <div class="item">
 									        <div>
-									          <div class="rightBlue number"> <a href="/admin/adminPage">회원 관리 </a> </div>
+									          <div class="rightBlue number"> <a href="/admin/adminpage?num=1">회원 관리 </a> </div>
 									          <div class="text">총 회원 : ${mcount }명</div>
 									        </div>
 									      </div>    
@@ -42,12 +42,13 @@
 									      </div>     
 									      <div class="item">
 									        <div>
-									          <div class="rightBlue number"> <a href="/admin/managecs">문의사항 관리</a> </div>
+									          <div class="rightBlue number"> <a href="/admin/managecs?num=1">문의사항 관리</a> </div>
+									          <div class="text">총 문의사항 : ${cscount}개</div>	
 									        </div>
 									      </div>     
 									      <div class="item">
 									        <div>
-									          <div class="rightBlue number"> <a href="/admin/managenoti">공지사항 관리</a> </div>
+									          <div class="rightBlue number"> <a href="/admin/managenoti?num=1">공지사항 관리</a> </div>
 									          <div class="text">총 공지사항 : ${noticount}개</div>	    
 									        </div>
 									      </div>          

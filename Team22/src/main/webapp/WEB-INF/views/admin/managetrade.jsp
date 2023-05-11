@@ -300,7 +300,7 @@ border:1px solid #000
              <th>판매자</th>       
            </tr>
        
-     <c:forEach var="bplist" items="${buyprodList }">   
+    <%--  <c:forEach var="bplist" items="${buyprodList }">   
            <tr>
              <td>${bplist.buy_mem_id }</td>
              <td>${bplist.product_cate }</td>
@@ -308,7 +308,7 @@ border:1px solid #000
              <td>${bplist.product_price }</td>
              <td>${bplist.sell_mem_id }</td>
            </tr>
-     </c:forEach>  
+     </c:forEach>   --%>
        </table>
        </li>
   </ul>
@@ -325,7 +325,7 @@ border:1px solid #000
               <th>구매자</th>
             </tr>
        
-        <c:forEach var="splist" items="${sellprodList }">   
+       <%--  <c:forEach var="splist" items="${sellprodList }">   
             <tr>
               <td>${splist.sell_mem_id }</td>
               <td>${splist.product_cate }</td>
@@ -333,7 +333,7 @@ border:1px solid #000
               <td>${splist.product_price }</td>
               <td>${splist.buy_mem_id }</td>
             </tr>
-       </c:forEach>  
+       </c:forEach>   --%>
     </table>
    </li>
  </ul>    
