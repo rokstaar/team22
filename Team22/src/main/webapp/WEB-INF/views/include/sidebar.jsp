@@ -245,13 +245,6 @@ div{
 					<div id="sidebar" class="inactive force-inactive">
 						<div class="inner">
 
-							<!-- Search -->
-								<section id="search" class="alt">
-									<form method="get" action="#">
-										<input type="text" name="search" placeholder="검색할 단어입력" />
-									</form>
-								</section>
-
 							<!-- Menu -->
 								<nav id="menu">
 									<header class="major">

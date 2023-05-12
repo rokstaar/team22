@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE HTML>
 <!--
@@ -8,6 +10,10 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
+
+
+	
+
 <html>
 	<head>
 		<title>Editorial by HTML5 UP</title>
@@ -159,7 +165,63 @@
 					<div id="main">
 						<div class="inner">
 
-							<%@ include file="include/header.jsp" %>
+							<!-- Header -->
+				<header id="header">
+					<a href="/main" class="logo">
+						<!-- 로고 이미지 넣을거임 -->
+						<strong>있지마켓</strong>
+					</a>
+					<ul class="icons" style="width: 117px;
+											  height: 40px;
+											  display: inline-block;
+											  list-style: none; /* 기본 목록 마커를 제거합니다. */
+											  padding: 0;
+											  margin: 0;">
+							
+						<li><div class="select-container" >
+																  
+							<select name="type" id="category-select" class="select_filter" style="background: #f8f9fa!important;">
+								<option value="product_title">일반상품</option>
+								<option value="au_title">경매상품</option>
+								<option value="ran_title">응모상품</option>
+							</select>
+						</div>
+						</li>
+						
+						<li>
+						
+						<section id="search" class="alt">
+									<form method="get" action="#">
+										<input type="text" name="search" placeholder="검색할 단어입력" style="background: #f8f9fa!important;"/>
+									</form>
+						</section></li>	
+						
+						<c:if test="${id == null }">
+							<li><a href="/members/login"><span class="label">로그인</span></a></li>
+							<li><a href="/members/insert"><span class="label">회원가입</span></a></li>
+						</c:if>
+			
+						<c:if test="${id != null && id !=('admin')}">
+							<!-- id에 "N_"을 포함하는 경우에는 naverLogout() 함수 호출하여 로그아웃 -->
+							<c:if test="${id.indexOf('N_') != -1}">
+								<li><a onclick="naverLogout()" target="_parent" class="btn_logout" data-clk="nmy.logout">로그아웃</a></li>
+							</c:if>
+							<!-- 일반 로그아웃 -->
+							<c:if test="${id.indexOf('N_') == -1}">
+								<li><a href="/members/logout"><span class="label">로그아웃</span></a></li>
+							</c:if>
+							<li><a href="/members/myPage"><span class="label">마이페이지</span></a></li>
+							<li><a href="/chatroom"><span class="label">내채팅</span></a></li>
+							
+						</c:if>
+						
+						<c:if test="${id != null && id ==('admin')}">
+							<li><a href="/members/logout"><span class="label">로그아웃</span></a></li>
+							<li><a href="/admin/adminPage"><span class="label">관리자</span></a></li>
+						</c:if>
+			
+					</ul>
+				</header>
 
 							<!-- Banner -->
 								<section id="banner">
@@ -320,7 +382,46 @@ integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="ano
 	        }
 	    /* } */
 	
+	    
+	    function naverLogout(){
+	var popup = window.open('https://nid.naver.com/nidlogin.logout?returl=https%3A%2F%2Fwww.naver.com','title','height=10,width=10');
+	setTimeout(function(){
+		popup.close();
+		location.href="/members/logout";
+	},150);
+}	
+	    
+	    // 메인에서 검색
+	$(function() {
+  $('#search form').on('submit', function(e) {
+    e.preventDefault();
+
+    var selectedOption = $('#category-select').val();
+    var searchKeyword = $('#search input[name="search"]').val();
+
+    if (searchKeyword !== '') {
+      var url = '';
+
+      if (selectedOption === 'product_title') {
+        url = '/product/prodList?sort=&grade=&category=&minPrice=&maxPrice=&title=' + encodeURIComponent(searchKeyword);
+      } else if (selectedOption === 'au_title') {
+        url = '/auction/list?type=au_title&search=' + encodeURIComponent(searchKeyword);
+      } else if (selectedOption === 'ran_title') {
+        url = '/random/searchList?type=ran_title&search=' + encodeURIComponent(searchKeyword);
+      }
+
+      if (url !== '') {
+        window.location.href = url;
+      }
+    }
+  });
+});
+
+
+
 </script>
-<script defer type="text/javascript" src="resources/assets/js/mainPage.js"></script>
+
+	
+<script type="text/javascript" src="resources/assets/js/mainPage.js"></script>
 	</body>
 </html>

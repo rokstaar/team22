@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.market.domain.AuctionVO;
+import com.market.domain.CustomerserviceVO;
 import com.market.domain.ProductVO;
 import com.market.domain.RandomVO;
 import com.market.domain.ReviewVO;
@@ -60,6 +61,7 @@ public interface TradeService {
 	public Integer soldAuRemove(Integer au_num) throws Exception;
 	
 	public Integer soldRanRemove(Integer ran_num) throws Exception;
+	
 	
 	
 	

@@ -33,7 +33,5 @@ public interface CustomerserviceDAO {
 	// 게시판 답글 쓰기
 	public void re_board(CustomerserviceVO vo) throws Exception;
 
-	
-	
 
 }

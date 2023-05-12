@@ -35,10 +35,13 @@ import com.itwillbs.util.JsonParser;
 import com.itwillbs.util.KakaoLoginBO;
 import com.itwillbs.util.NaverLoginBO;
 import com.itwillbs.util.UploadFileUtils;
+import com.market.domain.CPageDTO;
+import com.market.domain.CustomerserviceVO;
 import com.market.domain.MemberVO;
 import com.market.domain.Pay_chargeVO;
 import com.market.domain.ProductVO;
 import com.market.domain.TradeVO;
+import com.market.service.CustomerserviceService;
 import com.market.service.MailSendService;
 import com.market.service.MemberService;
 
@@ -50,6 +53,8 @@ public class MembersController {
 	
 	@Inject
 	private MemberService service;
+	@Inject
+	private CustomerserviceService CsService;
 	
 	@Autowired
 	private MailSendService mailService;
@@ -528,7 +533,29 @@ public class MembersController {
 				String result = mailService.joinEmail(email);
 			return result;
 			}
-			
+			@RequestMapping(value = "/myCs", method = RequestMethod.GET)
+		    public String myCs(HttpSession session,Model model,@RequestParam("num") int num,
+		    		@RequestParam(value = "searchType",required = false, defaultValue = "title") String searchType,
+		    		@RequestParam(value = "keyword",required = false, defaultValue = "") String keyword) throws Exception{
+				String id = (String)session.getAttribute("id");
+				
+				CPageDTO dto = new CPageDTO();
+			   dto.setNum(num);
+			   dto.setCount(CsService.searcountCs(searchType, keyword));
+			   dto.setSearchType(searchType);
+			   dto.setKeyword(keyword);
+			   
+				List<CustomerserviceVO> cvoList = service.myCs(id);
+				List<CustomerserviceVO> boardList = CsService.boardList(dto.getDisplayPost(), dto.getPostNum(), searchType, keyword);
+				
+			   model.addAttribute("myCs", cvoList);
+			   model.addAttribute("boardList",boardList);
+				
+			   model.addAttribute("dto",dto);
+			   model.addAttribute("select",num);
+				
+				return "/members/myCs";
+		    }	
 	
 	
 }

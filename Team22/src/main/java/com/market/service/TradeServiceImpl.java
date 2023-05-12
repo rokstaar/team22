@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.market.domain.AuctionVO;
+import com.market.domain.CustomerserviceVO;
 import com.market.domain.ProductVO;
 import com.market.domain.RandomVO;
 import com.market.domain.ReviewVO;
@@ -159,6 +160,7 @@ public class TradeServiceImpl implements TradeService{
 	}
 
 
+	
 
 	
 	

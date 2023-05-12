@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import com.market.domain.CustomerserviceVO;
 import com.market.domain.MemberVO;
 import com.market.domain.Pay_chargeVO;
 import com.market.domain.ProductVO;
@@ -209,6 +210,16 @@ public class MemberServiceImpl implements MemberService {
 			out.print("이메일로 임시 비밀번호를 발송하였습니다.");
 			out.close();
 		}		
+	}
+	
+	@Override
+	public List<Map<String, Object>> allSerrch() throws Exception {
+		return mvo.allSerrch();
+	}
+
+	@Override
+	public List<CustomerserviceVO> myCs(String id) throws Exception {
+		return mvo.myCs(id);
 	}
 	
 }

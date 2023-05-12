@@ -3,6 +3,7 @@ package com.market.persistence;
 import java.util.List;
 import java.util.Map;
 
+import com.market.domain.CustomerserviceVO;
 import com.market.domain.MemberVO;
 import com.market.domain.Pay_chargeVO;
 import com.market.domain.ProductVO;
@@ -65,6 +66,9 @@ public interface MemberDAO {
 
 	public MemberVO readMember(String id) throws Exception;
 
-  	
+	// 메인페이지에서 검색
+  	public List<Map<String,Object>> allSerrch()throws Exception;
+  	// 내 문의사항
+  	public List<CustomerserviceVO> myCs(String id)throws Exception;
   	
 }

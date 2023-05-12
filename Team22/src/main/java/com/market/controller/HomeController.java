@@ -1,5 +1,8 @@
 package com.market.controller;
 
+import java.util.List;
+
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -11,8 +14,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.market.domain.ACriteria;
+import com.market.domain.APageDTO;
+import com.market.domain.AuctionVO;
+import com.market.service.AuctionService;
 import com.market.service.ProductService;
+import com.market.service.RandomService;
 
 @Controller
 public class HomeController {
@@ -21,13 +30,22 @@ public class HomeController {
 	@Autowired
 	private ProductService pserv;
 	
+	@Inject
+	private AuctionService auService;
+
+	@Inject
+	private RandomService ranService;
+	
+	
 	// http://localhost:8080/main
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String main(HttpServletRequest request
-					,Model model) {
+					,Model model
+					) throws Exception{
 		
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("id");
+	
 		
 		if(id != null) {
 			logger.info("본 상품 목록 가져오기!");
@@ -43,4 +61,6 @@ public class HomeController {
 	public String home() {
 		return "redirect:/main";
 	}
+	
+
 }

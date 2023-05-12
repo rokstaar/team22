@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.market.domain.CustomerserviceVO;
 import com.market.domain.MemberVO;
 import com.market.domain.Pay_chargeVO;
 import com.market.domain.ProductVO;
@@ -135,5 +136,13 @@ public class MemberDAOImpl implements MemberDAO {
       return memberList.isEmpty() ? null : memberList.get(0);
 	}
 	
+	@Override
+	public List<Map<String, Object>> allSerrch() throws Exception {
+		return sqlSession.selectList(NAMESPACE+".allSerrch");
+	}
+	@Override
+	public List<CustomerserviceVO> myCs(String id) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".myCs", id);
+	}
 
 }

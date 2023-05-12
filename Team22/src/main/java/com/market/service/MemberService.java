@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.market.domain.CustomerserviceVO;
 import com.market.domain.MemberVO;
 import com.market.domain.Pay_chargeVO;
 import com.market.domain.ProductVO;
@@ -55,4 +56,9 @@ public interface MemberService {
 
 	//비밀번호찾기
 	public void findPw(HttpServletResponse response, MemberVO vo) throws Exception;
+	
+	// 메인페이지 검색
+	public List<Map<String,Object>> allSerrch()throws Exception;
+	// 내 문의사항
+	public List<CustomerserviceVO> myCs(String id) throws Exception;
 }
