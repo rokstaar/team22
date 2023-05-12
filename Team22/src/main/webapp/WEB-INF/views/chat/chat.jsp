@@ -284,7 +284,7 @@
 	$(".s_chat_box").click(function() {
 		$(".s_chat_box").css('color', '#3d4449');
 		$(this).css('color', '#769fcd');
-
+		
 	});
 	
 </script>
