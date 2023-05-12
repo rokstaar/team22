@@ -8,14 +8,17 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +38,8 @@ import com.itwillbs.util.UploadFileUtils;
 import com.market.domain.MemberVO;
 import com.market.domain.Pay_chargeVO;
 import com.market.domain.ProductVO;
+import com.market.domain.TradeVO;
+import com.market.service.MailSendService;
 import com.market.service.MemberService;
 
 
@@ -45,12 +50,15 @@ public class MembersController {
 	
 	@Inject
 	private MemberService service;
+	
+	@Autowired
+	private MailSendService mailService;
 
 	@Inject
 	@Named("uploadPath")
 	private String uploadPath;
 	
-private String apiResult = null;
+	private String apiResult = null;
 	
 	// NaverLoginBO
 	@Inject
@@ -183,10 +191,13 @@ private String apiResult = null;
 		String id = (String)session.getAttribute("id");
 		model.addAttribute("memberInfo",service.memberInfo(id));
 		session.setAttribute("memberInfo",service.memberInfo(id));
+
 		logger.info("@@@@@@@@@@@@@@@@@@@@@id"+id);
 		
-		
+		model.addAttribute("count",service.countTrade(id));
 	 	  model.addAttribute("score",service.memberScore(id));
+	 	  
+	
 		
 		return "/members/myPage";
 	}
@@ -486,6 +497,38 @@ private String apiResult = null;
 	    return "/main";
 	}
 
+	// 비밀번호 찾기 
+		@RequestMapping(value = "/findPw", method = RequestMethod.GET)
+		public String findPwGET() throws Exception{
+			
+			return "/members/findPw";
+		}
+		@RequestMapping(value = "/findPw", method = RequestMethod.POST)
+		@ResponseBody
+		public String findPwPOST(@RequestParam(value = "id",required = false) String id, @RequestParam(value="email", required = false) String email,HttpServletResponse response) throws Exception{
+			System.out.println(id);
+			System.out.println(email);
+			MemberVO vo = new MemberVO();
+			vo.setMember_id(id);
+			vo.setMember_email(email);
+			service.findPw(response, vo);
+			
+			return "이메일로 임시 비밀번호를 발송하였습니다.";
+		}
+
+		// 이메일 인증
+			@GetMapping("/mailCheck")
+			@ResponseBody
+			public String mailCheck(@RequestParam("email") String email ) {
+			System.out.println("이메일 인증 요청이 들어옴!");
+				System.out.println("이메일 인증 이메일 : " + email);
+				if(email == null || email.isEmpty()) {
+					throw new IllegalArgumentException("이메일 주소가 유효하지 않습니다.");
+				}
+				String result = mailService.joinEmail(email);
+			return result;
+			}
+			
 	
 	
 }

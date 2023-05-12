@@ -92,7 +92,7 @@
             </li>
             <div class="forgot-id-ps__list-divider"></div>
             <li>
-              <a href="/members/findPassword">비밀번호 찾기</a>
+              <a href="/members/findPw">비밀번호 찾기</a>
             </li>
           </div>
           

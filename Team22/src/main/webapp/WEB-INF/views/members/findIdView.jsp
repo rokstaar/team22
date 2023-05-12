@@ -9,15 +9,15 @@
 .sign-in__title {
     text-align: center;
     font-family: "Noto Sans KR", sans-serif;
-    font-weight: 900;
-    font-size: 34px;
+    font-weight: 600;
+    font-size: 35px;
     margin-bottom: 30px;
 }
 
 .email-form__input {
     display: block;
-    width: 100%;
-    height: 34px;
+    width: 350px;
+    height: 25px;
     padding: 6px 12px;
     font-size: 16px;
     line-height: 1.42857143;
@@ -28,7 +28,8 @@
     border-radius: 6px;
     font-family: "Noto Sans KR", sans-serif;
     font-weight: 500;
-
+margin-bottom: 20px;
+margin: auto;
 }
 .btn-default {
     display: flex;
@@ -36,45 +37,64 @@
     justify-content: center;
     color: #fff;
     background-color: #3f72af;
-    font-weight: 500;
-    font-size: 16px;
+    font-weight: 600;
+    font-size: 18px;
     display: block;
-    width: 100%;
-    height: 30px;
+    width: 375px;
+    height: 40px;
     line-height: 1.42857143;
     border-radius: 8px;
     font-family: "Noto Sans KR", sans-serif;
     cursor: pointer;
-    margin-top: 5px;
+    margin: auto;
+    margin-top: 10px;
+}
+    .btn-default:hover {
+  background-color: #f56a6a;
 }
 
-.forgot-id-ps__list {
+.sign-in-info__list {
     display: flex;
-    gap: 15px;
+    justify-content: space-around;
+    font: 500 14px "Noto Sans KR", sans-serif;
+    color: #000;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    text-decoration: none;
+}
+
+ul, li, li a {
+    list-style: none;
+    text-decoration: none;
+    
+    
 }
 .find_id_box{
-position: absolute;
-    top: 30%;
-    left: 40%;
+  width: 500px;
+  margin: 15% auto;
 }
 
-
+.findIdLogin{
+   color:#000000;
+    font: 1000 14px "Noto Sans KR", sans-serif;
+    
+}
+.findIdMain{
+color:#000000;
+    font: 1000 14px "Noto Sans KR", sans-serif;
+margin-right: 30px;
+}
 
 
 </style>
 
-
 <script type="text/javascript">
-
-
-
 
 	var msg = "${msg}";
 		 
 		if (msg != "") {
 			alert(msg);
 		}
-
 
 </script>
 </head>
@@ -90,19 +110,23 @@ position: absolute;
                     placeholder="이메일을 입력해주세요!">
             </div>
             <button type="submit" class="btn-default">
-                Find ID
+               찾기
             </button>
         </form>
-        <hr>
-      
-        <a href="/members/login" class="btn btn-facebook btn-user btn-block">
-               Login
-            </a>
-            <hr>
-           <div class="text-center">
-            <a class="small" href="/main">메인페이지</a>
-        </div>
+        
+      <ul class="sign-in-info__list">
+        <li>
+        <a href="/members/login" class="findIdLogin">
+               로그인페이지
+        </a>
+         </li>  
+       <li> 
+            <a class="findIdMain" href="/main">메인페이지</a>
+      </li>
+       </ul>
    </div>
+   
+   
 
 
 </body>

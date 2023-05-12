@@ -158,5 +158,22 @@
 		account_number = #{account_number}
 		where member_id = #{member_id}
 	</update>    
+	
+	<!-- 회원의 거래내역 -->
+	<select id="countTrade" resultType="int">
+		select count(*) from trade
+		where buy_mem_id = #{id} or sell_mem_id = #{id}
+	</select>
+	
+	<!-- 비밀번호 변경 -->
+	<update id="updatePwById" parameterType="com.market.domain.MemberVO">
+		update member set member_pass = #{member_pass} where member_id = #{member_id}
+	</update>
+
+	<select id ="readMemberById" resultType="MemberVO">
+			select *
+	    	from member
+	    	where member_id = #{id}
+	</select>
     
 </mapper>

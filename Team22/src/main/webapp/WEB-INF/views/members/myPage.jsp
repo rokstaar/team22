@@ -2,340 +2,238 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE HTML>
-<!--
-	Editorial by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
-	<head>
-		<title>My Page</title>
-		<style type="text/css">
-		body{
-  padding: 0;
-  margin: 0;
-}
-div{
-  box-sizing: border-box;
-}
-
-
-/* alert badge */
-.circle{
-  display: inline-block;
-  width: 5px;
-  height: 5px;
-  border-radius: 2.5px;
-  background-color: #ff0000;
-  position: absolute;
-  top: -5px;
-  left: 110%;
+<head>
+<title>My Page</title>
+<style type="text/css">
+.my-page {
+  width: 35vw;
+  min-width: 600px;
+  margin:  auto;
+  margin-bottom: 0;
 }
 
-/* 파랑색 테스트 */
-.rightBlue{
-  color: #3F72AF;
+.my-page__title {
+  font-weight: 700;
+  font-size: 38px;
+  margin-bottom: 83px;
+  text-align: center;
 }
 
-.wrap{
-  background-color: #F8F8F8;  
-}
-/* 녹색배경 */
-.greenContainer{  
-  height: 132px;
-  background-color: #24855b;    
-  
-  display: flex;
-  align-items: flex-end;
-  padding: 16px;
-}
-
-.greenContainer .name{
-   font-size: 20px;
-  font-weight: bold;
-  color: #ffffff;
-} 
-.greenContainer .modify{
-  margin-left: auto;
-}
-
-/* 단골상점 , 상품후기 , 적립금 박스 */
-.summaryContainer{
-  background-color: white;  
-  display: flex;  
-  padding: 21px 16px;  
-  height: 90px;
-  margin-bottom: 10px;
-}
-/* 단골상점 , 상품후기 , 적립금 */
-.summaryContainer .item{
-  flex-grow: 1
-}
-/* 파란 숫자 */
-.summaryContainer .rightBlue{
-  font-size: 19px;
-  font-weight: bold;
-  color: #3F72AF;
-}
-/* 텍스트 */
-.summaryContainer .item > div:nth-child(2){
-  font-size: 13px;
-}
-
-/* ================== 주문/배송조회 박스 시작 ==================== */
-.shippingStatusContainer{
-  padding: 21px 16px;
-  background-color: white;
-  margin-bottom: 10px;
-}
-
-/* 주문/배송조회 타이틀 */
-.shippingStatusContainer .title{
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 15px;
-}
-
-/* 장바구니 결제완료 배송중 구매확정 [로우] */
-.shippingStatusContainer .status{
+.my-page__profile {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 21px;
-}
-/* 장바구니 결제완료 배송중 구매확정 [아이템]  */
-.shippingStatusContainer .item{
-  display: flex;
-}
-
-.shippingStatusContainer .number{
-  font-size: 31px;
-  font-weight: 500;
+  align-items: flex-start;
   text-align: center;
 }
-.shippingStatusContainer .text{
-  font-size: 31px;
-  font-weight: normal;
-  color: #769fcd;
-  font-weight : bold;
-  text-align: center;
-}
-.shippingStatusContainer .memberUpdate{
-  font-size: 14px;
-  font-weight: normal;
-  color: #769fcd;
-  font-weight : bold;
-  text-align: center;
-}
-.shippingStatusContainer .icon{
-  display: flex;
-  align-items: center;
-  padding: 20px;
-  width: 16px;
-  height: 16px;
+
+.my-page-profile__image {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  margin-bottom: 25px;
 }
 
-
-/*=================== 주문목록 ~ 찜한상품 리스트 ==================*/
-.listContainer{  
-  padding: 0;
-  background-color: #ffffff;
+.my-page-profile__nickname {
+  display: block;
+  font-weight: 700;
+  font-size: 25px;
+  font-family: "Noto Sans KR", sans-serif;
   margin-bottom: 10px;
 }
-.listContainer .item{  
+
+.my-transaction-info {
+  margin-top: 24px;
+  margin-right: 12px;
+  width: 23vw;
+}
+
+.my-transaction-info__list {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding: 16px;
-  color: black;
-  text-decoration: none;  
-  height: 56px;
-  box-sizing: border-box;
-}
-.listContainer .icon{  
-  margin-right: 14px;
-}
-.listContainer .text{
-  font-size: 16px;
-  position: relative;
-}
-.listContainer .right{
-  margin-left: auto;
+  text-align: center;
+  min-width: 260px;
+  list-style: none;
 }
 
-
-/*=================== 내지갑의 보유 적립금 들어가는 부분 ================*/
-.listContainer .smallLight{
-  font-size: 14px;
-  color: #c2c2c2;  
-}
-.listContainer .smallLight > span{
-  margin-left: 10px;
+.my-transaction-info__title {
+  font-weight: 400;
+  font-size: 22px;
+  display: block;
+  margin-bottom: 24px;
 }
 
-.listContainer .right .blct{
-  font-size: 14px;
-  font-weight: bold;
-  margin-right: 5px;
+.my-transaction-info__content {
+  font-weight: 700;
+  font-size: 26px;
+  font-family: "Noto Sans KR", sans-serif;
 }
 
+.my-page__introduction {
+  margin-top: 26px;
+  margin-bottom: 24px;
+  font-size: 20px;
+  min-height: 72px;
+  max-height: 170px;
+  text-align: center;
+	font-family: "Noto Sans KR", sans-serif;
+	border-bottom: 2px solid lightgray;
+}
 
-
-/* 공지사항 이용안내 고객센터 */
-.infoContainer{
-  background-color: white; 
+.my-page__edit-buttons {
+  margin-bottom: 85px;
   display: flex;
-  height: 100px;
-  margin-bottom: 10px;  
-  text-decoration: none;
-}
-
-/* .infoContainer .item{
-  flex-grow: 1;
-  display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  font-size: 13px;
-  text-decoration: none;
-  color: black;
-} */
-.infoContainer .item{
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  font-size: 23px;
-  text-decoration: none;
-  color: 769fcd;
-  font-weight: bold;
-  border-bottom: solid 5px #769fcd;
-} 
+}
 
-/* .infoContainer .item > div:first-child{
-  margin-bottom: 2px;
+/* .my-info-edit
+ {
+  font-weight: 700;
+  font-size: 19px;
+  height: 57px;
+  border-radius: 5px;
+  cursor: pointer;
 } */
 
-
-
-/*  */
-.listContainer .item:hover{
-/*   background-color: #f8f8f8; */
-}
-.infoContainer .item:hover{
-/*   background-color: #f8f8f8; */
-}
-.my-page-profile__image {
-    width: 250px;
-    height: 150px;
-    border-radius: 50%;
-    margin-bottom: 45px;
-    float: right;
-}
-.my-page__edit-buttons{
-	margin-top: 10px;
+.my-profile-edit:active,
+.my-info-edit:active {
+  opacity: 0.7;
 }
 
+.my-profile-edit {
+  width: 27vw;
+  border: 2px solid #4751FD;
+  background-color: white;
+  color: #4751FD;
+  min-width: 310px;
+}
 
-		
-		</style>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="/resources/assets/css/main.css" />
-		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-	</head>
-	<body>
+.my-info-edit {
+font-family: "Noto Sans KR", sans-serif;
+  border: none;
+  background-color: #EFEFEF;
+  cursor: pointer;
+  border-radius: 4px;
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+}
 
-				<!-- Main -->
-					<div id="main">
-						<div class="inner">
+.transaction-history {
+  width: 100%;
+  border: 2px solid #000;
+  display: flex;
+  border-radius: 5px;
+}
 
-							<!-- Header -->
-								<%@ include file="../include/header.jsp" %>
-								<%@ include file="../include/myPage.jsp" %>
-								
-									 	<div class="shippingStatusContainer">
-										<section>
-									<header class="major">
-									
-									</header>
-									<div class="posts">
-							
-							<article>
-								
-									
-          
-									
-								<div class="image-container">
-									<div class="my-page-profile">
-								<img  src="${memberInfo.member_pic } " class="my-page-profile__image"
-									alt = "프로필 사진 " onerror="this.src='/resources/images/default_my_profile.png'">
-							   		 </div>   
-							     
-							     </div>
-							
-								</article>
-								
-								
-								
-								<article>
-								<div style="margin-left: 10px;">	
-									
-					          <div style="font-size: 27px; color : #769fcd;">${memberInfo.member_nickname } 님 
-					          	 <span style="font-size: 27px;">${score}</span> 
-				          	  </div>
-						       	   <div style="font-size: 27px; color : #769fcd;">페이 : ${memberInfo.member_pay }원</div>
-						    			
-						    
-						         <div class="my-page__edit-buttons">
-					              <button type="button" class="my-pay-charge">
-					                <i class="fas fa-cog my-info-edit__icon"></i>
-					                <span class="my-info-edit__text">페이 충전</span>
+.transaction-history__sale,
+.transaction-history__purchase {
+  width: 50%;
+  font-weight: 700;
+  font-size: 22px;
+  height: 71px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.transaction-history__sale:active,
+.transaction-history__purchase:active {
+  opacity: 0.7;
+}
+
+.transaction-history__sale {
+  border-right: 2px solid #000;
+}
+</style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="/resources/assets/css/main.css" />
+<link rel="stylesheet" href="/resources/assets/css/myPage.css" />
+</head>
+<body>
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+	<!-- Main -->
+	<div id="main">
+		<div class="inner">
+
+		<!-- Header -->
+		<%@ include file="../include/header.jsp" %>
+		<%@ include file="../include/myPage.jsp" %>
+
+		<section>
+			<article class="my-page">
+			
+			<div class="my-page__profile">
+				<div class="my-page-profile">
+                	<img
+                  	src="/resources/images/default_my_profile.png"
+                 	 alt="프로필 사진"
+                  	class="my-page-profile__image"
+               		/>
+                	<span class="my-page-profile__nickname">${memberInfo.member_nickname }님</span>
+                	<div class="my-info-edit">회원정보수정</div>
+                </div>
+
+
+             	 <div class="my-transaction-info">
+              	  <ul class="my-transaction-info__list">
+                 	 <li class="my-transaction-info__item">
+                    	<span class="my-transaction-info__title">거래건수</span>
+                    	<span class="my-transaction-info__content">${count }</span>
+                 	 </li>
+
+                  	<li class="my-transaction-info-item">
+                    	<span class="my-transaction-info__title">페이</span>
+                    	<span class="my-transaction-info__content">${memberInfo.member_pay }원</span>
+                  	</li>
+
+                  	<li class="my-transaction-info-item">
+                    	<span class="my-transaction-info__title">평점</span>
+                    	<c:if test="${not empty score}">
+                    		<span class="my-transaction-info__content">${score}</span>
+        				</c:if>
+        				<c:if test="${empty score}">
+                    		<span class="my-transaction-info__content">-</span>
+        				</c:if>
+                  	</li>
+               	   </ul>
+               	   
+               	  </div>
+               	  
+              </div>
+			
+			<div class="my-page__introduction">
+			안녕하세요. ${memberInfo.member_nickname } 입니다!
+            </div>
+
+				<div class="my-page__edit-buttons">
+					<button type="button" class="my-pay-charge">페이 충전</button>
+					<button type="button" class="my-cs">
+					                내 문의사항
 					              </button>
-					            </div>
-					            
-						         <div class="my-page__edit-buttons">
-					              <button type="button" class="my-info-edit">
-					                <i class="fas fa-cog my-info-edit__icon"></i>
-					                <span class="my-info-edit__text">회원 정보 변경</span>
-					              </button>
-					            </div>
-						        
-						        <div class="my-page__edit-buttons">
-					              <button type="button" class="my-info-delete">
-					                <i class="fas fa-cog my-info-edit__icon"></i>
-					                <span class="my-info-edit__text">회원 탈퇴</span>
-					              </button>
-					            </div>
-						       
-						        </div>	         
-								</article>
-									
-									      
-									      
-									</div>
-								</section>
-									</div>
-									
-	
-						</div>
-					</div>
+	              	<!-- <button type="button" class="my-info-edit">회원 정보 수정</button> -->
+	                <button type="button" class="my-info-delete">회원 탈퇴</button>
+	            </div>
 
-					<%@ include file="../include/sidebar.jsp" %>
 			</div>
+			</article>
+		</section>
+	</div>
+		<%@ include file="../include/sidebar.jsp" %>
+	</div>
+</div>
 
-		<!-- Scripts -->
-			<script src="/resources/assets/js/jquery.min.js"></script>
-			<script src="/resources/assets/js/skel.min.js"></script>
-			<script src="/resources/assets/js/util.js"></script>
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="/resources/assets/js/main.js"></script>
+<!-- Scripts -->
+<script src="/resources/assets/js/jquery.min.js"></script>
+<script src="/resources/assets/js/skel.min.js"></script>
+<script src="/resources/assets/js/util.js"></script>		
+<script src="/resources/assets/js/main.js"></script>
 
 <script type="text/javascript">
 $('.my-info-edit').on('click', function() {
@@ -349,11 +247,13 @@ $('.my-info-delete').on('click', function() {
 $('.my-pay-charge').on('click', function() {
 	  window.location.href = '/members/payCharge';
 	});
-
+	
+$('.my-cs').on('click', function() {
+	  window.location.href = '/members/myCs?num=1';
+	}); 
 
 
 </script>
 
-
-	</body>
+</body>
 </html>
