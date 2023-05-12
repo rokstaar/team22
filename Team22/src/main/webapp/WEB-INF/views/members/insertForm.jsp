@@ -8,8 +8,6 @@
 <link rel="stylesheet" type="text/css" href="/resources/assets/css/styles.css" />
 <link rel="stylesheet" type="text/css" href="/resources/assets/css/membersignup.css" />
 
-
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style type="text/css">
@@ -199,8 +197,49 @@ function exePost() {
 
 
 //////////////////////////  이메일 ///////////////////////////////
+$(document).ready(function(){
+	var code;
+	
+	$('#email_auth_btn').click(function() {
+		const email = $('#email').val(); // 이메일 주소값 얻어오기!
+		console.log('완성된 이메일 : ' + email); // 이메일 오는지 확인
+		const checkInput = $('#email_auth_key') // 인증번호 입력하는곳 
+		
+		$.ajax({
+			type : 'get',
+			url : "mailCheck",
+			data: {email:email},
+			success : function (data) {
+				console.log("data : " +  data);
+				checkInput.attr('disabled',false);
+				code =data;
+				alert('인증번호가 전송되었습니다.')
+			},
+			error: function(){
+				console.log("이메일 인증 요청 실패");
+			}
+		}); // end ajax
+	}); // end send eamil
+	 $('#email_auth_key').keyup(function() {
+	        const inputCode = $(this).val(); // 입력된 인증번호 값 가져오기
+	        if (inputCode === code) {
+	            $('#mail-check-warn').text('인증되었습니다.').css('color', 'green');
+	       enableRegistration(); // 회원가입 절차를 활성화합니다.
+	        } else {
+	            $('#mail-check-warn').text('인증번호가 일치하지 않습니다.').css('color', 'red');
+	        disableRegistration(); // 회원가입 절차를 비활성화합니다.
+	        }
+	    });
+	   function enableRegistration() {
+	        // 회원가입 버튼을 활성화합니다.
+	        $('#register_btn').prop('disabled', false);
+	    }
 
- 
+	    function disableRegistration() {
+	        // 회원가입 버튼을 비활성화합니다.
+	        $('#register_btn').prop('disabled', true);
+	    }
+});
 
 </script>   
 
@@ -289,13 +328,12 @@ function exePost() {
 			</div>
 		
 
-
 					<div class="email_auth">
-						<input type="text" placeholder="이메일" name="email" id="email" class="email">
-						<button type="button" id="email_auth_btn" class="email_auth_btn">인증번호 받기</button>
+						<input type="text" placeholder="이메일" name="member_email" id="email" >
+						<button type="button" id="email_auth_btn" >인증번호 받기</button>
 					</div>
 					<input type="text" placeholder="인증번호 입력" id="email_auth_key">
-	
+	<span id="mail-check-warn"></span>
 	
 
 				 <div class="form-label-group btn-sign-up-margin">
@@ -306,7 +344,7 @@ function exePost() {
 				 
 				
 				
-				<button type="submit" class="btn btn-default">
+				<button type="submit" class="btn btn-default" id= "register_btn">
 					<p class="btn-sign-up">
 						가입하기
 					</p>

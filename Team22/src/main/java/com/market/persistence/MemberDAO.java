@@ -6,6 +6,7 @@ import java.util.Map;
 import com.market.domain.MemberVO;
 import com.market.domain.Pay_chargeVO;
 import com.market.domain.ProductVO;
+import com.market.domain.TradeVO;
 
 public interface MemberDAO {
 	//로그인
@@ -56,6 +57,14 @@ public interface MemberDAO {
   	public Integer memberPayCharge(Pay_chargeVO vo)throws Exception;
   	//
   	public Integer payWithdraw(Map<String,Object> vo)throws Exception;
+  	
+  	// 총 거래 내역
+  	public int countTrade(String id) throws Exception;
+  	
+  	public void updatePw(MemberVO vo) throws Exception;
+
+	public MemberVO readMember(String id) throws Exception;
+
   	
   	
 }

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import com.market.domain.MemberVO;
 import com.market.domain.Pay_chargeVO;
 import com.market.domain.ProductVO;
+import com.market.domain.TradeVO;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO {
@@ -118,6 +119,21 @@ public class MemberDAOImpl implements MemberDAO {
 	public Integer payWithdraw(Map<String,Object> vo) throws Exception {
 		return sqlSession.update(NAMESPACE+".payWithdraw",vo);
 	}
+	@Override
+	public int countTrade(String id) throws Exception {
+		return sqlSession.selectOne(NAMESPACE + ".countTrade", id);
+	}
 	
+	@Override
+	public void updatePw(MemberVO vo) throws Exception {
+		sqlSession.update(NAMESPACE+".updatePwById",vo);
+		
+	}
+	@Override
+	public MemberVO readMember(String id) throws Exception {
+	  List<MemberVO> memberList = sqlSession.selectList(NAMESPACE + ".readMemberById", id);
+      return memberList.isEmpty() ? null : memberList.get(0);
+	}
 	
+
 }

@@ -3,9 +3,12 @@ package com.market.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import com.market.domain.MemberVO;
 import com.market.domain.Pay_chargeVO;
 import com.market.domain.ProductVO;
+import com.market.domain.TradeVO;
 
 public interface MemberService {
 	public MemberVO loginMember(MemberVO vo);
@@ -44,4 +47,12 @@ public interface MemberService {
 	
 	public Integer payWithdraw(Map<String,Object> vo)throws Exception;
 	
+	// 총 거래 내역
+	public int countTrade(String id) throws Exception;
+
+	//이메일발송
+	public void sendEmail(MemberVO vo, String div) throws Exception;
+
+	//비밀번호찾기
+	public void findPw(HttpServletResponse response, MemberVO vo) throws Exception;
 }
