@@ -63,13 +63,13 @@
 		SELECT * FROM PRODUCT
 		<where>
 			PRODUCT_STATUS = 0
-	        <if test="grade != null">
+	        <if test="grade != null and grade != ''">
 	            AND PRODUCT_GRADE LIKE CONCAT('%', #{grade}, '%')
 	        </if>
-	        <if test="category != null">
+	        <if test="category != null and category != ''">
 	            AND PRODUCT_CATE LIKE CONCAT('%', #{category}, '%')
 	        </if>
-	        <if test="title != null">
+	        <if test="title != null and title != ''">
 	            AND PRODUCT_TITLE LIKE CONCAT('%', #{title}, '%')
 	        </if>
 	        <if test="min != null">

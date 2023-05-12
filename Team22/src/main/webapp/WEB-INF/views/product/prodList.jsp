@@ -158,7 +158,7 @@
 		최소가격<input type="number" name="minPrice" id="min-price" min="0" max="100000000" value="${param.minPrice }">
 		~최대가격<input type="number" name="maxPrice" id="max-price" min="0" max="100000000" value="${param.maxPrice }">
 		<div class="div-search">		
-			<input type="text" name="title" class="search-input">
+			<input type="text" name="title" class="search-input" value="${param.title }">
 			<div id="div-filter-submit">
 				<i class="fas fa-search"></i>
 			</div>
@@ -381,6 +381,22 @@
 		
 		const minPriceValue = parseInt($("#minPrice").val(), 10);
 	    const maxPriceValue = parseInt($("input[name=maxPrice]").val(), 10);
+	    
+	    const urlParams = new URLSearchParams(window.location.search);
+	    const gradeValue = urlParams.get('grade');
+	    const categoryValue = urlParams.get('category');
+	    const sortValue = urlParams.get('sort');
+
+	    if (gradeValue) {
+	        $('#grade-select').val(gradeValue);
+	    }
+	    if (categoryValue) {
+	        $('#category-select').val(categoryValue);
+	    }
+	    if (sortValue) {
+	        $('#sort-select').val(sortValue);
+	    }
+	    
 	    
 		$.ajax({
 			url:"/product/prodList",
