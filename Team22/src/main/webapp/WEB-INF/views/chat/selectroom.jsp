@@ -166,6 +166,7 @@
 	
        	<div class="s_room_part">
        		${ptitle }
+       		<button style="float: left">판매</button>
        	</div>
        	<div style="border: 1px solid lightgray; margin-bottom: 10px;"></div>
        	<div id="messageArea" class="s_scroll" style="height: 680px; overflow: auto; ">

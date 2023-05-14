@@ -132,6 +132,7 @@
 .forgot-id-ps__list {
   display: flex;
   gap: 15px;
+  margin-right: 1em;
 }
 
 .forgot-id-ps__list li + li::before {
