@@ -5,16 +5,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="/resources/assets/css/styles.css" />
 <link rel="stylesheet" type="text/css" href="/resources/assets/css/membersignup.css" />
+  <link rel="stylesheet" href="/resources/assets/css/main.css" />
+  <link rel="stylesheet" type="text/css" href="/resources/assets/css/styles.css" />
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style type="text/css">
+
 #addressSearch{
 margin-top:5px;
 padding: 5px;
 }
+
 #m_address_primary{
 font-size: 15px;
 margin-bottom: 5px;
@@ -246,6 +249,15 @@ $(document).ready(function(){
 </head>
 <body>
 
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+	<div class="inner" style="max-width:95em;">
+	
+	<%@ include file="../include/header.jsp" %>
+
 		<div class="main-content">	
 
 			<h2 class="member-title text-center">회원가입</h2>
@@ -253,10 +265,15 @@ $(document).ready(function(){
 			<!-- Form 시작 -->
 			<form class="form-signup" id="join" method="post" name="joinform" role="form" enctype="multipart/form-data">
 
+				<!-- 이름 -->
+				<div class="form-label-group">
+					<label for="member_name">이름</label>
+					<input type="text"  id="name" name="member_name" class="form-control form-margin-top" placeholder="이름" required> 
+				</div>
+				
 				<!-- 닉네임 -->
 				<div class="form-label-group">
 					<label for="nickname">닉네임</label>
-					<br>
 					<div class="form-input-box">
 						<input type="text" id="nickname" name="member_nickname" class="form-control" placeholder="닉네임" required=""> 
 						<button type="submit" class="btn btn-info btn-sm" onclick="check_nick();">중복확인</button>
@@ -268,9 +285,8 @@ $(document).ready(function(){
 				<!-- 아이디 -->
 				<div class="form-label-group">
 					<label for="id">아이디</label>
-					<br>
 					<div id="id_Confirm" class="form-input-box">
-						<input type="text" id="id" name="member_id" class="form-control" placeholder="영문과 숫자 조합하여 8~16자 입력하세요"  maxlength="16" size="30" required=""> 
+						<input type="text" id="id" name="member_id" class="form-control" placeholder="영문, 숫자 조합하여 8~16자 입력하세요."  maxlength="16" size="30" required=""> 
 						<button type="button" class="btn btn-info btn-sm" id="id_Confirm" onclick="checkIdDuplicate()" value="N">중복확인</button>	
 					</div>
 					<span id="idcheck_blank"></span>
@@ -279,79 +295,76 @@ $(document).ready(function(){
 				<!-- 비밀번호 -->
 				<div class="form-label-group">
 					<label for="pwd">비밀번호</label>
-					<br>
-					<input type="password" id="pw" name="member_pass" class="form-control form-margin-top" placeholder="영문,숫자,특수문자 조합하여 8자~16자" size="30" maxlength="16" required=""> 
+					<input type="password" id="pw" name="member_pass" class="form-control form-margin-top" placeholder="영문,숫자,특수문자 조합하여 8자~16자 입력하세요." size="30" maxlength="16" required=""> 
 				</div>
-						<span id="pwdcheck_blank1"></span>
-				
-				<tr>
-		<td></td><td colspan="2" style="font-size: 3px" id="pwdcheck_blank1"></td>
-	</tr>
-				
+				<span id="pwdcheck_blank1"></span>
+				<!-- <span style="font-size: 3px" id="pwdcheck_blank1"></span> -->
 				
 				<div class="form-label-group">
-					<label for="pwdcheck">비밀번호 재확인</label>	
-					<br>						
+					<label for="pwdcheck">비밀번호 재확인</label>							
 					<input type="password" id="checkPw" name="confirm-password" class="form-control form-margin-top" placeholder="비밀번호 재확인" required="">
 				</div>
 				<span id="pwdcheck_blank2"></span>
-				
+								
 				<div class="form-label-group">
-					<label for="member_name">이름</label>
-					<br>
-					<input type="text"  id="name" name="member_name" class="form-control form-margin-top" placeholder="이름" required> 
+					<label for="phone">연락처</label>
+					<input type="text" id="phone" name="member_phone" class="form-control form-margin-top" placeholder="휴대전화" required=""> 
 				</div>
 				
 				<div class="form-label-group">
 					<label for="member_pic">이미지</label>
-					<input type="file"  id="name" name="file" class="form-control form-margin-top" value="${memberInfo.member_name }" required> 
-					<img alt="" src="${memberInfo.member_pic }">
-					<input type="hidden" name="member_pic" value="${memberInfo.member_pic }">
+					<div class="form-input-box">
+						<img alt="" src="${memberInfo.member_pic }">
+						<input type="hidden" name="member_pic" value="${memberInfo.member_pic }">
+						<input type="file"  id="name" name="file" class="form-control form-margin-top" value="${memberInfo.member_name }" required>				
+					</div>
 				</div>
-				
+												
 				<div class="form-label-group">
 					<label for="addr">우편번호</label>
-					<br>
-					<input type="text" name="member_address" class="form-control form-margin-top" placeholder="우편번호" size="30" readonly="readonly"> 					
-					<button type="button" value="주소검색"class="btn btn-info btn-sm"onclick="exePost()" id="addressSearch">주소검색</button>	
+					<div id="id_Confirm" class="form-input-box">
+						<input type="text" name="member_address" class="form-control form-margin-top" placeholder="우편번호" size="30" readonly="readonly"> 				
+						<button type="button" value="주소검색"class="btn btn-info btn-sm"onclick="exePost()" id="addressSearch">주소검색</button>
+					</div>
+					<input type="text" name="member_address2" class="form-control form-margin-top" readonly="readonly" placeholder="기본주소">
+					<input type="text" class="form-control form-margin-top" name="member_address3" placeholder="나머지 주소(선택 사항)">
+					<!-- id="m_address_primary" id="addressRest -->
 				</div>
+				
 		
-		
-			<div>
-			<tr>		
-		<td></td><td colspan="2"><input type="text" id="m_address_primary" name="member_address2" size="50" readonly="readonly" placeholder="기본주소"></td>
-		
-	</tr>
-		<tr>		
-		<td></td><td colspan="2"><input type="text" size="50" name="member_address3" placeholder="나머지 주소(선택 사항)"id="addressRest"></td>
-	</tr>
-			</div>
-		
-
-					<div class="email_auth">
+			 	<div class="form-label-group btn-sign-up-margin">
+	         		<label for="email">이메일</label>
+	         		<div class="form-input-box">
+	         			<input type="text" id="email" name="member_email" class="form-control" placeholder="이메일을 입력하세요." />
+	         			<button type="button" class="btn btn-info btn-sm" id="email_auth_btn">인증번호</button>
+	         		</div>
+	       			<input type="text" class="form-control form-margin-top"  placeholder="인증번호 입력" id="email_auth_key">
+					<span id="mail-check-warn"></span>
+	       		</div>
+	       		
+	       		
+					<!-- <div class="email_auth">
 						<input type="text" placeholder="이메일" name="member_email" id="email" >
-						<button type="button" id="email_auth_btn" >인증번호 받기</button>
+						<button type="button" id="email_auth_btn" >인증번호</button>c
 					</div>
 					<input type="text" placeholder="인증번호 입력" id="email_auth_key">
-	<span id="mail-check-warn"></span>
-	
-
-				 <div class="form-label-group btn-sign-up-margin">
-					<label for="phone">연락처</label>
-					<br>	
-					<input type="text" id="phone" name="member_phone" class="form-control form-margin-top" placeholder="휴대전화" required=""> 
-				</div>
-				 
+					<span id="mail-check-warn"></span> -->		 
 				
 				
 				<button type="submit" class="btn btn-default" id= "register_btn">
-					<p class="btn-sign-up">
+				
 						가입하기
-					</p>
+				
 				</button>
 		
 			</form>
 		</div>
+		    </div>
+	</div>
+
+	<%@ include file="../include/sidebar.jsp" %>
+	
+</div>
 
 </body>
 </html>

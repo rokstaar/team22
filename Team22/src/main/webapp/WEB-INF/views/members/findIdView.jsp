@@ -1,19 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="/resources/assets/css/login.css" />
 <style type="text/css">
-.sign-in__title {
-    text-align: center;
-    font-family: "Noto Sans KR", sans-serif;
-    font-weight: 600;
-    font-size: 35px;
-    margin-bottom: 30px;
-}
-
+/* 
 .email-form__input {
     display: block;
     width: 350px;
@@ -28,29 +22,8 @@
     border-radius: 6px;
     font-family: "Noto Sans KR", sans-serif;
     font-weight: 500;
-margin-bottom: 20px;
-margin: auto;
-}
-.btn-default {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    background-color: #3f72af;
-    font-weight: 600;
-    font-size: 18px;
-    display: block;
-    width: 375px;
-    height: 40px;
-    line-height: 1.42857143;
-    border-radius: 8px;
-    font-family: "Noto Sans KR", sans-serif;
-    cursor: pointer;
-    margin: auto;
-    margin-top: 10px;
-}
-    .btn-default:hover {
-  background-color: #f56a6a;
+	margin-bottom: 20px;
+	margin: auto;
 }
 
 .sign-in-info__list {
@@ -85,6 +58,8 @@ color:#000000;
 margin-right: 30px;
 }
 
+ */
+ 
 
 </style>
 
@@ -100,34 +75,49 @@ margin-right: 30px;
 </head>
 <body>
 
-  <div class="find_id_box">
-            <h1 class="sign-in__title">æ∆¿Ãµ √£±‚</h1>
-     
-        <form class="user" action="/members/findId" method="POST">
-            <div class="form-group">
-                <input type="email" class="email-form__input"
-                    id="member_email" aria-describedby="emailHelp" name="member_email"
-                    placeholder="¿Ã∏ﬁ¿œ¿ª ¿‘∑¬«ÿ¡÷ººø‰!">
-            </div>
-            <button type="submit" class="btn-default">
-               √£±‚
-            </button>
-        </form>
-        
-      <ul class="sign-in-info__list">
-        <li>
-        <a href="/members/login" class="findIdLogin">
-               ∑Œ±◊¿Œ∆‰¿Ã¡ˆ
-        </a>
-         </li>  
-       <li> 
-            <a class="findIdMain" href="/main">∏ﬁ¿Œ∆‰¿Ã¡ˆ</a>
-      </li>
-       </ul>
-   </div>
-   
-   
+<!-- Wrapper -->
+<div id="wrapper">
 
+<!-- Main -->
+<div id="main">
+	<div class="inner" style="max-width:95em;">
+	
+	<%@ include file="../include/header.jsp" %>
+
+		<div class="main-content">
+			
+			<div class="sign-in">
+		        <form class="sign-in__wrap" action="/members/findId" method="POST">
+				<h2 class="sign-in__title">ÏïÑÏù¥Îîî Ï∞æÍ∏∞</h2>
+				
+		            <div class="id-form__wrap">
+		            	<label>ÏïÑÏù¥Îîî</label>
+		            	<div class="id-form">
+		                	<input type="email" class="id-form__input"
+		                    id="member_email" aria-describedby="emailHelp" name="member_email"
+		                    placeholder="Ïù¥Î©îÏùºÏùÑ ÏûÖÎ†•Ìï¥Ï£ºÏÑ∏Ïöî.">
+		            	</div>
+		            </div>
+		            <button type="submit" class="btn__wrap btn-default">
+		               Ï∞æÍ∏∞
+		            </button>
+		
+		        <div style="text-align: center; margin-top: 20px;">
+					  <a href="/members/login">
+					    Î°úÍ∑∏Ïù∏ Î∞îÎ°úÍ∞ÄÍ∏∞
+					  </a>
+				</div>
+
+		        </form>
+		   </div>
+   
+ </div>
+		    </div>
+	</div>
+
+	<%@ include file="../include/sidebar.jsp" %>
+	
+</div>
 
 </body>
 </html>

@@ -1,91 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="/resources/assets/css/login.css" />
 <style type="text/css">
-.sign-in__title {
-    text-align: center;
-    font-family: "Noto Sans KR", sans-serif;
-    font-weight: 600;
-    font-size: 35px;
-    margin-bottom: 30px;
-}
 
-.email-form__input {
-display: block;
-    width: 100%;
-    height: 34px;
-    padding: 6px 12px;
-    font-size: 40px;
-    line-height: 1.42857143;
-    color: #000;
-    background-color: #fff;
-    background-image: none;
-    border-radius: 6px;
-    font-family: "Noto Sans KR", sans-serif;
-    font-weight: 500;
-    margin-bottom: 100px;
+.findId{
+	font-family: "Noto Sans KR", sans-serif;
+	margin: 20px;
+	text-align: center;
+	font-size: 1.3em;
 }
-
-
-.btn-default {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    background-color: #3f72af;
-    font-weight: 600;
-    font-size: 18px;
-    display: block;
-    width: 375px;
-    height: 40px;
-    line-height: 1.42857143;
-    border-radius: 8px;
-    font-family: "Noto Sans KR", sans-serif;
-    cursor: pointer;
-    margin: auto;
-    margin-top: 10px;
-}
-    .btn-default:hover {
-  background-color: #f56a6a;
-}
-
-.sign-in-info__list {
-    display: flex;
-    justify-content: space-around;
-    font: 500 14px "Noto Sans KR", sans-serif;
-    color: #000;
-    margin-top: 20px;
-    margin-bottom: 40px;
-    text-decoration: none;
-}
-
-ul, li, li a {
-    list-style: none;
-    text-decoration: none;
-    
-    
-}
-.find_id_box{
-  width: 500px;
-  margin: 15% auto;
-}
-
-.findIdLogin{
-   color:#000000;
-    font: 1000 14px "Noto Sans KR", sans-serif;
-    
-}
-.findIdMain{
-color:#000000;
-    font: 1000 14px "Noto Sans KR", sans-serif;
-margin-right: 30px;
-}
-
 
 </style>
 
@@ -101,29 +29,38 @@ margin-right: 30px;
 </head>
 <body>
 
+<!-- Wrapper -->
+<div id="wrapper">
 
-    <div class="find_id_box">
-               
-            <div class="sign-in__title">
- 
-		  <form class="user">
-      <div class="form-group">
-        <c:forEach var="m" items="${member}">
-      
-          <p class="email-form__input">
-     ${m.member_name} ´ÔÀÇ  ¾ÆÀÌµğ´Â: ${m.member_id}  ÀÔ´Ï´Ù.</p>
-           
-        </c:forEach>
-      </div>
-    </form>
+<!-- Main -->
+<div id="main">
+	<div class="inner" style="max-width:95em;">
+	
+	<%@ include file="../include/header.jsp" %>
+
+		<div class="main-content">
+		
+			<div class="sign-in">
+		   		<form class="sign-in__wrap">
+		   		<h2 class="sign-in__title">ì•„ì´ë”” ì°¾ê¸°</h2>
+		     		<div class="form-group">
+		       			<c:forEach var="m" items="${member}">
+		       			<div class="findId">
+						     ${m.member_name} ë‹˜ì˜ <br>
+						     ì•„ì´ë””ëŠ” <strong>${m.member_id}</strong> ì…ë‹ˆë‹¤.
+		           		</div>
+		        		</c:forEach>
+		      		</div>
+			  		<button type="button" class="btn-default" onclick="location.href='/members/login'">ë¡œê·¸ì¸ ë°”ë¡œê°€ê¸°</button>
+
+		   		</form>
 			</div>
-  <button type="button" class="btn-default" onclick="location.href='/members/login'">·Î±×ÀÎÆäÀÌÁö</button>
-  <button type="button" class="btn-default" onclick="location.href='/main'">¸ŞÀÎÆäÀÌÁö</button>
-  
-  
+
+		    </div>
+	</div>
 </div>
-   
-
-
+	<%@ include file="../include/sidebar.jsp" %>
+	
+</div>
 </body>
 </html>
