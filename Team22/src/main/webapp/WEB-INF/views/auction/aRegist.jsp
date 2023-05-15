@@ -79,8 +79,8 @@
 															<div class="col-6 col-12-xsmall" style="margin:20px">
 																<!-- <input type="button" id="au_pic" class="button" value="" > -->
 																<input type="file" name="file1" value="" placeholder="사진등록">
-													<!-- 			<input type="file" name="file2" value="" placeholder="사진등록">
-																<input type="file" name="file3" value="" placeholder="사진등록"> -->
+													 			<input type="file" name="file2" value="" placeholder="사진등록">
+																<input type="file" name="file3" value="" placeholder="사진등록">
 																<!-- <div onchange="dropfile();">Drap and Drop here.</div> -->
 															</div>
 															

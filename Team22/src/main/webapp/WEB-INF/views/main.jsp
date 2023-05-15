@@ -36,6 +36,69 @@
 				img.alt = "사진이 없습니다";
 			}
 		</script>
+		
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				
+				var i = 0;
+				
+				$('#nextP').click(function(){
+					if(i == 6){
+						$('#p0').css('display','block');
+						$('#p1').css('display','block');
+						$('#p2').css('display','block');
+						$('#p6').css('display','none');
+						$('#p7').css('display','none');
+						$('#p8').css('display','none');
+						i=0;
+					}else{
+						$('#p'+i).css('display','none');
+						$('#p'+(i+3)).css('display','block');
+						i++;
+					}
+				});
+				
+				var j = 0;
+				
+				$('#nextA').click(function(){
+					if(j == 6){
+						$('#a0').css('display','block');
+						$('#a1').css('display','block');
+						$('#a2').css('display','block');
+						$('#a6').css('display','none');
+						$('#a7').css('display','none');
+						$('#a8').css('display','none');
+						j=0;
+					}else{
+						$('#a'+j).css('display','none');
+						$('#a'+(j+3)).css('display','block');
+						j++;
+					}
+				});
+				
+				var k = 0;
+				
+				$('#nextR').click(function(){
+					if(k == 6){
+						$('#r0').css('display','block');
+						$('#r1').css('display','block');
+						$('#r2').css('display','block');
+						$('#r6').css('display','none');
+						$('#r7').css('display','none');
+						$('#r8').css('display','none');
+						k=0;
+					}else{
+						$('#r'+k).css('display','none');
+						$('#r'+(k+3)).css('display','block');
+						k++;
+					}
+				});
+				
+			});
+		
+		</script>
+		
 	</head>
 	<body>
 
@@ -249,97 +312,99 @@
 							<!-- Section -->
 								<section>
 									<header class="major">
-										<h2>최근 본 글 제목들</h2>
+										<h2><a href="/product/prodList">Product</a></h2>
 										<c:forEach var="list" items="${viewlist }">
 											${list.product_title }
 										</c:forEach>
 									</header>
-									<div class="features">
-										<article>
-											<span class="icon fa-diamond"></span>
-											<div class="content">
-												<h3>Portitor ullamcorper</h3>
-												<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-											</div>
-										</article>
-										<article>
-											<span class="icon fa-paper-plane"></span>
-											<div class="content">
-												<h3>Sapien veroeros</h3>
-												<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-											</div>
-										</article>
-										<article>
-											<span class="icon fa-rocket"></span>
-											<div class="content">
-												<h3>Quam lorem ipsum</h3>
-												<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-											</div>
-										</article>
-										<article>
-											<span class="icon fa-signal"></span>
-											<div class="content">
-												<h3>Sed magna finibus</h3>
-												<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-											</div>
-										</article>
+									<input id="nextP" type="image" src="../resources/images/arrow-gd458d23cd_640.png" style="margin-right:10px; float:right; width:30px; heigth:30px">
+									<div class="posts">
+										
+										<c:forEach begin="0" end="${pList.size()-1 }" var="i">
+										
+										<c:if test="${i < 3 }">
+											<article style="text-align: center;" id="p${i }">
+												<a href="#" class="image"><img style="width:300px; height: 300px; margin:auto;" src="resources/images/pic01.jpg" alt="" /></a>
+												<h3>${pList[i].product_title }</h3>
+												<ul class="actions">
+													<li><a href="#" class="button">상세정보</a></li>
+												</ul>
+											</article>
+										</c:if>
+										
+										<c:if test="${i >= 3 }">
+											<article style="text-align: center; display: none" id="p${i }" >
+												<a href="#" class="image"><img style="width:300px; height: 300px; margin:auto;" src="resources/images/pic01.jpg" alt="" /></a>
+												<h3>${pList[i].product_title }</h3>
+												<ul class="actions">
+													<li><a href="#" class="button">상세정보</a></li>
+												</ul>
+											</article>
+										</c:if>
+										
+										</c:forEach>
+										
 									</div>
 								</section>
-
-							<!-- Section -->
 								<section>
 									<header class="major">
-										<h2>Ipsum sed dolor</h2>
+										<h2><a href="/auction/list">Auction</a></h2>
 									</header>
+									
+									
+									<input id="nextA" type="image" src="../resources/images/arrow-gd458d23cd_640.png" style="margin-right:10px; float:right; width:30px; heigth:30px">
+									
+									
 									<div class="posts">
-										<article>
-											<a href="#" class="image"><img src="resources/images/pic01.jpg" alt="" /></a>
-											<h3>Interdum aenean</h3>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
-											</ul>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="resources/images/pic02.jpg" alt="" /></a>
-											<h3>Nulla amet dolore</h3>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
-											</ul>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="resources/images/pic03.jpg" alt="" /></a>
-											<h3>Tempus ullamcorper</h3>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
-											</ul>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="resources/images/pic04.jpg" alt="" /></a>
-											<h3>Sed etiam facilis</h3>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
-											</ul>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="resources/images/pic05.jpg" alt="" /></a>
-											<h3>Feugiat lorem aenean</h3>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
-											</ul>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="resources/images/pic06.jpg" alt="" /></a>
-											<h3>Amet varius aliquam</h3>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
-											</ul>
-										</article>
+										<c:forEach begin="0" end="${aList.size()-1 }" var="j">
+										<c:if test="${j < 3 }">
+											<article style="text-align: center;" id="a${j }">
+												<a href="#" class="image"><img style="width:300px; height: 300px; margin:auto;" src="/auction/download?fileName=${aList[j].au_pic.replace('[','').replace(']','').split(',')[0]}" /></a>
+												<h3>${aList[j].au_title }</h3>
+												<ul class="actions">
+													<li><a href="/auction/aDetail?au_num=${aList[j].au_num }" class="button">상세정보</a></li>
+												</ul>
+											</article>
+										</c:if>
+										<c:if test="${j >= 3 }">
+											<article style="display:none; text-align: center;" id="a${j }">
+												<a href="#" class="image"><img style="width:300px; height: 300px; margin:auto;" src="/auction/download?fileName=${aList[j].au_pic.replace('[','').replace(']','').split(',')[0]}" /></a>
+												<h3>${aList[j].au_title }</h3>
+												<ul class="actions">
+													<li><a href="/auction/aDetail?au_num=${aList[j].au_num }" class="button">상세정보</a></li>
+												</ul>
+											</article>
+										</c:if>
+										</c:forEach>
+									</div>
+								</section>
+								<section>
+									<header class="major">
+										<h2><a href="/random/rList">Random</a></h2>
+									</header>
+									<input id="nextR" type="image" src="../resources/images/arrow-gd458d23cd_640.png" style="margin-right:10px; float:right; width:30px; heigth:30px">
+									<div class="posts">
+										<c:forEach begin="0" end="${rList.size()-1 }" var="k">
+										<c:if test="${k < 3 }">
+											<article style="text-align: center;" id="r${k }">
+												<a href="#" class="image"><img style="width:300px; height: 300px; margin:auto;" src="/random/download?fileName=${rList[k].ran_pic.replace('[','').replace(']','').split(',')[0]}" /></a>
+												<h3>${rList[k].ran_title }</h3>
+												<ul class="actions">
+													<li><a href="/random/rDetail?ran_num=${rList[k].ran_num }" class="button">상세정보</a></li>
+												</ul>
+											</article>
+										</c:if>
+										<c:if test="${k >= 3 }">
+											<article style="display:none; text-align: center;" id="r${k }">
+												<a href="#" class="image"><img style="width:300px; height: 300px; margin:auto;" src="/random/download?fileName=${rList[k].ran_pic.replace('[','').replace(']','').split(',')[0]}" /></a>
+												<h3>${rList[k].ran_title }</h3>
+												<ul class="actions">
+													<li><a href="/random/rDetail?ran_num=${rList[k].ran_num }" class="button">상세정보</a></li>
+												</ul>
+											</article>
+										</c:if>
+										</c:forEach>
+										
 									</div>
 								</section>
 
