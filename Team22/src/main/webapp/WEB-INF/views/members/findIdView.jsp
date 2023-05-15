@@ -91,7 +91,7 @@ margin-right: 30px;
 				<h2 class="sign-in__title">아이디 찾기</h2>
 				
 		            <div class="id-form__wrap">
-		            	<label>아이디</label>
+		            	<label>이메일</label>
 		            	<div class="id-form">
 		                	<input type="email" class="id-form__input"
 		                    id="member_email" aria-describedby="emailHelp" name="member_email"
@@ -110,12 +110,12 @@ margin-right: 30px;
 
 		        </form>
 		   </div>
-   
- </div>
-		    </div>
-	</div>
+		   
+		   </div>
+		</div>
+</div>
 
-	<%@ include file="../include/sidebar.jsp" %>
+<%@ include file="../include/sidebar.jsp" %>
 	
 </div>
 

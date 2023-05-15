@@ -5,85 +5,57 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="/resources/assets/css/styles.css" />
-<link rel="stylesheet" type="text/css" href="/resources/assets/css/membersignup.css" />
-
-<script type="text/javascript"></script>
-
-<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
-
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<link rel="stylesheet" type="text/css" href="/resources/assets/css/login.css" />
 <style type="text/css">
-#addressSearch{
-margin-top:5px;
-padding: 5px;
-}
-#m_address_primary{
-font-size: 15px;
-margin-bottom: 5px;
-border: 1px solid #000000;
-padding: 6px 12px;
-border-radius: 5px;
-width: 100%;
-color: #000;
-font-family: "Noto Sans KR", sans-serif
-
-}
-#addressRest{
-font-size: 15px; border: 1px solid #000000; padding: 6px 12px;
-border-radius: 5px;
-width: 100%;
-color: #000;
-font-family: "Noto Sans KR", sans-serif
-}
-
-
 </style>
-
 </head>
 <body>
 
-		<div class="main-content">	
+<!-- Wrapper -->
+<div id="wrapper">
 
-			<h2 class="member-title text-center">회원수정</h2>
+<!-- Main -->
+<div id="main">
+	<div class="inner" style="max-width:95em;">
+	
+	<%@ include file="../include/header.jsp" %>
 
-			<!-- Form 시작 -->
-			<form class="form-signup" id="join" method="post" name="joinform" role="form">
-			<input type="hidden" name="member_id" value="${sessionScope.id }">
-				
-				<!-- 비밀번호 -->
-				<div class="form-label-group">
-					<label for="pwd">비밀번호</label>
-					<br>
-					<input type="password" id="pw" name="member_pass" class="form-control form-margin-top" placeholder="비밀번호 확인 후 회원정보페이지이동" size="30" maxlength="16" required=""> 
-				</div>
-						<span id="pwdcheck_blank1"></span>
-					
-				<tr>
-		<td></td><td colspan="2" style="font-size: 3px" id="pwdcheck_blank1"></td>
-	</tr>
-				
-				
-				 
-				<div>
-				<button type="button" class="btn btn-info btn-sm" onclick="location.href='/members/myPage'" 
-				style=" margin-right:  10px;">
-				<p class="btn-sign-up">
-				취소
-				</p>
-				</button>
-				
-				
-				<button type="submit" class="btn btn-info btn-sm" style=" margin-right:  10px;">
-					<p class="btn-sign-up">
-						회원수정
-					</p>
-				</button>
-				
-				</div>
-			</form>  
-		</div>
+		<div class="main-content">
 		
+			<div class="sign-in">
+				<form class="sign-in__wrap" id="join" method="post" name="joinform" role="form">
+				<input type="hidden" name="member_id" value="${sessionScope.id }">
+				<h2 class="sign-in__title">회원 정보 수정</h2>
 
+				<!-- 비밀번호 -->
+				<div class="id-form__wrap">
+					<label for="pwd">비밀번호</label>
+					<div class="id-form">
+						<input type="password" id="pw" name="member_pass" 
+						class="id-form__input" placeholder="비밀번호를 입력해주세요." 
+						size="30" maxlength="16"> 
+					</div>
+				</div>
+		<span id="pwdcheck_blank1"></span>		
+				
+				 <button type="submit" class="btn__wrap btn-default" onclick="location.href='/members/myPage'">
+		               수정하기
+		         </button>
+		         
+		         <div style="text-align: center; margin-top: 20px;">
+					  <a href="/members/myPage">
+					   	취소
+					  </a>
+				</div>
+		        </form>
+		   </div>
+		   
+		   </div>
+		</div>
+</div>
+
+<%@ include file="../include/sidebar.jsp" %>
+	
+</div>
 </body>
 </html>

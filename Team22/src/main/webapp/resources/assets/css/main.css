@@ -3893,7 +3893,7 @@
 			-webkit-flex-shrink: 1;
 			-ms-flex-shrink: 1;
 			flex-shrink: 1;
-			width: 50%;
+			width: 40%;
 		}
 
 		#banner .image {
@@ -3907,7 +3907,7 @@
 			flex-shrink: 0;
 			display: block;
 			margin: 0 0 2em 4em;
-			width: 50%;
+			width: 60%;
 		}
 
 			#banner .image img {
