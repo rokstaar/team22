@@ -63,6 +63,7 @@
                 </svg>
             </div>
         </div>
+        <c:if test="${reclist.list.size() > 4 }">
         <div id="left-btn">
             <?xml version="1.0" ?><svg style="enable-background:new 0 0 32 32;" version="1.1" viewBox="0 0 32 32"
                 xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -100,6 +101,7 @@
                 </g>
             </svg>
         </div>
+        </c:if>
         <div class="rec-container">
             <div class="rec-wrapper">
                 <c:forEach var="prod" items="${reclist.list }">
@@ -116,6 +118,7 @@
                 </c:forEach>
             </div>
         </div>
+        <c:if test="${reclist.list.size() > 4 }">
         <div id="right-btn">
             <?xml version="1.0" ?><svg style="enable-background:new 0 0 32 32;" version="1.1" viewBox="0 0 32 32"
                 xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -153,6 +156,7 @@
                 </g>
             </svg>
         </div>
+	    </c:if>
     </div>
 </c:if>
 <!-- 추천 -->

@@ -12,12 +12,18 @@ let slides, totalSlides, slideWidth;
 
 window.onload = function () {
 	setTimeout(function(){
-    var isRecViewHidden = localStorage.getItem('recViewHidden');
-    if (isRecViewHidden === 'true') {
-        document.querySelector('.rec-view').style.display = 'none';
-    }else{
-    	document.querySelector('.rec-view').style.display = 'flex';    	
-    }
+	    var isRecViewHidden = sessionStorage.getItem('recViewHidden');
+	    var recViewElement = document.querySelector('.rec-view');
+	    
+	    if (isRecViewHidden === 'true') {
+	        if(recViewElement !== null) {
+	            recViewElement.style.display = 'none';
+	        }
+	    } else {
+	        if(recViewElement !== null) {
+	            recViewElement.style.display = 'flex'; 
+	        }   	
+	    }
     
     	
     	var leftBtn = document.getElementById("left-btn");
