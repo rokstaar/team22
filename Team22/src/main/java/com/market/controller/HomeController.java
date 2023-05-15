@@ -20,6 +20,7 @@ import com.market.domain.ACriteria;
 import com.market.domain.APageDTO;
 import com.market.domain.AuctionVO;
 import com.market.service.AuctionService;
+import com.market.service.MainService;
 import com.market.service.ProductService;
 import com.market.service.RandomService;
 
@@ -35,6 +36,9 @@ public class HomeController {
 
 	@Inject
 	private RandomService ranService;
+	
+	@Inject
+	private MainService service;
 	
 	
 	// http://localhost:8080/main
@@ -53,6 +57,11 @@ public class HomeController {
 			logger.info("추천 상품 목록 가져오기!");
 			model.addAttribute("reclist", pserv.getFavProd(id));
 		}
+		
+		model.addAttribute("pList", service.selectProd());
+		model.addAttribute("aList", service.selectAu());
+		model.addAttribute("rList", service.selectRan());
+		
 		
 		return "main";
 	}
