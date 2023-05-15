@@ -51,12 +51,14 @@ public interface MemberDAO {
  	// 평점
  	public Double avgScore(String id)throws Exception;
  	
- // 페이충전
+ 	// 페이충전
   	public Integer insertPayCharge(Pay_chargeVO vo)throws Exception;
+  	// 페이출금
+  	public Integer insertPayWithdraw(Pay_chargeVO vo)throws Exception;
 
   	// 회원금액과 충전금액 합산 
   	public Integer memberPayCharge(Pay_chargeVO vo)throws Exception;
-  	//
+  	// 회원금액과 출금금액 합산
   	public Integer payWithdraw(Map<String,Object> vo)throws Exception;
   	
   	// 총 거래 내역
@@ -70,5 +72,9 @@ public interface MemberDAO {
   	public List<Map<String,Object>> allSerrch()throws Exception;
   	// 내 문의사항
   	public List<CustomerserviceVO> myCs(String id)throws Exception;
+  	// 충전내역
+  	public List<Map<String,Object>> chargingDetails(String id)throws Exception;
+  	// 출금내역
+  	public List<Map<String,Object>> drawDetails(String id)throws Exception;
   	
 }

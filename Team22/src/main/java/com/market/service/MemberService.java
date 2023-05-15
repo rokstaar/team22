@@ -43,6 +43,8 @@ public interface MemberService {
 	public Double memberScore(String id) throws Exception;
 	// 충전
 	public Integer savePayCharge(Pay_chargeVO vo)throws Exception;
+	// 출금
+	public Integer savePayWithdraw(Pay_chargeVO vo)throws Exception;
 	// 회원 잔액과 충전금액 합산
 	public Integer memberPayCharge(Pay_chargeVO vo)throws Exception;
 	
@@ -61,4 +63,8 @@ public interface MemberService {
 	public List<Map<String,Object>> allSerrch()throws Exception;
 	// 내 문의사항
 	public List<CustomerserviceVO> myCs(String id) throws Exception;
+	// 충전내역
+	public List<Map<String,Object>> chargingDetails(String id)throws Exception;
+	// 출금내역
+	public List<Map<String,Object>> drawDetails(String id)throws Exception;
 }

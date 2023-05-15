@@ -216,7 +216,8 @@ public class MembersController {
 		  Pay_chargeVO vo = new Pay_chargeVO();
 		  vo.setMember_id(id); vo.setCharge_amount(amount); 
 		  
-		  if(service.savePayCharge(vo) > 0) service.memberPayCharge(vo);
+		  if(service.savePayCharge(vo) > 0) 
+			 service.memberPayCharge(vo);
 		  
 		  service.memberInfo(id);
 		  
@@ -225,8 +226,25 @@ public class MembersController {
 	@RequestMapping(value = "/payInfo",method = RequestMethod.GET)
 	public void payInfoGET(Model model, HttpSession session,@RequestParam("money") Integer amount)throws Exception{
 		String id = (String)session.getAttribute("id");
+		
+		
 		model.addAttribute("memberInfo",service.memberInfo(id));
 		model.addAttribute("amount",amount);
+	}
+	// 페이충전 내역
+	@RequestMapping(value = "/chargingDetails",method = RequestMethod.GET)
+	public void chargingDetails(HttpSession session,Model model)throws Exception{
+		String id = (String)session.getAttribute("id");
+//		List<Map<String,Object>> chargingDetails = service.chargingDetails(id);
+		model.addAttribute("chargingDetails",service.chargingDetails(id));
+	}
+	// 페이충전 내역
+	@RequestMapping(value = "/drawDetails",method = RequestMethod.GET)
+	public void drawDetails(HttpSession session,Model model)throws Exception{
+		String id = (String)session.getAttribute("id");
+//		List<Map<String,Object>> chargingDetails = service.chargingDetails(id);
+		model.addAttribute("drawDetails",service.drawDetails(id));
+		
 	}
 	
 
@@ -368,6 +386,12 @@ public class MembersController {
 	}
 	
 	
+	// 충전,출금내역
+	@RequestMapping(value="/pay", method=RequestMethod.GET)
+	public String payList() throws Exception{
+		
+		return "/members/pay";
+	}
 	@RequestMapping(value="/payCharge", method=RequestMethod.GET)
 	public String payCharges(HttpSession session,Model model) throws Exception{
 		String id = (String)session.getAttribute("id");
@@ -386,12 +410,17 @@ public class MembersController {
 	}
 	
 	  @RequestMapping(value="/payWithdraw", method=RequestMethod.POST) 
-	  public String payWithdrawPOST(HttpSession session,Model model,@RequestParam Map<String,Object> vo) throws Exception{ 
+	  public String payWithdrawPOST(HttpSession session,Model model,@RequestParam Map<String,Object> vo,
+			  @RequestParam("withdraw_amount")Integer amount) throws Exception{ 
 	  String id = (String)session.getAttribute("id");
 	  
 	  logger.info("@@@@@@@@@@@@@@@@"+vo);
 	  vo.put("member_id", id);
 	  service.payWithdraw(vo);
+	  Pay_chargeVO pVo = new Pay_chargeVO();
+	  pVo.setMember_id(id); pVo.setWithdraw_amount(amount); 
+	  if(service.savePayWithdraw(pVo) > 0 );
+	  
 	  model.addAttribute("payWithdraw",vo.get("withdraw_amount")); 
 	  model.addAttribute("memberInfo",service.memberInfo(id));
 	  
@@ -450,6 +479,7 @@ public class MembersController {
 			
 			return "/members/removeForm";
 		}
+	
 	
 	@RequestMapping(value = "/remove", method = RequestMethod.POST)
 	public String removePOST(RedirectAttributes rttr,

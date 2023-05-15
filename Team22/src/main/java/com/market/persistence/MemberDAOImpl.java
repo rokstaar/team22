@@ -144,5 +144,19 @@ public class MemberDAOImpl implements MemberDAO {
 	public List<CustomerserviceVO> myCs(String id) throws Exception {
 		return sqlSession.selectList(NAMESPACE+".myCs", id);
 	}
+	@Override
+	public List<Map<String, Object>> chargingDetails(String id) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".chargingDetails",id);
+	}
+	@Override
+	public Integer insertPayWithdraw(Pay_chargeVO vo) throws Exception {
+		return sqlSession.insert(NAMESPACE+".insertPayWithdraw",vo);
+	}
+	@Override
+	public List<Map<String, Object>> drawDetails(String id) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".drawDetails",id);
+	}
 
+	
+	
 }

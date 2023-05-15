@@ -213,7 +213,7 @@ font-family: "Noto Sans KR", sans-serif;
             </div>
 
 				<div class="my-page__edit-buttons">
-					<button type="button" class="my-pay-charge">페이 충전</button>
+					<button type="button" class="my-pay">페이</button>
 					<button type="button" class="my-cs">
 					                내 문의사항
 					              </button>
@@ -244,8 +244,8 @@ $('.my-info-delete').on('click', function() {
 	  window.location.href = '/members/deletePwCk';
 	});
 	
-$('.my-pay-charge').on('click', function() {
-	  window.location.href = '/members/payCharge';
+$('.my-pay').on('click', function() {
+	  window.location.href = '/members/pay';
 	});
 	
 $('.my-cs').on('click', function() {

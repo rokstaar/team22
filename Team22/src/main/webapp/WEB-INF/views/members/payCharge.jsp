@@ -52,7 +52,8 @@
 		<%@ include file="../include/myPage.jsp" %>	
 		
 		<div class="infoContainer">
-				<a class="item">페이 충전</a> 
+				<a href ="/members/payCharge"class="item">페이 충전</a> 
+				<a href = "/members/chargingDetails"class="item">충전 내역</a> 
 		</div>
 
 		<section>
@@ -131,18 +132,20 @@ $(document).ready(function(){
 		                    data: {
 		                        "amount" : money
 		                    },
-		                    /* success: function () {
+		                     success: function () {
+		                    	  //alert창 확인 후 이동할 url 설정
 		                        alert(msg);
-		                        document.location.href = "/members/myPage"; // 페이지 이동
-		                    } */
+		                        document.location.href="/members/payInfo?money="+money; //페이지이동
+		                    } 
 		                });
 		            } else {
 		                var msg = '결제에 실패하였습니다.';
 		                msg += '에러내용 : ' + rsp.error_msg;
+				          //alert창 확인 후 이동할 url 설정
+		                alert(msg);
+			            document.location.href="/members/myPage"; 
 		            }
-		          //alert창 확인 후 이동할 url 설정
-		             alert(msg);
-		            document.location.href="/members/payInfo?money="+money; 
+		            
 		        });
 		    });
 		

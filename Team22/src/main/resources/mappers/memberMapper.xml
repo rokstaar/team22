@@ -137,11 +137,17 @@
     
     <!-- 페이 충전 -->
     <insert id="payCharge">
-		insert into pay_charge (charge_num,charge_amount,charge_date_time,member_id)
-		values(#{charge_num},#{charge_amount},now(),#{id})
-	
+		insert into pay_charge (charge_amount,member_id)
+		values(#{charge_amount},#{member_id	})
 	</insert>
     <!-- 페이 충전 -->
+    
+    <!-- 페이 출금 -->
+    <insert id="insertPayWithdraw">
+    	insert into pay_charge (withdraw_amount,member_id)
+		values(#{withdraw_amount},#{member_id })
+    </insert>
+    <!-- 페이 출금 -->
     
    <!-- 회원 잔액과 충전한 금액 합산 -->
     <update id="memberPayCharge">
@@ -175,5 +181,53 @@
 	    	from member
 	    	where member_id = #{id}
 	</select>
-    
+	
+	<!-- 충전 내역  -->
+	<select id="chargingDetails" resultType="map">
+		select m.member_id,m.member_nickname, p.charge_amount, p.charge_date_time, m.member_name
+		from member m join pay_charge p
+		on m.member_id = p.member_id
+		where m.member_id = #{id} AND p.charge_amount IS NOT NULL
+		order by p.charge_date_time desc
+	</select>
+	<!-- 충전 내역  -->
+	
+	<!-- 출금 내역  -->
+	<select id="drawDetails" resultType="map">
+		select m.member_id,m.member_nickname, p.withdraw_amount, p.charge_date_time, m.member_name
+		from member m join pay_charge p
+		on m.member_id = p.member_id
+		where m.member_id = #{id} AND p.withdraw_amount IS NOT NULL and withdraw_amount > 0
+		order by p.charge_date_time desc
+	</select>
+	<!-- 출금 내역  -->
+	
+    <!-- 메인에서 검색 -->
+	<!-- <select id="allSerrch" resultType="map">
+		select ran_title, product_title, au_title
+		from member
+		WHERE
+	    <choose>
+	      <when test="selectType == 'ran_title'">
+	        ran_title LIKE CONCAT('%', #{searchKeyword}, '%')
+	      </when>
+	      <when test="selectType == 'product_title'">
+	        product_title LIKE CONCAT('%', #{searchKeyword}, '%')
+	      </when>
+	      <when test="selectType == 'au_title'">
+	        au_title LIKE CONCAT('%', #{searchKeyword}, '%')
+	      </when>
+	    </choose>
+	</select> -->
+
+	<!-- 메인에서 검색 -->
+	
+	<!-- 내 문의사항 -->
+	<select id="myCs" resultType="com.market.domain.CustomerserviceVO">
+		select *
+		from Customerservice
+		where mem_id = #{id}
+		order by cs_num desc
+	</select>
+	<!-- 내 문의사항 -->
 </mapper>

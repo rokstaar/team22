@@ -221,5 +221,23 @@ public class MemberServiceImpl implements MemberService {
 	public List<CustomerserviceVO> myCs(String id) throws Exception {
 		return mvo.myCs(id);
 	}
+
+	@Override
+	public List<Map<String, Object>> chargingDetails(String id) throws Exception {
+		return mvo.chargingDetails(id);
+	}
+
+	@Override
+	public Integer savePayWithdraw(Pay_chargeVO vo) throws Exception {
+		return mvo.insertPayWithdraw(vo);
+	}
+
+	@Override
+	public List<Map<String, Object>> drawDetails(String id) throws Exception {
+		return mvo.drawDetails(id);
+	}
+	
+	
+	
 	
 }
