@@ -52,10 +52,19 @@
 		<%@ include file="../include/myPage.jsp" %>	
 		
 		<div class="infoContainer">
-				<a href ="/members/payCharge"class="item">페이 충전</a> 
-				<a href = "/members/chargingDetails"class="item">충전 내역</a> 
+			<a href ="/members/pay"class="item">페이</a> 
 		</div>
-
+		
+		<div class="info">
+			<button class="button" 
+					onclick="location.href='/members/payCharge'">충전</button>
+			<button class="button" 
+					onclick="location.href='/members/payWithdraw'">출금</button>
+			<button class="button" 
+					onclick="location.href='/members/drawDetails'">충전내역</button>
+		</div> 
+		
+		<div></div>
 		<section>
 		<article class="my-page">
 

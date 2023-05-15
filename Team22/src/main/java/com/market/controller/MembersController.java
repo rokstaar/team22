@@ -2,6 +2,7 @@ package com.market.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -222,29 +223,41 @@ public class MembersController {
 		  service.memberInfo(id);
 		  
 	}
+	
 	// 페이충전 확인페이지
 	@RequestMapping(value = "/payInfo",method = RequestMethod.GET)
 	public void payInfoGET(Model model, HttpSession session,@RequestParam("money") Integer amount)throws Exception{
 		String id = (String)session.getAttribute("id");
-		
-		
+
 		model.addAttribute("memberInfo",service.memberInfo(id));
 		model.addAttribute("amount",amount);
 	}
+	
 	// 페이충전 내역
 	@RequestMapping(value = "/chargingDetails",method = RequestMethod.GET)
-	public void chargingDetails(HttpSession session,Model model)throws Exception{
+	public String chargingDetails(HttpSession session,Model model)throws Exception{
 		String id = (String)session.getAttribute("id");
-//		List<Map<String,Object>> chargingDetails = service.chargingDetails(id);
 		model.addAttribute("chargingDetails",service.chargingDetails(id));
+		return "/members/drawDetails";
 	}
+	
 	// 페이충전 내역
 	@RequestMapping(value = "/drawDetails",method = RequestMethod.GET)
 	public void drawDetails(HttpSession session,Model model)throws Exception{
 		String id = (String)session.getAttribute("id");
 //		List<Map<String,Object>> chargingDetails = service.chargingDetails(id);
 		model.addAttribute("drawDetails",service.drawDetails(id));
+		model.addAttribute("chargingDetails",service.chargingDetails(id));
 		
+		List drawDetails = service.drawDetails(id);
+		List chargingDetails = service.chargingDetails(id);
+
+		List combinedList = new ArrayList<>();
+		combinedList.addAll(drawDetails);
+		combinedList.addAll(chargingDetails);
+
+		model.addAttribute("combinedDetails", combinedList);
+
 	}
 	
 

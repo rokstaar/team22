@@ -135,46 +135,65 @@ textarea{
 		<%@ include file="../include/header.jsp" %>
 		<%@ include file="../include/myPage.jsp" %>			
 										
-			<div class="infoContainer">
-				<a href ="/members/payCharge"class="item">페이 충전</a> 
-				<a href = "/members/chargingDetails" class="item">충전 내역</a> 
+		<div class="infoContainer">
+			<a href ="/members/pay"class="item">페이</a> 
 		</div>
+		
+		<div class="info">
+			<button class="button" 
+					onclick="location.href='/members/payCharge'">충전</button>
+			<button class="button" 
+					onclick="location.href='/members/payWithdraw'">출금</button>
+			<button class="button" 
+					onclick="location.href='/members/drawDetails'">충전내역</button>
+		</div> 
 			
 		<section>
-		<section>
-	<div class="review">
-		<c:if test="${empty drawDetails}">
-		 출금 없습니다.
-		</c:if>
-	</div>
-	
-	<c:if test="${not empty drawDetails}">
-		<article>
-			<div class="shippingStatusContainer">
-				<table class="bbsList">
-					<thead class="head">
-						<tr>
-							<th>일시</th>
-							<th>상품명</th>	
-							<th>출금금액</th>
-							<th>닉네임</th>
-						</tr>
-					</thead>
-					<tbody class="body">
-						<c:forEach var="vo" items="${drawDetails}">
+		<div class="review">
+		    <c:if test="${empty drawDetails && empty chargingDetails}">
+		        충전 및 출금 내역이 없습니다.
+		    </c:if>
+		</div>
+
+		<c:if test="${not empty drawDetails || not empty chargingDetails}">
+			<article>
+				<div class="shippingStatusContainer">
+					<table class="bbsList">
+						<thead class="head">
 							<tr>
-								<td><span>${vo.charge_date_time}</span></td>
-								<td><span>있지페이</span></td>
-								<td><span>${vo.withdraw_amount}</span></td>
-								<td><span>${vo.member_nickname}</span></td>
+								<th>거래</th>
+								<th>일시</th>
+								<th>상품명</th>	
+								<th>충전·출금 금액</th>
+								<th>닉네임</th>
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
-		</article>
-	</c:if>
-</section>
+						</thead>
+						
+						<tbody class="body">
+							<c:forEach var="vo" items="${drawDetails}">
+								<tr>
+									<td>출금</td>
+									<td><span>${vo.charge_date_time}</span></td>
+									<td><span>있지페이</span></td>
+									<td><span><fmt:formatNumber value="${vo.withdraw_amount}" pattern="#,###" />원</span></td>
+									<%-- <td><span>${vo.withdraw_amount}원</span></td> --%>
+									<td><span>${vo.member_nickname}</span></td>
+								</tr>
+							</c:forEach>
+							<c:forEach var="vo" items="${chargingDetails}">
+								<tr>
+									<td>충전</td>
+									<td><span>${vo.charge_date_time}</span></td>
+									<td><span>있지페이</span></td>
+									<td><span><fmt:formatNumber value="${vo.charge_amount}" pattern="#,###" />원</span></td>
+									<td><span>${vo.member_nickname}</span></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</article>
+		</c:if>
 		</section>
 	</div>
 	</div>

@@ -51,17 +51,18 @@
 		<%@ include file="../include/header.jsp" %>
 		<%@ include file="../include/myPage.jsp" %>	
 		
-		
-		<!-- <div class="my-page__edit-buttons">
-					<button type="button" class="my-pay-charge">페이 충전</button>
-					<button type="button" class="my-pay-withdraw">페이 출금  </button>
-					            
-					              
-            </div> -->
 		<div class="infoContainer">
-				<a href ="/members/payCharge"class="item">페이 충전</a> 
-				<a href = "/members/payWithdraw"class="item">페이 출금</a> 
+			<a href ="/members/pay"class="item">페이</a> 
 		</div>
+		
+		<div class="info">
+			<button class="button" 
+					onclick="location.href='/members/payCharge'">충전</button>
+			<button class="button" 
+					onclick="location.href='/members/payWithdraw'">출금</button>
+			<button class="button" 
+					onclick="location.href='/members/drawDetails'">충전내역</button>
+		</div>	
 
 		
 	</div>
