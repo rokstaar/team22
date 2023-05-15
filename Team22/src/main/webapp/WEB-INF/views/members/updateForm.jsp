@@ -5,18 +5,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="/resources/assets/css/styles.css" />
 <link rel="stylesheet" type="text/css" href="/resources/assets/css/membersignup.css" />
-
-
+<link rel="stylesheet" href="/resources/assets/css/main.css" />
+<link rel="stylesheet" type="text/css" href="/resources/assets/css/styles.css" />
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style type="text/css">
+
 #addressSearch{
 margin-top:5px;
 padding: 5px;
 }
+
 #m_address_primary{
 font-size: 15px;
 margin-bottom: 5px;
@@ -36,17 +37,17 @@ color: #000;
 font-family: "Noto Sans KR", sans-serif
 }
 .my-page-profile__image {
-    width: 150px;
-    height: 150px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    margin-bottom: 45px;
+    margin-left: 10px;
     float: right;
 }
 .select_img {
-    width: 150px;
-    height: 150px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    margin-bottom: 45px;
+    margin-left: 10px;
     float: right;
 }
 
@@ -270,10 +271,10 @@ function exePost() {
 		data : formData,
 		success: function(data){
 			if(data == "Y"){
-				alert("회원가입이 완료되었습니다.");	
+				alert("회원 정소 수정 완료");	
 				location.href="/"
 			}else{
-				alert("회원가입에 실패하였습니다.");
+				alert("회원 정소 수정 실패");
 			}
 		},
 		error: function(data){
@@ -289,30 +290,43 @@ function exePost() {
 </head>
 <body>
 
+<!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Main -->
+<div id="main">
+	<div class="inner" style="max-width:95em;">
+	
+	<%@ include file="../include/header.jsp" %>
+
 		<div class="main-content">	
 
-			<h2 class="member-title text-center">회원수정</h2>
+			<h2 class="member-title text-center">회원 정보 수정</h2>
 
 			<!-- Form 시작 -->
 			<form class="form-signup" id="join" method="post" name="joinform" role="form" enctype="multipart/form-data">
-			<input type="hidden" name="member_num" value="${memberInfo.member_num }">
-			<input type="hidden" name="member_pay" value="${memberInfo.member_pay }">
+				<input type="hidden" name="member_num" value="${memberInfo.member_num }">
+				<input type="hidden" name="member_pay" value="${memberInfo.member_pay }">
+				
+				<!-- 이름 -->
+				<div class="form-label-group">
+					<label for="member_name">이름</label>
+					<input type="text"  id="name" name="member_name" class="form-control form-margin-top" value="${memberInfo.member_name }" readonly required> 
+				</div>
+				
 				<!-- 닉네임 -->
 				<div class="form-label-group">
 					<label for="nickname">닉네임</label>
-					<br>
 					<div class="form-input-box">
 						<input type="text" id="nickname" name="member_nickname" class="form-control" value=${memberInfo.member_nickname } required=""> 
 						<button type="submit" class="btn btn-info btn-sm" onclick="check_nick();">중복확인</button>
 					</div>
 					<span id="nickcheck_blank"></span>
-					
 				</div>
 
 				<!-- 아이디 -->
 				<div class="form-label-group">
 					<label for="id">아이디</label>
-					<br>
 					<div id="id_Confirm" class="form-input-box">
 						<input type="text" id="id" name="member_id" class="form-control"  value="${memberInfo.member_id }" readonly maxlength="16" size="30" required=""> 
 					</div>
@@ -322,117 +336,89 @@ function exePost() {
 				<!-- 비밀번호 -->
 				<div class="form-label-group">
 					<label for="pwd">비밀번호</label>
-					<br>
-					<input type="password" id="pw" name="member_pass" class="form-control form-margin-top" placeholder="영문,숫자,특수문자 조합하여 8자~16자" size="30" maxlength="16" required=""> 
+					<input type="password" id="pw" name="member_pass" class="form-control form-margin-top" value="${memberInfo.member_pass }" 
+							placeholder="영문,숫자,특수문자 조합하여 8자~16자" size="30" maxlength="16" required=""> 
+					<span id="pwdcheck_blank1"></span>
 				</div>
-						<span id="pwdcheck_blank1"></span>
 				
-				<tr>
-		<td></td><td colspan="2" style="font-size: 3px" id="pwdcheck_blank1"></td>
-	</tr>
-				
+				<!-- <td colspan="2" style="font-size: 3px" id="pwdcheck_blank1"></td -->
 				
 				<div class="form-label-group">
-					<label for="pwdcheck">비밀번호 재확인</label>	
-					<br>						
-					<input type="password" id="checkPw" name="confirm-password" class="form-control form-margin-top" placeholder="비밀번호 재확인" required="">
-				</div>
-				<span id="pwdcheck_blank2"></span>
-				
-				<div class="form-label-group">
-					<label for="member_name">이름</label>
-					<br>
-					<input type="text"  id="name" name="member_name" class="form-control form-margin-top" value="${memberInfo.member_name }" readonly required> 
+					<label for="pwdcheck">비밀번호 재확인</label>						
+					<input type="password" id="checkPw" name="confirm-password" class="form-control form-margin-top"  value="${memberInfo.member_pass }"  
+							placeholder="비밀번호 재확인" required="">
+					<span id="pwdcheck_blank2"></span>
 				</div>
 				
 				<div class="form-label-group">
-					<label for="member_pic">이미지</label>
-					<input type="file"  id="pImg" name="file" class="form-control form-margin-top" required> 
-					<div class="select_img"><img src="" /></div>
-					<img  src="${memberInfo.member_pic } " class="my-page-profile__image"
-									alt = "프로필 사진 " onerror="this.src='/resources/images/default_my_profile.png'">
-					<script>
-					  $("#pImg").change(function(){
-					   if(this.files && this.files[0]) {
-					    var reader = new FileReader;
-					    reader.onload = function(data) {
-					     $(".select_img img").attr("src", data.target.result).width(150);        
-					    }
-					    reader.readAsDataURL(this.files[0]);
-					   }
-					  });
-					 </script>
-					<input type="hidden" name="member_pic" value="${memberInfo.member_pic }">
-				</div>
-				<%=request.getRealPath("/") %>
-				
-				
-				<div class="form-label-group">
-					<label for="addr">우편번호</label>
-					<br>
-					<input type="text" name="member_address" class="form-control form-margin-top"  value="${memberInfo.member_address }" size="30" readonly="readonly"> 					
-					<button type="button" class="btn btn-info btn-sm"onclick="exePost()" id="addressSearch">주소검색</button>	
-				</div>
-		
-		
-			<div>
-			<tr>		
-		<td></td><td colspan="2"><input type="text" id="m_address_primary" name="member_address2" size="50" readonly="readonly" value="${memberInfo.member_address2 }"></td>
-		
-	</tr>
-		<tr>		
-		<td></td><td colspan="2"><input type="text" size="50" name="member_address3" value="${memberInfo.member_address3 }"id="addressRest"></td>
-	</tr>
-			</div>
-		
-		
-
-
-				<!-- 문제의 input 부분 -->
-			<!-- 	<div class="form-label-group">
-					<label for="email">이메일</label>
-					<br>		
-					<input type="email" id="email" name="member_email" class="form-control form-margin-top" placeholder="이메일"> 
-				</div> -->
-					<tr>
-	<!-- 	<td>이메일</td><td><input type="text" name="member_email" id="email" size="30"></td><td><input type="button" value="인증코드 발송" onclick="sendEmail()"></td>
-	</tr>
-	<tr>
-		<td></td><td><input type="text" id="codeInput" size="30" placeholder="인증번호 입력" disabled="disabled"></td><td></td>
-	</tr>
-	<tr>
-		<td></td><td colspan="2" style="font-size: 3px" id="codecheck_blank"></td>
-	</tr> -->
-	
-
-				 <div class="form-label-group btn-sign-up-margin">
 					<label for="phone">연락처</label>
-					<br>	
 					<input type="text" id="phone" name="member_phone" class="form-control form-margin-top" value="${memberInfo.member_phone }" required=""> 
 				</div>
-				 <div class="form-label-group btn-sign-up-margin">
-					<label for="phone">이메일</label>
-					<br>	
-					<input type="text" id="email" name="member_email" class="form-control form-margin-top" value="${memberInfo.member_email }" required=""> 
+
+				<div class="form-label-group">
+					<label for="member_pic">이미지</label>
+					<img src="${memberInfo.member_pic } " class="my-page-profile__image"
+						alt = "프로필 사진 " onerror="this.src='/resources/images/default_my_profile.png'">
+						
+					<div class="form-input-box">
+						<input type="file"  id="pImg" name="file" class="form-control form-margin-top" required> 
+					</div>
+						
+						<div class="select_img"><img src="" /></div>
+							<script>
+							  $("#pImg").change(function(){
+							   if(this.files && this.files[0]) {
+							    var reader = new FileReader;
+							    reader.onload = function(data) {
+							     $(".select_img img").attr("src", data.target.result).width(150);        
+							    }
+							    reader.readAsDataURL(this.files[0]);
+							   }
+							  });
+							 </script>
+								<%-- <%=request.getRealPath("/") %> --%>
+							<input type="hidden" name="member_pic" value="${memberInfo.member_pic }">
 				</div>
-				 
+									
+				<div class="form-label-group">
+					<label for="addr">우편번호</label>
+					<div id="id_Confirm" class="form-input-box">
+						<input type="text" name="member_address" class="form-control form-margin-top" value="${memberInfo.member_address }"  placeholder="우편번호" size="30" readonly="readonly"> 				
+						<button type="button" value="주소검색"class="btn btn-info btn-sm"onclick="exePost()" id="addressSearch">주소검색</button>
+					</div>
+					<input type="text" name="member_address2" class="form-control form-margin-top" value="${memberInfo.member_address2 }" placeholder="기본주소">
+					<input type="text" class="form-control form-margin-top" name="member_address3"  value="${memberInfo.member_address3 }" placeholder="나머지 주소(선택 사항)">
+					<!-- id="m_address_primary" id="addressRest -->
+				</div>		
+
+				 <div class="form-label-group">
+					<label for="email">이메일</label>
+					<div class="form-input-box">
+						<input type="text" id="email" name="member_email" class="form-control form-margin-top" value="${memberInfo.member_email }" required=""> 
+					</div>
+				</div>
 				
-				
-				<button type="submit" class="btn btn-default">
-					<p class="btn-sign-up">
-						회원수정
-					</p>
+				<button type="submit" class="btn btn-default" id= "register_btn">
+					수정하기				
 				</button>
+		
 			</form>
 		</div>
+		</div>
+	</div>
+
+	<%@ include file="../include/sidebar.jsp" %>
+	
+</div>
+
 <script type="text/javascript">
-	//alert("${result}");
+
+	/* alert("${result}"); */
 	var result = "${result}";
 	
-	if(result == "O"){
+	if(result == "0"){
 		alert("비밀번호가 일치합니다.");		
-	}
-	
+	} 
 </script>
 
 </body>
