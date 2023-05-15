@@ -37,6 +37,13 @@ color: #000;
 font-family: "Noto Sans KR", sans-serif
 }
 
+#pwdcheck_blank1,
+#pwdcheck_blank2,
+#mail-check-warn,
+#idcheck_blank,
+#nickcheck_blank{
+	font-family: "Noto Sans KR", sans-serif;
+}
 
 </style>
 
@@ -293,18 +300,22 @@ $(document).ready(function(){
 				</div>
 				
 				<!-- 비밀번호 -->
-				<div class="form-label-group">
+				<div class="form-label-group btn-sign-up-margin">
 					<label for="pwd">비밀번호</label>
-					<input type="password" id="pw" name="member_pass" class="form-control form-margin-top" placeholder="영문,숫자,특수문자 조합하여 8자~16자 입력하세요." size="30" maxlength="16" required=""> 
+					<div class="form-input-box">
+						<input type="password" id="pw" name="member_pass" class="form-control form-margin-top" placeholder="영문,숫자,특수문자 조합하여 8자~16자 입력하세요." size="30" maxlength="16" required=""> 
+					</div>
+					<span id="pwdcheck_blank1"></span>
 				</div>
-				<span id="pwdcheck_blank1"></span>
 				<!-- <span style="font-size: 3px" id="pwdcheck_blank1"></span> -->
 				
-				<div class="form-label-group">
-					<label for="pwdcheck">비밀번호 재확인</label>							
-					<input type="password" id="checkPw" name="confirm-password" class="form-control form-margin-top" placeholder="비밀번호 재확인" required="">
+				<div class="form-label-group btn-sign-up-margin">
+					<label for="pwdcheck">비밀번호 재확인</label>		
+					<div class="form-input-box">					
+						<input type="password" id="checkPw" name="confirm-password" class="form-control form-margin-top" placeholder="비밀번호 재확인" required="">
+					</div>
+					<span id="pwdcheck_blank2"></span>
 				</div>
-				<span id="pwdcheck_blank2"></span>
 								
 				<div class="form-label-group">
 					<label for="phone">연락처</label>
