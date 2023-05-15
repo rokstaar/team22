@@ -48,7 +48,7 @@ window.onload = function () {
 
     	document.querySelector('#close-btn').addEventListener('click', function () {
     	    document.querySelector('.rec-view').style.display = 'none';
-    	    localStorage.setItem('recViewHidden', 'true');
+    	    sessionStorage.setItem('recViewHidden', 'true');
     	});
     	updateSlides();
     }, 1000);

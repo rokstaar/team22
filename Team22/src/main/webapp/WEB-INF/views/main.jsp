@@ -16,7 +16,7 @@
 
 <html>
 	<head>
-		<title>Editorial by HTML5 UP</title>
+		<title>잊지 마! 있지마켓</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -304,7 +304,7 @@
 										</ul>
 									</div>
 									<span class="image object">
-										<img src="/resources/images/image_chat.png" alt="" />
+										<img src="/resources/images/chat.png" alt="" />
 									</span>
 			
 								</section>
@@ -313,9 +313,6 @@
 								<section>
 									<header class="major">
 										<h2><a href="/product/prodList">Product</a></h2>
-										<c:forEach var="list" items="${viewlist }">
-											${list.product_title }
-										</c:forEach>
 									</header>
 									<input id="nextP" type="image" src="../resources/images/arrow-gd458d23cd_640.png" style="margin-right:10px; float:right; width:30px; heigth:30px">
 									<div class="posts">
@@ -407,9 +404,23 @@
 										
 									</div>
 								</section>
-
+			
 						</div>
 					</div>
+					<c:if test="${not empty viewlist }">
+					<div class="right-bar">
+					<div class="bar-title">
+						<h3>최근 본 글 목록</h3>
+					</div>
+					<div>
+					<c:forEach var="list" items="${viewlist }">
+						<a href="/product/prodInfo?product_num=${list.product_num }&seller=${list.product_seller}">
+							${list.product_title }
+						</a>
+					</c:forEach>
+					</div>
+			</div>
+			</c:if>
 				<%@ include file="include/sidebar.jsp" %>
 			
 			</div>
