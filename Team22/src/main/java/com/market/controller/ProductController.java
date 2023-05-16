@@ -219,7 +219,6 @@ public class ProductController {
 		File file = new File(downFile);
 		
 		// 파일의 정보를 화면에 출력
-		OutputStream out = response.getOutputStream();
 		
 		response.setHeader("Cache-Control", "no-cache");
 		response.addHeader("Content-disposition", "attachment; fileName="+fileName);
@@ -227,6 +226,7 @@ public class ProductController {
 		FileInputStream fis = new FileInputStream(file);
 		
 		byte[] buffer = new byte[1024 * 8];
+		OutputStream out = response.getOutputStream();
 		
 		int data;
 		while((data = fis.read(buffer)) != -1) {
@@ -253,9 +253,9 @@ public class ProductController {
 		
 		File thumb = new File("C:\\Users\\ITWILL\\git\\team22\\Team22\\src\\main\\webapp\\resources\\images\\thumb\\"
 				+ oFileName + ".png");
-		OutputStream out = response.getOutputStream();
 		response.setContentType("image/png");
 		
+		OutputStream out = response.getOutputStream();
 		if(file.exists()) {
 			Thumbnails.of(file).size(200, 200).outputFormat("png").toOutputStream(out);
 			out.flush();
