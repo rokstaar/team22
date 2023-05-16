@@ -40,7 +40,7 @@
 			
 			<c:if test="${id != null && id ==('admin')}">
 				<li><a href="/members/logout"><span class="label">로그아웃</span></a></li>
-				<li><a href="/admin/adminPage"><span class="label">관리자</span></a></li>
+				<li><a href="/admin/pagemain"><span class="label">관리자</span></a></li>
 			</c:if>
 
 		</ul>

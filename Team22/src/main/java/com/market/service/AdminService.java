@@ -28,31 +28,43 @@ public interface AdminService {
 	
 	
 	
+	// 모든 상품구매내역 조회
+	public List<Map<String,Object>> buyprodList() throws Exception;
+		
+	// 모든 옥션구매내역 조회
+	public List<Map<String,Object>> buyauList() throws Exception;
+			
+	// 모든 랜덤구매내역 조회
+	public List<Map<String,Object>> buyranList() throws Exception;
+		
+		
+	// 모든 판매내역 조회
+	public List<Map<String, Object>> getsellprodList() throws Exception;
+		
+	// 총 거래내역 수
+	public int countTrade() throws Exception;
+	
+	// 모든 제품 개수
+	public int countProduct() throws Exception;
+	
+	
+	
 	// 모든 판매 제품 정보
 	public List<ProductVO> productList() throws Exception;
 	
 	// 모든 경매제품 정보
 	public List<AuctionVO> auctionList() throws Exception;
+	
+	// 모든 경매 상세정보
+	public List<AuctionVO> audetail(Integer au_num) throws Exception;
 		
 	// 모든 랜덤제품 정보
 	public List<RandomVO> randomList() throws Exception;
 	
+	//  랜덤 참가자 상세정보
+	public List<RandomVO> randetail(Integer ran_num) throws Exception;
 	
-	
-	
-	
-	
-	// 모든 제품 갯수
-	public int countProduct() throws Exception;
-	
-	// 모든 구매내역 조회
-	public List<Map<String,Object>> getbuyprodList() throws Exception;
-	
-	// 모든 판매내역 조회
-	public List<Map<String, Object>> getsellprodList() throws Exception;
-	
-	// 총 거래내역
-	public int countTrade() throws Exception;
+
 	
 	
 	

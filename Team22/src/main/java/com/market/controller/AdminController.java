@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itwillbs.util.UploadFileUtils;
+import com.market.domain.AuctionVO;
 import com.market.domain.CPageDTO;
 import com.market.domain.MemberVO;
 import com.market.domain.NoticeVO;
@@ -40,6 +41,31 @@ public class AdminController {
 	private static final Logger logger 
 	             = LoggerFactory.getLogger(AdminController.class);
 	
+	
+	// http://localhost:8080/admin/pagemain
+	// 관리자 마이페이지 메인
+	@RequestMapping(value = "/pagemain",method = RequestMethod.GET)
+	public void pagemainGET(Model model) throws Exception{
+		
+		int memcount = service.countMember();
+		int cscount = service.countCs();
+		int noticount = service.countNotice();
+		int trcount = service.countTrade();
+		
+		model.addAttribute("memcount",memcount);
+		model.addAttribute("cscount",cscount);
+		model.addAttribute("noticount",noticount);
+		model.addAttribute("trcount",trcount);
+		
+		List productList = service.productList();
+		List aucionList = service.auctionList();
+		List randomList = service.randomList();
+		
+		model.addAttribute("productList",productList);
+		model.addAttribute("aucionList",aucionList);
+		model.addAttribute("randomList",randomList);	
+	}
+		
 	// http://localhost:8080/admin/adminpage?num=1
 	// 모든 회원정보 조회
 	@RequestMapping(value = "/adminpage",method = RequestMethod.GET)
@@ -63,137 +89,148 @@ public class AdminController {
 		model.addAttribute("memberList",memberList);
 		model.addAttribute("mdto",mdto);
 		model.addAttribute("select",num);
-		
-		
-		int mcount = service.countMember();
-		int procount = service.countProduct();
-		int noticount = service.countNotice();
-		int tradecount = service.countTrade();
-		int cscount = service.countCs();
-				
-		model.addAttribute("mcount", mcount);
-		model.addAttribute("procount", procount);
-		model.addAttribute("noticount", noticount);
-		model.addAttribute("tradecount", tradecount);
-		model.addAttribute("cscount", cscount);
-		
+						
 	}
 	
 	// 회원정보 상세보기
 	@RequestMapping(value = "/mdetail",method = RequestMethod.GET)
 	public String memberdetailGET(Model model,@RequestParam("member_num") int member_num) throws Exception {
 		MemberVO memvo = service.getmem(member_num);
-		  
-		int mcount = service.countMember();
-		int procount = service.countProduct();
-		int noticount = service.countNotice();
-		int tradecount = service.countTrade();
-		int cscount = service.countCs();
-		
+		  		
 		model.addAttribute("memvo",memvo);
-		
-		model.addAttribute("mcount", mcount);
-		model.addAttribute("procount", procount);
-		model.addAttribute("noticount", noticount);
-		model.addAttribute("tradecount", tradecount);
-		model.addAttribute("cscount", cscount);
-		
-		
+			
 		return "/admin/mdetail";
 		
 	}
-	
-	
-	//모든 상품정보 조회
-	@RequestMapping(value = "/manageprod",method = RequestMethod.GET)
-	public void manageprodGET(HttpServletRequest request, Model model) throws Exception {
-		logger.info(" manageprodGET() 호출 (●'◡'●)(●'◡'●) ");
 		
-		List productList = new ArrayList();
-		List aucionList = new ArrayList();
-		List randomList = new ArrayList();
-	
-		if(((String)request.getSession().getAttribute("id")).equals("admin")) productList = service.productList();
-		if(((String)request.getSession().getAttribute("id")).equals("admin")) aucionList = service.auctionList();
-		if(((String)request.getSession().getAttribute("id")).equals("admin")) randomList = service.randomList();
+	// 모든 상품거래 내역
+	@RequestMapping(value = "/buyprod",method = RequestMethod.GET)
+	public void buyprodGET(Model model) throws Exception{
+		List<Map<String, Object>> buyprodList = service.buyprodList();
 		
-		int mcount = service.countMember();
-		int procount = service.countProduct();
-		int noticount = service.countNotice();
-		int tradecount = service.countTrade();
-		int cscount = service.countCs();
+		logger.info(buyprodList.toString());
 		
-		//logger.info(productList.toString());
-		//view 페이지 전달
-		model.addAttribute("productList",productList);
-		model.addAttribute("aucionList",aucionList);
-		model.addAttribute("randomList",randomList);
+		model.addAttribute("buyprodList",buyprodList);
 		
-		model.addAttribute("mcount", mcount);
-		model.addAttribute("procount", procount);
-		model.addAttribute("noticount", noticount);
-		model.addAttribute("tradecount", tradecount);
-		model.addAttribute("cscount", cscount);
 	}
 	
-	// 모든 구매내역 	
-	@RequestMapping(value = "/managetrade",method = RequestMethod.GET)
-	public void managetradeGET(Model model) throws Exception{
-		List<Map<String, Object>> buyprodList = service.getbuyprodList();
-		List<Map<String, Object>> sellprodList = service.getsellprodList();
-				
-		logger.info(buyprodList.toString());
-		logger.info(sellprodList.toString());
-				
-	 int mcount = service.countMember();
-	 int procount = service.countProduct();
-	 int noticount = service.countNotice();
-	 int tradecount = service.countTrade();
-	 int cscount = service.countCs();
-							
-	model.addAttribute("buyprodList",buyprodList);
-	model.addAttribute("sellprodList",sellprodList);
+	// 모든 옥션상품 거래 내역
+	@RequestMapping(value = "/buyau",method = RequestMethod.GET)
+	public void buyauGET(Model model) throws Exception{
+		List<Map<String, Object>> buyauList = service.buyauList();
+		
+		logger.info(buyauList.toString());
+		
+		model.addAttribute("buyauList",buyauList);
+	}
 	
-	model.addAttribute("mcount", mcount);
-	model.addAttribute("procount", procount);
-	model.addAttribute("noticount", noticount);
-	model.addAttribute("tradecount", tradecount);
-	model.addAttribute("cscount", cscount);
- }
+	// 모든 랜덤상품 거래 내역
+	@RequestMapping(value = "/buyran",method = RequestMethod.GET)
+	public void buyranGET(Model model) throws Exception{
+		List<Map<String, Object>> buyranList = service.buyranList();
+			
+		logger.info(buyranList.toString());
+			
+		model.addAttribute("buyranList",buyranList);
+			
+	}
+	
+	// 모든 상품 정보
+	@RequestMapping(value = "/manageprod",method = RequestMethod.GET)
+	public void manageprodGET(HttpServletRequest request, Model model) throws Exception{
+		List productList = new ArrayList();
+		
+		if(((String)request.getSession().getAttribute("id")).equals("admin")) productList = service.productList();
+		
+		model.addAttribute("productList",productList);
+	}
+	
+	// 모든 경매 정보
+	@RequestMapping(value = "/manageau",method = RequestMethod.GET)
+	public void manageauGET(HttpServletRequest request, Model model) throws Exception{
+		List aucionList = new ArrayList();
+		
+		if(((String)request.getSession().getAttribute("id")).equals("admin")) aucionList = service.auctionList();
+		
+		model.addAttribute("aucionList",aucionList);
+	}
+	
+	// 옥션 거래자 정보 상세보기
+	@RequestMapping(value = "/audetail",method = RequestMethod.GET)
+	public void audetailGET(Model model,@RequestParam("au_num") int au_num) throws Exception{
+		List audetail = service.audetail(au_num);
+		
+		model.addAttribute("audetail",audetail);
+		}
+	
+	// 모든 랜덤 정보
+	@RequestMapping(value = "/manageran",method = RequestMethod.GET)
+	public void manageranGET(HttpServletRequest request, Model model) throws Exception{
+		List randomList = new ArrayList();
+		
+		if(((String)request.getSession().getAttribute("id")).equals("admin")) randomList = service.randomList();
+		
+		model.addAttribute("randomList",randomList);
+	}
+	
+	// 랜덤 거래자 정보 상세보기
+	@RequestMapping(value = "/randetail",method = RequestMethod.GET)
+	public void randetailGET(Model model,@RequestParam("ran_num") int ran_num) throws Exception{
+		List randetail = service.randetail(ran_num);
+			
+		model.addAttribute("randetail",randetail);
+	}
+	
+	
+	
+	
+
+	//모든 상품정보 조회
+//	@RequestMapping(value = "/manageprod",method = RequestMethod.GET)
+//	public void manageprodGET(HttpServletRequest request, Model model) throws Exception {
+//		logger.info(" manageprodGET() 호출 (●'◡'●)(●'◡'●) ");
+//		
+//		List productList = new ArrayList();
+//		List aucionList = new ArrayList();
+//		List randomList = new ArrayList();
+//	
+//		if(((String)request.getSession().getAttribute("id")).equals("admin")) productList = service.productList();
+//		if(((String)request.getSession().getAttribute("id")).equals("admin")) aucionList = service.auctionList();
+//		if(((String)request.getSession().getAttribute("id")).equals("admin")) randomList = service.randomList();
+//		
+//		
+//		//logger.info(productList.toString());
+//		//view 페이지 전달
+//		model.addAttribute("productList",productList);
+//		model.addAttribute("aucionList",aucionList);
+//		model.addAttribute("randomList",randomList);
+//		
+//
+//	}
+	
 	
 	// 모든 문의사항(고객센터) 조회
-		@RequestMapping(value = "/managecs",method = RequestMethod.GET)
-		public void managecsGET(Model model,HttpServletRequest request,@RequestParam("num") int num,
+	@RequestMapping(value = "/managecs",method = RequestMethod.GET)
+	public void managecsGET(Model model,HttpServletRequest request,@RequestParam("num") int num,
 				@RequestParam(value = "searchType",required = false, defaultValue = "writer") String searchType,
 				@RequestParam(value = "keyword",required = false, defaultValue = "") String keyword)throws Exception{
 			
-			CPageDTO cdto = new CPageDTO();
-			cdto.setNum(num);
-			cdto.setCount(service.searCslist(searchType, keyword));
+		CPageDTO cdto = new CPageDTO();
+		cdto.setNum(num);
+		cdto.setCount(service.searCslist(searchType, keyword));
 			
-			// 검색
-			cdto.setSearchType(searchType);
-			cdto.setKeyword(keyword);
+		// 검색
+		cdto.setSearchType(searchType);
+		cdto.setKeyword(keyword);
 			
-			List csList = new ArrayList();
-			if(((String)request.getSession().getAttribute("id")).equals("admin")) csList = service.getCsList(cdto.getDisplayPost(), cdto.getPostNum(), searchType, keyword);
-			 
-			 int mcount = service.countMember();
-			 int procount = service.countProduct();
-			 int noticount = service.countNotice();
-			 int tradecount = service.countTrade();
-			 int cscount = service.countCs();
-			 
-			model.addAttribute("csList",csList);
-			model.addAttribute("cdto",cdto);
-			model.addAttribute("select",num);
+		List csList = new ArrayList();
+		if(((String)request.getSession().getAttribute("id")).equals("admin")) csList = service.getCsList(cdto.getDisplayPost(), cdto.getPostNum(), searchType, keyword);
+			 			 
+		model.addAttribute("csList",csList);
+		model.addAttribute("cdto",cdto);
+		model.addAttribute("select",num);
 			
-			model.addAttribute("mcount", mcount);
-			model.addAttribute("procount", procount);
-			model.addAttribute("noticount", noticount);
-			model.addAttribute("tradecount", tradecount);
-			model.addAttribute("cscount", cscount);
-		}
+	}
 	
 		// 모든 공지사항 조회
 		@RequestMapping(value = "/managenoti",method = RequestMethod.GET)
@@ -216,17 +253,6 @@ public class AdminController {
 			model.addAttribute("nodto",nodto);
 			model.addAttribute("select",num);
 			
-			int mcount = service.countMember();
-			int procount = service.countProduct();
-			int noticount = service.countNotice();
-			int tradecount = service.countTrade();
-			int cscount = service.countCs();
-			
-			model.addAttribute("mcount", mcount);
-			model.addAttribute("procount", procount);
-			model.addAttribute("noticount", noticount);
-			model.addAttribute("tradecount", tradecount);
-			model.addAttribute("cscount", cscount);
 		}
 	
 	
@@ -248,7 +274,7 @@ public class AdminController {
 		String imgUploadPath = uploadPath + File.separator + "imgUpload";
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 		String fileName = null;
-		String fileName2 = null;
+		String fileName2 = null;                                                                                                                                                               
 		String fileName3 = null;
 			
 		if(file != null) {
