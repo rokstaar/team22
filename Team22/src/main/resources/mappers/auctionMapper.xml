@@ -10,7 +10,7 @@
 		from auction
 		where au_status = 0
 		group by au_num
-		order by ${order} ${met}
+		order by ${order} ${met}, au_startPrice asc
 		limit #{pageStart},#{pageSize}
 		
 	</select>

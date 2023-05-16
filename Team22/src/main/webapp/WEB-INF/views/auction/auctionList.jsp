@@ -97,13 +97,13 @@
 											${best.au_title }</h1>
 											<p>기간 : ${best.au_endTime }<br>
 											시작가 : ${best.au_startPrice }<br>
-											현재 입찰금 : ${best.au_bidPrice }<br>
 											즉시 구매가 : ${best.au_endPrice }<br>
 											판매자 : ${best.au_sellerId }<br>
 											입찰수 : ${best.countA}<br> </p>
 											
 											<ul class="actions" style="text-align: center;">
-												<li class="button" id="time" style="text-align: center; width:230px"></li>
+												<li class="button" id="time" style="text-align: center; width:230px; margin-bottom:15px"></li>
+												<li class="button" style="text-align: center; width:230px">현재 입찰금 : ${best.au_bidPrice }</li>
 												<li><a href="/auction/aDetail?au_num=${best.au_num }" class="button">입찰하기</a></li>
 											</ul>
 											
@@ -147,15 +147,12 @@
 											<div class="content">
 												<h3>${aList.au_title }</h3>
 												<p>
-												<c:if test="${aList.au_bidPrice == 0 }">
-													현재 입찰가 : ${aList.au_startPrice }<br>
-												</c:if>
-												<c:if test="${aList.au_bidPrice != 0 }">
-													현재 입찰가 : ${aList.au_bidPrice }<br>
-												</c:if>
+												
+												시작 가격 : ${aList.au_startPrice}<br>
 												판매자 : ${aList.au_sellerId }<br>
 												입찰수 : ${aList.countA}<br>
 												종료시간 : ${aList.au_endTime }<br>
+												<a href="/auction/aDetail?au_num=${aList.au_num }" class="button">현재 입찰가 : ${aList.au_bidPrice }</a>
 												<a href="/auction/aDetail?au_num=${aList.au_num }" class="button">입찰하기</a></p>
 											</div>
 										</article>

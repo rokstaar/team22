@@ -145,7 +145,7 @@
 												<h3>${rList.ran_title }</h3>
 												<p>
 												응모금액 : ${rList.ran_bidPrice }<br>
-												응모가능 인원 : ${rList.ran_maxPp - rList.count }<br>
+												모집 인원 : ${rList.ran_maxPp }<br>
 												판매자 : ${rList.ran_sellerId }<br>
 												종료시간 : ${rList.ran_endTime }<br>
 												<a href="/random/rDetail?ran_num=${rList.ran_num }" class="button">응모하기</a></p>
@@ -156,27 +156,28 @@
 									</div>
 									<ul class="pagination" style="text-align: center;">
 										<c:if test="${pageDTO.prev == true }">
-											<li><a href="/auction/list?page=${pageDTO.cri.page - 1}" class="button">Prev</a></li>
+											<li><a href="/random/rList?page=${pageDTO.cri.page - 1}" class="button">Prev</a></li>
 										</c:if>
 										<c:if test="${pageDTO.prev == false }">
-											<li><a href="/auction/list?page=${pageDTO.cri.page - 1}" class="button disabled ">Prev</a></li>
+											<li><a href="/random/rList?page=${pageDTO.cri.page - 1}" class="button disabled ">Prev</a></li>
 										</c:if>
+										
 										<c:forEach begin="${pageDTO.startPage }" end="${pageDTO.endPage }" var="i">
 										
 											<c:if test="${pageDTO.cri.page == i}">
-												<li><a href="/auction/list?page=${i }" class="page active">${i }</a></li>
+												<li><a href="/random/rList?page=${i }" class="page active">${i }</a></li>
 											</c:if>
 											<c:if test="${pageDTO.cri.page != i}">
-												<li class="page"><a href="/auction/list?page=${i }">${i }</a></li>
+												<li class="page"><a href="/random/rList?page=${i }">${i }</a></li>
 											</c:if>
 											
 										</c:forEach>
 			
 										<c:if test="${pageDTO.next == true }">
-											<li><a href="/auction/list?page=${pageDTO.cri.page + 1 }" class="button">Next</a></li>
+											<li><a href="/random/rList?page=${pageDTO.cri.page + 1 }" class="button">Next</a></li>
 										</c:if>
 										<c:if test="${pageDTO.next == false }">
-											<li><a href="/auction/list?page=${pageDTO.cri.page + 1 }" class="button disabled">Next</a></li>
+											<li><a href="/random/rList?page=${pageDTO.cri.page + 1 }" class="button disabled">Next</a></li>
 										</c:if>
 									</ul>
 								</section>

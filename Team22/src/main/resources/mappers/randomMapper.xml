@@ -27,7 +27,7 @@
 		from (select * from random order by ran_maxPp desc limit #{pageStart},#{pageSize}) A
 		where A.ran_status = 0
 		group by A.ran_num
-		order by A.ran_num desc;
+		order by A.ran_num desc
 	</select>
 	
 	<select id="countRan" resultType="int">
