@@ -158,11 +158,10 @@ textarea{
 			</div>
 								  
 			<section>
-				<c:forEach var="vo" items="${buyList }">
 				<article>
 					<div class="shippingStatusContainer">
 						<table class="bbsList">
-							<c:if test="${vo.buy_mem_id eq sessionScope.id }">
+							<%-- <c:if test="${buyList.buy_mem_id eq id }"> --%>
 								<thead class="head">
 									<tr>
 										<th>상품</th>
@@ -173,7 +172,8 @@ textarea{
 									</tr>
 								</thead>
 								<tbody class="body">
-									<c:forEach var="vo" items="${buyList }">
+								<c:forEach var="vo" items="${buyList }">
+									 <tr>
 										<td><img src="/resources/images/${vo.product_pic.split(',')[0] }" 
 									        onerror="this.src='/resources/images/default_product.jpg'" width="80px" height="60px"></td>
 										<td>${vo.product_cate }</td>
@@ -216,17 +216,18 @@ textarea{
 													         	<input type="submit" id="submit" value="작성"> 
 				
 								             				</form> 
-								             		</div>
+								             		</div> 
 								             	</div>
+								             	<!-- 리뷰 모달 -->
 						        			</div>  
 										</td>
-									</c:forEach>
+									 </tr>
+									 </c:forEach>
 								</tbody>
-							</c:if>
+							<%-- </c:if> --%>
 						</table>
 					</div>
 				</article>
-			</c:forEach>
 		</section>
 	</div>
 	</div>

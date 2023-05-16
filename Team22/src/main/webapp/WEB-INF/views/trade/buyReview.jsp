@@ -141,16 +141,10 @@ textarea{
 			</div>
 			
 		<section>
-		<div class="review">
-			<c:if test="${empty buyReview }">
-				등록된 구매 후기가 없습니다.
-			</c:if>
-		</div>
-			<c:forEach var = "vo" items="${buyReview }">
 			<article>
 				<div class="shippingStatusContainer">
 					<table class="bbsList">
-						<c:if test="${vo.reviewer eq sessionScope.id }">
+						<%-- <c:if test="${vo.reviewer eq sessionScope.id }"> --%>
 							<thead class="head">
 								<tr>
 									<th>상품</th>
@@ -161,6 +155,7 @@ textarea{
 							</thead>
 							<tbody class="body">
 								<c:forEach var = "vo" items="${buyReview }">
+								<tr>
 									<td><img src="/resources/images/${vo.product_pic.split(',')[0] }" 
 							        onerror="this.src='/resources/images/default_product.jpg'" width="80px" height="60px">
 							 		<td>
@@ -182,13 +177,21 @@ textarea{
 										<button onclick="window.location.href='/trade/removeDelete?product_num=${vo.product_num}'">
 										 리뷰삭제</button>
 									</td>
+								</tr>
 								</c:forEach>
 							</tbody>
-						</c:if>
+						<%-- </c:if> --%>
 					</table>
+					
+					<div class="review">
+						<br>
+						<c:if test="${empty buyReview }">
+							등록된 구매 후기가 없습니다.
+						</c:if>
+					</div>
+						
 				</div>
 			</article>
-			</c:forEach>
 		</section>
 	</div>
 	</div>
