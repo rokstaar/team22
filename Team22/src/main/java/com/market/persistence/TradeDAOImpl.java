@@ -168,7 +168,29 @@ public class TradeDAOImpl implements TradeDAO{
 		return sqlSession.delete(NAMESPACE+".soldRanDelete",ran_num);
 	}
 
-	
+	@Override
+	public Integer sellProd(TradeVO vo) throws Exception {
+		return sqlSession.insert(NAMESPACE+".sellProd",vo);
+	}
+
+	@Override
+	public Integer productUpdate(Integer prod_num) throws Exception {
+		return sqlSession.update(NAMESPACE+".productUpdate",prod_num);
+	}
+
+	@Override
+	public TradeVO tradeInfo(Integer prod_num) throws Exception {
+		logger.info("dao@@@@@@"+prod_num);
+
+		return sqlSession.selectOne(NAMESPACE+".tradeInfo",prod_num);
+	}
+
+	@Override
+	public ProductVO getProductByNum(Integer prod_num) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+".getProductByNum",prod_num);
+	}
+
+		
 
 	
 	

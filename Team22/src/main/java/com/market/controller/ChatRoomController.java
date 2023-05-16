@@ -104,8 +104,8 @@ public class ChatRoomController {
     
     // 채팅방 목록에서 방 클릭시 채팅창 조회
     @RequestMapping(value = "/selectroom", method = RequestMethod.GET)
-    public String selectRoom(HttpSession session, Model model, ChatRoomVO crvo, 
-    						@RequestParam(value = "room_id") int room_id) {
+    public String selectRoom(HttpSession session, Model model, ChatRoomVO crvo,
+    			@RequestParam(value = "room_id") int room_id) {
     	
     	logger.info(" selectRoom() 실행 ");
     	
@@ -116,12 +116,23 @@ public class ChatRoomController {
     	
     	crvo.setRoom_id(room_id);
     	crvo.setBuyer(id);
-
+    	
+    	List<ChatRoomVO> prodList =  crservice.chatList(id);
     	List<ChatMessageVO> cmList = cmservice.searchChatDialog(room_id, id);
+    	
+    	for(int i=0; i<cmList.size(); i++) {
+    		for(int j=0; j<prodList.size(); j++) {
+    			if(cmList.get(i).getRoom_id() == prodList.get(j).getRoom_id()) {
+    				int a = prodList.get(j).getProduct_num();
+    				cmList.get(i).setProduct_num(a);
+    			}
+    		}
+    	}
+    	
     	model.addAttribute("selectChatting", cmList); 
     	model.addAttribute("ptitle", crservice.searchTitle(crvo.getRoom_id()));
     	model.addAttribute("room_id", room_id);
-
+    	model.addAttribute("prodList",crservice.chatList(id));
 		return "/chat/selectroom";
     }
     

@@ -164,14 +164,29 @@
 	
 	<div class="s_chat_home">
 	
+       	<c:set var="isFirst" value="true" />
        	<div class="s_room_part">
        		${ptitle }
-       		<button style="float: left">판매</button>
+       		<form action="/trade/sellProd" method="post">
+       		<input type="hidden" value="${ptitle }"name="product_title" >
+       		<c:set var="firstItem" value="${selectChatting }" />
+       		<input type="hidden" value="${selectChatting[0].seller_id}" name="sell_mem_id">
+       		<input type="hidden" value="${selectChatting[0].buyer_id}" name="buy_mem_id">
+       		<input type="hidden" value="${selectChatting[0].product_num}"name="prod_num" >
+       			<c:if test="${isFirst}">
+			  	<c:if test="${id eq selectChatting[0].seller_id }">
+			            <button class="sellProd" style="float: right; font-size:12px;">판매</button>
+			  	</c:if>
+			    <c:set var="isFirst" value="false" />
+	    	  </c:if>
+       		
+       		</form>
        	</div>
+       	
        	<div style="border: 1px solid lightgray; margin-bottom: 10px;"></div>
        	<div id="messageArea" class="s_scroll" style="height: 680px; overflow: auto; ">
        		<!-- 채팅 DB 저장한 것 뿌리기(로그인한 사람 이름과 채팅한 사람 이름이 다르면 수신/같으면 발신 -->
-			<c:forEach items="${selectChatting }" var="i" varStatus="status">
+			<c:forEach items="${selectChatting }" var="i" varStatus="status">	
   				<c:choose>
   					<%-- 채팅 작성자와 로그인한 사람과 같으면(발신) --%>
    					<c:when test="${id eq i.buyer_id}">
@@ -245,6 +260,42 @@
 
 <!-- 서브메뉴 눌렀을 때 -->
 <script>
+
+	//판매 확정
+/* $('.sellProd').on('click', function() {
+  if (confirm("판매를 하시겠습니까?")) {
+    alert("판매가 완료되었습니다.");
+    window.location.href = '/trade/soldProduct';
+  }else{
+	  return false;
+  }
+}); */
+
+$('.sellProd').on('click', function() {
+	  if (confirm("판매를 하시겠습니까?")) {
+	    $.ajax({
+	      url: '/sellProd',
+	      type: 'POST',
+	      success: function(response) {
+	        alert("판매가 완료되었습니다.");
+	        window.location.href = '/trade/soldProduct';
+	      },
+	      error: function(xhr, status, error) {
+	        console.log(error);
+	      }
+	    });
+	  } else {
+	    return false;
+	  }
+	});
+
+
+
+
+
+
+
+
 
 	//전송 버튼 눌렀을 때
 	$("#sendBtn").click(function() {

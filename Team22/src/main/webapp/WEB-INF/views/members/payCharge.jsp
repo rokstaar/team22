@@ -69,7 +69,6 @@
 		<article class="my-page">
 
 		 	<div class="card-body">
-	            <label class="box-radio-input"><input type="radio" name="cp_item" value="100"><span>100원</span></label>
 	            <label class="box-radio-input"><input type="radio" name="cp_item" value="5000"><span>5,000원</span></label>
 	            <label class="box-radio-input"><input type="radio" name="cp_item" value="10000"><span>10,000원</span></label>
 	            <label class="box-radio-input"><input type="radio" name="cp_item" value="50000"><span>50,000원</span></label>

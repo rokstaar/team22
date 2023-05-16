@@ -10,6 +10,7 @@ public class TradeVO {
 	private String sell_mem_id;
 	private String prod_sell_date;
 	private String type_div;
+	private String product_title;
 	private int prod_num;
 	private int au_num;
 	private int ran_num;

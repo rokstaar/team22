@@ -9,6 +9,7 @@ import com.market.domain.CustomerserviceVO;
 import com.market.domain.ProductVO;
 import com.market.domain.RandomVO;
 import com.market.domain.ReviewVO;
+import com.market.domain.TradeVO;
 
 public interface TradeService {
 
@@ -62,7 +63,12 @@ public interface TradeService {
 	
 	public Integer soldRanRemove(Integer ran_num) throws Exception;
 	
+	public Integer sellProd(TradeVO vo) throws Exception;
 	
+	public Integer productUpdate(Integer prod_num) throws Exception;
 	
+	public TradeVO tradeInfo(Integer prod_num) throws Exception;
+	
+	public ProductVO getProductByNum(Integer prod_num) throws Exception;
 	
 }

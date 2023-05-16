@@ -62,6 +62,14 @@ public interface TradeDAO {
 	public Integer soldAuDelete(Integer au_num) throws Exception;
 	// 응모 완료 상품 삭제
 	public Integer soldRanDelete(Integer ran_num) throws Exception;
+	// 판매완료
+	public Integer sellProd(TradeVO vo) throws Exception;
+	// 판매완료 수정
+	public Integer productUpdate(Integer prod_num) throws Exception;
+	// 판매완료 확인
+	public TradeVO tradeInfo(Integer prod_num) throws Exception;
+	// 판매된 상품인지 확인
+	public ProductVO getProductByNum(Integer prod_num) throws Exception;
 	
 	
 }

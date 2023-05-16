@@ -14,6 +14,7 @@ import com.market.domain.CustomerserviceVO;
 import com.market.domain.ProductVO;
 import com.market.domain.RandomVO;
 import com.market.domain.ReviewVO;
+import com.market.domain.TradeVO;
 import com.market.persistence.TradeDAO;
 
 @Service
@@ -157,6 +158,27 @@ public class TradeServiceImpl implements TradeService{
 	@Override
 	public Integer soldRanRemove(Integer ran_num) throws Exception {
 		return tdao.soldRanDelete(ran_num);
+	}
+
+	@Override
+	public Integer sellProd(TradeVO vo) throws Exception {
+		return tdao.sellProd(vo);
+	}
+
+	@Override
+	public Integer productUpdate(Integer prod_num) throws Exception {
+		return tdao.productUpdate(prod_num);
+	}
+
+	@Override
+	public TradeVO tradeInfo(Integer prod_num) throws Exception {
+		logger.info("service@@@@@@"+prod_num);
+		return tdao.tradeInfo(prod_num);
+	}
+
+	@Override
+	public ProductVO getProductByNum(Integer prod_num) throws Exception {
+		return tdao.getProductByNum(prod_num);
 	}
 
 
