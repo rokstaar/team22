@@ -41,50 +41,95 @@
 	    select count(member_num)
         from member	  
 	  </select>
-	<!-- 모든 회원 수(명) 조회  -->
+
 	
 	
+	<!-- 모든 상품구매내역 조회  -->
+	  <select id="buyprodList" resultType="map">
+	   select t.buy_mem_id, t.sell_mem_id, p.product_cate, p.product_title,p.product_price, p.product_num
+       from trade t join product p
+       on t.prod_num = p.product_num
+       where t.type_div = 'prod';	
+	  </select>
+	  
+	  <!-- 모든 옥션구매 내역 조회  -->
+       <select id="buyauList" resultType="map">
+         select * 
+         from trade 
+         where type_div = 'au';
+       </select>
+       
+      <!-- 모든 랜덤구매 내역 조회  -->
+       <select id="buyranList" resultType="map">
+         select * 
+         from trade 
+         where type_div = 'ran';
+       </select>
+     
+     <!-- 모든 옥션구매 내역 조회  -->
+	<!--   <select id="buyauList" resultType="map">
+	   select t.buy_mem_id, t.sell_mem_id, t.product_title, a.au_category, a.au_num, a.au_bidPrice
+       from trade t join auction a
+       on a.au_num = t.au_num
+       where t.type_div = 'au'
+	  </select>  -->
 	
+	<!-- 모든 랜덤구매내역 조회  -->
+	<!--  <select id="buyranList" resultType="map">
+	   select t.buy_mem_id, t.sell_mem_id, t.product_title, r.ran_bidPrice, r.ran_num
+       from trade t join random r
+       on t.ran_num = r.ran_num
+       where t.type_div = 'ran'
+	  </select> -->
+	
+		
 	
 	<!-- 모든 판매 상품 조회하기  -->
 	<select id="getProductList" resultType="ProductVO">
 		select * from product
+		where product_status = 0
 	</select>
+	 
+	<!-- 모든 경매 상품 조회  -->  
+	 <select id="getAuctionList" resultType="AuctionVO">
+	    select DISTINCT * from auction
+	    where au_status = 0
+	    group by au_num
+	 </select>
+	 
+	 <!-- 경매 상세페이지 -->
+	 <select id="audetail" resultType="AuctionVO">
+	   select *
+	   from auction
+	   where au_num = #{au_num}
+	   order by au_bidPrice desc
+	  </select>
+	 
+	<!-- 모든 랜덤 상품 조회  -->
+	  <select id="getRandomList" resultType="RandomVO">
+	    select DISTINCT * from random
+	    where ran_status = 0
+	    group by ran_num
+	  </select>
+	  
+	<!-- 랜덤 상세페이지 -->
+	 <select id="randetail" resultType="RandomVO">
+	   select *
+       from random
+       where ran_num = #{ran_num}
+       order by ran_bidPrice desc
+	  </select>
+	  
+	  
+	  
+	
 	
 	<!-- 모든 상품 개수 조회  -->
 	  <select id="countProduct" resultType="int">
 	    select count(product_num)
         from product
 	  </select>
-	  
-	<!-- 모든 경매 상품 조회  -->  
-	 <select id="getAuctionList" resultType="AuctionVO">
-	    select * from auction
-	 </select>
-	
-	<!-- 모든 랜덤 상품 조회  -->
-	  <select id="getRandomList" resultType="RandomVO">
-	    select * from random
-	  </select>
-	
-	
-	<!-- 모든 구매내역 조회  -->
-	  <select id="getbuyList" resultType="map">
-	   select t.buy_mem_id, t.sell_mem_id, p.product_cate, p.product_title,p.product_price
-       from trade t join product p
-       on t.prod_num = p.product_num
-       where t.t_div = 1;	  
-	  </select>
-	<!-- 모든 구매내역 조회  -->
-	
-	<!-- 모든 판매내역 조회  -->
-	  <select id="getsellList" resultType="map">
-	   select t.buy_mem_id, t.sell_mem_id, p.product_cate, p.product_title,p.product_price
-       from trade t join product p
-       on t.prod_num = p.product_num
-       where t.t_div = 2;	  
-	  </select>	
-	
+	  	
 	<!-- 모든 거래내역 수 조회  -->
 	<select id="countTrade" resultType="int">
 	  select count(t_num)
@@ -137,7 +182,7 @@
 	
 	<!--  공지사항 수 + 검색 -->
 	 <select id="searNotilist" parameterType="hashMap" resultType="int">
-	    select count(cs_num) from customerservice
+	    select count(noti_num) from notice
 	 <if test='searchType.equals("writer")'>
           where noti_title LIKE concat('%', #{keyword}, '%')
      </if> 

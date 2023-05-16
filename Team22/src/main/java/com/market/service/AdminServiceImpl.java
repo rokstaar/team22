@@ -40,22 +40,6 @@ public class AdminServiceImpl implements AdminService {
 		return adao.searMemlist(searchType, keyword);
 	}
 
-	@Override
-	public List<ProductVO> productList() throws Exception {
-		return adao.getProductList();
-	}
-	
-	@Override
-	public List<AuctionVO> auctionList() throws Exception {
-	
-		return adao.getAuctionList();
-	}
-
-	@Override
-	public List<RandomVO> randomList() throws Exception {
-		
-		return adao.getRandomList();
-	}
 
 	@Override
 	public void writeNotice(NoticeVO vo) throws Exception {
@@ -113,11 +97,6 @@ public class AdminServiceImpl implements AdminService {
 		return adao.countProduct();
 	}
 
-	@Override
-	public List<Map<String, Object>> getbuyprodList() throws Exception {
-		
-		return adao.getbuyprodList();
-	}
 
 	@Override
 	public List<Map<String, Object>> getsellprodList() throws Exception {
@@ -169,6 +148,58 @@ public class AdminServiceImpl implements AdminService {
 
 		return adao.getmem(member_num);
 	}
+
+	
+	@Override
+	public List<Map<String, Object>> buyprodList() throws Exception {
+		
+		return adao.buyprodList();
+	}
+
+	@Override
+	public List<Map<String, Object>> buyauList() throws Exception {
+	
+		return adao.buyauList();
+	}
+
+	@Override
+	public List<Map<String, Object>> buyranList() throws Exception {
+		
+		return adao.buyranList();
+	}
+
+	@Override
+	public List<ProductVO> productList() throws Exception {
+		return adao.getProductList();
+	}
+	
+	@Override
+	public List<AuctionVO> auctionList() throws Exception {
+	
+		return adao.getAuctionList();
+	}
+	
+	@Override
+	public List<AuctionVO> audetail(Integer au_num) throws Exception {
+
+		return adao.audetail(au_num);
+	}
+
+
+	@Override
+	public List<RandomVO> randomList() throws Exception {
+		
+		return adao.getRandomList();
+	}
+
+	@Override
+	public List<RandomVO> randetail(Integer ran_num) throws Exception {
+		
+		return adao.randetail(ran_num);
+	}
+
+	
+
 	
 	
 	

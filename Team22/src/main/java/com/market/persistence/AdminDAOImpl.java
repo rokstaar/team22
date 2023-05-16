@@ -56,26 +56,6 @@ public class AdminDAOImpl implements AdminDAO {
 		return sqlSession.selectOne(NAMESPACE+".searMemlist",smdate);
 	}
 
-	@Override
-	public List<ProductVO> getProductList() throws Exception {
-        List<ProductVO> productList = sqlSession.selectList(NAMESPACE+".getProductList");
-		
-        return productList;
-	}
-	
-	@Override
-	public List<AuctionVO> getAuctionList() throws Exception {
-		List<AuctionVO> auctionList = sqlSession.selectList(NAMESPACE+".getAuctionList");
-		
-		return auctionList;
-	}
-
-	@Override
-	public List<RandomVO> getRandomList() throws Exception {
-		List<RandomVO> randomList = sqlSession.selectList(NAMESPACE+".getRandomList");
-		
-		return randomList;
-	}
 
 	@Override
 	public void createNotice(NoticeVO vo) throws Exception {
@@ -154,11 +134,6 @@ public class AdminDAOImpl implements AdminDAO {
 		return sqlSession.selectOne(NAMESPACE+".countCs");
 	}
 
-	@Override
-	public List<Map<String, Object>> getbuyprodList() throws Exception {
-		
-		return sqlSession.selectList(NAMESPACE+".getbuyList");
-	}
 
 	@Override
 	public List<Map<String, Object>> getsellprodList() throws Exception {
@@ -226,8 +201,61 @@ public class AdminDAOImpl implements AdminDAO {
 	
 		return sqlSession.selectOne(NAMESPACE+".getmem",member_num);
 	}
+
 	
+	@Override
+	public List<Map<String, Object>> buyprodList() throws Exception {
+
+		return sqlSession.selectList(NAMESPACE+".buyprodList");
+	}
+
+	@Override
+	public List<Map<String, Object>> buyauList() throws Exception {
 	
+		return sqlSession.selectList(NAMESPACE+".buyauList");
+	}
+
+	@Override
+	public List<Map<String, Object>> buyranList() throws Exception {
+		
+		return sqlSession.selectList(NAMESPACE+".buyranList");
+	}
+	
+	@Override
+	public List<ProductVO> getProductList() throws Exception {
+        List<ProductVO> productList = sqlSession.selectList(NAMESPACE+".getProductList");
+		
+        return productList;
+	}
+	
+	@Override
+	public List<AuctionVO> getAuctionList() throws Exception {
+		List<AuctionVO> auctionList = sqlSession.selectList(NAMESPACE+".getAuctionList");
+		
+		return auctionList;
+	}
+	
+
+	@Override
+	public List<AuctionVO> audetail(Integer au_num) throws Exception {
+		List<AuctionVO> audetail = sqlSession.selectList(NAMESPACE+".audetail",au_num);
+		
+		return audetail;
+	}
+
+	@Override
+	public List<RandomVO> getRandomList() throws Exception {
+		List<RandomVO> randomList = sqlSession.selectList(NAMESPACE+".getRandomList");
+		
+		return randomList;
+	}
+
+	@Override
+	public List<RandomVO> randetail(Integer ran_num) throws Exception {
+		List<RandomVO> randetail = sqlSession.selectList(NAMESPACE+".randetail",ran_num);
+	
+		return randetail;
+	}
 	
 	
 
