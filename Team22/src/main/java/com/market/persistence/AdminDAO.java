@@ -39,19 +39,30 @@ public interface AdminDAO {
 	
 	
 	
-	// 모든 제품 정보
-	public List<ProductVO> getProductList() throws Exception;
+	// 판매 중 제품 정보
+    public List<ProductVO> getProductList() throws Exception;
+	
+	// 판매 중 제품 정보 + 페이징 + 검색
+	public List<ProductVO> ProductList(int displayPost, int postNum,
+                          String searchType, String keyword) throws Exception;
+	
+	// 판매 중 제품 검색 후 페이징
+	public int searprodlist(String searchType, String keyword) throws Exception;
+	
+	
+	
+	
 		
-	// 모든 경매 정보
+	// 판매 중 경매 정보
 	public List<AuctionVO> getAuctionList() throws Exception;
 	
-	// 모든 경매 상세정보
+	// 판매 중 경매 상세정보
 	public List<AuctionVO> audetail(Integer au_num) throws Exception;
 	
-	// 모든 랜덤 정보
+	// 판매 중 랜덤 정보
 	public List<RandomVO> getRandomList() throws Exception;
 	
-	// 랜덤 참가자 상세보기
+	// 판매 중 참가자 상세보기
 	public List<RandomVO> randetail(Integer ran_num) throws Exception;
 
 	

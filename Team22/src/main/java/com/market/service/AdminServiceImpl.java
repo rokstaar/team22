@@ -99,12 +99,6 @@ public class AdminServiceImpl implements AdminService {
 
 
 	@Override
-	public List<Map<String, Object>> getsellprodList() throws Exception {
-		
-		return adao.getsellprodList();
-	}
-
-	@Override
 	public int countTrade() throws Exception {
 		
 		return adao.countTrade();
@@ -168,10 +162,6 @@ public class AdminServiceImpl implements AdminService {
 		return adao.buyranList();
 	}
 
-	@Override
-	public List<ProductVO> productList() throws Exception {
-		return adao.getProductList();
-	}
 	
 	@Override
 	public List<AuctionVO> auctionList() throws Exception {
@@ -197,8 +187,26 @@ public class AdminServiceImpl implements AdminService {
 		
 		return adao.randetail(ran_num);
 	}
-
 	
+	@Override
+	public List<ProductVO> getproductList() throws Exception {
+		return adao.getProductList();
+	}
+
+	@Override
+	public List<ProductVO> ProductList(int displayPost, int postNum, String searchType, String keyword)
+			throws Exception {
+	
+		return adao.ProductList(displayPost, postNum, searchType, keyword);
+	}
+
+	@Override
+	public int searprodlist(String searchType, String keyword) throws Exception {
+	
+		return adao.searprodlist(searchType, keyword);
+	}
+
+
 
 	
 	

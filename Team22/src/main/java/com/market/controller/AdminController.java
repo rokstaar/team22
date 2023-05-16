@@ -57,7 +57,7 @@ public class AdminController {
 		model.addAttribute("noticount",noticount);
 		model.addAttribute("trcount",trcount);
 		
-		List productList = service.productList();
+		List productList = service.getproductList();
 		List aucionList = service.auctionList();
 		List randomList = service.randomList();
 		
@@ -137,13 +137,33 @@ public class AdminController {
 	
 	// 모든 상품 정보
 	@RequestMapping(value = "/manageprod",method = RequestMethod.GET)
-	public void manageprodGET(HttpServletRequest request, Model model) throws Exception{
-		List productList = new ArrayList();
+	public void manageprodGET(HttpServletRequest request, Model model,@RequestParam("num") int num,
+			 @RequestParam(value = "searchType",required = false, defaultValue = "id") String searchType,
+			 @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword) throws Exception{
+
+		CPageDTO pdto = new CPageDTO();
+		pdto.setNum(num);
+		pdto.setCount(service.searprodlist(searchType, keyword));
 		
-		if(((String)request.getSession().getAttribute("id")).equals("admin")) productList = service.productList();
+		// 검색
+		pdto.setKeyword(keyword);
+		pdto.setSearchType(searchType);
 		
-		model.addAttribute("productList",productList);
+		// 서비스 - 정보 가져오기
+		List prodList = new ArrayList();
+        if(((String)request.getSession().getAttribute("id")).equals("admin")) prodList = service.ProductList(pdto.getDisplayPost(), pdto.getPostNum(), searchType, keyword);
+        			
+        model.addAttribute("prodList",prodList);
+		model.addAttribute("pdto",pdto);
+		model.addAttribute("select",num);
+		
 	}
+	
+	
+	
+	
+	
+	
 	
 	// 모든 경매 정보
 	@RequestMapping(value = "/manageau",method = RequestMethod.GET)
