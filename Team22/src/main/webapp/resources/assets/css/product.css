@@ -454,6 +454,7 @@ textarea{
 
 .img-wrapper {
 /*   width: 420px; */ /* Set the desired fixed width */
+	min-width: 300px;
   height: 250px; /* Set the desired fixed height */
   overflow: hidden;
   display: flex;
