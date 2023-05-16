@@ -85,10 +85,42 @@
 		
 	
 	<!-- 모든 판매 상품 조회하기  -->
-	<select id="getProductList" resultType="ProductVO">
+	 <select id="getProductList" resultType="ProductVO">
 		select * from product
 		where product_status = 0
+	</select> 
+	
+	<!-- 모든 판매 상품 조회하기  -->
+	<select id="ProductList" parameterType="hashMap" resultType="ProductVO">
+		select * from product
+        where product_status = 0
+	 <if test='searchType.equals("id")'>
+       and product_seller LIKE concat('%', #{keyword}, '%')
+     </if>
+     <if test='searchType.equals("title")'>
+        and product_title LIKE concat('%', #{keyword}, '%')
+     </if>
+         
+	     limit #{displayPost}, #{postNum}		
 	</select>
+	
+	<!-- 모든 회원 수 + 검색적용 -->
+	<select id="searprodlist" parameterType="hashMap" resultType="int">
+	    select count(product_num) from product
+	    where product_status = 0
+	 <if test='searchType.equals("id")'>
+          and product_seller LIKE concat('%', #{keyword}, '%')
+     </if>
+     <if test='searchType.equals("email")'>
+          and product_title LIKE concat('%', #{keyword}, '%')
+     </if>
+	</select>
+	
+	
+	
+	
+	
+	
 	 
 	<!-- 모든 경매 상품 조회  -->  
 	 <select id="getAuctionList" resultType="AuctionVO">

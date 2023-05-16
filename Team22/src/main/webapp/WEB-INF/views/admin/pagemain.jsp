@@ -28,67 +28,58 @@
   text-align: center;
 }
 
-.my-page__profile {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  text-align: center;
-}
-
-.my-page-profile__image {
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  margin-bottom: 25px;
-}
-
-.my-page-profile__nickname {
-  display: block;
-  font-weight: 700;
-  font-size: 25px;
-  font-family: "Noto Sans KR", sans-serif;
-  margin-bottom: 10px;
-}
-
 .my-transaction-info {
-  margin-top: 24px;
+  /* margin-top: 24px;
   margin-right: 12px;
-  width: 23vw;
+  width: 23vw; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: "Noto Sans KR", sans-serif;
 }
 
 .my-transaction-info__list {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-  min-width: 260px;
+/*    display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
   list-style: none;
-}
+  min-width: 260px; */
+  
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-family: "Noto Sans KR", sans-serif;
+ 
+  }
 
 .my-transaction-info__title {
   font-weight: 700;
-  font-size: 15px;
+  font-size: 23px;
   display: inline-block;
   margin-bottom: 24px;
   font-variant: normal;
+  font-family: "Noto Sans KR", sans-serif;
   
 }
 
 .my-transaction-info__content {
   font-weight: 700;
-  font-size: 26px;
+  font-size: 30px;
   font-family: "Noto Sans KR", sans-serif;
 }
 
 .my-page__introduction {
-  margin-top: 26px;
+  margin-top: 10px;
   margin-bottom: 24px;
   font-size: 20px;
   min-height: 72px;
   max-height: 170px;
   text-align: center;
-	font-family: "Noto Sans KR", sans-serif;
-	border-bottom: 2px solid lightgray;
+  font-family: "Noto Sans KR", sans-serif;
+  border-bottom: 2px solid lightgray;
 }
 
 .my-page__edit-buttons {
@@ -98,14 +89,6 @@
   align-items: center;
 }
 
-/* .my-info-edit
- {
-  font-weight: 700;
-  font-size: 19px;
-  height: 57px;
-  border-radius: 5px;
-  cursor: pointer;
-} */
 
 .my-profile-edit:active,
 .my-info-edit:active {
@@ -189,54 +172,47 @@ font-family: "Noto Sans KR", sans-serif;
 									      <%@ include file="../include/adminmypage.jsp" %>
 
 						 <hr>
-		<article class="my-page">				 
-			<div class="my-page__profile">
-				<%-- <div clamypage main htmlss="my-page-profile">
-                	<img
-                  	src="/resources/images/default_my_profile.png"
-                 	 alt="프로필 사진"
-                  	class="my-page-profile__image"
-               		/>
-                	<span class="my-page-profile__nickname">${memberInfo.member_nickname }님</span>
-                </div> --%>
-
-
-             	 <div class="my-transaction-info">
-              	  <ul class="my-transaction-info__list">
+		 <article class="my-page">	
+		  <div class="my-page__profile" style="text-align: center;">			 
+     
+             	<div class="my-transaction-info" style="text-align: center;">
+              	 
+              	 
+              	  <ul class="my-transaction-info__list" style="text-align: center;">
                  	 <li class="my-transaction-info__item">
-                    	<span class="my-transaction-info__title">회원수</span>
+                    	<span class="my-transaction-info__title">현재회원 수 : </span> 
                     	<span class="my-transaction-info__content">${memcount}명</span>
                  	 </li>
+                 	 
 
                   	<li class="my-transaction-info-item">
-                    	<span class="my-transaction-info__title">거래수</span>
+                    	<span class="my-transaction-info__title">거래완료 수 : </span>
                     	<span class="my-transaction-info__content">${trcount }개</span>
                   	</li>
                   	
                   	<li class="my-transaction-info-item">
-                    	<span class="my-transaction-info__title">상품수</span>
+                    	<span class="my-transaction-info__title">현재 판매 중인 상품 : </span>
                     	<span class="my-transaction-info__content">${productList.size()+randomList.size()+aucionList.size()}개</span>
                   	</li>
                   		                 	
                   	<li class="my-transaction-info-item">
-                    	<span class="my-transaction-info__title">문의사항수</span>
+                    	<span class="my-transaction-info__title">문의사항 수 : </span>
                     	<span class="my-transaction-info__content">${cscount }개</span>
                   	</li>
                   	
                   	<li class="my-transaction-info-item">
-                    	<span class="my-transaction-info__title">공지사항수</span>
+                    	<span class="my-transaction-info__title">공지사항 수 : </span>
                     	<span class="my-transaction-info__content">${noticount }개</span>
                   	</li>
                	   </ul>
                	 </div>
-               	  
               </div>
 			
 			<div class="my-page__introduction">
-			안녕하세요. '관리자' 입니다!
+			   안녕하세요. '관리자' 입니다!
             </div>
 
-					</div>  
+			
 				</div>	   
            </div>
 		</div>

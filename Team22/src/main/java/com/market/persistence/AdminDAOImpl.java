@@ -220,14 +220,7 @@ public class AdminDAOImpl implements AdminDAO {
 		
 		return sqlSession.selectList(NAMESPACE+".buyranList");
 	}
-	
-	@Override
-	public List<ProductVO> getProductList() throws Exception {
-        List<ProductVO> productList = sqlSession.selectList(NAMESPACE+".getProductList");
-		
-        return productList;
-	}
-	
+
 	@Override
 	public List<AuctionVO> getAuctionList() throws Exception {
 		List<AuctionVO> auctionList = sqlSession.selectList(NAMESPACE+".getAuctionList");
@@ -256,6 +249,42 @@ public class AdminDAOImpl implements AdminDAO {
 	
 		return randetail;
 	}
+
+	
+
+	@Override
+	public List<ProductVO> getProductList() throws Exception {
+        List<ProductVO> getproductList = sqlSession.selectList(NAMESPACE+".getProductList");
+		
+        return getproductList;
+	}
+	
+	
+	@Override
+	public List<ProductVO> ProductList(int displayPost, int postNum, String searchType, String keyword)
+			                            throws Exception {
+		
+		 HashMap<String, Object> pldate = new HashMap<String, Object>();
+		 
+		 pldate.put("displayPost", displayPost);
+		 pldate.put("postNum", postNum);
+		
+		 pldate.put("searchType", searchType);
+		 pldate.put("keyword", keyword);
+
+		return sqlSession.selectList(NAMESPACE+".ProductList",pldate);
+	}
+
+	@Override
+	public int searprodlist(String searchType, String keyword) throws Exception {
+		  HashMap<String, Object> spdate = new HashMap<String, Object>();
+		
+		  spdate.put("keyword", keyword);
+		  spdate.put("searchType", searchType);
+		
+		  return sqlSession.selectOne(NAMESPACE+".searprodlist",spdate);
+	}
+	
 	
 	
 

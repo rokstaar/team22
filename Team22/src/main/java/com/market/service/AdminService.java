@@ -36,11 +36,7 @@ public interface AdminService {
 			
 	// 모든 랜덤구매내역 조회
 	public List<Map<String,Object>> buyranList() throws Exception;
-		
-		
-	// 모든 판매내역 조회
-	public List<Map<String, Object>> getsellprodList() throws Exception;
-		
+				
 	// 총 거래내역 수
 	public int countTrade() throws Exception;
 	
@@ -50,7 +46,16 @@ public interface AdminService {
 	
 	
 	// 모든 판매 제품 정보
-	public List<ProductVO> productList() throws Exception;
+	public List<ProductVO> getproductList() throws Exception;
+	
+	// 판매 중 제품 정보 + 페이징 + 검색
+	public List<ProductVO> ProductList(int displayPost, int postNum,
+	                          String searchType, String keyword) throws Exception;
+		
+	// 판매 중 제품 검색 후 페이징
+	public int searprodlist(String searchType, String keyword) throws Exception;
+	
+	
 	
 	// 모든 경매제품 정보
 	public List<AuctionVO> auctionList() throws Exception;
