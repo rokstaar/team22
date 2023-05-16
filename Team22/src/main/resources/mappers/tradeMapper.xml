@@ -221,10 +221,10 @@
 	p.product_pic,p.product_status,p.product_price
 	from trade t join product p
 	on t.prod_num = p.product_num
-	where t.sell_mem_id = #{id} and p.product_status = 1;
+	where t.sell_mem_id = #{id};
 	</select>
 	<!-- 내가 판매한 상품 목록 -->
-	
+	<!--  and p.product_status = 1 -->
 	
 	<!-- 내가 판매한 경매 목록 -->
 	<select id="getSoldAuction" resultType="map">
@@ -232,20 +232,41 @@
 	a.au_pic,a.au_status,a.au_endPrice,a.au_endTime
 	from trade t join auction a
 	on t.au_num = a.au_num 
-	where t.sell_mem_id = #{id} and a.au_status = 1;
+	where t.sell_mem_id = #{id};
 	</select>
 	<!-- 내가 판매한 경매 목록 -->
+	<!-- and a.au_status = 2  -->
 	
 	<!-- 내가 판매한 응모 목록 -->
 	<select id="getSoldRandom" resultType="map">
 	select distinct t.t_num, t.buy_mem_id, t.sell_mem_id, t.ran_num, t.prod_sell_date, t.type_div, t.product_title,
 	r.ran_price, r.ran_maxPp, r.ran_bidPrice,r.ran_pic
 	from trade t join random r
-	on t.ran_num = r.ran_num and t.buy_mem_id = ran_buyerId
-	where t.sell_mem_id = #{id} and r.ran_status=1;
+	on t.ran_num = r.ran_num and t.buy_mem_id = r.ran_buyerId
+	where t.sell_mem_id = #{id};
 	</select>
 	<!-- 내가 판매한 응모 목록 -->
+	<!-- and r.ran_status = 3  -->
+	<!--  경매완료 상품 삭제 -->
+		<delete id ="soldAuDelete">
+			  DELETE FROM auction
+  			  WHERE au_num = #{au_num};
+		</delete>
+	<!--  경매완료 상품 삭제 -->
 	
+	<!-- 판매완료 상품 삭제 -->
+		<delete id ="soldProdDelete">
+			  DELETE FROM product
+  			  WHERE product_num = #{product_num};
+		</delete>
+	<!-- 판매완료 상품 삭제 -->
+	
+	<!-- 응모완료 상품 삭제 -->
+		<delete id ="soldRanDelete">
+			  DELETE FROM random
+  			  WHERE ran_num = #{ran_num};
+		</delete>
+	<!-- 응모완료 상품 삭제 -->
 	
 	
 </mapper>
