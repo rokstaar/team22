@@ -74,15 +74,22 @@
     </select>
     
     <!-- 회원수정 -->
-    <update id="memberInfoUpdate" parameterType="com.market.domain.MemberVO"> 
-    	update member
-    	<set> member_pass = #{member_pass}, member_phone = #{member_phone}, member_nickname = #{member_nickname}, member_email = #{member_email},
-    	member_address = #{member_address},member_address2 =#{member_address2},member_address3 =#{member_address3}, 
-    	<if test="member_pic != null">member_pic = #{member_pic}</if>
-    	</set>
-    	where member_id = #{member_id} and member_num = #{member_num}
-    
-    </update>
+	  <update id="memberInfoUpdate" parameterType="com.market.domain.MemberVO">
+	  update member
+	  <set>
+	    member_pass = #{member_pass},
+	    member_phone = #{member_phone},
+	    member_nickname = #{member_nickname},
+	    member_email = #{member_email},
+	    member_address = #{member_address},
+	    member_address2 = #{member_address2},
+	    member_address3 = #{member_address3}
+	    <if test="member_pic != null">
+	      , member_pic = #{member_pic}
+	    </if>
+	  </set>
+	  where member_id = #{member_id} and member_num = #{member_num}
+	</update>
     <!-- 회원수정 -->
     
     <delete id="deleteMemPic" parameterType="String">

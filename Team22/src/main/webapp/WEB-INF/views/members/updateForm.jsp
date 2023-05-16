@@ -361,23 +361,28 @@ function exePost() {
 						alt = "프로필 사진 " onerror="this.src='/resources/images/default_my_profile.png'">
 						
 					<div class="form-input-box">
-						<input type="file"  id="pImg" name="file" class="form-control form-margin-top" required> 
+						<input type="file"  id="pImg" name="file" value="${memberInfo.member_pic }" > 
 					</div>
 						
-						<div class="select_img"><img src="" /></div>
-							<script>
-							  $("#pImg").change(function(){
-							   if(this.files && this.files[0]) {
-							    var reader = new FileReader;
-							    reader.onload = function(data) {
-							     $(".select_img img").attr("src", data.target.result).width(150);        
-							    }
-							    reader.readAsDataURL(this.files[0]);
-							   }
-							  });
-							 </script>
+						<div class="select_img">
+						<img src="" />
+					</div>
+					
+					<script>
+						$("#pImg").change(function() {
+							if (this.files && this.files[0]) {
+								var reader = new FileReader();
+								reader.onload = function(data) {
+									$(".select_img img").attr("src", data.target.result).width(150);
+								}
+								reader.readAsDataURL(this.files[0]);
+							} else {
+								$(".select_img img").attr("src", "/resources/images/default_my_profile.png").width(150);
+							}
+						});
+					</script>
+
 								<%-- <%=request.getRealPath("/") %> --%>
-							<input type="hidden" name="member_pic" value="${memberInfo.member_pic }">
 				</div>
 									
 				<div class="form-label-group">

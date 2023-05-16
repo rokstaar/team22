@@ -325,9 +325,7 @@ $(document).ready(function(){
 				<div class="form-label-group">
 					<label for="member_pic">이미지</label>
 					<div class="form-input-box">
-						<img alt="" src="${memberInfo.member_pic }">
-						<input type="hidden" name="member_pic" value="${memberInfo.member_pic }">
-						<input type="file"  id="name" name="file" class="form-control form-margin-top" value="${memberInfo.member_name }" required>				
+					<input type="file" class="form-control" name=file id="image">
 					</div>
 				</div>
 												

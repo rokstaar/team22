@@ -276,7 +276,7 @@ public class MembersController {
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 		String fileName = null;
 
-		if(file != null) {
+		if(file != null  && !file.isEmpty()) {
 		 fileName =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
 		} else {
 		 fileName = uploadPath + File.separator + "images" + File.separator + "none.png";
@@ -349,27 +349,39 @@ public class MembersController {
     	
     	
     	logger.info("@@@@@@@@@@@@@@memberUpdate"+vo);
-    	File convFile = new File(file.getOriginalFilename());
-    	file.transferTo(convFile);
+		/*
+		 * File convFile = new File(file.getOriginalFilename());
+		 * file.transferTo(convFile);
+		 * 
+		 * if(file.getOriginalFilename() != null&& !file.isEmpty()) { new
+		 * File(uploadPath + req.getParameter("member_pic")).delete();
+		 * 
+		 * String imgUploadPath = uploadPath + File.separator + "imgUpload"; String
+		 * ymdPath = UploadFileUtils.calcPath(imgUploadPath); String fileName =
+		 * UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(),
+		 * file.getBytes(), ymdPath);
+		 * 
+		 * vo.setMember_pic(File.separator + "imgUpload" + ymdPath + File.separator +
+		 * fileName);
+		 * 
+		 * } else {
+		 * 
+		 * vo.setMember_pic(req.getParameter("member_pic"));
+		 * 
+		 * }
+		 */
+    	String imgUploadPath = uploadPath + File.separator + "imgUpload";
+		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+		String fileName = null;
 
-    	
-    	 // �깉濡쒖슫 �뙆�씪�씠 �벑濡앸릺�뿀�뒗吏� �솗�씤
-    	 if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
-    	  // 湲곗〈 �뙆�씪�쓣 �궘�젣
-    	  new File(uploadPath + req.getParameter("member_pic")).delete();
-    	  
-    	  // �깉濡� 泥⑤��븳 �뙆�씪�쓣 �벑濡�
-    	  String imgUploadPath = uploadPath + File.separator + "imgUpload";
-    	  String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
-    	  String fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
-    	  
-    	  vo.setMember_pic(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
+		if(file != null  && !file.isEmpty()) {
+		 fileName =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+		} else {
+		 fileName = uploadPath + File.separator + "images" + File.separator + "none.png";
+		}
 
-    	 } else {  // �깉濡쒖슫 �뙆�씪�씠 �벑濡앸릺吏� �븡�븯�떎硫�
-    	  // 湲곗〈 �씠誘몄�瑜� 洹몃�濡� �궗�슜
-    	  vo.setMember_pic(req.getParameter("member_pic"));
-    	  
-    	 }
+		vo.setMember_pic(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
+		rttr.addFlashAttribute("result","O");
     	 
     	 rttr.addFlashAttribute("update","update");
     	 service.memberInfoUpdate(vo);
