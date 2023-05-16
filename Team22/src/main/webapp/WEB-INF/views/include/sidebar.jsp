@@ -251,32 +251,17 @@ div{
 										<h2>Menu</h2>
 									</header>
 									<ul>
-										<li><a href="/main">Homepage</a></li>
-										<li><a href="generic.html">Generic</a></li>
-										<li><a href="elements.html">Elements</a></li>
-										<li>
-											<span class="opener">Submenu</span>
-											<ul>
-												<li><a href="#">Lorem Dolor</a></li>
-												<li><a href="#">Ipsum Adipiscing</a></li>
-												<li><a href="#">Tempus Magna</a></li>
-												<li><a href="#">Feugiat Veroeros</a></li>
-											</ul>
-										</li>
-										<li><a href="#">Etiam Dolore</a></li>
-										<li><a href="#">Adipiscing</a></li>
-										<li>
-											<span class="opener">Another Submenu</span>
-											<ul>
-												<li><a href="#">Lorem Dolor</a></li>
-												<li><a href="#">Ipsum Adipiscing</a></li>
-												<li><a href="#">Tempus Magna</a></li>
-												<li><a href="#">Feugiat Veroeros</a></li>
-											</ul>
-										</li>
-										<li><a href="#">Maximus Erat</a></li>
-										<li><a href="#">Sapien Mauris</a></li>
-										<li><a href="#">Amet Lacinia</a></li>
+										<li><a href="/product/prodList?category=의류">의류</a></li>
+										<li><a href="/product/prodList?category=가전제품">가전제품</a></li>
+										<li><a href="/product/prodList?category=식기,가구">식기,가구</a></li>
+										<li><a href="/product/prodList?category=디지털,전자기기">디지털,전자기기</a></li>
+										<li><a href="/product/prodList?category=식품,생필품">식품,생필품</a></li>
+										<li><a href="/product/prodList?category=스포츠,건강">스포츠,건강</a></li>
+										<li><a href="/product/prodList?category=기기,공구">기기,공구</a></li>
+										<li><a href="/product/prodList?category=도서,쿠폰">도서,쿠폰</a></li>
+										<li><a href="/product/prodList?category=유아">유아</a></li>
+										<li><a href="/product/prodList?category=애완동물">애완동물</a></li>
+										<li><a href="/product/prodList?category=기타">기타</a></li>
 									</ul>
 								</nav>
 
