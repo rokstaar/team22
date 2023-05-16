@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +21,7 @@ import com.market.domain.AuctionVO;
 import com.market.domain.ProductVO;
 import com.market.domain.RandomVO;
 import com.market.domain.ReviewVO;
+import com.market.domain.TradeVO;
 import com.market.service.TradeService;
 
 @Controller
@@ -296,7 +298,7 @@ public class TradeController {
 	}
 	// 판매 완료된 상품 삭제
 	@RequestMapping(value = "/soldProdRemove", method = RequestMethod.POST)
-	public String soldProductPOST(@ModelAttribute("prod_num") int prod_num,
+	public String soldProductPOST(@ModelAttribute("prod_num") Integer prod_num,
 			RedirectAttributes rttr)throws Exception{
 		logger.info("@@@@@@@@soldPRODREMOVE_num"+prod_num);
 		
@@ -332,5 +334,17 @@ public class TradeController {
 		return "redirect:/trade/soldAuction";
 	}
 	
+	// 판매 확정
+	@RequestMapping(value = "/sellProd",method = RequestMethod.POST)
+	public String sellProdPOST(HttpSession session,TradeVO vo,
+							 @RequestParam("prod_num")int prod_num, Model model)throws Exception {
+		
+		logger.info("@@@@@@@@@@@@@@@@@@@@"+vo);
+		
+		service.sellProd(vo);
+		service.productUpdate(prod_num);
+		
+		return "redirect:/trade/soldProduct";
+	}
 	
 }
