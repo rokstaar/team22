@@ -15,7 +15,7 @@
 <style type="text/css">
 
 #sidebar.force-inactive{
-	margin-left: -24em;
+	margin-left: -26em;
 }
 
 body{
@@ -251,7 +251,7 @@ div{
 										<h2>Menu</h2>
 									</header>
 									<ul>
-										<li><a href="index.html">Homepage</a></li>
+										<li><a href="/main">Homepage</a></li>
 										<li><a href="generic.html">Generic</a></li>
 										<li><a href="elements.html">Elements</a></li>
 										<li>
