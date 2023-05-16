@@ -32,6 +32,11 @@
 				img.src = '/resources/images/default_product.jpg';
 				img.alt = "사진이 없습니다";
 			}
+			function imgerrP(img){
+				img.onerror = null;
+				img.src = '/resources/images/default_my_profile.png';
+				img.alt = "사진이 없습니다";
+			}
 			
 			function changeMainImage(thumbnail) {
 				const mainImage = document.getElementById('main-image');
@@ -93,8 +98,7 @@
 			<div class="space-between">
 				<div>
 					<div class="div-img" style="width:200px;">
-						<img src="/resources/images/${info.member_pic }" onerror="imgerr(this)">
-						<!-- <img src="/product/download?fileName=${info.member_pic }" onerror="imgerr(this)"> -->
+						<img src="/resources/images/${info.member_pic }" onerror="imgerrP(this)">
 					</div>
 						<div class="profile">
 							${info.member_nickname }
