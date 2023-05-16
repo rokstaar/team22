@@ -142,12 +142,12 @@ textarea{
 			</div>    
 						
 			<section>
-			<div class="review">
+			<%-- <div class="review">
 				<c:if test="${empty tSellReview }">
 					등록된 판매 후기가 없습니다.
 				</c:if>
-			</div>
-				<c:forEach var = "vo" items="${tSellReview }">
+			</div> --%>
+
 				<article>
 					<div class="shippingStatusContainer">
 						<table class="bbsList">
@@ -161,6 +161,7 @@ textarea{
 							</thead>
 							<tbody class="body">
 								<c:forEach var = "vo" items="${tSellReview }">
+									<tr>
 									<td><img src="/resources/images/${vo.product_pic.split(',')[0] }" 
 								        onerror="this.src='/resources/images/default_product.jpg'" width="80px" height="60px">
 									</td>
@@ -176,13 +177,18 @@ textarea{
 									<td>
 										${vo.member_nickname}
 									</td>
+									</tr>
 								</c:forEach>
-							</tbody>
-							
-						
+							</tbody>						
 						</table>
-							
-							
+						
+						<div class="review">
+							<br>
+							<c:if test="${empty tSellReview }">
+								등록된 판매 후기가 없습니다.
+							</c:if>
+						</div>
+									
 							
      					<%-- 	<div class="item">
 						        <div>
@@ -209,7 +215,6 @@ textarea{
  --%>
 				</div>
 			</article>
-			</c:forEach>
 		</section>
 	</div>
 	</div>

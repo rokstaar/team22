@@ -158,12 +158,11 @@ textarea{
 			</div>
 								  
 			<section>
-				<c:forEach var="vo" items="${myBuyRandom }">
-					<article>
+				<article>
 					
 					<div class="shippingStatusContainer">
 						<table class="bbsList">
-							<c:if test="${vo.buy_mem_id eq sessionScope.id }">
+							<%-- <c:if test="${vo.buy_mem_id eq sessionScope.id }"> --%>
 								<thead class="head">
 									<tr>
 										<th>상품</th>
@@ -221,11 +220,10 @@ textarea{
 										</td>
 									</c:forEach>
 								</tbody>
-							</c:if>
+							<%-- </c:if> --%>
 						</table>
 					</div>
 				</article>
-			</c:forEach>
 		</section>
 	</div>
 	</div>

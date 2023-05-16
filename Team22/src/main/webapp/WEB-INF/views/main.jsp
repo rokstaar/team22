@@ -16,7 +16,7 @@
 
 <html>
 	<head>
-		<title>잊지 마! 있지마켓</title>
+		<title>잊지마! 있지마켓</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -226,42 +226,42 @@
 
 
 		<!-- Wrapper -->
-			<div id="wrapper">
+		<div id="wrapper">
 
 				<!-- Main -->
-					<div id="main">
-						<div class="inner">
+				<div id="main">
+					<div class="inner">
 
-							<!-- Header -->
-				<header id="header">
-					<a href="/main" class="logo">
-						<!-- 로고 이미지 넣을거임 -->
-						<strong>있지마켓</strong>
-					</a>
-					<ul class="icons" style="width: 117px;
+						<!-- Header -->
+						<header id="header">
+						<a href="/main" class="logo">
+							<!-- 로고 이미지 넣을거임 -->
+							<strong>있지마켓</strong>
+						</a>
+						<ul class="icons" style="width: 117px;
 											  height: 40px;
 											  display: inline-block;
 											  list-style: none; /* 기본 목록 마커를 제거합니다. */
 											  padding: 0;
 											  margin: 0;">
 							
-						<li><div class="select-container" >
-																  
-							<select name="type" id="category-select" class="select_filter" style="background: #f8f9fa!important;">
-								<option value="product_title">일반상품</option>
-								<option value="au_title">경매상품</option>
-								<option value="ran_title">응모상품</option>
-							</select>
-						</div>
-						</li>
+							<li>
+							<div class="select-container" >										  
+								<select name="type" id="category-select" class="select_filter" style="background: #f8f9fa!important;">
+									<option value="product_title">일반상품</option>
+									<option value="au_title">경매상품</option>
+									<option value="ran_title">응모상품</option>
+								</select>
+							</div>
+							</li>
 						
-						<li>
-						
-						<section id="search" class="alt">
-									<form method="get" action="#">
-										<input type="text" name="search" placeholder="검색할 단어입력" style="background: #f8f9fa!important;"/>
-									</form>
-						</section></li>	
+							<li>
+							<section id="search" class="alt">
+								<form method="get" action="#">
+									<input type="text" name="search" placeholder="검색할 단어입력" style="background: #f8f9fa!important;"/>
+								</form>
+							</section>
+							</li>	
 						
 						<c:if test="${id == null }">
 							<li><a href="/members/login"><span class="label">로그인</span></a></li>
@@ -284,7 +284,7 @@
 						
 						<c:if test="${id != null && id ==('admin')}">
 							<li><a href="/members/logout"><span class="label">로그아웃</span></a></li>
-							<li><a href="/admin/pagemain"><span class="label">관리자</span></a></li>
+							<li><a href="/admin/adminPage"><span class="label">관리자</span></a></li>
 						</c:if>
 			
 					</ul>
@@ -292,15 +292,16 @@
 
 							<!-- Banner -->
 								<section id="banner">
-									<div class="content">
+									<div class="content" style="margin-top:100px;">
 										<header>
-											<h1>Hi, I’m Editorial<br />
-											by HTML5 UP</h1>
-											<p>A free and fully responsive site template</p>
+											<div class="main_mar">잊지마!<br>
+											모든게 다 있는</div>
+											<div class="main_market">있지마켓</div>
+											<!-- <p>A free and fully responsive site template</p> -->
 										</header>
-										<p>Ut magna finibus nisi nec lacinia. Nam maximus erat id euismod egestas. Pellentesque sapien ac quam. Lorem ipsum dolor sit nullam.</p>
+
 										<ul class="actions">
-											<li><a href="/product/prodList" class="button big">상품 리스트가기</a></li>
+											<li><a href="/product/prodList" class="button big">상품 보러가기</a></li>
 										</ul>
 									</div>
 									<span class="image object">
@@ -314,7 +315,7 @@
 									<header class="major">
 										<h2><a href="/product/prodList">Product</a></h2>
 									</header>
-									<input id="nextP" type="image" src="../resources/images/arrow-gd458d23cd_640.png" style="margin-right:10px; float:right; width:30px; heigth:30px">
+									<input id="nextP" type="image" src="../resources/images/free-icon-next-8066267.png" style="float:right; width:50px; margin-right: 25px;">
 									<div class="posts">
 										
 										<c:forEach begin="0" end="${pList.size()-1 }" var="i">
@@ -349,7 +350,7 @@
 									</header>
 									
 									
-									<input id="nextA" type="image" src="../resources/images/arrow-gd458d23cd_640.png" style="margin-right:10px; float:right; width:30px; heigth:30px">
+									<input id="nextP" type="image" src="../resources/images/free-icon-next-8066267.png" style="float:right; width:50px; margin-right: 25px;">
 									
 									
 									<div class="posts">
@@ -379,7 +380,7 @@
 									<header class="major">
 										<h2><a href="/random/rList">Random</a></h2>
 									</header>
-									<input id="nextR" type="image" src="../resources/images/arrow-gd458d23cd_640.png" style="margin-right:10px; float:right; width:30px; heigth:30px">
+									<input id="nextP" type="image" src="../resources/images/free-icon-next-8066267.png" style="float:right; width:50px; margin-right: 25px;">
 									<div class="posts">
 										<c:forEach begin="0" end="${rList.size()-1 }" var="k">
 										<c:if test="${k < 3 }">
