@@ -257,7 +257,7 @@
 	<!-- 판매완료 상품 삭제 -->
 		<delete id ="soldProdDelete">
 			  DELETE FROM product
-  			  WHERE product_num = #{product_num};
+  			  WHERE product_num = #{prod_num};
 		</delete>
 	<!-- 판매완료 상품 삭제 -->
 	
@@ -267,6 +267,35 @@
   			  WHERE ran_num = #{ran_num};
 		</delete>
 	<!-- 응모완료 상품 삭제 -->
+	<!-- 판매확정 -->
+	<insert id="sellProd">
+		insert into trade (buy_mem_id,sell_mem_id,type_div,product_title,prod_num)
+			values (#{buy_mem_id},#{sell_mem_id},'prod',#{product_title},#{prod_num});
+	</insert>
+	<!-- 판매확정 -->
 	
+	<!-- 판매완료 확정 -->
+	<update id="productUpdate">
+	update product
+	set product_status = 1
+	where product_num = #{prod_num} 
+	</update>
+	<!-- 판매완료 확정 -->
+	
+	<!-- 판매완료 확인  -->
+		<select id="tradeInfo" resultType="com.market.domain.TradeVO">
+			select *
+			from trade
+			where prod_num = #{prod_num}
+		</select>
+	<!-- 판매완료 확인  -->
+	
+	<!-- 판매 된 상품인지 체크  -->
+	    <select id="getProductByNum" resultType="com.market.domain.ProductVO" >
+        SELECT *
+        FROM product
+        WHERE product_num = #{product_num}
+  	  </select>
+	<!-- 판매 된 상품인지 체크  -->
 	
 </mapper>

@@ -172,7 +172,8 @@ font-family: "Noto Sans KR", sans-serif;
 			<div class="my-page__profile">
 				<div class="my-page-profile">
                 	<img
-                  	src="/resources/images/default_my_profile.png"
+                  	src="${memberInfo.member_pic }"
+                  	onerror="/resources/images/default_my_profile.png"
                  	 alt="프로필 사진"
                   	class="my-page-profile__image"
                		/>
@@ -190,7 +191,8 @@ font-family: "Noto Sans KR", sans-serif;
 
                   	<li class="my-transaction-info-item">
                     	<span class="my-transaction-info__title">페이</span>
-                    	<span class="my-transaction-info__content">${memberInfo.member_pay }원</span>
+                    	
+                    	<span class="my-transaction-info__content"><fmt:formatNumber value="${memberInfo.member_pay }" pattern="#,###" />원</span>
                   	</li>
 
                   	<li class="my-transaction-info-item">

@@ -33,7 +33,7 @@
 			
 			<div class="info">
 				<button class="button" 
-						onclick="location.href='/trade/mySaleProduct?product'">일반</button>
+						onclick="location.href='/trade/mySaleProduct'">일반</button>
 				<button class="button" 
 						onclick="location.href='/trade/mySaleAuction'">경매</button>
 				<button class="button" 
