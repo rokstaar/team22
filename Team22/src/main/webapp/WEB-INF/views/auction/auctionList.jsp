@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE HTML>
 <!--
 	Editorial by HTML5 UP
@@ -95,15 +96,16 @@
 										<header style="text-align: center;">
 											<h1>인기 상품<br/>
 											${best.au_title }</h1>
-											<p>기간 : ${best.au_endTime }<br>
-											시작가 : ${best.au_startPrice }<br>
-											즉시 구매가 : ${best.au_endPrice }<br>
+											<p>
+											기간 : ${best.au_endTime }<br>
+											<f:formatNumber value="${best.au_startPrice }" pattern="#,###" var="startPrice"/>
+											시작가 : ${startPrice }<br>
 											판매자 : ${best.au_sellerId }<br>
-											입찰수 : ${best.countA}<br> </p>
-											
+											</p>
+											<f:formatNumber value="${best.au_bidPrice }" pattern="#,###" var="bestPrice"/>
 											<ul class="actions" style="text-align: center;">
 												<li class="button" id="time" style="text-align: center; width:230px; margin-bottom:15px"></li>
-												<li class="button" style="text-align: center; width:230px">현재 입찰금 : ${best.au_bidPrice }</li>
+												<li class="button" style="text-align: center; width:230px">입찰가 : ${bestPrice }</li>
 												<li><a href="/auction/aDetail?au_num=${best.au_num }" class="button">입찰하기</a></li>
 											</ul>
 											
@@ -147,12 +149,13 @@
 											<div class="content">
 												<h3>${aList.au_title }</h3>
 												<p>
-												
-												시작 가격 : ${aList.au_startPrice}<br>
+												<f:formatNumber value="${aList.au_startPrice }" pattern="#,###" var="au_startPrice"/>
+												시작 가격 : ${au_startPrice}<br>
 												판매자 : ${aList.au_sellerId }<br>
 												입찰수 : ${aList.countA}<br>
 												종료시간 : ${aList.au_endTime }<br>
-												<a href="/auction/aDetail?au_num=${aList.au_num }" class="button">현재 입찰가 : ${aList.au_bidPrice }</a>
+												<f:formatNumber value="${aList.au_bidPrice }" pattern="#,###" var="bidPrice"/>
+												<a href="/auction/aDetail?au_num=${aList.au_num }" class="button">입찰가 : ${bidPrice }</a>
 												<a href="/auction/aDetail?au_num=${aList.au_num }" class="button">입찰하기</a></p>
 											</div>
 										</article>

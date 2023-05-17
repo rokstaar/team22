@@ -63,8 +63,6 @@
 										<a href='/random/rList' style="float:right">응모 목록으로</a>
 									</header>
 									
-									<a href="/random/myRan" class="button" style="display: inline-block; float: left; margin-right:10px">당첨 결과 확인</a>
-									<a href="/auction/list" class="button" style="display: inline-block; float: left; margin-right:10px">응모금 </a>
 									
 									<div class="features">
 									

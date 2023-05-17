@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE HTML>
 <!--
 	Editorial by HTML5 UP
@@ -96,8 +97,10 @@
 											<h1>HOT<br/>
 											${best.ran_title }</h1>
 											<p>기간 : ${best.ran_endTime }<br>
-											가격 : ${best.ran_price }<br>
-											응모금 : ${best.ran_bidPrice }<br>
+											<f:formatNumber value="${best.ran_bidPrice }" pattern="#,###" var="ran_bidPrice"/>
+											<f:formatNumber value="${best.ran_price }" pattern="#,###" var="ran_Price"/>
+											가격 : ${ran_Price }<br>
+											응모금 : ${ran_bidPrice }<br>
 											판매자 : ${best.ran_sellerId } </p>
 											<p class="button">남은 응모 가능 인원 : ${best.ran_maxPp - bCount }</p>
 											<ul class="actions" style="text-align: center;">
@@ -143,8 +146,9 @@
 											<span id="subSpan"><img id="subPic" src="/random/download?fileName=${rList.ran_pic.replace('[','').replace(']','').split(',')[0]}" /></span>
 											<div class="content">
 												<h3>${rList.ran_title }</h3>
+												<f:formatNumber value="${rList.ran_bidPrice }" pattern="#,###" var="bidPrice"/>
 												<p>
-												응모금액 : ${rList.ran_bidPrice }<br>
+												응모금액 : ${bidPrice }<br>
 												모집 인원 : ${rList.ran_maxPp }<br>
 												판매자 : ${rList.ran_sellerId }<br>
 												종료시간 : ${rList.ran_endTime }<br>
