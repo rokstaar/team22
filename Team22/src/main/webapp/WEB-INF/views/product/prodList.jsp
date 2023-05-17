@@ -202,8 +202,6 @@
 		상품등록
 		</div>
 		</c:if>
-		<!-- <form id="prodRegForm" action="/product/prodReg" method="get">
-		</form> -->
 	</div>
 
 	</section>
@@ -356,7 +354,6 @@
 	                url: '/product/likeProdCancel',
 	                data: {product_num: pnum, seller: seller},
 	                success: function() {
-	                    //console.log('success Del');
 	                    $svg1.hide();
 	                    $svg2.show();
 	                },
@@ -375,7 +372,6 @@
 	                url: '/product/likeProd',
 	                data: {product_num: pnum, seller: seller},
 	                success: function() {
-	                	//console.log('success Reg');
 	                	showToast(pnum + '번 상품을 찜했습니다', 3000);
 	                	$svg2.hide();
 	                    $svg1.show();
@@ -410,7 +406,7 @@
 	        			$svg1.hide();
 	        			$svg2.show();
 	        		}
-	        		heartChange($svg1, $svg2, pnum, seller)
+	        		heartChange($svg1, $svg2, pnum, seller);
         		},
         		error: function(response){
         			console.log(pnum + '번 상품 찜 확인 실패');
@@ -421,7 +417,6 @@
 
 	
 	document.getElementById('svg-submit').addEventListener('click', function() {
-	    //document.getElementById('prodRegForm').submit();
 	    location.href="/product/prodReg";
 	  });
 	
