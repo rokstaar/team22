@@ -119,8 +119,8 @@
                 </c:if>
             </article>
             <div id="close-btn">
-                <?xml version="1.0" ?><svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg">
-                    <path
+                <?xml version="1.0" ?><svg style="pointer-events: none;" height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg">
+                    <path id="close-svg"
                         d="M38 12.83l-2.83-2.83-11.17 11.17-11.17-11.17-2.83 2.83 11.17 11.17-11.17 11.17 2.83 2.83 11.17-11.17 11.17 11.17 2.83-2.83-11.17-11.17z" />
                     <path d="M0 0h48v48h-48z" fill="none" />
                 </svg>
@@ -350,7 +350,7 @@
 									</header>
 									
 									
-									<input id="nextP" type="image" src="../resources/images/free-icon-next-8066267.png" style="float:right; width:50px; margin-right: 25px;">
+									<input id="nextA" type="image" src="../resources/images/free-icon-next-8066267.png" style="float:right; width:50px; margin-right: 25px;">
 									
 									
 									<div class="posts">
@@ -380,7 +380,7 @@
 									<header class="major">
 										<h2><a href="/random/rList">Random</a></h2>
 									</header>
-									<input id="nextP" type="image" src="../resources/images/free-icon-next-8066267.png" style="float:right; width:50px; margin-right: 25px;">
+									<input id="nextR" type="image" src="../resources/images/free-icon-next-8066267.png" style="float:right; width:50px; margin-right: 25px;">
 									<div class="posts">
 										<c:forEach begin="0" end="${rList.size()-1 }" var="k">
 										<c:if test="${k < 3 }">
