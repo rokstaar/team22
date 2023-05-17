@@ -84,7 +84,7 @@ body {
                <div class="btn_wrap">
                     <button type="submit" class="button primary" onclick="modify()"> 수정 </button>
                     <button type="button" class="button primary" 
-                             id="btnList" onclick="location.href='/admin/notice';">목록</button>
+                             id="btnList" onclick="location.href='/admin/notice?num=1';">목록</button>
                </div>                   
          </form>  
         </div>
