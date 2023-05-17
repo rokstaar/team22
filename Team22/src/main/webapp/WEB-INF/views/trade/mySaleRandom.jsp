@@ -46,7 +46,7 @@
 					<div class="product-section" 
 						onclick="location.href='/random/rDetail?ran_num=${vo.ran_num }'">
 						<div class="img-wrapper">
-							<img src="/resources/images/${vo.ran_pic.split(',')[0] } " width="511px" height="306px" 
+							<img src="/random/download?fileName=${vo.ran_pic.replace('[','').replace(']','').split(',')[0]} " width="511px" height="306px" 
 							onerror="this.src='/resources/images/default_product.jpg'">
 						</div>
 						<div>${vo.ran_title }</div>

@@ -43,10 +43,11 @@
 			<div class="posts">
 				<c:forEach var="vo" items="${mySaleAuction }">
 					<article>
+					
 					<div class="product-section" 
 						 onclick="location.href='/auction/aDetail?au_num=${vo.au_num }'">
 						<div class="img-wrapper">
-							<img src="/resources/images/${vo.au_pic.split(',')[0] } " width="511px" height="306px" 
+							<img src="/auction/download?fileName=${vo.au_pic.replace('[','').replace(']','').split(',')[0]} " width="511px" height="306px" 
 								 onerror="this.src='/resources/images/default_product.jpg'">
 							</div>
 							<div>${vo.au_title }</div>

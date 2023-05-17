@@ -33,27 +33,27 @@
 			
 			<section>
 			<div class="posts">
-				<c:forEach begin="0" var="i" end="${buyAuctionList.size() }">
+				<c:forEach  var="vo" items="${buyAuctionList }">
 				<article>
 				<div class="product-section" 
-					 onclick="location.href='/auction/aDetail?au_num=${buyAuctionList[i].au_num }'">
+					 onclick="location.href='/auction/aDetail?au_num=${vo.au_num }'">
 					<div class="img-wrapper">
-						<img src="/resources/images/${buyAuctionList[i].au_pic.split(',')[0] } " width="511px" height="306px" 
+						<img src="/auction/download?fileName=${vo.au_pic.replace('[','').replace(']','').split(',')[0]} " width="511px" height="306px" 
 						onerror="this.src='/resources/images/default_product.jpg'">
 					</div>
-					<div>${buyAuctionList[i].au_title }</div>
+					<div>${vo.au_title }</div>
 										
 					<div style="float:left;">
-						최고 금액 : <fmt:formatNumber value="${getAList[i].au_bidPrice }" pattern="#,###" />원
+						최고 금액 : <fmt:formatNumber value="${vo.au_endPrice }" pattern="#,###" />원
 					</div><br>
 										
 					<div style="float:left;">
-						입찰 금액 : <fmt:formatNumber value="${buyAuctionList[i].au_bidPrice }" pattern="#,###" />원
+						입찰 금액 : <fmt:formatNumber value="${vo.au_bidPrice }" pattern="#,###" />원
 					</div><br>
 											
 					<div style="float:left;">
 						<div>경매 종료시간</div>
-						${buyAuctionList[i].au_endTime }
+						${vo.au_endTime }
 					</div>									
 				</div>
 				</article>

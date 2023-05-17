@@ -165,7 +165,7 @@ textarea{
 							       
 							        <c:if test="${not empty vo.au_pic}">
 									<td>
-									<img src="/resources/images/${vo.au_pic.split(',')[0] }" 
+									<img src="/auction/download?fileName=${vo.au_pic.replace('[','').replace(']','').split(',')[0]}" 
 							        onerror="this.src='/resources/images/default_product.jpg'" 
 							        width="80px" height="60px">
 									</td>
@@ -173,7 +173,7 @@ textarea{
 									
 									<c:if test="${not empty vo.ran_pic}">
 									<td>
-									<img src="/resources/images/${vo.ran_pic.split(',')[0] }" 
+									<img src="/random/download?fileName=${vo.ran_pic.replace('[','').replace(']','').split(',')[0]}" 
 							        onerror="this.src='/resources/images/default_product.jpg'" 
 							        width="80px" height="60px">
 							        </td>

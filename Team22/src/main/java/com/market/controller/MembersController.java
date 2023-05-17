@@ -2,6 +2,7 @@ package com.market.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,7 +41,6 @@ import com.market.domain.CustomerserviceVO;
 import com.market.domain.MemberVO;
 import com.market.domain.Pay_chargeVO;
 import com.market.domain.ProductVO;
-import com.market.domain.TradeVO;
 import com.market.service.CustomerserviceService;
 import com.market.service.MailSendService;
 import com.market.service.MemberService;
@@ -99,13 +98,16 @@ public class MembersController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginPOST(Model model, HttpSession session,
-				MemberVO vo ) {
-		  
-		if(service.loginMember(vo) != null) { 
-			session.setAttribute("id", vo.getMember_id()); 
-			} 
-		else { service.memberJoin(vo);
-			session.setAttribute("id", vo.getMember_id()); 
+				MemberVO vo, HttpServletResponse response ) throws Exception {
+		 
+		if(service.loginMember(vo) != null) {
+			session.setAttribute("id", vo.getMember_id());
+			}
+		else {
+			response.setContentType("text/html; charset=euc-kr");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('아이디 또는 패스워드가 틀립니다'); history.back();</script>");
+			out.flush();
 		}
 		
 		return "redirect:/main";
@@ -283,7 +285,7 @@ public class MembersController {
 		}
 
 		vo.setMember_pic(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
-		rttr.addFlashAttribute("result","O");
+		rttr.addFlashAttribute("result","0");
 		
 		service.memberJoin(vo);
 		

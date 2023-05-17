@@ -74,7 +74,7 @@
 							 onclick="location.href='/random/rDetail?ran_num=${vo.ran_num }'">
 							<div class="img-wrapper">
 								<div class="image-container">
-								<img class="sold-out" src="/resources/images/${vo.ran_pic.split(',')[0] } " width="511px" height="306px" 
+								<img class="sold-out" src="/random/download?fileName=${vo.ran_pic.replace('[','').replace(']','').split(',')[0]} } " width="511px" height="306px" 
 									onerror="this.src='/resources/images/default_product.jpg'">
 							    <div class="sold-out-text">판매 완료</div>
 							    </div>

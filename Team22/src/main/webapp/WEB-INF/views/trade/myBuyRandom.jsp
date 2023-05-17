@@ -173,7 +173,7 @@ textarea{
 								</thead>
 								<tbody class="body">
 									<c:forEach var="vo" items="${myBuyRandom }">
-										<td><img src="/resources/images/${vo.product_pic.split(',')[0] }" 
+										<td><img src="/random/download?fileName=${vo.ran_pic.replace('[','').replace(']','').split(',')[0]} " 
 									        onerror="this.src='/resources/images/default_product.jpg'" width="80px" height="60px"></td>
 										<td>
 										  <span onclick="window.location.href='/auction/aDetail?au_num=${vo.ran_num }'">

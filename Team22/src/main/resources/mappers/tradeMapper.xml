@@ -110,20 +110,25 @@
 	
 	<!-- 응모 신청 내역  -->
 	<select id="myBuyRandomList" resultType="com.market.domain.RandomVO">
-		select ran_num,ran_price,ran_endTime,ran_sellerId,ran_buyerId,ran_pic,ran_maxPp,ran_title,ran_content,ran_bidPrice,ran_status
-		from random
-		where ran_buyerId = #{id} and ran_num is not null and ran_bidPrice != 0
+		select r1.ran_num,r1.ran_price,r1.ran_endTime,
+		r1.ran_buyerId,r2.ran_pic,r2.ran_sellerId,
+		r1.ran_maxPp,r1.ran_title,r1.ran_content,r1.ran_bidPrice,r1.ran_status
+		from random r1 join random r2
+		on r1.ran_num = r2.ran_num
+		where r1.ran_buyerId = #{id} and r1.ran_bidPrice != 0 and r2.ran_pic is not null
 		group by ran_num
 		order by ran_num desc;
 	</select>
 	<!-- 응모 신청 내역  -->
 	
 	<!-- 경매 신청 내역  -->
-	<select id="auBuyList" resultType="map">
-		select au_num, au_startPrice, au_endTime, au_sellerId, au_buyerId, max(au_bidPrice)as au_bidPrice, au_endPrice, au_pic,
-		au_status, au_title,au_content, au_category
-		from auction
-		where au_buyerId = #{id} and au_num is not null and au_bidPrice != 0
+	<select id="auBuyList" resultType="com.market.domain.AuctionVO">
+		select a1.au_num, a1.au_startPrice, a1.au_endTime, a1.au_sellerId, a1.au_buyerId, 
+		max(a1.au_bidPrice)as au_bidPrice, max(a2.au_bidPrice) as au_endPrice, a1.au_pic,
+		a1.au_status, a1.au_title,a1.au_content, a1.au_category
+		from auction a1 join auction a2
+		on a1.au_num = a2.au_num
+		where a1.au_buyerId = #{id} and a1.au_bidPrice > 0
 		group by au_num
 		order by au_num desc;
 	</select>

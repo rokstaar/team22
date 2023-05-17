@@ -175,7 +175,7 @@ textarea{
 								<tbody class="body">
 									<c:forEach var="vo" items="${myBuyAuction }">
 									<tr>
-										<td><img src="/resources/images/${vo.product_pic.split(',')[0] }" 
+								<td><img src="/auction/download?fileName=${vo.au_pic.replace('[','').replace(']','').split(',')[0]} "  
 									        onerror="this.src='/resources/images/default_product.jpg'" width="80px" height="60px"></td>
 										<td>
 											${vo.au_category }
