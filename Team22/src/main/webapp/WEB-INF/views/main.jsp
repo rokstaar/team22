@@ -322,17 +322,17 @@
 										
 										<c:if test="${i < 3 }">
 											<article style="text-align: center;" id="p${i }">
-												<a href="#" class="image"><img style="width:300px; height: 300px; margin:auto;" src="resources/images/pic01.jpg" alt="" /></a>
+												<a href="/product/prodInfo?product_num=${pList[i].product_num }&seller=${pList[i].product_seller}" class="image"><img style="width:300px; height: 300px; margin:auto;" src="/product/download?fileName=${pList[i].product_pic.split(',')[0] }" alt="" /></a>
 												<h3>${pList[i].product_title }</h3>
 												<ul class="actions">
-													<li><a href="#" class="button">상세정보</a></li>
+													<li><a href="/product/prodInfo?product_num=${pList[i].product_num }&seller=${pList[i].product_seller}" class="button">상세정보</a></li>
 												</ul>
 											</article>
 										</c:if>
 										
 										<c:if test="${i >= 3 }">
 											<article style="text-align: center; display: none" id="p${i }" >
-												<a href="#" class="image"><img style="width:300px; height: 300px; margin:auto;" src="resources/images/pic01.jpg" alt="" /></a>
+												<a href="#" class="image"><img style="width:300px; height: 300px; margin:auto;" src="/product/download?fileName=${pList[i].product_pic.split(',')[0] }" alt="" /></a>
 												<h3>${pList[i].product_title }</h3>
 												<ul class="actions">
 													<li><a href="#" class="button">상세정보</a></li>
