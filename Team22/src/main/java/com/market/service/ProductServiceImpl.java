@@ -241,6 +241,7 @@ public class ProductServiceImpl implements ProductService{
 		for(Integer pnum : sortedPnum) {
 			Map<String, Object> map = pdao.getProdInfo(pnum);
 			
+			
 			if(map != null) {
 				ProductVO vo = new ProductVO();
 				vo.setProduct_num((Integer)map.get("product_num"));
