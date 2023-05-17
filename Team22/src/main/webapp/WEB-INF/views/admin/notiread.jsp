@@ -42,24 +42,24 @@
 		<div class="container" role="main">
 		
 			<h2>${resultVO.noti_title }</h2>
-			 <hr>
-			 <img alt="" src="${resultVO.noti_image }">
-			 <img alt="" src="${resultVO.noti_image1 }">
-			 <img alt="" src="${resultVO.noti_image2 }">
-				<div class="mb-3">
+			  <hr>
+			  <div class="mb-3">
 					<h3> <pre>${resultVO.noti_content }</pre> </h3>	
-				</div>
+							 
+			  <img alt="" src="${resultVO.noti_image }" style="width: 600px; height: 500px;" onerror="this.style.display='none'"> <br>
+			  <img alt="" src="${resultVO.noti_image1 }" style="width: 600px; height: 500px;" onerror="this.style.display='none'"> <br>
+			  <img alt="" src="${resultVO.noti_image2 }" style="width: 600px; height: 500px;" onerror="this.style.display='none'"> <br>
+			</div>	
 				
 				<hr>
 			
-			<div>
+			<div style="text-align: center;">
                 <button type="button" class="btn btn-sm btn-primary" 
                         id="btnList" onclick="location.href='/admin/notice?num=1';">목록</button>
           <c:if test="${id != null && id ==('admin')}">     
                 <button type="button" class="btn btn-sm btn-primary" 
                         id="btnList" onclick="location.href='/admin/notimodify?noti_num=${resultVO.noti_num}';">수정</button>
-                <button type="button" class="btn btn-sm btn-primary" 
-                        id="btnList" onclick="location.href='/admin/deletenoti?noti_num=${resultVO.noti_num}';">삭제</button>      
+               <button type="button" class="btn btn-sm btn-primary" id="btnList" onclick="confirmDelete('${resultVO.noti_num}')">삭제</button>      
           </c:if>              
            
            </div>
@@ -71,6 +71,24 @@
              </div>
 		</div>
 </section>
+                
+  <script>
+function confirmDelete(notiNum) {
+  if (confirm("정말로 삭제하시겠습니까?")) {
+	  alert("정상적으로 삭제되었습니다.");
+  }
+}
+
+function deleteNotification(notiNum) {
+  // 삭제 처리를 위한 Ajax 요청이나 서버로의 전송 로직을 작성합니다.
+  // 여기서는 location.href로 페이지 이동하는 예시를 드리겠습니다.
+  location.href = `/admin/deletenoti?noti_num=${resultVO.noti_num}`;
+}
+</script>         
+                
+                
+                
+                
                    
             </div>
 			      <%@ include file="../include/sidebar.jsp" %>		

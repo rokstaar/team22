@@ -58,10 +58,20 @@ public interface AdminService {
 	
 	
 	// 모든 경매제품 정보
-	public List<AuctionVO> auctionList() throws Exception;
+	public List<AuctionVO> getauctionList() throws Exception;
 	
 	// 모든 경매 상세정보
 	public List<AuctionVO> audetail(Integer au_num) throws Exception;
+	
+	// 판매 중 경매 정보 + 페이징 + 검색
+	public List<AuctionVO> AuctionList(int displayPost, int postNum,
+	            String searchType, String keyword) throws Exception;
+		
+	//  판매 중 경매 검색 후 페이징
+	public int searaulist(String searchType, String keyword) throws Exception;
+	
+	
+	
 		
 	// 모든 랜덤제품 정보
 	public List<RandomVO> randomList() throws Exception;

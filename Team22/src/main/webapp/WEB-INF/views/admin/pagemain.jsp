@@ -11,9 +11,9 @@
 <html>
 <head>
 		<title>admin Page</title>
-		
+
 <style type="text/css">
-   .my-page {
+    .my-page {
   width: 35vw;
   min-width: 600px;
   margin:  auto;
@@ -139,17 +139,24 @@ font-family: "Noto Sans KR", sans-serif;
 .transaction-history__sale {
   border-right: 2px solid #000;
 
-
+   
 
 
 
 </style>		
 		
+		
+		
+		
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="/resources/assets/css/main.css" />
 		<link rel="stylesheet" href="/resources/assets/css/myPage.css" />
 		<link rel="stylesheet" href="/resources/assets/css/styles.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+	
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		
 </head>
 	<body>
@@ -172,8 +179,9 @@ font-family: "Noto Sans KR", sans-serif;
 									      <%@ include file="../include/adminmypage.jsp" %>
 
 						 <hr>
-		 <article class="my-page">	
-		  <div class="my-page__profile" style="text-align: center;">			 
+						 
+        <article class="my-page">	
+		  <div class="my-page__profile" style="text-align: center;display: flex; justify-content: center;">			 
      
              	<div class="my-transaction-info" style="text-align: center;">
               	 
@@ -211,12 +219,13 @@ font-family: "Noto Sans KR", sans-serif;
 			<div class="my-page__introduction">
 			   안녕하세요. '관리자' 입니다!
             </div>
-
-			
+            
 				</div>	   
            </div>
 		</div>
 	 	</article>	
+
+           </div>
 	</section>
                    							         
                    

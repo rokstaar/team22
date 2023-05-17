@@ -51,7 +51,6 @@
 											<th>카테고리</th>
 											<th>제품명</th>
 											<th>시작가격</th>
-											<th>현재가격</th>
 											<th>상세보기</th>
 										</tr>
 
@@ -63,7 +62,6 @@
 												  <a href="/auction/aDetail?au_num=${alist.au_num}">${alist.au_title}</a>
 												</td>
 												<td>${alist.au_startPrice}</td>
-												<td>${alist.au_bidPrice}</td>
 												<td>
 												  <a href="/admin/audetail?au_num=${alist.au_num}">경매자 목록보기</a>
 												</td>
@@ -71,58 +69,7 @@
 										</c:forEach>	
 									</table>
 						       </div> 
-						       
-<%-- <div style="text-align: center; font-size: large;">	
-				<c:if test="${mdto.prev}">
-					<span>[ <a href="/admin/adminpage?num=${mdto.startPageNum - 1}${mdto.searchTypeKeyword}">이전</a> ]  </span>
-				</c:if>
-
-				<c:forEach begin="${mdto.startPageNum}" end="${mdto.endPageNum}" var="num">
-						<span> <c:if test="${select != num}">
-								<a href="/admin/adminpage?num=${num}${mdto.searchTypeKeyword}">${num}</a>
-						</c:if> 
-					<c:if test="${select == num}">
-								<b>${num}</b>
-						</c:if>
-                      </span>
-				</c:forEach>
-
-				<c:if test="${mdto.next}">
-						<span>[ <a href="/admin/adminpage?num=${mdto.endPageNum + 1}${mdto.searchTypeKeyword}">다음</a> ]</span>
-				</c:if>
-</div>		 --%>
-
-<br><br>
-
-
-<div style="margin-left: 30em;"> 
-  <div style="float: left; margin-right: 0.3em;">
-    <select name="searchType" style="width: 120px;">
-      <option value="id" <c:if test="${mdto.searchType eq 'id'}">selected</c:if>>아이디</option>
-      <option value="email" <c:if test="${mdto.searchType eq 'email'}">selected</c:if>>이메일</option>
-    </select>
-  </div> 
- 
-   <div  style="float: left; margin-right: 0.1em;">
-      <input type="text" name="keyword" value="${mdto.keyword}" style="width: 350px;" placeholder="검색어 입력"/>
-   </div>  
-   <div style="float: left; margin-left: 0.03em;" >
-      <button style="border-radius: 2em" type="button" id="searchBtn" >검색</button>
-   </div> 
-</div>				       
-						       
-<script type="text/javascript">
-    document.getElementById("searchBtn").onclick = function() {
-    	  let searchType = document.getElementsByName("searchType")[0].value;
-    	  let keyword =  document.getElementsByName("keyword")[0].value;
-    	  
-    	  console.log(searchType)
-    	  console.log(keyword)
-    	  
-    	  location.href = "/admin/adminpage?num=1" + "&searchType=" + searchType + "&keyword=" + keyword;
-    };
-</script>								       
-						       
+						       					    						       
 								
 					</div>  
 				</div>	   

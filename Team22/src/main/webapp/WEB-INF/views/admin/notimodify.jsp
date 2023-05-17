@@ -66,31 +66,42 @@ body {
 
 				<div class="mb-3">
 					<label for="content">내용</label>
-					<%-- ${vo } --%>
 					<textarea class="form-control" rows="5" name="noti_content" id="content">${vo.noti_content}</textarea>
 				</div>
 				
 				<div class="mb-3">
 					<label for="image">파일 첨부</label>
 					<input type="file" class="form-control" name=file id="image" value="${vo.noti_image }">
-					<img alt="" src="${vo.noti_image }">
+					<img alt="" src="${vo.noti_image }" style="width: 600px; height: 500px;">
 					<input type="file" class="form-control" name="file2" id="image1" value="${vo.noti_image1}">
-					<img alt="" src="${vo.noti_image1 }">
+					<img alt="" src="${vo.noti_image1 }" style="width: 600px; height: 500px;">
 					<input type="file" class="form-control" name="file3" id="image2" value="${vo.noti_image2}">
-			        <img alt="" src="${vo.noti_image2 }">
-			        
+			        <img alt="" src="${vo.noti_image2 }" style="width: 600px; height: 500px;">        
 			  </div>
 			   <%-- <%=request.getRealPath("/") %> --%>	
 				
 				
                <div class="btn_wrap">
-                    <button type="submit" class="button primary"> 수정 </button>
+                    <button type="submit" class="button primary" onclick="modify()"> 수정 </button>
                     <button type="button" class="button primary" 
                              id="btnList" onclick="location.href='/admin/notice';">목록</button>
                </div>                   
          </form>  
         </div>
 	</article> 
+	
+	<script type="text/javascript">
+	function modify(){
+		
+		if(confirm("수정하시겠습니까?")){
+			alert("정상적으로 수정되었습니다.");
+		}else{
+			alert("수정실패");
+		}
+	}
+	</script>
+	
+	
 									  
 									</div>	   
                                  </div>

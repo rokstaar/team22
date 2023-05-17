@@ -87,7 +87,7 @@
 <br><br>
 
 
-<div style="margin-left: 30em;"> 
+<div style="margin-left: 23em;"> 
   <div style="float: left; margin-right: 0.3em;">
     <select name="searchType" style="width: 150px;">
       <option value="title" <c:if test="${cdto.searchType eq 'title'}">selected</c:if>>게시글 제목</option>

@@ -49,7 +49,7 @@
 	   <tr>
 		<th class="w-px160" style="font-size:large;">상담분류</th>
 			<td>
-			  <select name="cs_category" id="cs_category" style="width: 185px;" required>
+			  <select name="cs_category" id="cs_category" style="width: 190px;" required>
 					<option value="" >상담유형선택 ▽</option>
 					<option value="회원정보" >회원정보</option>
 					<option value="중고거래" >중고거래</option>
@@ -71,12 +71,13 @@
 		
 	   <tr>
 			<th class="w-px160" style="font-size:large;">파일첨부</th>
-			<td><input type="file" name=file id="image"  />
-	            <input type="file" name=file2 id="image1" />
-			    <input type="file" name=file3 id="image2" /></td> 
+			<td><input type="file" name=file id="image">
+	            <input type="file" name=file2 id="image1">
+			    <input type="file" name=file3 id="image2">
+		    </td> 
 	  </tr>  
 		
-		 <%=request.getRealPath("/") %> 
+		<%--  <%=request.getRealPath("/") %>  --%>
 		
 		
 		
@@ -87,12 +88,26 @@
 	   <label class="form-check-label" for="cs_secret">비밀글 설정</label>
 	</div>
 
-   <div class="btn_wrap">
-         <button type="submit" class="button primary"> 등록하기 </button>
+   <div class="btn_wrap" style="text-align: center;">
+         <button type="submit" class="button primary" onclick="sub()"> 등록하기 </button>
    </div>
 </form>	
 
 <!-- <script type="text/javascript" src="js/file_attach.js"></script> -->
+
+<script type="text/javascript">
+  function sub() {
+	   var result = confirm("등록 하시겠습니까?");
+	   if(result){
+		   alert("등록이 완료되었습니다.");
+	   }else{
+		   window.location.href = 'http://localhost:8080/cs/cswrite';
+	   }
+  }
+</script>
+
+
+
        
         
 	</div>	   

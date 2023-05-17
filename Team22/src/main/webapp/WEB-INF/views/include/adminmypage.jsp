@@ -14,7 +14,12 @@
 .item ul li a {
   font-size: 20px;
   font-family: "Noto Sans KR", sans-serif;
+  color: #3d4449;
 }
+
+ .rightBlue.number {
+    color:#3d4449; /* 여기에 원하는 색상을 지정합니다. */
+  }
 
 
   </style>
@@ -26,13 +31,14 @@
 									 
 									     <div class="item">
 									        <div>
-									          <div class="rightBlue number"> <a href="/admin/adminpage?num=1">회원 관리 </a> </div>
+									          <div class="rightBlue number"> 
+									               <a href="/admin/adminpage?num=1" style="color: #3d4449;">회원 관리 </a> </div>
 									        </div>
 									      </div>    
 									      
 									       <div class="item">
 									        <div>
-									          <div class="rightBlue number" style="color: #769fcd;"> 거래 관리 </div>
+									          <div class="rightBlue number"> 거래 관리 </div>
 											   <ul>
 											   	  <li><a href="/admin/buyprod">물건거래</a></li>
 												  <li><a href="/admin/buyau">경매거래</a></li>
@@ -43,7 +49,7 @@
 									       
 									      <div class="item">
 									        <div>
-									          <div class="rightBlue number" style="color: #769fcd;"> 상품 관리</div>
+									          <div class="rightBlue number"> 상품 관리</div>
 									           <ul>
 											   	  <li><a href="/admin/manageprod?num=1">물건관리</a></li>
 												  <li><a href="/admin/manageau">경매관리</a></li>
@@ -54,13 +60,15 @@
 									      
 									      <div class="item">
 									        <div>
-									          <div class="rightBlue number"> <a href="/admin/managecs?num=1">문의사항 관리</a> </div>
+									          <div class="rightBlue number"> 
+									              <a href="/admin/managecs?num=1" style="color: #3d4449;">문의사항 관리</a> </div>
 									        </div>
 									      </div>     
 									      
 									      <div class="item">
 									        <div>
-									          <div class="rightBlue number"> <a href="/admin/managenoti?num=1">공지사항 관리</a> </div>
+									          <div class="rightBlue number"> 
+									              <a href="/admin/managenoti?num=1" style="color: #3d4449;">공지사항 관리</a> </div>
 									        </div>
 									      </div>          
 									    </div>	

@@ -76,14 +76,14 @@
 		 <tr>
 			<th style="font-size:large;">파일 첨부</th>
 			<td class="left">
-                <input type="file" name="file" id="image" value="${cvo.cs_file0 }">
-                <img alt="" src="${cvo.cs_file0 }"> <br>
+                <input type="file" name="file" id="image" value="${cvo.cs_file0 }" >
+                <img alt="" src="${cvo.cs_file0 }" style="width: 700px; height: 400px;"> <br>
            
                 <input type="file" name="file2" id="image1" value="${cvo.cs_file1 }">
-				<img alt="" src="${cvo.cs_file1 }"><br>
+				<img alt="" src="${cvo.cs_file1 }" style="width: 700px; height: 400px;"><br>
 			
 				<input type="file" name="file3" id="image2" value="${cvo.cs_file2 }">
-				<img alt="" src="${cvo.cs_file2 }"> <br>
+				<img alt="" src="${cvo.cs_file2 }" style="width: 700px; height: 400px;"> <br>
  			</td>		
 		</tr> 
 		
@@ -96,8 +96,8 @@
 	</div>
 
    
-   <div class="btn_wrap">
-         <button type="submit" class="button primary"> 수정하기 </button>
+   <div class="btn_wrap" style="text-align: center;">
+         <button type="submit" class="button primary" onclick="modify()"> 수정하기 </button>
          <button type="submit" class="button primary" 
                  onclick="location.href='/cs/cslist?num=1';"> 취소하기 </button>
    </div>
@@ -109,6 +109,19 @@
 	</div>	   
 	
 	</div>    
+	
+ <script type="text/javascript">
+	function modify(){
+		
+		if(confirm("수정하시겠습니까?")){
+			alert("정상적으로 수정되었습니다.");
+		}else{
+			alert("수정실패");
+		}
+	}
+	</script>	
+	
+	
                                  </div>
                                  
 			                 </div>			                

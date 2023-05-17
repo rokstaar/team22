@@ -164,7 +164,7 @@ public class AdminServiceImpl implements AdminService {
 
 	
 	@Override
-	public List<AuctionVO> auctionList() throws Exception {
+	public List<AuctionVO> getauctionList() throws Exception {
 	
 		return adao.getAuctionList();
 	}
@@ -204,6 +204,19 @@ public class AdminServiceImpl implements AdminService {
 	public int searprodlist(String searchType, String keyword) throws Exception {
 	
 		return adao.searprodlist(searchType, keyword);
+	}
+
+	@Override
+	public List<AuctionVO> AuctionList(int displayPost, int postNum, String searchType, String keyword)
+			throws Exception {
+		
+		return adao.AuctionList(displayPost, postNum, searchType, keyword);
+	}
+
+	@Override
+	public int searaulist(String searchType, String keyword) throws Exception {
+	
+		return adao.searaulist(searchType, keyword);
 	}
 
 
