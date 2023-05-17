@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>공지사항 확인하기</title>
+
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -59,7 +60,8 @@
           <c:if test="${id != null && id ==('admin')}">     
                 <button type="button" class="btn btn-sm btn-primary" 
                         id="btnList" onclick="location.href='/admin/notimodify?noti_num=${resultVO.noti_num}';">수정</button>
-               <button type="button" class="btn btn-sm btn-primary" id="btnList" onclick="confirmDelete('${resultVO.noti_num}')">삭제</button>      
+              <button type="button" class="btn btn-sm btn-primary" 
+                        id="btnList" onclick="location.href='/admin/deletenoti?noti_num=${resultVO.noti_num}';">삭제</button>         
           </c:if>              
            
            </div>
@@ -71,20 +73,7 @@
              </div>
 		</div>
 </section>
-                
-  <script>
-function confirmDelete(notiNum) {
-  if (confirm("정말로 삭제하시겠습니까?")) {
-	  alert("정상적으로 삭제되었습니다.");
-  }
-}
-
-function deleteNotification(notiNum) {
-  // 삭제 처리를 위한 Ajax 요청이나 서버로의 전송 로직을 작성합니다.
-  // 여기서는 location.href로 페이지 이동하는 예시를 드리겠습니다.
-  location.href = `/admin/deletenoti?noti_num=${resultVO.noti_num}`;
-}
-</script>         
+                       
                 
                 
                 
