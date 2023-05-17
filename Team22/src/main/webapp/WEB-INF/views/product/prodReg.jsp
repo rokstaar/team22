@@ -92,9 +92,6 @@
 		<div id="file-inputs-container">
 		제품사진
 			<div class="file-input-wrapper">
-				<!-- 제품사진<input type="file" name="product_pics">
-				<button type="button" class="add-button">+</button> -->
-				
 				<div id="div-file">
 				<div class="div-file-insert">
 					<input type="file" name="product_pics" onchange="validateForm()">
@@ -148,31 +145,48 @@
 
 	
 	document.addEventListener('DOMContentLoaded', function () {
-		let fileInputCounter = 1;
+	    let fileInputCounter = 1;
 
-		document.querySelector('#file-inputs-container').addEventListener('click', function (event) {
-			if (event.target.classList.contains('add-button') && fileInputCounter < 3) {
-				const newFileInputWrapper = document.createElement('div');
-		  		newFileInputWrapper.classList.add('file-input-wrapper');
+	    document.querySelector('#file-inputs-container').addEventListener('click', function (event) {
+	        if (event.target.classList.contains('add-button') && fileInputCounter < 3) {
+	            const newFileInputWrapper = document.createElement('div');
+	            newFileInputWrapper.classList.add('file-input-wrapper');
 
-	    		const newFileInput = document.createElement('input');
-		    	newFileInput.type = 'file';
-		    	newFileInput.name = 'product_pics';
+	            const newDivFile = document.createElement('div');
+	            newDivFile.id = 'div-file';
 
-		    	const newButton = document.createElement('button');
-		    	newButton.type = 'button';
-		    	newButton.classList.add('add-button');
-		    	newButton.textContent = '+';
+	            const newDivFileInsert = document.createElement('div');
+	            newDivFileInsert.classList.add('div-file-insert');
 
-		    	newFileInputWrapper.appendChild(newFileInput);
-		    	newFileInputWrapper.appendChild(newButton);
+	            const newFileInput = document.createElement('input');
+	            newFileInput.type = 'file';
+	            newFileInput.name = 'product_pics';
+	            newFileInput.setAttribute('onchange', 'validateForm()');
 
-		    	document.querySelector('#file-inputs-container').appendChild(newFileInputWrapper);
+	            newDivFileInsert.appendChild(newFileInput);
 
-		    	fileInputCounter++;
-			}
-		});
+	            const newDivButton = document.createElement('div');
+	            newDivButton.classList.add('div-button');
+
+	            const newButton = document.createElement('button');
+	            newButton.type = 'button';
+	            newButton.classList.add('add-button');
+	            newButton.textContent = '+';
+
+	            newDivButton.appendChild(newButton);
+
+	            newDivFile.appendChild(newDivFileInsert);
+	            newDivFile.appendChild(newDivButton);
+
+	            newFileInputWrapper.appendChild(newDivFile);
+
+	            document.querySelector('#file-inputs-container').appendChild(newFileInputWrapper);
+
+	            fileInputCounter++;
+	        }
+	    });
 	});
+
 
 	
 	function checkByte(inputElement, maxBytes, alertS) {
