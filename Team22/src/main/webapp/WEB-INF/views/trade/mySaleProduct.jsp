@@ -68,8 +68,8 @@
 					</c:if> 
 
 					<div style="float: right; margin-top: 12px;  clear: right;">
-					<button class="sold-prod-delete">
-					               <!--  <i class="fas fa-cog my-info-edit__icon"></i> -->
+					<button class="sold-prod-delete" onclick="location.href='/trade/soldProdRemove?product_num=${vo.product_num }'">
+					
 					 	상품삭제
 					</button></div>
 		
@@ -77,9 +77,9 @@
 				</c:forEach>
 			</div>
 								
-		<form role="form" method="post">
+	<%-- 	<form role="form" method="post">
 			<input type="hidden" name="product_num" value="${vo.product_num }">
-		</form>	
+		</form>	 --%>
 		
 		</div>
 	</div>
@@ -96,7 +96,7 @@
 
 <script type="text/javascript">
 
-	var formObj = $("form[role='form']");
+	/*  var formObj = $("form[role='form']");
 	console.log(formObj);
 	
 	$(".sold-prod-delete").click(function(){
@@ -110,7 +110,7 @@
 	
 	if(result == "delOK"){
 		alert("상품 삭제 완료!");		
-	}
+	}  */
 
 
 

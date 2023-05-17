@@ -212,8 +212,8 @@ textarea{
 																	<option value="1">1</option>
 																	<option value="0">0</option>
 																</select>
-																<input type="hidden" name="reviewee" value="${vo.buy_mem_id}">
-																<input type="hidden" name="reviewer" value="${vo.ran_sellerId}">
+																<input type="hidden" name="reviewee" value="${vo.au_sellerId}">
+																<input type="hidden" name="reviewer" value="${vo.buy_mem_id}">
 																<input type="hidden" name="au_num" value="${vo.au_num}">
 													         	<input type="button" id="cancel" value="취소" onclick="location.href='/trade/myBuyAuction" > 
 													         	<input type="submit" id="submit" value="작성"> 

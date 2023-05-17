@@ -190,6 +190,16 @@ public class TradeDAOImpl implements TradeDAO{
 		return sqlSession.selectOne(NAMESPACE+".getProductByNum",prod_num);
 	}
 
+	@Override
+	public Integer removeReviewR(Integer ran_num) throws Exception {
+		return sqlSession.delete(NAMESPACE+".deleteReview",ran_num);
+	}
+
+	@Override
+	public Integer removeReviewA(Integer au_num) throws Exception {
+		return sqlSession.delete(NAMESPACE+".deleteReview",au_num);
+	}
+
 		
 
 	

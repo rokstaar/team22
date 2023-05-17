@@ -210,13 +210,18 @@ public class TradeController {
 	
 	// 리뷰삭제
 	@RequestMapping(value = "/removeDelete", method = RequestMethod.GET)
-	public String removeDelete(Model model,@RequestParam("product_num") int prod_num,
+	public String removeDelete(Model model,
+								@RequestParam(value = "product_num", required = false) Integer prod_num,
+								@RequestParam(value = "ran_num", required = false) Integer ran_num,
+								@RequestParam(value = "au_num", required = false) Integer au_num,
 								RedirectAttributes rttr)throws Exception {
 	
 		logger.info("@@@@@@@@@@@@@@@@@@remove@"+prod_num);
-		int result = service.removeReview(prod_num);
+		int resultP = service.removeReview(prod_num);
+		int resultR = service.removeReview(ran_num);
+		int resultA = service.removeReview(au_num);
 		
-		if(result == 1) {
+		if (resultP == 1 || resultR == 1 || resultA == 1) {
 			rttr.addFlashAttribute("result", "delOK");
 			return "redirect:/trade/buyReview";
 		}else {
@@ -227,7 +232,7 @@ public class TradeController {
 	
 	// 내가 등록한 상품 삭제
 	@RequestMapping(value = "/soldProdRemove", method = RequestMethod.GET)
-	public String removeProduct(@ModelAttribute("product_num") int product_num,
+	public String removeProduct(@RequestParam("product_num") Integer product_num,
 			RedirectAttributes rttr)throws Exception {
 		
 		logger.info("@@@@@@@@@@@@@@@@@"+product_num);
@@ -298,7 +303,7 @@ public class TradeController {
 	}
 	// 판매 완료된 상품 삭제
 	@RequestMapping(value = "/soldProdRemove", method = RequestMethod.POST)
-	public String soldProductPOST(@ModelAttribute("prod_num") Integer prod_num,
+	public String soldProductPOST(@ModelAttribute("prod_num") int prod_num,
 			RedirectAttributes rttr)throws Exception{
 		logger.info("@@@@@@@@soldPRODREMOVE_num"+prod_num);
 		

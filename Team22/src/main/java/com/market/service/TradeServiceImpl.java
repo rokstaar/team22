@@ -181,6 +181,16 @@ public class TradeServiceImpl implements TradeService{
 		return tdao.getProductByNum(prod_num);
 	}
 
+	@Override
+	public Integer removeReviewA(Integer au_num) throws Exception {
+		return tdao.deleteAuction(au_num);
+	}
+
+	@Override
+	public Integer removeReviewR(Integer ran_num) throws Exception {
+		return tdao.deleteRandom(ran_num);
+	}
+
 
 	
 

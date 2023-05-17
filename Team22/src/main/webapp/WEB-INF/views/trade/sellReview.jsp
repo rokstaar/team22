@@ -162,21 +162,62 @@ textarea{
 							<tbody class="body">
 								<c:forEach var = "vo" items="${tSellReview }">
 									<tr>
-									<td><img src="/resources/images/${vo.product_pic.split(',')[0] }" 
-								        onerror="this.src='/resources/images/default_product.jpg'" width="80px" height="60px">
-									</td>
+									<c:if test="${not empty vo.product_pic}">
 									<td>
-										<span onclick="window.location.href='/product/prodInfo?product_num=${vo.product_num }&seller=${vo.reviewee}'">
-										${vo.product_title}
+									<img src="/resources/images/${vo.product_pic.split(',')[0] }" 
+							        onerror="this.src='/resources/images/default_product.jpg'" 
+							        width="80px" height="60px"></td>
+							        </c:if>
+							       
+							        <c:if test="${not empty vo.au_pic}">
+									<td>
+									<img src="/resources/images/${vo.au_pic.split(',')[0] }" 
+							        onerror="this.src='/resources/images/default_product.jpg'" 
+							        width="80px" height="60px">
+									</td>
+									</c:if>
+									
+									<c:if test="${not empty vo.ran_pic}">
+									<td>
+									<img src="/resources/images/${vo.ran_pic.split(',')[0] }" 
+							        onerror="this.src='/resources/images/default_product.jpg'" 
+							        width="80px" height="60px">
+							        </td>
+							        </c:if>
+							        
+							 		<td>
+										<c:if test="${not empty vo.ran_num}">
+										<span onclick="window.location.href='/random/rDetail?ran_num=${vo.ran_num }'"></span>
+										</c:if>
+										<c:if test="${not empty vo.prod_num}">
+										<span onclick="window.location.href='/product/prodInfo?product_num=${vo.prod_num}&seller=${vo.reviewee}'"></span>
+										</c:if>
+										<c:if test="${not empty vo.au_num}">
+										<span onclick="window.location.href='/auction/aDetail?au_num=${vo.au_num }'"></span>
+										</c:if>
+										<span>${vo.product_title}
+										</span>
+									</td>
+							        <td>
+							      	    <c:if test="${not empty vo.ran_num}">
+										<span onclick="window.location.href='/random/rDetail?ran_num=${vo.ran_num }'"></span>
+										</c:if>
+										<c:if test="${not empty vo.prod_num}">
+										<span onclick="window.location.href='/product/prodInfo?product_num=${vo.prod_num}&seller=${vo.reviewee}'"></span>
+										</c:if>
+										<c:if test="${not empty vo.au_num}">
+										<span onclick="window.location.href='/auction/aDetail?au_num=${vo.au_num }'"></span>
+										</c:if>
+										<span>${vo.rv_content}
 										</span>
 									</td>
 									<td>
-										${vo.rv_content}
-
+										<span onclick="window.location.href='/members/memberInfo?mem_id=${vo.reviewee }'">
+										${vo.reviewee }
+										</span>
 									</td>
-									<td>
-										${vo.member_nickname}
-									</td>
+									
+									
 									</tr>
 								</c:forEach>
 							</tbody>						

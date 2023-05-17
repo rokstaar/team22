@@ -372,7 +372,9 @@ $(document).ready(function(){
 	</div>
 
 	<%@ include file="../include/sidebar.jsp" %>
+	<script type="text/javascript">
 	
+	</script>
 </div>
 
 </body>

@@ -124,7 +124,13 @@
 	</div>
 
 	<%@ include file="../include/sidebar.jsp" %>
+	<script type="text/javascript">
+	var result = "${result}";
 	
+	if(result == "0"){
+		alert("회원가입 완료.");		
+	} 
+	</script>
 </div>
 </body>
 </html>

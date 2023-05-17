@@ -209,6 +209,7 @@ textarea{
 																	<option value="1">1</option>
 																	<option value="0">0</option>
 																</select>
+																
 																<input type="hidden" name="reviewee" value="${vo.sell_mem_id}">
 																<input type="hidden" name="reviewer" value="${vo.buy_mem_id}">
 																<input type="hidden" name="prod_num" value="${vo.prod_num}">

@@ -51,7 +51,7 @@
 	
 	<!-- 업로드 패스 설정 --> 
 	<beans:bean class="java.lang.String" id="uploadPath">
-	 <beans:constructor-arg value="C:\workspace_STS11\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Team22\"/>
+	 <beans:constructor-arg value="C:\Users\ITWILL\Desktop\workspace_STS\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Team22\"/>
 	</beans:bean>					
 	<!-- 일반 파일 업로드 경로 -->
 	<resources mapping="/imgUpload/**" location="/imgUpload/" />

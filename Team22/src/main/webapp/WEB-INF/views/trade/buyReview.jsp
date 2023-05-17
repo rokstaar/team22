@@ -156,16 +156,53 @@ textarea{
 							<tbody class="body">
 								<c:forEach var = "vo" items="${buyReview }">
 								<tr>
-									<td><img src="/resources/images/${vo.product_pic.split(',')[0] }" 
-							        onerror="this.src='/resources/images/default_product.jpg'" width="80px" height="60px">
+									<c:if test="${not empty vo.product_pic}">
+									<td>
+									<img src="/resources/images/${vo.product_pic.split(',')[0] }" 
+							        onerror="this.src='/resources/images/default_product.jpg'" 
+							        width="80px" height="60px"></td>
+							        </c:if>
+							       
+							        <c:if test="${not empty vo.au_pic}">
+									<td>
+									<img src="/resources/images/${vo.au_pic.split(',')[0] }" 
+							        onerror="this.src='/resources/images/default_product.jpg'" 
+							        width="80px" height="60px">
+									</td>
+									</c:if>
+									
+									<c:if test="${not empty vo.ran_pic}">
+									<td>
+									<img src="/resources/images/${vo.ran_pic.split(',')[0] }" 
+							        onerror="this.src='/resources/images/default_product.jpg'" 
+							        width="80px" height="60px">
+							        </td>
+							        </c:if>
+							        
 							 		<td>
-										<span onclick="window.location.href='/product/prodInfo?product_num=${vo.prod_num}&seller=${vo.sell_mem_id}'">
-										${vo.product_title}
+										<c:if test="${not empty vo.ran_num}">
+										<span onclick="window.location.href='/random/rDetail?ran_num=${vo.ran_num }'"></span>
+										</c:if>
+										<c:if test="${not empty vo.prod_num}">
+										<span onclick="window.location.href='/product/prodInfo?product_num=${vo.prod_num}&seller=${vo.reviewee}'"></span>
+										</c:if>
+										<c:if test="${not empty vo.au_num}">
+										<span onclick="window.location.href='/auction/aDetail?au_num=${vo.au_num }'"></span>
+										</c:if>
+										<span>${vo.product_title}
 										</span>
 									</td>
 							        <td>
-										<span onclick="window.location.href='/product/prodInfo?product_num=${vo.product_num }&reviewee=${vo.reviewee}'">
-										${vo.rv_content}
+							      	    <c:if test="${not empty vo.ran_num}">
+										<span onclick="window.location.href='/random/rDetail?ran_num=${vo.ran_num }'"></span>
+										</c:if>
+										<c:if test="${not empty vo.prod_num}">
+										<span onclick="window.location.href='/product/prodInfo?product_num=${vo.prod_num}&seller=${vo.reviewee}'"></span>
+										</c:if>
+										<c:if test="${not empty vo.au_num}">
+										<span onclick="window.location.href='/auction/aDetail?au_num=${vo.au_num }'"></span>
+										</c:if>
+										<span>${vo.rv_content}
 										</span>
 									</td>
 									<td>
@@ -174,8 +211,20 @@ textarea{
 										</span>
 									</td>
 									<td>
-										<button onclick="window.location.href='/trade/removeDelete?product_num=${vo.product_num}'">
+										<c:if test="${not empty vo.prod_num}">
+										<button onclick="window.location.href='/trade/removeDelete?product_num=${vo.prod_num}'">
 										 리뷰삭제</button>
+										</c:if>
+										
+										<c:if test="${not empty vo.ran_num}">
+										<button onclick="window.location.href='/trade/removeDelete?ran_num=${vo.ran_num}'">
+										 리뷰삭제</button>
+										</c:if>
+										
+										<c:if test="${not empty vo.au_num}">
+										<button onclick="window.location.href='/trade/removeDelete?au_num=${vo.au_num}'">
+										 리뷰삭제</button>
+										</c:if>
 									</td>
 								</tr>
 								</c:forEach>

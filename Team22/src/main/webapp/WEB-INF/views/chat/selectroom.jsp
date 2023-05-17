@@ -100,11 +100,13 @@
 	}
 	
 	.s_room_part {
-	    margin: 0px 0 10px;
+/* 	    margin: 0px 0 10px; */
 	    font-family: "Noto Sans KR", sans-serif;
 	    font-weight:bold;
 	    font-size: 1.2em;
 	    color: #3d4449;
+	    display: flex;
+	    justify-content:space-between;
 	}
 	
 	/* 스크롤바 디자인 */
@@ -152,6 +154,11 @@
 		word-break: break-all;
 		font-family: "Noto Sans KR", sans-serif;
 	}
+	
+	form{
+		margin: 0 0 1em 0 !important;
+	}
+
 </style>
 
 </head>
@@ -166,7 +173,7 @@
 	
        	<c:set var="isFirst" value="true" />
        	<div class="s_room_part">
-       		${ptitle }
+       		 ${ptitle }
        		<form action="/trade/sellProd" method="post">
        		<input type="hidden" value="${ptitle }"name="product_title" >
        		<c:set var="firstItem" value="${selectChatting }" />
@@ -175,11 +182,13 @@
        		<input type="hidden" value="${selectChatting[0].product_num}"name="prod_num" >
        			<c:if test="${isFirst}">
 			  	<c:if test="${id eq selectChatting[0].seller_id }">
-			            <button class="sellProd" style="float: right; font-size:12px;">판매</button>
+			         <button class="sellProd" style="float: right; font-size:12px;">판매</button>
+			  	</c:if>
+			  	<c:if test="${id ne selectChatting[0].seller_id }">
+			         <button style="float: right; font-size:12px; background-color: white;  pointer-events: none;"></button>
 			  	</c:if>
 			    <c:set var="isFirst" value="false" />
 	    	  </c:if>
-       		
        		</form>
        	</div>
        	
@@ -203,6 +212,7 @@
 	  							<!-- 이름이랑 채팅 내용 띄우기 -->
 	  							<div class="s_sender">${i.buyer_id }</div>
 			      				<div class="s_sender_chat">${i.chat_content }</div>
+			      				<div class="s_chat_date">${i.chat_date.toString().split("\\.")[0] }</div>
 
 	  						</c:if>
 		      			</c:if>

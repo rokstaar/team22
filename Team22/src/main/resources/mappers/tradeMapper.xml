@@ -7,37 +7,32 @@
 
 	<!-- 구매리뷰 정보 및 리스트 -->
 	<select id="buyReviewList" resultType="map">
-		SELECT DISTINCT r.reviewer, r.reviewee, r.rv_content, m.member_pic, p.product_title, r.rv_score, p.product_num,
-		p.product_pic, t.type_div,r.rv_num
-		FROM review r
-		JOIN member m ON r.reviewer = m.member_id
-		JOIN product p ON r.reviewee = p.product_seller AND r.prod_num = p.product_num
-		JOIN trade t ON r.reviewer = t.buy_mem_id AND t.prod_num = p.product_num
-		WHERE reviewer = #{id} AND t.type_div = 'prod' ;
+	SELECT DISTINCT t.buy_mem_id AS reviewer, r.reviewee AS reviewee, t.prod_num, t.au_num, t.ran_num, t.type_div, t.product_title, r.rv_content, p.product_pic, a.au_pic, rn.ran_pic
+	FROM trade t
+	JOIN review r ON t.buy_mem_id = r.reviewer AND t.sell_mem_id = r.reviewee AND (t.prod_num = r.prod_num OR t.au_num = r.au_num OR t.ran_num = r.ran_num)
+	LEFT JOIN product p ON t.prod_num = p.product_num
+	LEFT JOIN auction a ON t.au_num = a.au_num
+	LEFT JOIN random rn ON t.ran_num = rn.ran_num
+	WHERE t.buy_mem_id = #{id} AND (t.type_div = 'prod' OR t.type_div = 'au' OR t.type_div = 'ran');
 	</select>
-<!-- 	<select id="buyReviewList" resultType="map">
-		SELECT DISTINCT r.reviewer, r.reviewee, r.rv_content, m.member_pic, p.product_title, r.rv_score, p.product_num,
-		p.product_pic, t.type_div
-		FROM review r
-		JOIN member m ON r.reviewer = m.member_id
-		JOIN product p ON r.reviewee = p.product_seller
-		and r.prod_num = p.product_num
-		JOIN trade t ON r.reviewer = t.buy_mem_id
-		WHERE reviewer = #{id} AND t.type_div = 'prod' ;
+	<!-- <select id="buyReviewList" resultType="map">
+	SELECT DISTINCT t.buy_mem_id AS reviewer, r.reviewee AS reviewee, t.prod_num, t.au_num, t.ran_num, t.type_div, t.product_title,r.rv_content
+	FROM trade t
+	JOIN review r ON t.buy_mem_id = r.reviewer AND t.sell_mem_id = r.reviewee AND (t.prod_num = r.prod_num OR t.au_num = r.au_num OR t.ran_num = r.ran_num)
+	JOIN product p ON t.prod_num = p.product_num
+	WHERE t.buy_mem_id = #{id} AND (t.type_div = 'prod' OR t.type_div = 'au' OR t.type_div = 'ran');
 	</select> -->
 	<!-- 구매리뷰 정보 및 리스트 -->
 	
 	<!-- 판매리뷰 -->
 	<select id="tSellReview" resultType="map">
-		SELECT r.reviewer, r.reviewee, r.rv_content, m.member_pic, p.product_title, r.rv_score,
-        p.product_num, p.product_pic, t.type_div,m.member_nickname
-		FROM trade t
-		JOIN product p ON t.sell_mem_id = p.product_seller
-		JOIN member m ON t.buy_mem_id = m.member_id
-		JOIN review r ON r.reviewer = m.member_id AND r.prod_num = p.product_num
-		WHERE reviewee = #{id}
-		GROUP BY r.reviewer, r.reviewee, p.product_num;
-		
+	SELECT DISTINCT t.buy_mem_id AS reviewer, t.sell_mem_id AS reviewee, t.prod_num, t.au_num, t.ran_num, t.type_div, t.product_title, r.rv_content, p.product_pic, a.au_pic, rn.ran_pic
+	FROM trade t
+	JOIN review r ON t.buy_mem_id = r.reviewer AND t.sell_mem_id = r.reviewee AND (t.prod_num = r.prod_num OR t.au_num = r.au_num OR t.ran_num = r.ran_num)
+	LEFT JOIN product p ON t.prod_num = p.product_num
+	LEFT JOIN auction a ON t.au_num = a.au_num
+	LEFT JOIN random rn ON t.ran_num = rn.ran_num
+	WHERE t.sell_mem_id = #{id} AND (t.type_div = 'prod' OR t.type_div = 'au' OR t.type_div = 'ran');
 	</select>
 	<!-- 판매리뷰 -->
 	
@@ -91,8 +86,8 @@
 	
 	<!-- 구매 리뷰  -->
 	<insert id="insertReview">
-		insert into review( reviewee, reviewer, rv_score, rv_content, prod_num)
-				values(#{reviewee}, #{reviewer}, #{rv_score}, #{rv_content},#{prod_num});
+		insert into review( reviewee, reviewer, rv_score, rv_content, prod_num,au_num,ran_num)
+				values(#{reviewee}, #{reviewer}, #{rv_score}, #{rv_content},#{prod_num},#{au_num},#{ran_num});
 	</insert>
 	<!-- 구매 리뷰  -->
 		
@@ -188,8 +183,11 @@
 	
 	<!-- 작성한 리뷰 삭제 -->
 	<delete id="deleteReview">
-		delete from review
-		where  prod_num = #{prod_num}
+		DELETE FROM review
+		WHERE prod_num = #{prod_num}
+	    OR au_num = #{au_num}
+	    OR ran_num = #{ran_num};
+
 	</delete>
 	<!-- 작성한 리뷰 삭제 -->
 	

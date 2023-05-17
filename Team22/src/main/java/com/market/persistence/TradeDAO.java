@@ -38,13 +38,17 @@ public interface TradeDAO {
 	public void delFavorite(Map<String, Object> map);
 	// 내 판매중인 랜덤상품
 	public List<RandomVO> myRandomList(String id) throws Exception;
-	// 작성한 리뷰 삭제
+	// 작성한 상품리뷰 삭제
 	public Integer deleteReview(Integer prod_num)throws Exception;
+	// 작성한 응모리뷰 삭제
+	public Integer removeReviewR(Integer ran_num)throws Exception;
+	// 작성한 경매리뷰 삭제
+	public Integer removeReviewA(Integer au_num)throws Exception;
 	// 내가 등록한 상품 삭제
 	public Integer deleteProduct(Integer product_num)throws Exception;
 	// 내가 등록한 경매상품 삭제
 	public Integer deleteAuction(Integer au_num)throws Exception;
-	// 내가 등록한 경매상품 삭제
+	// 내가 등록한 응모상품 삭제
 	public Integer deleteRandom(Integer ran_num)throws Exception;
 	// 내가 구매한 경매 상품리스트
 	public List<Map<String,Object>> myBuyAuction(String id) throws Exception;

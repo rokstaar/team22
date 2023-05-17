@@ -41,6 +41,10 @@ public interface TradeService {
 	
 	public Integer removeReview(Integer prod_num) throws Exception;
 	
+	public Integer removeReviewA(Integer au_num) throws Exception;
+	
+	public Integer removeReviewR(Integer ran_num) throws Exception;
+	
 	public Integer removeProduct(Integer product_num) throws Exception;
 	
 	public Integer removeAuction(Integer au_num) throws Exception;
