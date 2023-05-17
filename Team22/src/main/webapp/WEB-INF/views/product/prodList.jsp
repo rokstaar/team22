@@ -164,7 +164,7 @@
 				조회수 ${list.product_readcount }
 				좋아요 <div class="smalldiv" id="${list.product_num }">${list.product_favorite }</div>
 			</div>
-			<div>${list.product_title }</div>
+			<div style="width:360px;">${list.product_title }</div>
 			
 			
 			<div>${list.product_seller }</div>
