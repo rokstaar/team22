@@ -660,8 +660,8 @@
 	});
 	
 	$('#btn-close').on('click', function(){
-		$('.modal_back').style.display = 'none';
-		scroll_off();
+		$('.modal_back').css('display', 'none');
+	    scroll_off();
 	});
 	
 	
