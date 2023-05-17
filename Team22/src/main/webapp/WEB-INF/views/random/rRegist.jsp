@@ -15,12 +15,9 @@
 		<link rel="stylesheet" href="/resources/assets/css/main.css" />
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 		<script type="text/javascript">
-			var dropFile = function(event) {
-				alert('dd');
-			    event.preventDefault();
-			}
 		
 			$(document).ready(function(){
+				
 				$('#submit').click(function(){
 					if($('#ran_title').val() == ""){
 						alert('제목을 입력하세요');
@@ -38,7 +35,6 @@
 						alert('응모종료 시간을 입력하세요');
 						return false;
 					}
-					// 파일 유효성검사 추가
 					if($('#ran_content').val() == ""){
 						alert('상품 설명을 입력하세요');
 						return false;
@@ -68,35 +64,34 @@
 								<section id="banner">
 									<form method="post" enctype="multipart/form-data">
 														<div class="row gtr-uniform">
-															<div class="col-6 col-12-xsmall">
-																<input type="text" name="ran_title" id="ran_title" style="width:1000px" value="" placeholder="제목">
+															<div class="col-6 col-12-xsmall" style="margin:20px; width:100%">
+																<input type="text" name="ran_title" id="ran_title" placeholder="제목">
 															</div>
-															<div class="col-6 col-12-xsmall">
-																<input type="text" name="ran_price" id="ran_price" value="" placeholder="가격">
+															<div class="col-6 col-12-xsmall" style="margin:20px">
+																<input type="text" name="ran_price" id="ran_price" style="margin-bottom:5px" placeholder="가격">
+																<input type="text" name="ran_maxPp" id="ran_maxPp" placeholder="모집 인원">
 															</div>
-															<div class="col-6 col-12-xsmall">
-																<input type="text" name="ran_maxPp" id="ran_maxPp" value="" placeholder="모집 인원">
-															</div>
-															<div class="col-6 col-12-xsmall">
-																<input type="date" name="ran_endTime" id="ran_endTime" value="" placeholder="종료시간">
-															</div>
+															
+															
 															<!-- Break -->
 															
-															<div class="col-6 col-12-xsmall">
-																<!-- <input type="button" id="au_pic" class="button" value="" > -->
-																<input type="file" name="file1" value="" placeholder="사진등록">
-																<input type="file" name="file2" value="" placeholder="사진등록">
-																<input type="file" name="file3" value="" placeholder="사진등록">
-																<!-- <div onchange="dropfile();">Drap and Drop here.</div> -->
+															<div class="col-6 col-12-xsmall" style="margin:20px">
+																<input id="file1" type="file" name="file1" style="margin-bottom:5px">
+																<input type="file" name="file2"style="margin-bottom:5px">
+																<input type="file" name="file3">
+															</div>
+															
+															<div class="col-6 col-12-xsmall" style="margin:20px">
+																마감시간 : <input type="date" name="ran_endTime" id="ran_endTime">
 															</div>
 															<!-- Break -->
 															<br>
 															<!-- Break -->
-															<div class="col-12">
-																<textarea name="ran_content" id="ran_content" placeholder="응모 상품 설명" rows="6" style="width:1000px"></textarea>
+															<div class="col-12" style="margin:20px; width:100%">
+																<textarea name="ran_content" id="ran_content" placeholder="응모 상품 설명" rows="6"></textarea>
 															</div>
 															<!-- Break -->
-															<div class="col-12">
+															<div class="col-12" style="margin:20px; float:right">
 																<ul class="actions">
 																	<li><input id="submit" type="submit" value="응모 등록" class="primary"></li>
 																	<li><input type="reset" value="초기화"></li>

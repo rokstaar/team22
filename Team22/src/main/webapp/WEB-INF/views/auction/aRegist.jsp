@@ -15,10 +15,7 @@
 		<link rel="stylesheet" href="/resources/assets/css/main.css" />
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 		<script type="text/javascript">
-			var dropFile = function(event) {
-				alert('dd');
-			    event.preventDefault();
-			}
+			
 		
 			$(document).ready(function(){
 				$('#submit').click(function(){
@@ -34,7 +31,6 @@
 						alert('경매종료 시간을 입력하세요');
 						return false;
 					}
-					// 파일 유효성검사 추가
 					if($('#au_content').val() == ""){
 						alert('상품 설명을 입력하세요');
 						return false;
@@ -77,11 +73,9 @@
 															<!-- Break -->
 															
 															<div class="col-6 col-12-xsmall" style="margin:20px">
-																<!-- <input type="button" id="au_pic" class="button" value="" > -->
-																<input type="file" name="file1" value="" placeholder="사진등록">
-													 			<input type="file" name="file2" value="" placeholder="사진등록">
-																<input type="file" name="file3" value="" placeholder="사진등록">
-																<!-- <div onchange="dropfile();">Drap and Drop here.</div> -->
+																<input type="file" name="file1">
+													 			<input type="file" name="file2">
+																<input type="file" name="file3">
 															</div>
 															
 															<div class="col-6 col-12-xsmall" style="margin:20px">

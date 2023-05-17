@@ -34,7 +34,7 @@
 	</select>
 	
 	<select id="nowBest" resultType="com.market.domain.AuctionVO">
-		select *, count(au_num)-1 as countA
+		select * 
 		from auction
 		where au_num = (select au_num
 						from auction
