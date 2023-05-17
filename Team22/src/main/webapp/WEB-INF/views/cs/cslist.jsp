@@ -122,7 +122,6 @@
                     <tr>
                        <td>${blist.cs_num }</td>                       
                         <td>${blist.cs_category}</td>
-                        <td>${blist.cs_process}</td>
                         <td>
                           <span class="cs-process${blist.cs_process eq '답변완료' ? ' completed' : ''}">
                              ${blist.cs_process}
