@@ -85,7 +85,6 @@
 				</div>	
 									
 			<button type="button" class="sold-prod-delete" style="float: right; opacity: 1;">
-					                <i class="fas fa-cog my-info-edit__icon"></i>
 					                <span class="my-info-edit__text">상품 삭제</span>
 					              </button>
 		

@@ -126,35 +126,9 @@
             
             <br>
 
-		<div style="text-align: center; font-size: large;">	
-				<c:if test="${dto.prev}">
-					<span>[ <a href="/members/myCs?num=${dto.startPageNum - 1}${dto.searchTypeKeyword}">이전</a> ]  </span>
-				</c:if>
-
-				<c:forEach begin="${dto.startPageNum}" end="${dto.endPageNum}" var="num">
-						<span> <c:if test="${select != num}">
-								<a href="/members/myCs?num=${num}${dto.searchTypeKeyword}">${num}</a>
-						</c:if> 
-					<c:if test="${select == num}">
-								<b>${num}</b>
-						</c:if>
-                      </span>
-				</c:forEach>
-
-				<c:if test="${dto.next}">
-						<span>[ <a href="/members/myCs?num=${dto.endPageNum + 1}${dto.searchTypeKeyword}">다음</a> ]</span>
-				</c:if>
-		</div>								
 
 			</div>								
 											
-	 <br><br><br><br><br><br>
-	 
-	 
-
-	 
-	 
-	  
 	  <div style="text-align: right; font-size: larger;">	
 	    <h3 style="text-align: left;">도움이 필요하신가요?</h3>	
 		<a href="/cs/cswrite">문의사항 등록</a>
