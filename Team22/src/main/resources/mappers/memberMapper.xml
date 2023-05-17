@@ -40,7 +40,7 @@
 	<select id="memProdList" resultType="com.market.domain.ProductVO">
 		select p.product_pic,p.product_title,p.product_price,p.product_date,p.product_status,p.product_num,p.product_seller
 		from product p
-		where product_seller = #{id}
+		where product_seller = #{id} and product_status = 0;
 	
 	</select>
 	<!-- 다른 회원 판매정보  -->
