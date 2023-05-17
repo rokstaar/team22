@@ -93,7 +93,7 @@
 
 		<hr style="margin: 1em 0;">
 			
-		<a href="/members/memberInfo?id=${info.member_id }" class="a-section">
+		<a href="/chatroom-select?product_num=${info.product_num}&seller=${info.product_seller}" class="a-section">
 		<section class="member">
 			<div class="space-between">
 				<div>
