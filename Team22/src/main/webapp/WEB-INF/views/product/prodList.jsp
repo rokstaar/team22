@@ -202,8 +202,6 @@
 		상품등록
 		</div>
 		</c:if>
-		<!-- <form id="prodRegForm" action="/product/prodReg" method="get">
-		</form> -->
 	</div>
 
 	</section>
@@ -234,6 +232,45 @@
 			toastElement.classList.remove('show');
 		}, duration);
 	}
+	
+	function heartChange($svg1, $svg2, pnum, seller) {
+        $svg1.on('click', function(event) {
+            $.ajax({
+                type: 'GET',
+                url: '/product/likeProdCancel',
+                data: {product_num: pnum, seller: seller},
+                success: function() {
+                    $svg1.hide();
+                    $svg2.show();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log('Failed to cancel like');
+                    console.log(jqXHR.responseText);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                }
+            });
+        });
+
+        $svg2.on('click', function(event) {
+            $.ajax({
+                type: 'GET',
+                url: '/product/likeProd',
+                data: {product_num: pnum, seller: seller},
+                success: function() {
+                	showToast(pnum + '번 상품을 찜했습니다', 3000);
+                	$svg2.hide();
+                    $svg1.show();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log("Save Failed");
+                    console.log(jqXHR.responseText);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                }
+            });
+        });
+    }
 	
 	$('#up-btn').on('click',function(){
 		window.scrollTo(0,0);
@@ -267,6 +304,66 @@
 	/* 스크롤 페이지 로딩 */
 	let globalMinPrice = 0;
 	let globalMaxPrice = 100000000;
+
+	
+	$('#div-filter-submit').on('click', function(){
+		$('#filter-form').submit();
+	})
+	
+	$('#register').on('click', function() {
+		$('#prodRegForm').submit();
+	});
+
+	
+	$(document).ready(function() {
+
+
+	    const urlParams = new URLSearchParams(window.location.search);
+	    const sortValue = urlParams.get('sort');
+	    const gradeValue = urlParams.get('grade');
+	    const categoryValue = urlParams.get('category');
+
+	    if (sortValue) {
+	    	$('#sort-select').val(sortValue);
+	    }
+	    if (gradeValue) {
+	    	$('#grade-select').val(gradeValue);
+	    }
+	    if (categoryValue) {
+	    	$('#category-select').val(categoryValue);
+	    }
+	    
+	    
+	    $(".div-likeit").each(function() {
+	    	
+	    	var $div = $(this);
+	        var pnum = $div.data('product-num');
+	        var seller = "${id}";
+	        var $svg1 = $div.find('.svg-1');
+	        var $svg2 = $div.find('.svg-2');
+
+	        $.ajax({
+	        	type: 'GET',
+	        	url: '/product/memlikeCheck',
+	        	data: {product_num: pnum, seller: seller},
+	        	success: function(response){
+	        		if(response){
+	        			$svg2.hide();
+	        			$svg1.show();
+	        		}else{
+	        			$svg1.hide();
+	        			$svg2.show();
+	        		}
+	        		heartChange($svg1, $svg2, pnum, seller);
+        		},
+        		error: function(response){
+        			console.log(pnum + '번 상품 찜 확인 실패');
+	        	}
+	        });
+	    });
+	});
+	
+	
 	/* 페이지 추가로 불러오기 */
 	function getList(){
 		
@@ -312,6 +409,34 @@
 		          		$(".posts").append(newData.innerHTML);
 		        	}
 		        }
+		        
+		        $(".div-likeit").each(function() {
+			    	
+			    	var $div = $(this);
+			        var pnum = $div.data('product-num');
+			        var seller = "${id}";
+			        var $svg1 = $div.find('.svg-1');
+			        var $svg2 = $div.find('.svg-2');
+
+			        $.ajax({
+			        	type: 'GET',
+			        	url: '/product/memlikeCheck',
+			        	data: {product_num: pnum, seller: seller},
+			        	success: function(response){
+			        		if(response){
+			        			$svg2.hide();
+			        			$svg1.show();
+			        		}else{
+			        			$svg1.hide();
+			        			$svg2.show();
+			        		}
+			        		heartChange($svg1, $svg2, pnum, seller);
+		        		},
+		        		error: function(response){
+		        			console.log(pnum + '번 상품 찜 확인 실패');
+			        	}
+			        });
+			    });
 			},
 			error:function(data){
 				console.log(data);
@@ -321,107 +446,9 @@
 		hasNext = pageNum < totalPage;
 	}
 	/* 페이지 추가로 불러오기 */
-	
-	$('#div-filter-submit').on('click', function(){
-		$('#filter-form').submit();
-	})
-	
-	$('#register').on('click', function() {
-		$('#prodRegForm').submit();
-	});
-
-	
-	$(document).ready(function() {
-
-
-	    const urlParams = new URLSearchParams(window.location.search);
-	    const sortValue = urlParams.get('sort');
-	    const gradeValue = urlParams.get('grade');
-	    const categoryValue = urlParams.get('category');
-
-	    if (sortValue) {
-	    	$('#sort-select').val(sortValue);
-	    }
-	    if (gradeValue) {
-	    	$('#grade-select').val(gradeValue);
-	    }
-	    if (categoryValue) {
-	    	$('#category-select').val(categoryValue);
-	    }
-	    
-	    function heartChange($svg1, $svg2, pnum, seller) {
-	        $svg1.on('click', function(event) {
-	            $.ajax({
-	                type: 'GET',
-	                url: '/product/likeProdCancel',
-	                data: {product_num: pnum, seller: seller},
-	                success: function() {
-	                    //console.log('success Del');
-	                    $svg1.hide();
-	                    $svg2.show();
-	                },
-	                error: function(jqXHR, textStatus, errorThrown) {
-	                    console.log('Failed to cancel like');
-	                    console.log(jqXHR.responseText);
-	                    console.log(textStatus);
-	                    console.log(errorThrown);
-	                }
-	            });
-	        });
-
-	        $svg2.on('click', function(event) {
-	            $.ajax({
-	                type: 'GET',
-	                url: '/product/likeProd',
-	                data: {product_num: pnum, seller: seller},
-	                success: function() {
-	                	//console.log('success Reg');
-	                	showToast(pnum + '번 상품을 찜했습니다', 3000);
-	                	$svg2.hide();
-	                    $svg1.show();
-	                },
-	                error: function(jqXHR, textStatus, errorThrown) {
-	                    console.log("Save Failed");
-	                    console.log(jqXHR.responseText);
-	                    console.log(textStatus);
-	                    console.log(errorThrown);
-	                }
-	            });
-	        });
-	    }
-	    
-	    $(".div-likeit").each(function() {
-	    	
-	    	var $div = $(this);
-	        var pnum = $div.data('product-num');
-	        var seller = "${id}";
-	        var $svg1 = $div.find('.svg-1');
-	        var $svg2 = $div.find('.svg-2');
-
-	        $.ajax({
-	        	type: 'GET',
-	        	url: '/product/memlikeCheck',
-	        	data: {product_num: pnum, seller: seller},
-	        	success: function(response){
-	        		if(response){
-	        			$svg2.hide();
-	        			$svg1.show();
-	        		}else{
-	        			$svg1.hide();
-	        			$svg2.show();
-	        		}
-	        		heartChange($svg1, $svg2, pnum, seller)
-        		},
-        		error: function(response){
-        			console.log(pnum + '번 상품 찜 확인 실패');
-	        	}
-	        });
-	    });
-	});
 
 	
 	document.getElementById('svg-submit').addEventListener('click', function() {
-	    //document.getElementById('prodRegForm').submit();
 	    location.href="/product/prodReg";
 	  });
 	
