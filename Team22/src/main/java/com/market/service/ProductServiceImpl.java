@@ -241,13 +241,15 @@ public class ProductServiceImpl implements ProductService{
 		for(Integer pnum : sortedPnum) {
 			Map<String, Object> map = pdao.getProdInfo(pnum);
 			
-			ProductVO vo = new ProductVO();
-			vo.setProduct_num((Integer)map.get("product_num"));
-			vo.setProduct_title((String)map.get("product_title"));
-			vo.setProduct_pic((String)map.get("product_pic"));
-			
-			if(vo != null) {
-				viewedList.add(vo);
+			if(map != null) {
+				ProductVO vo = new ProductVO();
+				vo.setProduct_num((Integer)map.get("product_num"));
+				vo.setProduct_title((String)map.get("product_title"));
+				vo.setProduct_pic((String)map.get("product_pic"));
+				
+				if(vo != null) {
+					viewedList.add(vo);
+				}
 			}
 		}
 		
