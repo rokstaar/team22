@@ -58,7 +58,7 @@ public class AdminController {
 		model.addAttribute("trcount",trcount);
 		
 		List productList = service.getproductList();
-		List aucionList = service.auctionList();
+		List aucionList = service.getauctionList();
 		List randomList = service.randomList();
 		
 		model.addAttribute("productList",productList);
@@ -135,7 +135,7 @@ public class AdminController {
 			
 	}
 	
-	// 모든 상품 정보
+	// 모든 상품 정보 + 페이징 +검색
 	@RequestMapping(value = "/manageprod",method = RequestMethod.GET)
 	public void manageprodGET(HttpServletRequest request, Model model,@RequestParam("num") int num,
 			 @RequestParam(value = "searchType",required = false, defaultValue = "id") String searchType,
@@ -160,20 +160,39 @@ public class AdminController {
 	}
 	
 	
-	
-	
-	
-	
-	
-	// 모든 경매 정보
+	// 모든 경매 정보 + 페이징 +검색
 	@RequestMapping(value = "/manageau",method = RequestMethod.GET)
 	public void manageauGET(HttpServletRequest request, Model model) throws Exception{
 		List aucionList = new ArrayList();
 		
-		if(((String)request.getSession().getAttribute("id")).equals("admin")) aucionList = service.auctionList();
+		if(((String)request.getSession().getAttribute("id")).equals("admin")) aucionList = service.getauctionList();
 		
 		model.addAttribute("aucionList",aucionList);
 	}
+	
+	// 모든 경매 정보 + 페이징 +검색
+//	@RequestMapping(value = "/manageau",method = RequestMethod.GET)
+//	public void manageauGET(HttpServletRequest request, Model model,@RequestParam("num") int num,
+//			 @RequestParam(value = "searchType",required = false, defaultValue = "id") String searchType,
+//			 @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword) throws Exception{
+//		
+//		CPageDTO audto = new CPageDTO();
+//		audto.setNum(num);
+//		audto.setCount(service.searaulist(searchType, keyword));
+//		
+//		// 검색
+//		audto.setKeyword(keyword);
+//		audto.setSearchType(searchType);
+//		
+//		// 서비스 - 정보 가져오기
+//		List auList = new ArrayList();
+//		if(((String)request.getSession().getAttribute("id")).equals("admin")) auList = service.AuctionList(audto.getDisplayPost(), audto.getPostNum(), searchType, keyword);
+//		
+//		model.addAttribute("auList",auList);
+//		model.addAttribute("audto",audto);
+//		model.addAttribute("select",num);
+//	}
+	
 	
 	// 옥션 거래자 정보 상세보기
 	@RequestMapping(value = "/audetail",method = RequestMethod.GET)

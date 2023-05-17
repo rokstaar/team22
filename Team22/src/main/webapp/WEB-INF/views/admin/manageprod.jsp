@@ -94,7 +94,7 @@
 <br><br>
 
 
-<div style="margin-left: 30em;"> 
+<div style="margin-left: 23em;"> 
   <div style="float: left; margin-right: 0.3em;">
     <select name="searchType" style="width: 120px;">
       <option value="id" <c:if test="${pdto.searchType eq 'id'}">selected</c:if>>판매자</option>

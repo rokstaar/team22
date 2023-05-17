@@ -90,7 +90,7 @@
 		where product_status = 0
 	</select> 
 	
-	<!-- 모든 판매 상품 조회하기  -->
+	<!-- 모든 판매 상품 조회하기 + 페이징 + 검색   -->
 	<select id="ProductList" parameterType="hashMap" resultType="ProductVO">
 		select * from product
         where product_status = 0
@@ -100,18 +100,17 @@
      <if test='searchType.equals("title")'>
         and product_title LIKE concat('%', #{keyword}, '%')
      </if>
-         
 	     limit #{displayPost}, #{postNum}		
 	</select>
 	
-	<!-- 모든 회원 수 + 검색적용 -->
+	<!-- 모든 상품 수+ 검색적용 -->
 	<select id="searprodlist" parameterType="hashMap" resultType="int">
 	    select count(product_num) from product
 	    where product_status = 0
 	 <if test='searchType.equals("id")'>
           and product_seller LIKE concat('%', #{keyword}, '%')
      </if>
-     <if test='searchType.equals("email")'>
+     <if test='searchType.equals("title")'>
           and product_title LIKE concat('%', #{keyword}, '%')
      </if>
 	</select>
@@ -119,15 +118,44 @@
 	
 	
 	
-	
-	
-	 
 	<!-- 모든 경매 상품 조회  -->  
 	 <select id="getAuctionList" resultType="AuctionVO">
 	    select DISTINCT * from auction
 	    where au_status = 0
 	    group by au_num
 	 </select>
+	  
+	 <!-- 모든 경매 조회하기 + 페이징 + 검색   -->
+	<select id="AuctionList" parameterType="hashMap" resultType="AuctionVO">
+		select DISTINCT * from auction
+        where au_status = 0
+	 <if test='searchType.equals("id")'>
+       and au_sellerId LIKE concat('%', #{keyword}, '%')
+     </if>
+     <if test='searchType.equals("title")'>
+        and au_title LIKE concat('%', #{keyword}, '%')
+     </if>
+	     limit #{displayPost}, #{postNum}
+	     group by au_num
+	</select>
+	
+	<!-- 모든 경매 수+ 검색적용 -->
+	<select id="searaulist" parameterType="hashMap" resultType="int">
+	    select DISTINCT * from auction
+	    where au_status = 0
+	 <if test='searchType.equals("id")'>
+          and au_sellerId LIKE concat('%', #{keyword}, '%')
+     </if>
+     <if test='searchType.equals("title")'>
+          and au_title LIKE concat('%', #{keyword}, '%')
+     </if>
+	</select>
+	 
+	 
+	 
+	 
+	 
+	 
 	 
 	 <!-- 경매 상세페이지 -->
 	 <select id="audetail" resultType="AuctionVO">

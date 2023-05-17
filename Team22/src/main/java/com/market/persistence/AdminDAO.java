@@ -49,15 +49,22 @@ public interface AdminDAO {
 	// 판매 중 제품 검색 후 페이징
 	public int searprodlist(String searchType, String keyword) throws Exception;
 	
+			
 	
-	
-	
-		
 	// 판매 중 경매 정보
 	public List<AuctionVO> getAuctionList() throws Exception;
 	
+	// 판매 중 경매 정보 + 페이징 + 검색
+	public List<AuctionVO> AuctionList(int displayPost, int postNum,
+            String searchType, String keyword) throws Exception;
+	
+	//  판매 중 경매 검색 후 페이징
+	public int searaulist(String searchType, String keyword) throws Exception;
+	
 	// 판매 중 경매 상세정보
 	public List<AuctionVO> audetail(Integer au_num) throws Exception;
+	
+	
 	
 	// 판매 중 랜덤 정보
 	public List<RandomVO> getRandomList() throws Exception;

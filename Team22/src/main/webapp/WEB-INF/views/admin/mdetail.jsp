@@ -54,8 +54,8 @@
 		<div class="card-body">
 			<div class="row p-2 mt-2">
 				<div class="col-1">
-			     <a href="/admin/adminPage">
-					<img src="/resources/images/left.png" style="width: 60px; margin-top: 0.5em;">
+			     <a href="/admin/adminpage?num=1">
+					<img src="/resources/images/left.png" style="width: 60px; margin-top: 0.5em;" >
 				</a>	
 				</div>
 				<div class="col-11">

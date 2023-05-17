@@ -29,18 +29,17 @@
 																
 							<!-- Banner -->
 							<section id="banner">
-							  <div class="content"> 
-							   <div class="wrap">
+							 <div class="content"> 
+							  <h2 style="margin: 0 0 0 0; font-size: 3em; text-align: center;"> 공지 사항 </h2> 
+							    <h3 style="text-align: center; margin-top: 0.5em;">있지마켓 서비스를 이용해 주셔서 감사합니다.🛒 </h3>
+							  
+							   <div class="wrap">					
 								<div class="shippingStatusContainer">
-
-
-																	
+												
    <div class="container managergrounp" id="container" name="container" >
-            <h2> 공지 사항 </h2>
+            
             <hr>         		
-         
-   <br><br>
-     
+             
  <div style="margin-right: 1em; display: none;">
     <select name="searchType" style="width: 200px;">
       <option value="all" <c:if test="${ndto.searchType eq 'all'}">selected</c:if>>전체</option>
@@ -48,13 +47,13 @@
   </div> 
  
    <div style="float:left; margin-right: 0.1em; margin-left: 24em;" >
-      <input type="text" name="keyword" value="${ndto.keyword}" style="width: 600px;" placeholder="궁금한 것을 검색해보세요."/>
+      <input type="text" name="keyword" value="${ndto.keyword}" style="width: 550px; border-radius: 1.5em" placeholder="궁금한 것을 검색해보세요."/>
    </div>  
    <div style="float: left;" >
       <button style="border-radius: 2em" type="button" id="searchBtn" >검색</button>
    </div>  
 
-   <br><br><br><br>
+   <br><br><br><br><br>
 
 
 <script type="text/javascript">
@@ -81,14 +80,14 @@
                 <tbody class="body">
                   <c:forEach var="nlist" items="${noticeList}">	 
                     <tr>
-                        <td class="">${nlist.noti_num }</td>
-                        <td class="">
+                        <td>${nlist.noti_num }</td>
+                        <td>
                           <a href="/admin/notiread?noti_num=${nlist.noti_num}">
                             ${nlist.noti_title }
                           </a>
                          </td>
-                        <td class="">${nlist.noti_date }</td>    
-                        <td class="">${nlist.noti_readcount }</td>                                                                 
+                        <td>${nlist.noti_date }</td>    
+                        <td>${nlist.noti_readcount }</td>                                                                 
                     </tr> 
                 </c:forEach>	                   
                 </tbody>

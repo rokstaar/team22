@@ -284,6 +284,32 @@ public class AdminDAOImpl implements AdminDAO {
 		
 		  return sqlSession.selectOne(NAMESPACE+".searprodlist",spdate);
 	}
+
+	
+	@Override
+	public List<AuctionVO> AuctionList(int displayPost, int postNum, String searchType, String keyword)
+			throws Exception {
+		
+         HashMap<String, Object> aldate = new HashMap<String, Object>();
+		 
+		 aldate.put("displayPost", displayPost);
+		 aldate.put("postNum", postNum);
+		
+		 aldate.put("searchType", searchType);
+		 aldate.put("keyword", keyword);
+	
+		return sqlSession.selectList(NAMESPACE+".AuctionList",aldate);
+	}
+
+	@Override
+	public int searaulist(String searchType, String keyword) throws Exception {
+		  HashMap<String, Object> sadate = new HashMap<String, Object>();
+		
+		  sadate.put("keyword", keyword);
+		  sadate.put("searchType", searchType);
+		
+		  return sqlSession.selectOne(NAMESPACE+".searaulist",sadate);
+	}
 	
 	
 	

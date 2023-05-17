@@ -47,9 +47,9 @@
 			 
 				<div class="mb-3">
 					<h3> <pre>${csVO.cs_content }</pre> </h3>	
-					<img alt="" src="${csVO.cs_file0 }">
-					<img alt="" src="${csVO.cs_file1 }">
-					<img alt="" src="${csVO.cs_file2 }">
+					<img alt="" src="${csVO.cs_file0 }" style="width: 700px; height: 400px;" onerror="this.style.display='none'"> <br>
+					<img alt="" src="${csVO.cs_file1 }" style="width: 700px; height: 400px;" onerror="this.style.display='none'"> <br>
+					<img alt="" src="${csVO.cs_file2 }" style="width: 700px; height: 400px;" onerror="this.style.display='none'"> <br>
 				</div>
 				
 				<hr>
@@ -59,18 +59,17 @@
            <li>
              <div>
                 <h4> <pre> ${relist.re_content }</pre> </h4> 
-                <h4>${relist.re_date }</h4> 
-        <c:if test="${id != null && id ==('admin')}">         
-                <p>
+                <h4> <pre>${relist.re_date }</pre> </h4> 
+        
+        <c:if test="${id != null && id ==('admin')}" >                       
                   <a href="/reply/remodify?cs_num=${csVO.cs_num }&re_rno=${relist.re_rno}">수정</a> 
-                 /<a href="/reply/redelete?cs_num=${relist.cs_num}&re_rno=${relist.re_rno}">삭제</a>
-                </p>  
+                  <a href="/reply/redelete?cs_num=${relist.cs_num}&re_rno=${relist.re_rno}">삭제</a>     
          </c:if>        
              </div>          
            </li>
        </c:forEach>
        
-     <div>
+     <div style="text-align: center;">
          <button type="button" class="btn btn-sm btn-primary" 
                         id="btnList" onclick="location.href='/cs/cslist?num=1';">목록</button>     
 
@@ -78,8 +77,7 @@
               <c:if test="${sid == csVO.mem_id }">
                   <button type="button" class="btn btn-sm btn-primary" 
                           id="btnList" onclick="location.href='/cs/csupdate?cs_num=${csVO.cs_num}';">수정</button>               
-                  <button type="button" class="btn btn-sm btn-primary" 
-                          id="btnList" onclick="location.href='/cs/deletecs?cs_num=${csVO.cs_num}';">삭제</button>        
+                  <button type="button" class="btn btn-sm btn-primary" id="btnList" onclick="confirmDelete('${csVO.cs_num}')">삭제</button>                  
             </c:if>              
     </div>     
                  
@@ -92,14 +90,37 @@
                
                <input type="hidden" name="cs_num" value="${csVO.cs_num}">
                <input type="hidden" name="cs_process" value="${csVO.cs_process }" >
-               <button type="submit" class="reyes_btn">답글 작성하기</button>
+               <button type="submit" class="reyes_btn" onclick="reply()">답글 작성하기</button>
               </div>
           </form>      
     </c:if>
     
 
-    
-    
+
+ <script>
+function confirmDelete(csNum) {
+  if (confirm("정말로 삭제하시겠습니까?")) {
+    // 삭제 확인 시 진행할 로직
+    deleteNotification(csNum);
+  }
+}
+
+function deleteNotification(csNum) {
+  // 삭제 처리를 위한 Ajax 요청이나 서버로의 전송 로직을 작성합니다.
+  // 여기서는 location.href로 페이지 이동하는 예시를 드리겠습니다.
+  location.href = `/cs/deletecs?cs_num=${csVO.cs_num}`;
+}
+
+   function reply(){
+	   if(confirm("등록하시겠습니까?")){
+			alert("정상적으로 등록되었습니다.");
+		}else{
+			alert("등록실패");
+		}
+   } 
+
+
+</script>     
     
         
            

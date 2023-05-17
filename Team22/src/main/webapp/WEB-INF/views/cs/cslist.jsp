@@ -5,7 +5,25 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>문의사항</title>
+<title>고객센터</title>
+
+   <style>
+        .con {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tit {
+            font-size: x-large;
+            margin: 0;
+        }
+
+        .button {
+            float: right;
+        }
+    </style>
+
 
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -32,39 +50,36 @@
 							<!-- Banner -->
 							<section id="banner">
 							  <div class="content"> 
+							    <h2 style="margin: 0 0 0 0; font-size: 3em; text-align: center;"> 고객센터</h2>
+							      <h3 style="text-align: center; margin-top: 0.5em;">안녕하세요, 무엇을 도와드릴까요?(●'◡'●) </h3>
 							   <div class="wrap">
 								<div class="shippingStatusContainer">
 
 
 																	
-   <div class="container managergrounp" id="container" name="container" >
-   <div style="font-size:x-small;">
-    <h1> 고객센터</h1>
-   </div> 
+   <div class="container managergrounp" id="container" name="container" > 
      <hr>
-      
       <div>
-        <h3>안녕하세요,</h3>
-        <h3>무엇을 도와드릴까요?(●'◡'●)</h3>       
+        
       </div>
 
  <div style="margin-left: 20em;"> 
   <div style="float: left; margin-right: 0.3em;">
-    <select name="searchType" style="width: 120px;">
+    <select name="searchType" style="width: 110px; border-radius: 1.5em; text-align: center;">
       <option value="title" <c:if test="${dto.searchType eq 'title'}">selected</c:if>>제목</option>
       <option value="writer" <c:if test="${dto.searchType eq 'writer'}">selected</c:if>>작성자</option>
     </select>
   </div> 
  
    <div  style="float: left; margin-right: 0.1em;">
-      <input type="text" name="keyword" value="${dto.keyword}" style="width: 600px;" placeholder="무엇을 도와드릴까요?"/>
+      <input type="text" name="keyword" value="${dto.keyword}" style="width: 550px; border-radius: 1.5em" placeholder="무엇을 도와드릴까요?"/>
    </div>  
    <div style="float: left; margin-left: 0.03em;" >
       <button style="border-radius: 2em" type="button" id="searchBtn" >검색</button>
    </div> 
 </div>
    
-   <br><br><br>
+   <br><br><br><br><br>
 
 
 <script type="text/javascript">
@@ -96,45 +111,15 @@
                   <c:forEach var="blist" items="${boardList}">	 
                      <input type="hidden" name="mem_id" value="${blist.mem_id}">
                     <tr>
-                       <td class="">${blist.cs_num }</td>                       
-                        <td class="">${blist.cs_category}</td>
-                        <td class="">${blist.cs_process}</td>
-                        
-                  <%--       ${blist.cs_secret}     --%>                    
-                                
-                <td>
-                   <c:choose>
-                      <c:when test="${blist.cs_secret == true && (id != 'admin')}">
-                      <span>비밀글입니다.</span>
-                      </c:when>
-                   <c:otherwise>
-                       <a href="/cs/csread?cs_num=${blist.cs_num}">${blist.cs_sub }</a>
-                   </c:otherwise>
-               </c:choose>
-             </td> 
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       <%--  <td>
-                          <c:choose>
-                            <c:when test="${blist.cs_secret == 1 && (blist.mem_id != loginUser || loginUserType != 'admin')}">
-                             <span>비밀글입니다.</span>
-                            </c:when>
-                        <c:otherwise></c:otherwise>
-                        
-                          <a href="/cs/csread?cs_num=${blist.cs_num}"> ${blist.cs_sub } </a>
-                     </c:choose>
-                        </td> --%>
-                       
+                       <td>${blist.cs_num }</td>                       
+                        <td>${blist.cs_category}</td>
+                        <td>${blist.cs_process}</td>
+                        <td>
+                           <a href="/cs/csread?cs_num=${blist.cs_num}">${blist.cs_sub }</a>
+                        </td>  
                         <td class="">${blist.mem_id}</td>
                         <td class="">${blist.cs_date }</td>                                                                                                                             
-                    </tr> 
-                
+                    </tr>                 
                 </c:forEach>	                   
                 </tbody>
             </table>
@@ -169,11 +154,23 @@
 
 	 
 	 
+	
 	  
-	  <div style="text-align: right; font-size: larger;">	
-	    <h3 style="text-align: left;">도움이 필요하신가요?</h3>	
-		<a href="/cs/cswrite">문의사항 등록</a>
-	  </div>	
+       <!-- <button style="text-align: right;">문의사항 등록</button> -->
+	    
+		
+		
+		<!-- <a href="/cs/cswrite" style="font-size: large;">문의사항 등록</a> -->	  
+		
+		
+		
+		
+     <div class="con">
+        <h3 class="tit">도움이 필요하신가요?</h3>
+        <input type="button" value="문의사항 등록" class="button" onclick="location='/cs/cswrite';">
+    </div>
+	  
+	  
 						
 	</div>  
 									</div>	   

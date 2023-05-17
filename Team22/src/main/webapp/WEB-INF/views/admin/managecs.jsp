@@ -90,7 +90,7 @@
 <br><br>
 
 
-<div style="margin-left: 30em;"> 
+<div style="margin-left: 20em;"> 
   <div style="float: left; margin-right: 0.3em;">
     <select name="searchType" style="width: 150px;">
       <option value="writer" <c:if test="${cdto.searchType eq 'writer'}">selected</c:if>>작성자</option>

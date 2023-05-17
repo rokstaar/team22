@@ -2251,8 +2251,8 @@
 
 	pre {
 		-webkit-overflow-scrolling: touch;
-		font-family: "Courier New", monospace;
-		font-size: 0.9em;
+		font-family: "Noto Sans", sans-serif;
+		font-size: 18px;
 		margin: 0 0 2em 0;
 	}
 

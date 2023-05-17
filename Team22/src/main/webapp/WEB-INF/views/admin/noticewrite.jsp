@@ -79,12 +79,27 @@ body {
 				
 				<br><br>
 			
-               <div class="btn_wrap">
-                    <button type="submit" class="button primary"> 저장 </button>
+               <div class="btn_wrap" style="text-align: center;">
+                    <button type="submit" class="button primary" onclick="sub()"> 저장 </button>
                </div>                   
          </form>  
         </div>
 	</article> 
+	
+	<script type="text/javascript">
+	function sub(){
+		
+		if(confirm("저장하시겠습니까?")){
+			alert("정상적으로 저장되었습니다.");
+		}else{
+			alert("저장실패");
+		}
+		
+	}
+	
+	</script>
+	
+	
 									  
 									</div>	   
                                  </div>
