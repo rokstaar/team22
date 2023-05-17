@@ -22,6 +22,15 @@
         .button {
             float: right;
         }
+        
+        
+.cs-process.completed {
+  color: #f56a6a;
+  font-weight: 500;
+}
+        
+        
+        
     </style>
 
 
@@ -108,17 +117,23 @@
                 </thead>
                 <tbody class="body">
                   
-                  <c:forEach var="blist" items="${boardList}">	 
+                   <c:forEach var="blist" items="${boardList}">	
                      <input type="hidden" name="mem_id" value="${blist.mem_id}">
                     <tr>
                        <td>${blist.cs_num }</td>                       
                         <td>${blist.cs_category}</td>
                         <td>${blist.cs_process}</td>
                         <td>
+                          <span class="cs-process${blist.cs_process eq '답변완료' ? ' completed' : ''}">
+                             ${blist.cs_process}
+                           </span>
+                        </td>          
+                        <td>
                            <a href="/cs/csread?cs_num=${blist.cs_num}">${blist.cs_sub }</a>
                         </td>  
-                        <td class="">${blist.mem_id}</td>
-                        <td class="">${blist.cs_date }</td>                                                                                                                             
+
+						<td>${blist.mem_id}</td>
+                        <td>${blist.cs_date }</td>                                                                                                                             
                     </tr>                 
                 </c:forEach>	                   
                 </tbody>
@@ -149,21 +164,7 @@
 			</div>								
 											
 	 <br><br><br><br><br><br>
-	 
-	 
-
-	 
-	 
-	
-	  
-       <!-- <button style="text-align: right;">문의사항 등록</button> -->
-	    
-		
-		
-		<!-- <a href="/cs/cswrite" style="font-size: large;">문의사항 등록</a> -->	  
-		
-		
-		
+	 	 
 		
      <div class="con">
         <h3 class="tit">도움이 필요하신가요?</h3>
@@ -182,12 +183,6 @@
 			    <%@ include file="../include/sidebar.jsp" %>		
 			
 			 </div>
-		
-	
-
-
-   
-
 
 		<!-- Scripts -->
 			<script src="/resources/assets/js/jquery.min.js"></script>
