@@ -27,5 +27,60 @@ Springframework + JSPServlet_ 중고거래플랫폼
 
 ## 📌 주요 기능
  
+<p align="center">
+  <img src="https://github.com/rokstaar/team22/assets/124347094/029f129b-1bc7-419c-aaa5-f65b96e829ed">
+</p>
+
+<p align="center">
+  <img src="https://github.com/rokstaar/team22/assets/124347094/4eee4fff-3459-4eed-b1dc-59f2fe0b268b">
+</p>
+
+<p align="center">
+  <img src="https://github.com/rokstaar/team22/assets/124347094/3817dc1e-61a7-488f-b390-9c31472d835a">
+</p>
+
+<p align="center">
+  <img src="https://github.com/rokstaar/team22/assets/124347094/6389f01f-6695-46d5-819a-bad1e95dc397">
+</p>
+
+<p align="center">
+  <img src="https://github.com/rokstaar/team22/assets/124347094/265e3f79-712b-4c95-8c48-9c3206e7a6d9">
+</p>
+
+<p align="center">
+  <img src="https://github.com/rokstaar/team22/assets/124347094/45ff7cb2-646b-4314-b5ea-3cd27fcc040c">
+</p>
+
+<p align="center">
+  <img src="https://github.com/rokstaar/team22/assets/124347094/e62277c5-e399-40ff-bf8d-e6f2aa85c13d">
+</p>
+
+<p align="center">
+  <img src="https://github.com/rokstaar/team22/assets/124347094/2234d204-4d9f-4de1-80aa-94c4ffb7fb4c">
+</p>
+
+<p align="center">
+  <img src="https://github.com/rokstaar/team22/assets/124347094/b4612d8a-cfc9-48b9-91ca-700d1aa73d70">
+</p>
+
+<p align="center">
+  <img src="https://github.com/rokstaar/team22/assets/124347094/f6a9d3e5-0643-4652-ba50-8a8d39f1c144">
+</p>
+
+<p align="center">
+  <img src="https://github.com/rokstaar/team22/assets/124347094/2b7e06d4-f30c-4cc4-b860-7f0a08895900">
+</p>
+
+<p align="center">
+  <img src="https://github.com/rokstaar/team22/assets/124347094/6d435318-33bc-4bac-bfe9-db1a6f6d3330">
+</p>
+
+<p align="center">
+  <img src="https://github.com/rokstaar/team22/assets/124347094/57e19725-2aa9-467a-9ce2-4e4cd1aa7ff8">
+</p>
+
+<p align="center">
+  <img src="https://github.com/rokstaar/team22/assets/124347094/5720037f-21a4-4d16-9db7-fa1691b97189">
+</p>
 
 
