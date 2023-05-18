@@ -1,4 +1,4 @@
-# Springframework-Project-ITZY Marke
+# Springframework-Project-ITZY Market
 ---
 Springframework + JSPServlet_ 중고거래플랫폼
 
