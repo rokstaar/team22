@@ -1,4 +1,4 @@
-# Springframework-Project-ITZY Market
+# Springframework-Project-있지마켓
 ---
 Springframework + JSPServlet_ 중고거래플랫폼
 
